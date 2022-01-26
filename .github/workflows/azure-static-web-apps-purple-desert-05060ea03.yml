@@ -8,7 +8,31 @@ on:
     types: [opened, synchronize, reopened, closed]
 
 jobs:
-  test:
+  install:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node14.17.0-chrome88-ff89
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress install
+        uses: cypress-io/github-action@v2
+        with:
+          runTests: false
+      # report machine parameters
+      - run: yarn cypress info
+      - run: node -p 'os.cpus()'
+      - run: yarn --frozen-lockfile --silent
+      - run: yarn build
+
+      - name: Save build folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          if-no-files-found: error
+          path: .next
+
+  unit-test:
     name: Lint and Test
     runs-on: ubuntu-latest
     strategy:
@@ -25,11 +49,12 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn lint
       - run: yarn test
-#      - run: yarn test:headless:integration
+
   cypress-run:
     name: Cypress run
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome88-ff89
+    needs: install
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -43,24 +68,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Download the build folders
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: .next
+
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          install-command: yarn --frozen-lockfile --silent
-          build: yarn build
           start: yarn start
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:3000'
           browser: chrome
           record: true
           parallel: true
+          group: "UI - Chrome"
+          spec: tests/cypress/integration/*
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
           # auto generated GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   build_and_deploy_job:
-    needs: [test, cypress-run]
+    needs: [unit-test, cypress-run]
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
