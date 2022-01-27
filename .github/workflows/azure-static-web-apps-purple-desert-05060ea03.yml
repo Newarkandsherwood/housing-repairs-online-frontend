@@ -63,22 +63,7 @@ jobs:
       fail-fast: false
       matrix:
         # run copies of the current job in parallel
-        containers: [
-            reportRepair/address,
-            reportRepair/communal,
-            reportRepair/confirmation,
-            reportRepair/contactDetails,
-            reportRepair/contactPerson,
-            reportRepair/postcode,
-            reportRepair/priorityList,
-            reportRepair/repairAvailability,
-            reportRepair/repairDescription,
-            reportRepair/repairLocation,
-            reportRepair/repairProblem,
-            reportRepair/repairProblemBestDescription,
-            reportRepair/summary,
-            landingPage
-        ]
+        containers: ${{ files=(../../tests/cypress/integration/**/*);(IFS=,; echo "[${files[*]#*/*/*/*/*/}]") }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -97,7 +82,7 @@ jobs:
           wait-on: 'http://localhost:3000'
           browser: chrome
           record: true
-          spec: tests/cypress/integration/${{ matrix.containers }}.spec.js
+          spec: tests/cypress/integration/${{ matrix.containers }}
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
