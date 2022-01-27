@@ -11,6 +11,8 @@ jobs:
   install:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome88-ff89
+    outputs:
+      cypress_files: ${{ steps.cypress_files.outputs.list }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -20,6 +22,12 @@ jobs:
         with:
           runTests: false
       # report machine parameters
+      - name: set cypress files
+        id: cypress_files
+        run: |
+          files=(../../tests/cypress/integration/**/*)
+          list=$( IFS=,; echo "[${files[*]#*/*/*/*/*/}]" )
+          echo "::set-output name=list::${list}"
       - run: yarn cypress info
       - run: node -p 'os.cpus()'
       - run: yarn --frozen-lockfile --silent
@@ -63,7 +71,7 @@ jobs:
       fail-fast: false
       matrix:
         # run copies of the current job in parallel
-        containers: ${{ files=(../../tests/cypress/integration/**/*);(IFS=,; echo "[${files[*]#*/*/*/*/*/}]") }}
+        containers: ${{needs.install.outputs.cypress_files}}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
