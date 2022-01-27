@@ -23,6 +23,7 @@ jobs:
           files=(tests/cypress/integration/**/*)
           list=$( IFS=,; echo "[${files[*]#*/*/*/}]" )
           echo "::set-output name=list::${list}"
+          echo $GITHUB_ENV
         shell: bash
 
       - name: Cypress install
