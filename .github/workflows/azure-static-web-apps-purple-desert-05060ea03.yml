@@ -35,13 +35,6 @@ jobs:
 
       - run: yarn --frozen-lockfile --silent
 
-      - name: Save node_modules folder
-        uses: actions/upload-artifact@v2
-        with:
-          name: node_modules
-          if-no-files-found: error
-          path: node_modules
-
       - run: yarn build
 
       - name: Save build folder
@@ -92,12 +85,6 @@ jobs:
         with:
           name: build
           path: .next
-
-      - name: Download the node_modules folders
-        uses: actions/download-artifact@v2
-        with:
-          name: node_modules
-          path: node_modules
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
