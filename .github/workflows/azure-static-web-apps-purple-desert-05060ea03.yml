@@ -20,18 +20,20 @@ jobs:
       - name: set cypress files
         id: cypress_files
         run: |
-          files=(../../tests/cypress/integration/**/*)
-#          list=$( IFS=,; echo "[${files[*]#*/*/*/*/*/}]" )
-#          echo "::set-output name=list::${list}"
+          files=(tests/cypress/integration/**/*)
+          list=$( IFS=,; echo "[${files[*]#*/*/*/}]" )
+          echo "::set-output name=list::${list}"
+        shell: bash
 
-      - run: yarn cypress info
-      - run: node -p 'os.cpus()'
-      - run: yarn --frozen-lockfile --silent
       - name: Cypress install
         uses: cypress-io/github-action@v2
         with:
           runTests: false
       # report machine parameters
+      - run: yarn cypress info
+      - run: node -p 'os.cpus()'
+
+      - run: yarn --frozen-lockfile --silent
 
       - name: Save node_modules folder
         uses: actions/upload-artifact@v2
