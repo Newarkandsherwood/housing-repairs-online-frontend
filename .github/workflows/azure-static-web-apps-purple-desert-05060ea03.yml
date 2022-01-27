@@ -17,20 +17,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: set cypress files
+        id: cypress_files
+        run: |
+          files=(../../tests/cypress/integration/**/*)
+#          list=$( IFS=,; echo "[${files[*]#*/*/*/*/*/}]" )
+#          echo "::set-output name=list::${list}"
+
+      - run: yarn cypress info
+      - run: node -p 'os.cpus()'
+      - run: yarn --frozen-lockfile --silent
       - name: Cypress install
         uses: cypress-io/github-action@v2
         with:
           runTests: false
       # report machine parameters
-      - name: set cypress files
-        id: cypress_files
-        run: |
-          files=(../../tests/cypress/integration/**/*)
-          list=$( IFS=,; echo "[${files[*]#*/*/*/*/*/}]" )
-          echo "::set-output name=list::${list}"
-      - run: yarn cypress info
-      - run: node -p 'os.cpus()'
-      - run: yarn --frozen-lockfile --silent
+
+      - name: Save node_modules folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: node_modules
+          if-no-files-found: error
+          path: node_modules
+
       - run: yarn build
 
       - name: Save build folder
@@ -81,6 +90,12 @@ jobs:
         with:
           name: build
           path: .next
+
+      - name: Download the node_modules folders
+        uses: actions/download-artifact@v2
+        with:
+          name: node_modules
+          path: node_modules
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
