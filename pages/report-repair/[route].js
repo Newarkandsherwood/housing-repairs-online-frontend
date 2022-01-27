@@ -191,6 +191,7 @@ function ReportRepair() {
           options = {[
             { value: 'cupboards', title: 'Cupboards, including damaged cupboard doors'},
             { value: 'electrical', title: 'Electrical, including extractor fans and lightbulbs'},
+            { value: 'worktop', title:   'Damaged worktop'},
             { value: 'heatingOrHotWater', title: 'Heating or hot water'},
             { value: 'door', title: 'Damaged or stuck doors'},
             commonProblems.wallsFloorAndCeiling,

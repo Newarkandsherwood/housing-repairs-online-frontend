@@ -35,6 +35,7 @@ class Flow {
         {condition: 'windows', nextStep: 'repair-window-problems'},
         {condition: 'damp-or-mould', nextStep: 'repair-description-damp'},
         {condition: 'electrical', nextStep: 'kitchen-electrical-problems'},
+        {condition: 'worktop', nextStep: 'repair-description'},
         {condition: 'sink', nextStep: 'sink-problems'},
         {condition: 'heatingOrHotWater', nextStep: 'repair-kitchen-heating-problems'},
         {condition: 'drip-or-leak', nextStep: 'repair-description-leak'},
