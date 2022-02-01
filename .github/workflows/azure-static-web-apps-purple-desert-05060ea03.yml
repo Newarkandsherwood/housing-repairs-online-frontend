@@ -21,7 +21,8 @@ jobs:
         id: cypress_files
         run: |
           files=(tests/cypress/integration/**/*)
-          echo "::set-output name=list::${files[*]#*/*/*/}"
+          data_string="${files[*]#*/*/*}"
+          echo "::set-output name=list::[${data_string//${IFS:0:1}/,}]"
         shell: bash
 
       - name: Cypress install
