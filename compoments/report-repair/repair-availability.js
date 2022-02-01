@@ -29,11 +29,11 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
 
   let availability = {};
 
-  let latestDate;
+  let nextAppointmentSearchFromDate;
 
   if (data) {
     let startTimes = data.map(d => moment(d.startTime))
-    latestDate = moment.max(startTimes).format('YYYY-MM-DD');
+    nextAppointmentSearchFromDate = moment.max(startTimes).add(1, 'day').format('YYYY-MM-DD');
 
     data.forEach((d) => {
       const date = moment(d.startTime)
@@ -114,7 +114,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
           }}>Previous 5 days</a>
         ) : (
           <a className="govuk-button govuk-button--secondary" onClick={()=>{
-            router.push(`${router.asPath}/?fromDate=${latestDate}`, `${router.asPath}/?next=true`, { shallow: true })
+            router.push(`${router.asPath}/?fromDate=${nextAppointmentSearchFromDate}`, `${router.asPath}/?next=true`, { shallow: true })
           }}>Next 5 days</a>
         )}
       </div>

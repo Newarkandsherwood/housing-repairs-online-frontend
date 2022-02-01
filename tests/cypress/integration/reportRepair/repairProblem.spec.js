@@ -56,8 +56,13 @@ describe('repairProblem', () => {
     it('displays a "heating" option', () => {
       cy.contains('Heating or hot water');
     });
+
     it('displays a "window" option', () => {
       cy.contains('Damaged or stuck windows');
+    });
+
+    it('displays a "Damp or mould" option', () => {
+      cy.contains('Damp or mould');
     });
   });
 
@@ -87,8 +92,13 @@ describe('repairProblem', () => {
     it('displays a "electrics" option', () => {
       cy.contains('Electrics, including extractor fan and pull cords');
     });
+
     it('displays a "window" option', () => {
       cy.contains('Damaged or stuck windows');
+    });
+
+    it('displays a "door" option', () => {
+      cy.contains('Damaged or stuck doors');
     });
   });
 
@@ -103,6 +113,14 @@ describe('repairProblem', () => {
 
     it('displays a "window" option', () => {
       cy.contains('Damaged or stuck windows');
+    });
+
+    it('displays a "door" option', () => {
+      cy.contains('Damaged or stuck doors');
+    });
+
+    it('displays a "Damp or mould" option', () => {
+      cy.contains('Damp or mould');
     });
   });
 
@@ -119,6 +137,30 @@ describe('repairProblem', () => {
 
     it('displays a "window" option', () => {
       cy.contains('Damaged or stuck windows');
+    });
+
+    it('displays a "door" option', () => {
+      cy.contains('Damaged or stuck doors');
+    });
+
+    it('displays a "Damp or mould" option', () => {
+      cy.contains('Damp or mould');
+    });
+  });
+
+  context('Outside', () => {
+    before(() => {
+      navigateToLocation()
+      cy.contains('Outside').click();
+      cy.get('button').click();
+    });
+
+    it('displays the repair problem question', () => {
+      cy.contains('What is the problem?');
+    });
+
+    it('displays a "Outdoor security lights" option', () => {
+      cy.contains('Outdoor security lights');
     });
   });
 });

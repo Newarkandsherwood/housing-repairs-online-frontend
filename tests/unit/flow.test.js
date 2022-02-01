@@ -232,5 +232,45 @@ describe('Flow', () => {
         expect(result).toBe('repair-kitchen-problems');
       });
     });
+
+    describe('when a repairProblemBestDescription is selected', () => {
+      describe('when the repairProblemBestDescription is updated', () => {
+        test('then a repairProblemBestDescription is deselected and a repairProblemBestDescription does not exists', () =>{
+          const state = {
+            step: 'repair-kitchen-heating-problems',
+            data: {
+              'repairProblem': {value: 'heatingOrHotWater', display: 'Heating or hot water'},
+              'repairProblemBestDescription': {value: 'smashed', display: 'Smashed window(s)'}
+            },
+            prevStep: 'repair-kitchen-problems',
+          }
+          flow.handleChange('repairProblemBestDescription', {value: 'boiler', display: 'Boiler'}, state);
+          expect(setStateSpy).toHaveBeenCalledWith({
+            step: 'repair-description',
+            data: {
+              'repairProblem': {value: 'heatingOrHotWater', display: 'Heating or hot water'},
+              'repairProblemBestDescription': {value: 'boiler', display: 'Boiler'}
+            },
+            prevStep: 'repair-kitchen-heating-problems'})
+        })
+      })
+      test('then a repairProblemBestDescription is deselected and a repairProblemBestDescription does not exists', () =>{
+        const state = {
+          step: 'repair-kitchen-problems',
+          data: {
+            'repairProblem': 'windows',
+            'repairProblemBestDescription': 'stuckOpen'
+          },
+          prevStep: 'repair-kitchen-problems',
+        }
+        flow.handleChange('repairProblem', {display: 'Damaged worktop', value: 'worktop'}, state);
+        expect(setStateSpy).toHaveBeenCalledWith({
+          step: 'repair-description',
+          data: {
+            'repairProblem': {display: 'Damaged worktop', value: 'worktop'}
+          },
+          prevStep: 'repair-kitchen-problems'})
+      })
+    })
   });
 })

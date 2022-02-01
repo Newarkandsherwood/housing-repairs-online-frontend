@@ -1,10 +1,10 @@
-import Details from "../details";
+import Details from '../details';
 import React from 'react';
 
 
 const NotEligible = () => {
   return (
-    <div className="govuk-grid-row">
+    <div className="govuk-grid-row govuk-body-m">
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>The council may not be responsible for repairs at this property</h1>
         <h3 className='govuk-heading-m'>Emergencies</h3>
@@ -18,7 +18,7 @@ const NotEligible = () => {
         </p>
         <p>For non-emergency requests, call <strong>01522 873333</strong></p>
         <Details summary="Opening times" testid="opening-times">
-          <li> Monday 9am - 5pm</li>
+          <li>Monday 9am - 5pm</li>
           <li>Tuesday 9am - 5pm</li>
           <li>Wednesday 9am - 4.30pm</li>
           <li>Thursday 10am - 5pm</li>

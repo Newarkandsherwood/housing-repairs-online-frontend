@@ -49,7 +49,7 @@ describe('repair availability', () => {
     it('api is called with appropriate from date ', () => {
       cy.wait('@availability')
         .its('request.url')
-        .should('include', 'fromDate=2017-07-22')
+        .should('include', 'fromDate=2017-07-23')
     });
 
     it('displays previous button with correct text', () => {
