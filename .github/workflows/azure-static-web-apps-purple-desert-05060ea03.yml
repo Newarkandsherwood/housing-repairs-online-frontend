@@ -17,6 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: install jq
+        run: apt-get -y install jq
+
       - name: set cypress files
         id: cypress_files
         run: |
