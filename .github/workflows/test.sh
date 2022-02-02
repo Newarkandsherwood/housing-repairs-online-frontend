@@ -1,7 +1,18 @@
 files=(tests/cypress/integration/**/*)
+ matrix=$((
+   echo '{ "containers" : ['
+   echo '"data_string",'
+    for key in "${!files[@]}"
+    do
+      comma=","
+      if [ ${files[$key]} == ${files[${#files[@]}-1]} ]; then
+        comma=""
+      fi
+      echo "${files[$key]#*/*/*/*}${comma}"| sed 's/ /, /g'  | sed -r 's/^([^,]*)(,?)$/"\1"\2/'
+    done
 
-data_string="${files[*]#*/*/*}"
-echo ""
-echo '---'
-
-echo "::set-output name=list::${data_string//${IFS:0:1}/,}"
+   echo " ]}"
+ ) | jq -c .)
+echo $matrix
+echo $matrix | jq .
+echo "::set-output name=matrix::$matrix"
