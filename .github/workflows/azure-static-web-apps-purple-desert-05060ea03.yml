@@ -84,7 +84,7 @@ jobs:
     name: Cypress run
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome88-ff89
-    needs: install
+    needs: [install]
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
