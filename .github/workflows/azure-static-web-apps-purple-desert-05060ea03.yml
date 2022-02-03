@@ -17,30 +17,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: install jq
-        run: apt-get -y install jq
-
       - name: set cypress files
         id: cypress_files
         run: |
           files=(tests/cypress/integration/**/*)
-           matrix=$((
-             echo '{ "containers" : ['
-             echo '"data_string",'
+           matrix=$(
               for key in "${!files[@]}"
               do
                 comma=","
                 if [ ${files[$key]} == ${files[${#files[@]}-1]} ]; then
                   comma=""
                 fi
-                echo "${files[$key]#*/*/*/*}${comma}"| sed 's/ /, /g'  | sed -r 's/^([^,]*)(,?)$/"\1"\2/'
+                echo "${files[$key]#*/*/*/*}${comma}" | sed -r 's/^([^,]*)(,?)$/"\1"\2/'
               done
-
-             echo " ]}"
-           ) | jq -c .)
+           )
           echo $matrix
-          echo $matrix | jq .
-          echo "::set-output name=matrix::$matrix"
+          echo "::set-output name=matrix::[$matrix]"
         shell: bash
 
       - name: Cypress install
@@ -91,7 +83,8 @@ jobs:
       # leaving the Dashboard hanging ...
       # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
-      matrix: ${{fromJson(needs.install.outputs.matix)}}
+      matrix:
+        containers: ${{fromJson(needs.install.outputs.matix)}}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
