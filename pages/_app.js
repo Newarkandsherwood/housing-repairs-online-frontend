@@ -46,10 +46,10 @@ function MyApp({ Component, pageProps, err  }) {
     </div>
     <footer className="govuk-footer " role="contentinfo">
       <div className="govuk-width-container ">
+        <a className="footer-custom-link" href="https://www.lincoln.gov.uk/accessibility">Accessibility</a>
         <div className="govuk-footer__meta">
           <div
             className="govuk-footer__meta-item govuk-footer__meta-item--grow">
-            <a className="footer-custom-link" href="https://www.lincoln.gov.uk/accessibility">Accessibility</a>
             <span className="govuk-footer__licence-description">
               All content is available under the <a className="govuk-footer__link"
                 href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
