@@ -1,17 +1,27 @@
 import parsePhoneNumber from 'libphonenumber-js';
 
+const isPhoneNumberValid = (val, additionalValidation) => {
+  const phoneNumber = parsePhoneNumber(val, {
+    defaultCountry: 'GB',
+    extract: false
+  })
+  if (phoneNumber) {
+    return phoneNumber.isValid() && additionalValidation(phoneNumber);
+  }
+  return false
+}
+
 const phoneValidator = {
   errorMessage: 'Not a valid uk number',
   isValid: (val) =>{
-    const phoneNumber = parsePhoneNumber(val, {
-      defaultCountry: 'GB',
-      extract: false
-    })
+    return isPhoneNumberValid(val, () => true)
+  }
+}
 
-    if (phoneNumber) {
-      return phoneNumber.isValid()
-    }
-    return false
+const mobilePhoneNumberValidator = {
+  errorMessage: 'Not a valid UK mobile number',
+  isValid: (val) => {
+    return isPhoneNumberValid(val, (parsedNumber) => parsedNumber.getType() === 'MOBILE');
   }
 }
 const postCodeValidator = {
@@ -41,6 +51,7 @@ const phoneOnKeyPress = (e) => {
 
 export {
   phoneValidator,
+  mobilePhoneNumberValidator,
   postCodeValidator,
   emailValidator,
   phoneOnKeyPress

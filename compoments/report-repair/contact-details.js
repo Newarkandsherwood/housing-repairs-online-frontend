@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  phoneValidator,
+  mobilePhoneNumberValidator,
   emailValidator,
   phoneOnKeyPress
 } from '../../helpers/validators';
@@ -20,7 +20,7 @@ const ContactDetails = ({handleChange, values}) => {
   const options =  [
     { value: 'text', title: 'Text message (recommended)', conditional: {
       label: 'Please enter a UK mobile number',
-      type: 'tel', validator: phoneValidator, onKeyPress: phoneOnKeyPress
+      type: 'tel', validator: mobilePhoneNumberValidator, onKeyPress: phoneOnKeyPress
     }},
     { value: 'email', title: 'Email', conditional: {
       label: 'Please enter your email address',

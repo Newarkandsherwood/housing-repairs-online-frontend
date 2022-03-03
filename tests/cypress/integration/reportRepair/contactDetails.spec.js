@@ -61,7 +61,7 @@ describe('contactDetails', () => {
       it('an error is displayed', () => {
         cy.get('input#contactDetails-text').type('12345');
         cy.get('button').click()
-        cy.contains('Not a valid uk number');
+        cy.contains('Not a valid UK mobile number');
       });
     });
 
@@ -72,6 +72,17 @@ describe('contactDetails', () => {
       it('only numbers are accepted', () => {
         cy.get('input#contactDetails-text').type('-442031234567');
         cy.get('input#contactDetails-text').should('have.value', '442031234567')
+      });
+    });
+
+    context('When a user types in a landline number', ()=>{
+      before(() => {
+        cy.get('input#contactDetails-text').clear()
+      })
+      it('an error is displayed', () => {
+        cy.get('input#contactDetails-text').type('02031234567');
+        cy.get('button').click()
+        cy.contains('Not a valid UK mobile number');
       });
     });
   })
