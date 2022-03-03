@@ -16,6 +16,21 @@ describe('contactDetails', () => {
     cy.get('button').contains('Continue');
   });
 
+  context('No application options', () => {
+    it('displays no applicable options text', () => {
+      cy.contains('I have neither a mobile number nor an email address');
+    });
+
+    it('displays no applicable options instructions when clicked', () => {
+      cy.contains('I have neither a mobile number nor an email address')
+        .click()
+        .then(() => {
+          cy.get('[data-testid=no-applicable-contact-options-info]')
+            .should('be.visible')
+        });
+    });
+  })
+
   context('When a user doesn\'t select anything', ()=>{
     it('text fields are not displayed', () => {
       cy.get('input#contactDetails-text').should('not.be.visible');
