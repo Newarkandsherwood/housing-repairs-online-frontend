@@ -58,7 +58,7 @@ function MyApp({ Component, pageProps, err  }) {
           </div>
           <div className="govuk-footer__meta-item">
             <a className="govuk-footer__link govuk-footer__copyright-logo"
-              href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">©
+              href="https://www.lincoln.gov.uk" target="_blank" >©
               Crown copyright</a>
           </div>
         </div>
