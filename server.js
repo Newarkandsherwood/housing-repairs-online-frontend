@@ -1,5 +1,7 @@
 const express = require('express')
-const next = require('next')
+const next = require('next');
+const cors = require('cors');
+
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
 const port = process.env.PORT || 3000
@@ -18,6 +20,13 @@ const apiPaths = {
 }
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
+const corsOptions = {
+  origin : "YOUR_FRONTEND", // the origin of the requests - frontend address
+  credentials : true
+}
+
+app.options('*', cors(corsOptions));
 
 app.prepare().then(() => {
   const server = express()
