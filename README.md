@@ -10,6 +10,11 @@ Install all dependencies:
 yarn install
 ```
 
+Copy the `example.sentryclirc` file and set the token to from your sentry account:
+
+```bash
+cp example.sentryclirc .sentryclirc
+```
 Globally install azure function tools:
 
 ```bash
