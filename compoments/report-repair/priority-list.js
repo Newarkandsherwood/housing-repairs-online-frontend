@@ -7,7 +7,7 @@ const PriorityList = ({handleChange, values}) => {
   const name =  'priority-list';
   const title =  'Please select one of the below';
   const options =  [
-    { value: 'gas-emergency/1', title: 'I can smell gas in or near the property in or near the property'},
+    { value: 'gas-emergency/1', title: 'I can smell gas in or near the property'},
     { value: 'emergency/2', title: 'I have no heating in the property'},
     { value: 'emergency/3', title: 'I have no water in the property'},
     { value: 'emergency/4', title: 'I have no electricity in the property'},
