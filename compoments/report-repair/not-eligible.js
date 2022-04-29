@@ -18,8 +18,8 @@ const NotEligible = () => {
         <Details summary="Opening times" testid="opening-times">
           <li>Monday 9am - 5pm</li>
           <li>Tuesday 9am - 5pm</li>
-          <li>Wednesday 9am - 4.30pm</li>
-          <li>Thursday 10am - 5pm</li>
+          <li>Wednesday 10am - 5pm</li>
+          <li>Thursday 9am - 5pm</li>
           <li>Friday 9am - 4.30pm</li>
         </Details>
         <p>

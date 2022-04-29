@@ -61,7 +61,7 @@ export default function Home() {
             <ul>
               <li>Monday 9am - 5pm</li>
               <li>Tuesday 9am - 5pm</li>
-              <li>Wednesday 10am - 4.30pm</li>
+              <li>Wednesday 10am - 5pm</li>
               <li>Thursday 9am - 5pm</li>
               <li>Friday 9am - 4.30pm</li>
             </ul>
