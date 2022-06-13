@@ -27,30 +27,30 @@ const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
   ]
 
   return(
-    <>{ (
-      <div data-cy="summary">
-        <div className="govuk-grid-row govuk-body-m">
-          <div className="govuk-grid-column-two-thirds">
-            <h1 className='govuk-heading-xl'>Request summary</h1>
-
-            <h2 className="govuk-heading-m">Personal details</h2>
-            <SummaryList goToStep={goToStep} summary={personalDetailsSummary}/>
-
-            <h2 className="govuk-heading-m">Repair details</h2>
-            <SummaryList goToStep={goToStep} summary={repairDetailsSummary}/>
-
-            <h2 className="govuk-heading-m">Appointment details</h2>
-            <SummaryList goToStep={goToStep} summary={appointmentDetailsSummary}/>
-
+    <>
+      <header>
+        <title>Request summary- Housing repairs</title>
+      </header>
+      { (
+        <div data-cy="summary">
+          <div className="govuk-grid-row govuk-body-m">
+            <div className="govuk-grid-column-two-thirds">
+              <h1 className='govuk-heading-xl'>Request summary</h1>
+              <h2 className="govuk-heading-m">Personal details</h2>
+              <SummaryList goToStep={goToStep} summary={personalDetailsSummary}/>
+              <h2 className="govuk-heading-m">Repair details</h2>
+              <SummaryList goToStep={goToStep} summary={repairDetailsSummary}/>
+              <h2 className="govuk-heading-m">Appointment details</h2>
+              <SummaryList goToStep={goToStep} summary={appointmentDetailsSummary}/>
+            </div>
           </div>
+          <Button
+            preventDoubleClick={true}
+            onClick={()=>{
+              submit(values);
+            }}>Continue</Button>
         </div>
-        <Button
-          preventDoubleClick={true}
-          onClick={()=>{
-            submit(values);
-          }}>Continue</Button>
-      </div>
-    )}
+      )}
     </>
   )
 }

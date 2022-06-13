@@ -10,6 +10,9 @@ const ContactPerson = ({handleChange, values}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="contact-person">
+    <header>
+      <title>What number should we call, if we need to get in touch?- Housing repairs</title>
+    </header>
     <div>
       <TextInput
         value={values.contactPersonNumber}

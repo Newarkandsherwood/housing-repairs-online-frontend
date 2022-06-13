@@ -9,6 +9,9 @@ const Postcode = ({handleChange, values}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="postcode">
+    <header>
+      <title>What is the property postcode?- Housing repairs</title>
+    </header>
     <div>
       <TextInput
         value={values.postcode}

@@ -5,6 +5,9 @@ import ContactNumbers from '../contactNumbers';
 const EmergencyRepair = () => {
 
   return <div className="govuk-grid-row govuk-body-m">
+    <header>
+      <title>Your repair could be an emergency- Housing repairs</title>
+    </header>
     <div className="govuk-grid-column-two-thirds">
       <h1 className='govuk-heading-xl'>Your repair could be an emergency</h1>
       <h3 className='govuk-heading-m'>Emergencies</h3>

@@ -6,6 +6,9 @@ import ContactNumbers from '../contactNumbers';
 const NotEligible = () => {
   return (
     <div className="govuk-grid-row govuk-body-m">
+      <header>
+        <title>The council may not be responsible for repairs at this property- Housing repairs</title>
+      </header>
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>The council may not be responsible for repairs at this property</h1>
         <h3 className='govuk-heading-m'>Emergencies</h3>

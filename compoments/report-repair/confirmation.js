@@ -6,6 +6,9 @@ import TextLink from '../textLink';
 const Confirmation = ({ requestId, confirmation }) => {
   return (
     <div className="govuk-grid-row" data-cy="confirmation">
+      <header>
+        <title>Repair request complete- Housing repairs</title>
+      </header>
       <div className="govuk-grid-column-two-thirds">
         <div className="govuk-panel govuk-panel--confirmation">
           <h1 className="govuk-panel__title">Repair request complete</h1>
