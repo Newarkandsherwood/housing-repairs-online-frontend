@@ -4,6 +4,9 @@ import React from 'react';
 const NotEligibleNonEmergency = () => {
   return (
     <div className="govuk-grid-row govuk-body-m">
+      <header>
+        <title>The council may not be responsible for repairs at this property- Housing repairs</title>
+      </header>
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>The council may not be responsible for repairs at this property</h1>
         <p>

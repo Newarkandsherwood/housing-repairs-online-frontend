@@ -73,6 +73,9 @@ const RepairDescription = ({handleChange, values}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="repair-description">
+    <header>
+      <title>Describe your problem in more detail- Housing repairs</title>
+    </header>
     <div className="govuk-grid-column-two-thirds">
       <h1 className="govuk-heading-l">
         Describe your problem in more detail

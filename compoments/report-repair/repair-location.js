@@ -18,6 +18,9 @@ const RepairLocation = ({handleChange, values}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="repair-location">
+    <header>
+      <title>{title}- Housing repairs</title>
+    </header>
     <div className="govuk-grid-column-two-thirds">
       <RadioFieldSet name={name}
         title={title}

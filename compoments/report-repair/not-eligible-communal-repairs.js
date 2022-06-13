@@ -3,6 +3,9 @@ import React from 'react';
 const NotEligibleCommunalRepairs = () => {
   return (
     <div className="govuk-grid-row govuk-body-m">
+      <header>
+        <title>For communal repairs, please call us during the office hours below- Housing repairs</title>
+      </header>
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>
           For communal repairs, please call us during the office hours below

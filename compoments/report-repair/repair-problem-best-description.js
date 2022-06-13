@@ -11,6 +11,9 @@ const RepairProblemBestDescription = ({handleChange, values, options}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="repair-problem-best-description">
+    <header>
+      <title>{title}- Housing repairs</title>
+    </header>
     <div className="govuk-grid-column-two-thirds">
       <RadioFieldSet
         name={name}

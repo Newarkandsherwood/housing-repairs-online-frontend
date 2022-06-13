@@ -48,6 +48,9 @@ const Address = ({handleChange, values}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="address">
+    <header>
+      <title>Select an address- Housing repairs</title>
+    </header>
     <div className="govuk-grid-column-two-thirds">
       <h1 className="govuk-heading-l">Select an address</h1>
       <form action="">

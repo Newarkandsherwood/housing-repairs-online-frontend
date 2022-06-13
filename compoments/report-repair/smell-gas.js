@@ -3,6 +3,9 @@ import React from 'react';
 const SmellGas = () => {
 
   return <div className="govuk-grid-row">
+    <header>
+      <title>If you smell gas- Housing repairs</title>
+    </header>
     <div className="govuk-grid-column-two-thirds">
       <h1 className='govuk-heading-xl'>If you smell gas</h1>
       <p className="govuk-body-m">
