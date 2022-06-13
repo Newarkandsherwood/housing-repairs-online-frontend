@@ -15,23 +15,12 @@ describe('communal', () => {
     cy.get('button').contains('Continue');
   });
 
-  context('communal area prompt', () => {
+  context('communal area hint', () => {
     it('displays text', () => {
-      cy.get('[data-testid=communal-area-prompt]').should(
+      cy.get('p').should(
         'have.contain',
-        'What is a communal area?'
+        'A communal area is an area that people share'
       );
-    });
-
-    it('displays instructions when clicked', () => {
-      cy.get('details > summary')
-        .click()
-        .then(() => {
-          cy.get('[data-testid=communal-area-info]').should('be.visible').should(
-            'contain',
-            'Communal repairs are usually in areas that people share'
-          );
-        });
     });
   });
 
