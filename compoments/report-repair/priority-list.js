@@ -5,7 +5,7 @@ import React from 'react';
 
 const PriorityList = ({handleChange, values}) => {
   const name =  'priority-list';
-  const title =  'Please select one of the below';
+  const title =  'What is the problem you are reporting?';
   const options =  [
     { value: 'gas-emergency/1', title: 'I can smell gas in or near the property'},
     { value: 'emergency/2', title: 'I have no heating in the property'},
