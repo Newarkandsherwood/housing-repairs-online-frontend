@@ -11,6 +11,7 @@ class RadioFieldSet extends Component {
     this.checked = this.props.checked;
     this.buttonText = this.props.buttonText;
     this.orDivider = this.props.orDivider;
+    this.hintText = this.props.hintText;
     this.options = this.props.options.map(o =>{
       if (this.checked == o.value) {
         o.checked = true
@@ -73,6 +74,7 @@ class RadioFieldSet extends Component {
                 {this.title}
               </h1>
             </legend>
+            { this.hintText && <p id={`hint-text-${this.name}`}>{this.hintText}</p>}
             <div className={this.state.error ? 'govuk-form-group--error' : 'govuk-form-group'}>
               <span id={`${this.name}-error`}
                 className="govuk-error-message govuk-!-margin-bottom-0">
@@ -142,6 +144,7 @@ RadioFieldSet.propTypes = {
   title:  PropTypes.string.isRequired,
   checked: PropTypes.string,
   beforeButton:  PropTypes.object,
+  hintText: PropTypes.string,
 };
 export default RadioFieldSet;
 
