@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import Button from '../button';
 import imageToBase64 from 'image-to-base64/browser';
+import {serviceName} from '../../helpers/constants';
 
 const RepairDescription = ({handleChange, values}) => {
   const [error, setError] = useState({});
@@ -11,7 +12,7 @@ const RepairDescription = ({handleChange, values}) => {
   const [text, setText] = useState(values.description?.text)
   const [textAreaCount, setTextAreaCount] = React.useState(0);
   const textLimit = 255
-
+  const title = 'Describe your problem in more detail'
   function textTooLong() {
     setError({
       text: `Description must be ${textLimit} characters or fewer`,
@@ -74,11 +75,11 @@ const RepairDescription = ({handleChange, values}) => {
 
   return <div className="govuk-grid-row" data-cy="repair-description">
     <header>
-      <title>Describe your problem in more detail- Housing repairs</title>
+      <title>{title} - {serviceName}</title>
     </header>
     <div className="govuk-grid-column-two-thirds">
       <h1 className="govuk-heading-l">
-        Describe your problem in more detail
+        {title}
       </h1>
       <div className={error.text ? 'govuk-form-group--error' : 'govuk-form-group'}>
         <form action="" className='govuk-!-padding-0'>
