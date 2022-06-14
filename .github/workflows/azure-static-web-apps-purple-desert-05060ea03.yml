@@ -84,6 +84,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1
 
+      - name: Navigate to terraform directory
+        run: cd terraform
+
       - name: Terraform fmt
         run: terraform fmt -check
         continue-on-error: true
