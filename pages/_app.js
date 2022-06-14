@@ -4,6 +4,7 @@ import React from 'react';
 import App from 'next/app'
 import Link from 'next/link'
 import { useEffect } from 'react';
+import {serviceName} from '../helpers/constants';
 
 function MyApp({ Component, pageProps, err  }) {
   const enableJavascript = () => {
@@ -22,7 +23,7 @@ function MyApp({ Component, pageProps, err  }) {
           <Link href="/">
             <a
               className="govuk-header__link govuk-header__link--service-name">
-              Housing Repairs Online
+              {serviceName}
             </a>
           </Link>
         </div>

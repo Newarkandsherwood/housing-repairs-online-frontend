@@ -4,7 +4,7 @@ describe('App', () => {
   });
 
   it('displays service title', () => {
-    cy.contains('Housing Repairs Online');
+    cy.contains('Housing Repairs');
   });
 
   it('displays correct phase banner', () => {
