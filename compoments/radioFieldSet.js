@@ -74,7 +74,7 @@ class RadioFieldSet extends Component {
                 {this.title}
               </h1>
             </legend>
-            { this.hintText && <p id={`hint-text-${this.name}`}>{this.hintText}</p>}
+            { this.hintText && <div id={`hint-text-${this.name}`} className='govuk-hint'>{this.hintText}</div>}
             <div className={this.state.error ? 'govuk-form-group--error' : 'govuk-form-group'}>
               <span id={`${this.name}-error`}
                 className="govuk-error-message govuk-!-margin-bottom-0">
