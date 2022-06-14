@@ -1,1 +1,1 @@
-export const serviceName = 'Housing repairs online'
+export const serviceName = 'Housing Repairs'
