@@ -17,7 +17,7 @@ describe('communal', () => {
 
   context('communal area hint', () => {
     it('displays text', () => {
-      cy.get('p').should(
+      cy.get('[id=hint-text-communal]').should(
         'have.contain',
         'A communal area is an area that people share'
       );
