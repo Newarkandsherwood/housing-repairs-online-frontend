@@ -1,16 +1,18 @@
 import Details from '../details';
 import React from 'react';
 import ContactNumbers from '../contactNumbers';
+import {serviceName} from '../../helpers/constants';
 
 
 const NotEligible = () => {
+  const title = 'The council may not be responsible for repairs at this property'
   return (
     <div className="govuk-grid-row govuk-body-m">
       <header>
-        <title>The council may not be responsible for repairs at this property- Housing repairs</title>
+        <title>{title} - {serviceName}</title>
       </header>
       <div className="govuk-grid-column-two-thirds">
-        <h1 className='govuk-heading-xl'>The council may not be responsible for repairs at this property</h1>
+        <h1 className='govuk-heading-xl'>{title}</h1>
         <h3 className='govuk-heading-m'>Emergencies</h3>
         <p>
           An emergency is defined as something which could cause danger to

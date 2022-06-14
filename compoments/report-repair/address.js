@@ -7,11 +7,14 @@ import useSWR from 'swr'
 import {fetcher} from '../../helpers/fetcher';
 import Loader from '../loader';
 import Error from '../error';
+import {serviceName} from '../../helpers/constants';
 
 const Address = ({handleChange, values}) => {
   const [state, setState] = useState({error: {}, value: 'null'});
 
   const { data, error } = useSWR(`/api/address?postcode=${values.postcode}`, fetcher)
+
+  const title = 'Select an address'
 
   if (error) return <Error
     name="summary"
@@ -49,7 +52,7 @@ const Address = ({handleChange, values}) => {
 
   return <div className="govuk-grid-row" data-cy="address">
     <header>
-      <title>Select an address- Housing repairs</title>
+      <title>{title} - {serviceName}</title>
     </header>
     <div className="govuk-grid-column-two-thirds">
       <h1 className="govuk-heading-l">Select an address</h1>
@@ -60,7 +63,7 @@ const Address = ({handleChange, values}) => {
             {state.error.msg}
           </span>
           <label className="govuk-label" htmlFor="select-address-dropdown">
-            Select an address
+            {title}
           </label>
           <Select
             input={{

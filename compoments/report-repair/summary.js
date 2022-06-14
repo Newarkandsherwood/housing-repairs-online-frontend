@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import SummaryList from '../summaryList';
 import Button from '../button';
+import {serviceName} from '../../helpers/constants';
 
 const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
+  const title = 'Request summary'
   let [repairProblemLink, setRepairProblemLink] = useState('')
   let [repairProblemBestDescriptionLink, setRepairProblemBestDescriptionLink] = useState('')
 
@@ -29,7 +31,7 @@ const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
   return(
     <>
       <header>
-        <title>Request summary- Housing repairs</title>
+        <title>{title} - {serviceName}</title>
       </header>
       { (
         <div data-cy="summary">

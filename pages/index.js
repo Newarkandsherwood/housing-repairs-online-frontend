@@ -4,13 +4,17 @@ import TextLink from '../compoments/textLink';
 import React from 'react';
 import Link from 'next/link'
 import ContactNumbers from '../compoments/contactNumbers';
+import {serviceName} from '../helpers/constants';
 
 export default function Home() {
-
+  const title = 'Request a repair'
   return (
     <div className="govuk-grid-row govuk-body-m govuk-!-margin-top-7">
+      <header>
+        <title>{title} - {serviceName}</title>
+      </header>
       <div className="govuk-grid-column-two-thirds">
-        <h1 className={'govuk-heading-xl'}>Request a repair</h1>
+        <h1 className={'govuk-heading-xl'}>{title}</h1>
         <h2 className={'govuk-heading-m'}>Before you start</h2>
         <WarningText  testid="landing-page-report-limit-warning" className="govuk-!-margin-top-4">
           This service can only be used to request one repair at a time to a council property.
