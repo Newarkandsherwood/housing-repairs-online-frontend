@@ -8,6 +8,7 @@ import {useRouter} from 'next/router';
 import Loader from '../loader';
 import UnableToBook from './unable-to-book';
 import Error from '../error';
+import {serviceName} from '../../helpers/constants';
 
 const RepairAvailability = ({handleChange, values, fromDate}) => {
   const [error, setError] = useState();
