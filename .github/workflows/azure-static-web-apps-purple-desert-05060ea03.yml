@@ -91,9 +91,19 @@ jobs:
           cd terraform
           terraform fmt -check
 
+      - name: Terraform destroy
+        run: |
+          cd terraform
+          terraform destroy
+
       - name: Terraform Init
         run: |
           terraform init -upgrade -backend-config="storage_account_name=hrostorage" -backend-config="resource_group_name=Epidiorthosi" -backend-config="container_name=tfstate" -backend-config="key=${{secrets.STORAGE_ACCOUNT_KEY}}"
+
+      - name: Terraform destroy
+        run: |
+          cd terraform
+          terraform destroy
 
       - name: Terraform Validate
         run: |
