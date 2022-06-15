@@ -83,18 +83,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1
+      - with:
+          terraform_wrapper: false
 
       - name: Terraform fmt
         run: |
           cd terraform
           terraform fmt -check
-        continue-on-error: true
 
       - name: Terraform Init
         run: |
-          cd terraform
-          ls 
-          export TF_LOG=DEBUG
           terraform init -backend-config="storage_account_name=hrostorage" -backend-config="resource_group_name=Epidiorthosi" -backend-config="container_name=tfstate" -backend-config="key=${{secrets.STORAGE_ACCOUNT_KEY}}"
 
       - name: Terraform Validate
@@ -112,6 +110,7 @@ jobs:
         run: |
           cd terraform
           terraform apply -auto-approve -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South"
+          API_KEY=$(terraform output api_key) >> $GITHUB_ENV
 
   build_and_deploy_job:
     needs: [test, cypress-run]
@@ -158,5 +157,5 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          azure_static_web_apps_api_token: ${{ secrets.API_KEY }}
           action: 'close'
