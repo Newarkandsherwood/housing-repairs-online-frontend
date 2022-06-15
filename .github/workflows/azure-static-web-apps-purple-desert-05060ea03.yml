@@ -93,7 +93,7 @@ jobs:
 
       - name: Terraform Init
         run: |
-          terraform init -backend-config="storage_account_name=hrostorage" -backend-config="resource_group_name=Epidiorthosi" -backend-config="container_name=tfstate" -backend-config="key=${{secrets.STORAGE_ACCOUNT_KEY}}"
+          terraform init -upgrade -backend-config="storage_account_name=hrostorage" -backend-config="resource_group_name=Epidiorthosi" -backend-config="container_name=tfstate" -backend-config="key=${{secrets.STORAGE_ACCOUNT_KEY}}"
 
       - name: Terraform Validate
         run: |
