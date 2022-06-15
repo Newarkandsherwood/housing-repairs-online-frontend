@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=2.46.0"
+      version = "=3.10.0"
     }
   }
 }
@@ -22,7 +22,7 @@ data "terraform_remote_state" "state" {
   }
 }
 resource "azurerm_static_site" "hro_frontend_test" {
-  name                = "hro_frontend_test"
+  name                = "hrofrontendtest"
   resource_group_name = var.resource_group_name
   location            = var.location
 }
