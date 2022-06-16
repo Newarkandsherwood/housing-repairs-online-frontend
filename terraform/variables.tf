@@ -15,5 +15,5 @@ variable "key" {
 }
 variable "location" {
   type    = string
-  default = "UK South"
+  default = "westeurope"
 }
