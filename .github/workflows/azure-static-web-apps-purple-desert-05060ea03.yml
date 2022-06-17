@@ -152,3 +152,5 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.API_KEY }}
           action: 'close'
+        env:
+          TEST: 'test'
