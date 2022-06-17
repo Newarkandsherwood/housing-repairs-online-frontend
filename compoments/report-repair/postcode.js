@@ -21,7 +21,6 @@ const Postcode = ({handleChange, values}) => {
         onSubmit={Continue}
         validation={postCodeValidator}
         type="text"
-        label="Postcode"
         title={title}
         buttonText={'Continue'}
       ></TextInput>

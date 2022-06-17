@@ -16,10 +16,6 @@ describe('postcode', () => {
     cy.contains('What is the property postcode?');
   });
 
-  it('displays input label', () => {
-    cy.contains('Postcode');
-  });
-
   it('displays button with correct text', () => {
     cy.get('button').contains('Continue');
   });

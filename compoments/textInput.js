@@ -8,7 +8,6 @@ class TextInput extends Component {
     super(props);
     this.name = this.props.name;
     this.title = this.props.title;
-    this.label = this.props.label;
     this.hint = this.props.hint;
     this.onKeyPress = this.props.onKeyPress;
     this.long = this.props.long;
@@ -63,31 +62,38 @@ class TextInput extends Component {
     })
   };
 
-  render(){
+  render() {
     return (
       <>
-        <h1 className="govuk-heading-l">{this.title}</h1>
-        <div className={this.state.error.msg ? 'govuk-form-group--error' : 'govuk-form-group'}>
-          <form action="" className={(this.long ? 'govuk-grid-column-two-thirds':'govuk-grid-column-one-third')+' govuk-!-padding-0'}>
+        <div
+          className={this.state.error.msg ? 'govuk-form-group--error' : 'govuk-form-group'}>
+          <form action=""
+            className={(this.long ? 'govuk-grid-column-two-thirds' : 'govuk-grid-column-one-third') + ' govuk-!-padding-0'}>
+            <h1 className="govuk-label-wrapper govuk-label--xl">
+              <label className="govuk-label govuk-label--l"
+                htmlFor={this.input.id}>
+                {this.title}
+              </label>
+            </h1>
             <span id={`${this.name}-error`}
               className="govuk-error-message govuk-!-margin-bottom-0">
               {this.state.error.msg}
             </span>
-            <label className="govuk-label" htmlFor={this.input.id}>
-              {this.label}
-            </label>
-            <div id="event-name-hint" className="govuk-hint">
+            <div id={`${this.name}-hint`} className="govuk-hint"
+              aria-desibedby="id-hint">
               {this.hint}
             </div>
-            <input className="govuk-input govuk-!-margin-bottom-6" id={this.input.id}
+            <input className="govuk-input govuk-!-margin-bottom-6"
+              id={this.input.id}
               name={this.name}
               type={this.type}
               onChange={this.input.onChange}
               defaultValue={this.input.defaultValue}
               onWheel={(e) => e.target.blur()}
               onKeyPress={this.onKeyPress}
+              aria-describedby={`${this.name}-hint`}
             />
-            <Button onClick={this.formSubmit} >{this.buttonText}</Button>
+            <Button onClick={this.formSubmit}>{this.buttonText}</Button>
           </form>
         </div>
       </>
@@ -99,9 +105,8 @@ TextInput.propTypes = {
   value: PropTypes.string,
   name: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
-  label: PropTypes.string,
   type: PropTypes.string,
-  title:  PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   validation: PropTypes.shape({
     errorMessage: PropTypes.string,
     isValid: PropTypes.func
