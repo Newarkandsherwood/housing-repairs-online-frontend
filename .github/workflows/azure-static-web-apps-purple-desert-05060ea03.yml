@@ -96,14 +96,16 @@ jobs:
       - name: Terraform Validate
         run: terraform validate -no-color
 
-      - name: Terraform Plan
-        run: terraform plan -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South"
-        continue-on-error: true
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South"
+      # - name: Terraform Plan
+      #   run: terraform plan -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South"
+      #   continue-on-error: true
 
-      - name: Terraform Apply
-        run: |
-          terraform apply -auto-approve -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South"
-          API_KEY=$(terraform output api_key) >> $GITHUB_ENV
+      # - name: Terraform Apply
+      #   run: |
+      #     terraform apply -auto-approve -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South"
+      #     API_KEY=$(terraform output api_key) >> $GITHUB_ENV
 
   build_and_deploy_job:
     needs: [test, cypress-run]
