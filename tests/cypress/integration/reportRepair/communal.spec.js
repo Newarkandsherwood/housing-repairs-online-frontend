@@ -19,7 +19,7 @@ describe('communal', () => {
     it('displays text', () => {
       cy.get('[id=hint-text-communal]').should(
         'have.contain',
-        'A communal area is an area that people share'
+        'A communal area is a space available to use by more than one household'
       );
     });
   });

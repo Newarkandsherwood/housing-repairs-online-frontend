@@ -8,7 +8,7 @@ import {serviceName} from '../../helpers/constants';
 const Communal = ({handleChange, values}) => {
   const name =  'communal';
   const title =  'Is the problem in a communal area?';
-  const hintText = 'A communal area is an area that people share. For example, public doors, the roof, gutter repairs, structure and external walls.';
+  const hintText = 'A communal area is a space available to use by more than one household. Examples of communal areas include flat block doors, stairs and corridors, play parks, shared mobility storage spaces and parking areas.';
   const options =  [
     { value: 'yes', title: 'Yes'},
     { value: 'no', title: 'No'}
