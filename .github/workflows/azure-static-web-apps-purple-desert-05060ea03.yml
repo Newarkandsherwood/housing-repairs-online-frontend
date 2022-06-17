@@ -59,13 +59,14 @@ jobs:
           browser: chrome
           record: false
           parallel: false
-          env: NEXT_PUBLIC_APP_ENV=test
 
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
           # auto generated GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXT_PUBLIC_APP_ENV: test
+
   build_and_deploy_job:
     needs: [test, cypress-run]
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
