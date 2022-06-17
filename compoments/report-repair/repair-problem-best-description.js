@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RadioFieldSet from '../radioFieldSet';
+import {serviceName} from '../../helpers/constants';
 
 const RepairProblemBestDescription = ({handleChange, values, options}) => {
   const name =  'repairProblemBestDescription';
@@ -11,6 +12,9 @@ const RepairProblemBestDescription = ({handleChange, values, options}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="repair-problem-best-description">
+    <header>
+      <title>{title} - {serviceName}</title>
+    </header>
     <div className="govuk-grid-column-two-thirds">
       <RadioFieldSet
         name={name}

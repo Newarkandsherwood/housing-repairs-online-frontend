@@ -1,14 +1,19 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import TextLink from '../textLink';
+import {serviceName} from '../../helpers/constants';
 
 
 const Confirmation = ({ requestId, confirmation }) => {
+  const title = 'Repair request complete'
   return (
     <div className="govuk-grid-row" data-cy="confirmation">
+      <header>
+        <title>{title} - {serviceName}</title>
+      </header>
       <div className="govuk-grid-column-two-thirds">
         <div className="govuk-panel govuk-panel--confirmation">
-          <h1 className="govuk-panel__title">Repair request complete</h1>
+          <h1 className="govuk-panel__title">{title}</h1>
           <div className="govuk-panel__body">
             Your repair number is<br/><strong>{requestId}</strong>
           </div>

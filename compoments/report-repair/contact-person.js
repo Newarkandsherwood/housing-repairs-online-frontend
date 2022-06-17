@@ -2,14 +2,19 @@ import PropTypes from 'prop-types';
 import TextInput from '../textInput';
 import React from 'react';
 import {phoneOnKeyPress, phoneValidator} from '../../helpers/validators';
+import {serviceName} from '../../helpers/constants';
 
 
 const ContactPerson = ({handleChange, values}) => {
+  const title = 'What number should we call, if we need to get in touch?'
   const Continue = val => {
     handleChange('contactPersonNumber', val);
   }
 
   return <div className="govuk-grid-row" data-cy="contact-person">
+    <header>
+      <title>{title} - {serviceName}</title>
+    </header>
     <div>
       <TextInput
         value={values.contactPersonNumber}
@@ -18,7 +23,7 @@ const ContactPerson = ({handleChange, values}) => {
         validation={phoneValidator}
         type="tel"
         hint="Please enter a UK landline or mobile phone number"
-        title="What number should we call, if we need to get in touch?"
+        title={title}
         buttonText={'Continue'}
         long={true}
         onKeyPress={phoneOnKeyPress}

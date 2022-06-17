@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import Details from '../details';
 import RadioFieldSet from '../radioFieldSet';
 import React from 'react';
+import {serviceName} from '../../helpers/constants';
 
 
 const Communal = ({handleChange, values}) => {
@@ -34,6 +35,9 @@ const Communal = ({handleChange, values}) => {
   }
 
   return (<div className="govuk-grid-row"  data-cy="communal">
+    <header>
+      <title>{title} - {serviceName}</title>
+    </header>
     <div className="govuk-grid-column-two-thirds">
       <RadioFieldSet name={name}
         title={title}

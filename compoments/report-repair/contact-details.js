@@ -7,8 +7,10 @@ import {
 } from '../../helpers/validators';
 import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
+import {serviceName} from '../../helpers/constants';
 
 const ContactDetails = ({handleChange, values}) => {
+  const title = 'How should we confirm the appointment?'
   const name = 'contactDetails'
   const Continue = val => {
     handleChange(name, {
@@ -42,9 +44,12 @@ const ContactDetails = ({handleChange, values}) => {
   );
 
   return <div className="govuk-grid-row" data-cy="contact-details">
+    <header>
+      <title>{title} - {serviceName}</title>
+    </header>
     <div>
       <RadioFieldSet name={name}
-        title={'How should we confirm the appointment?'}
+        title={title}
         options={options}
         onSubmit={Continue}
         checked={values[name]?.type}

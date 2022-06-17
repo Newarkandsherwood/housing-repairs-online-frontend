@@ -8,6 +8,7 @@ import {useRouter} from 'next/router';
 import Loader from '../loader';
 import UnableToBook from './unable-to-book';
 import Error from '../error';
+import {serviceName} from '../../helpers/constants';
 
 const RepairAvailability = ({handleChange, values, fromDate}) => {
   const [error, setError] = useState();
@@ -18,7 +19,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
     repairProblem:  values.repairProblem?.value,
     locationId: values.address?.locationId,
   }
-
+  const title = 'When are you available?'
   if (values.repairProblemBestDescription) {
     params['repairIssue'] = values.repairProblemBestDescription.value
   }
@@ -85,9 +86,12 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="repair-availability">
+    <header>
+      <title>{title} - {serviceName}</title>
+    </header>
     <div className="govuk-grid-column-two-thirds">
       <h1 className="govuk-heading-l">
-        When are you available?
+        {title}
       </h1>
       <p className="govuk-body-l">
         A responsible adult must be at the property

@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import SummaryList from '../summaryList';
 import Button from '../button';
+import {serviceName} from '../../helpers/constants';
 
 const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
+  const title = 'Request summary'
   let [repairProblemLink, setRepairProblemLink] = useState('')
   let [repairProblemBestDescriptionLink, setRepairProblemBestDescriptionLink] = useState('')
 
@@ -27,30 +29,30 @@ const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
   ]
 
   return(
-    <>{ (
-      <div data-cy="summary">
-        <div className="govuk-grid-row govuk-body-m">
-          <div className="govuk-grid-column-two-thirds">
-            <h1 className='govuk-heading-xl'>Request summary</h1>
-
-            <h2 className="govuk-heading-m">Personal details</h2>
-            <SummaryList goToStep={goToStep} summary={personalDetailsSummary}/>
-
-            <h2 className="govuk-heading-m">Repair details</h2>
-            <SummaryList goToStep={goToStep} summary={repairDetailsSummary}/>
-
-            <h2 className="govuk-heading-m">Appointment details</h2>
-            <SummaryList goToStep={goToStep} summary={appointmentDetailsSummary}/>
-
+    <>
+      <header>
+        <title>{title} - {serviceName}</title>
+      </header>
+      { (
+        <div data-cy="summary">
+          <div className="govuk-grid-row govuk-body-m">
+            <div className="govuk-grid-column-two-thirds">
+              <h1 className='govuk-heading-xl'>Request summary</h1>
+              <h2 className="govuk-heading-m">Personal details</h2>
+              <SummaryList goToStep={goToStep} summary={personalDetailsSummary}/>
+              <h2 className="govuk-heading-m">Repair details</h2>
+              <SummaryList goToStep={goToStep} summary={repairDetailsSummary}/>
+              <h2 className="govuk-heading-m">Appointment details</h2>
+              <SummaryList goToStep={goToStep} summary={appointmentDetailsSummary}/>
+            </div>
           </div>
+          <Button
+            preventDoubleClick={true}
+            onClick={()=>{
+              submit(values);
+            }}>Continue</Button>
         </div>
-        <Button
-          preventDoubleClick={true}
-          onClick={()=>{
-            submit(values);
-          }}>Continue</Button>
-      </div>
-    )}
+      )}
     </>
   )
 }

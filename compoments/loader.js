@@ -1,12 +1,16 @@
 import React from 'react';
+import { serviceName } from '../helpers/constants';
 
-export default function Loader({ }) {
+export default function Loader({}) {
   return (
     <>
+      <header>
+        <title>Loading - {serviceName}</title>
+      </header>
       <div className="loader"></div>
-      <h4 className="govuk-!-text-align-centre  govuk-!-margin-bottom-7">Loading</h4>
+      <h4 className="govuk-!-text-align-centre  govuk-!-margin-bottom-7">
+        Loading
+      </h4>
     </>
-  )
+  );
 }
-
-

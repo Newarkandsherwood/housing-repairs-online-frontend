@@ -1,11 +1,16 @@
 import React from 'react';
+import {serviceName} from '../../helpers/constants';
 
 const NotEligibleCommunalRepairs = () => {
+  const title = 'For communal repairs, please call us during the office hours below'
   return (
     <div className="govuk-grid-row govuk-body-m">
+      <header>
+        <title>{title} - {serviceName}</title>
+      </header>
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>
-          For communal repairs, please call us during the office hours below
+          {title}
         </h1>
         <ul>
           <li> Monday 9am - 5pm</li>
