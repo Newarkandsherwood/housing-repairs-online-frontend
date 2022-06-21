@@ -139,7 +139,7 @@ jobs:
         id: terraform_apply
         run: |
           terraform apply -auto-approve -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South"
-          echo "API_KEY=$(terraform output api_key)" >> $GITHUB_ENV
+          echo API_KEY=$(terraform output api_key) >> $GITHUB_ENV
       - name: Set up sentry cli
         run: |
           touch .sentryclirc
