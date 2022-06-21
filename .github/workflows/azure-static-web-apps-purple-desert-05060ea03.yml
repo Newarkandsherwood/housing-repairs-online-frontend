@@ -145,6 +145,7 @@ jobs:
       - name: Set up sentry cli
         run: |
           cd ..
+          echo "The API key is:$API_KEY"
           touch .sentryclirc
           echo "[auth]" >> .sentryclirc
           echo "token=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .sentryclirc
