@@ -77,7 +77,7 @@ jobs:
         working-directory: './terraform'
 
     outputs:
-      API_KEY: ${{steps.terraform_apply.outputs.Azure_Deploy_Key }}
+      Azure_Deploy_Key: ${{steps.terraform_apply.outputs.Azure_Deploy_Key }}
 
     steps:
       - uses: actions/checkout@v2
