@@ -134,18 +134,18 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Plan
-        run: terraform plan -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South"
+        run: terraform plan -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South -var="token=${{secrets.GITHUB_TOKEN}}"
 
       - name: Terraform Apply
         id: terraform_apply
         run: |
-          terraform apply -auto-approve -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South"
+          terraform apply -auto-approve -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South -var="token=${{secrets.GITHUB_TOKEN}}"
           echo API_KEY=$(terraform output api_key) >> $GITHUB_ENV
 
       - name: Set up sentry cli
         run: |
           cd ..
-          echo "The API key is:$API_KEY"
+          echo "The API key is: ${{secrets.AZURE_STATIC_WEB_APPS_API_TOKEN}}"
           touch .sentryclirc
           echo "[auth]" >> .sentryclirc
           echo "token=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .sentryclirc
@@ -155,7 +155,7 @@ jobs:
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          azure_static_web_apps_api_token: ${{secrets.AZURE_STATIC_WEB_APPS_API_TOKEN}}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: 'upload'
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
