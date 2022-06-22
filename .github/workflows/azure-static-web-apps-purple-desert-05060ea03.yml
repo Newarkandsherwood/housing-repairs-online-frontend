@@ -101,7 +101,7 @@ jobs:
         run: |
           terraform apply -auto-approve -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South -var="token=${{secrets.GITHUB_TOKEN}}"
           echo "API_KEY=$(terraform output api_key)" >> $GITHUB_ENV
-
+          echo "API_KEY is $API_KEY"
 
   build_and_deploy_job:
     needs: [test]
