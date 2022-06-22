@@ -18,14 +18,14 @@ provider "github" {
   token = var.token
 }
 
-locals  {
+locals {
   api_token_var = "AZURE_STATIC_WEB_APPS_API_TOKEN"
 }
 
 resource "github_actions_secret" "api_key" {
-  repository       = "housing-repairs-online-frontend"
-  secret_name      = local.api_token_var
-  plaintext_value  = azurerm_static_site.hro_frontend_test.api_key
+  repository      = "housing-repairs-online-frontend"
+  secret_name     = local.api_token_var
+  plaintext_value = azurerm_static_site.hro_frontend_test.api_key
 }
 
 data "terraform_remote_state" "state" {
