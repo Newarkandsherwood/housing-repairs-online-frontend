@@ -13,10 +13,7 @@ variable "resource_group_location" {
 variable "key" {
   type = string
 }
-variable "owner" {
-  type = string
-}
-variable "token" {
+variable "organization" {
   type = string
 }
 variable "location" {

@@ -95,7 +95,7 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Plan
-        run: terraform plan -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South" -var="owner=$GITHUB_REPOSITORY_OWNER" -var="token=$GITHUB_TOKEN"
+        run: terraform plan -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South" -var="organization=$GITHUB_REPOSITORY_OWNER"
 
       - name: Terraform Apply
         id: terraform_apply
