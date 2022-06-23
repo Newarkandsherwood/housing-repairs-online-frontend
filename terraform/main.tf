@@ -19,6 +19,7 @@ terraform {
 }
 
 provider "github" {
+  organization = var.organization
 }
 
 locals {
