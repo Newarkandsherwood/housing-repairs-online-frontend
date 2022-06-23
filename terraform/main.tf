@@ -4,10 +4,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "=3.10.0"
     }
-    github = {
-      source  = "integrations/github"
-      version = "=2.9.2"
-    }
   }
 }
 provider "azurerm" {
@@ -19,7 +15,7 @@ terraform {
 }
 
 provider "github" {
-  organization = var.organization
+  owner = var.owner
 }
 
 locals {
