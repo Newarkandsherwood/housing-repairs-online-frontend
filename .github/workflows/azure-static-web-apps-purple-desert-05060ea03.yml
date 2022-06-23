@@ -25,41 +25,41 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn lint
       - run: yarn test
-#  cypress-run:
-#    name: Cypress run
-#    runs-on: ubuntu-20.04
-#    container: cypress/browsers:node14.17.0-chrome88-ff89
-#    strategy:
-#      # when one test fails, DO NOT cancel the other
-#      # containers, because this will kill Cypress processes
-#      # leaving the Dashboard hanging ...
-#      # https://github.com/cypress-io/github-action/issues/48
-#      fail-fast: false
-#      matrix:
-#        # run copies of the current job in parallel
-#        containers: [1]
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#
-#      - name: Cypress run
-#        uses: cypress-io/github-action@v2
-#        with:
-#          install-command: yarn --frozen-lockfile --silent
-#          build: yarn build
-#          start: yarn start
-#          # quote the url to be safe against YML parsing surprises
-#          wait-on: 'http://localhost:3000'
-#          browser: chrome
-#          record: false
-#          parallel: false
-#
-#        env:
-#          # pass the Dashboard record key as an environment variable
-#          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
-#          # auto generated GitHub token to allow accurately detecting a build vs a re-run build
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          NEXT_PUBLIC_APP_ENV: test
+  cypress-run:
+    name: Cypress run
+    runs-on: ubuntu-20.04
+    container: cypress/browsers:node14.17.0-chrome88-ff89
+    strategy:
+      # when one test fails, DO NOT cancel the other
+      # containers, because this will kill Cypress processes
+      # leaving the Dashboard hanging ...
+      # https://github.com/cypress-io/github-action/issues/48
+      fail-fast: false
+      matrix:
+        # run copies of the current job in parallel
+        containers: [1]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          install-command: yarn --frozen-lockfile --silent
+          build: yarn build
+          start: yarn start
+          # quote the url to be safe against YML parsing surprises
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          record: false
+          parallel: false
+
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
+          # auto generated GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEXT_PUBLIC_APP_ENV: test
 
   terraform:
     name: 'Terraform'
@@ -77,8 +77,8 @@ jobs:
         shell: bash
         working-directory: './terraform'
 
-    outputs:
-      Azure_Deploy_Key: ${{steps.terraform_apply.outputs.Azure_Deploy_Key }}
+#    outputs:
+#      Azure_Deploy_Key: ${{steps.terraform_apply.outputs.Azure_Deploy_Key }}
 
     steps:
       - uses: actions/checkout@v2
@@ -107,12 +107,10 @@ jobs:
           echo "::set-output name=Azure_Deploy_Key::$(terraform output api_key)"
 
   build_and_deploy_job:
-    needs: [terraform]
+    needs: [test, cypress-run, terraform]
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
-    env:
-      DEPLOYMENT_KEY: ${{ needs.terraform.outputs.Azure_Deploy_Key }}
     defaults:
       run:
         shell: bash
@@ -158,7 +156,7 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ env.API_KEY }}
+          azure_static_web_apps_api_token: ${{secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_2}}
           action: 'close'
         env:
           TEST: 'test'
