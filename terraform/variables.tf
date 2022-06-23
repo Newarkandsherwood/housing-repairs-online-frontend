@@ -16,6 +16,9 @@ variable "key" {
 variable "owner" {
   type = string
 }
+variable "token" {
+  type = string
+}
 variable "location" {
   type    = string
   default = "westeurope"
