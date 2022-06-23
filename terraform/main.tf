@@ -27,7 +27,7 @@ locals {
 }
 
 resource "github_actions_secret" "api_key" {
-  repository      = "Newarkandsherwood/housing-repairs-online-frontend"
+  repository      = "housing-repairs-online-frontend"
   secret_name     = local.api_token_var
   plaintext_value = azurerm_static_site.hro_frontend_test.api_key
 }
