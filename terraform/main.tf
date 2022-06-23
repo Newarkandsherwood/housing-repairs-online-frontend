@@ -18,7 +18,7 @@ provider "github" {
 }
 
 locals {
-  api_token_var = "AZURE_STATIC_WEB_APPS_API_TOKEN"
+  api_token_var = "AZURE_STATIC_WEB_APPS_API_TOKEN_2"
 }
 
 resource "github_actions_secret" "api_key" {
