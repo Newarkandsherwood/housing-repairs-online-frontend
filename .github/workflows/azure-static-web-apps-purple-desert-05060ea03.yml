@@ -100,6 +100,8 @@ jobs:
       - name: Terraform Apply
         id: terraform_apply
         run: |
+          echo "GITHUB_ORGANIZATION is ${{env.GITHUB_ORGANIZATION}}"
+          echo "GITHUB_REPOSITORY_OWNER is ${{env.GITHUB_REPOSITORY_OWNER}}"
           terraform apply -auto-approve -var="storage_account_name=hrostorage" -var="resource_group_name=Epidiorthosi" -var="container_name=tfstate" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=UK South -var="token=${{secrets.GITHUB_TOKEN}}"
           echo "::set-output name=Azure_Deploy_Key::$(terraform output api_key)"
 
