@@ -4,10 +4,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "=3.10.0"
     }
-    github = {
-      source  = "integrations/github"
-      version = "~> 4.0"
-    }
   }
 }
 provider "azurerm" {
@@ -28,7 +24,7 @@ locals {
 }
 
 resource "github_actions_secret" "api_key" {
-  repository      = "housing-repairs-online-frontend"
+  repository      = "Newarkandsherwood/housing-repairs-online-frontend"
   secret_name     = local.api_token_var
   plaintext_value = azurerm_static_site.hro_frontend_test.api_key
 }
