@@ -6,10 +6,12 @@ terraform {
     }
   }
 }
+
 provider "azurerm" {
   features {}
   skip_provider_registration = true
 }
+
 terraform {
   backend "azurerm" {}
 }
@@ -28,4 +30,6 @@ resource "azurerm_static_site" "hro_frontend_test" {
   name                = "hrofrontendtest"
   resource_group_name = var.resource_group_name
   location            = var.location
+  sku_tier            = var.sku_tier
+  sku_size            = var.sku_size
 }
