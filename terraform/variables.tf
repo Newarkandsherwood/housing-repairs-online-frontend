@@ -24,11 +24,11 @@ variable "location" {
 }
 
 variable "sku_tier" {
-  type = string
+  type    = string
   default = "Standard"
 }
 
 variable "sku_size" {
-  type = string
+  type    = string
   default = "Standard"
 }
