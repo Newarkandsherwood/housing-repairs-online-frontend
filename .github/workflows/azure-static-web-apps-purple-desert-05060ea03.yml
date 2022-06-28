@@ -92,13 +92,13 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Plan
-        run: terraform plan -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}"
+        run: terraform plan -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
 
       - name: Terraform Apply
         id: terraform_apply
         run: |
-          terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}"
-          terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}"
+          terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
+          terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
 
   build_and_deploy_job:
     needs: [test, cypress-run, terraform]
