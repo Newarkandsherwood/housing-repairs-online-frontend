@@ -2,6 +2,10 @@ variable "storage_account_name" {
   type = string
 }
 
+variable "static_site_name" {
+  type = string
+}
+
 variable "container_name" {
   type = string
 }
