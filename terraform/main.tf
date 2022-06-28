@@ -5,15 +5,12 @@ terraform {
       version = "=3.10.0"
     }
   }
+  backend "azurerm" {}
 }
 
 provider "azurerm" {
   features {}
   skip_provider_registration = true
-}
-
-terraform {
-  backend "azurerm" {}
 }
 
 data "terraform_remote_state" "state" {
