@@ -24,7 +24,7 @@ variable "key" {
 
 variable "location" {
   type    = string
-  default = "westeurope"
+  default = "uksouth"
 }
 
 variable "sku_tier" {
