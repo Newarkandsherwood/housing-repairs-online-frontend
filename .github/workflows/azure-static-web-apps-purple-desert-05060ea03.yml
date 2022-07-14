@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 16.x ]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -37,7 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         # run copies of the current job in parallel
-        containers: [ 1 ]
+        containers: [1]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -94,11 +94,14 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
 
-      - name: Terraform Apply
-        id: terraform_apply
-        run: |
-          terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
-          terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
+
+      # - name: Terraform Apply
+      #   id: terraform_apply
+      #   run: |
+      #     terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
+      #     terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
 
   build_and_deploy_job:
     needs: [test, cypress-run, terraform]
@@ -125,13 +128,13 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{secrets.AZURE_STATIC_WEB_APPS_API_TOKEN}}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
-          action: "upload"
+          action: 'upload'
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/" # App source code path
-          api_location: "api" # Api source code path - optional
+          app_location: '/' # App source code path
+          api_location: 'api' # Api source code path - optional
           app_artifact_location: 'public' # Built app content directory - optional
-          output_location: "out" # Built app content directory - optional
+          output_location: 'out' # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
         env:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
