@@ -1,4 +1,4 @@
-terraform {
+Xterraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
