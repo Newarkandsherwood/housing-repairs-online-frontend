@@ -7,7 +7,7 @@ import ContactNumbers from '../compoments/contactNumbers';
 import {serviceName} from '../helpers/constants';
 
 export default function Home() {
-  const title = 'Request a repair'
+  const title = ' repair'
   return (
     <div className="govuk-grid-row govuk-body-m govuk-!-margin-top-7">
       <header>
