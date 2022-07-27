@@ -3,7 +3,6 @@ import '../styles/globals.scss';
 import React from 'react';
 import App from 'next/app';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useEffect } from 'react';
 import Header from '../compoments/header';
 
