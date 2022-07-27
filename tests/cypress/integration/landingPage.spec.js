@@ -7,10 +7,6 @@ describe('App', () => {
     cy.contains('Housing Repairs');
   });
 
-  it('displays correct phase banner', () => {
-    cy.get('[data-testid=phase-banner]').should('have.contain', 'beta');
-  });
-
   it('displays a smell gas warning on the landing page', () => {
     cy.get('[data-testid=landing-page-gas-warning]').should(
       'have.contain',
