@@ -1,2 +1,11 @@
 @import "node_modules/govuk-frontend/govuk/all";
 @import "loader";
+@import "header";
+
+.govuk-button {
+  background-color: #265A87;
+  border-radius: 4px;
+  &:hover {
+      background-color:  #204d74
+  }
+}
