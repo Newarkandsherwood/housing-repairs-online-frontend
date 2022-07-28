@@ -11,6 +11,7 @@ export default function Header() {
         <div className="govuk-header__container govuk-width-container">
           <div className="govuk-header__logo">
             <a
+              aria-label="Newark and Sherwood Council Home Page"
               href="https://www.newark-sherwooddc.gov.uk/"
               className="govuk-header__link govuk-header__link--homepage header-link govuk-link--no-visited-state"
             >
