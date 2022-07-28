@@ -22,13 +22,13 @@ function MyApp({ Component, pageProps, err }) {
       </div>
       <footer className="govuk-footer " role="contentinfo">
         <div className="govuk-width-container ">
-          <Link className="footer-custom-link" href="">
-            Accessibility
+          <Link className="govuk-footer__link" href="">
+            Accessibility Statement
           </Link>
         </div>
         <div className="govuk-width-container ">
           <Link
-            className="footer-custom-link"
+            className="govuk-footer__link"
             href="https://www.newark-sherwooddc.gov.uk/privacynotice/"
           >
             Privacy
