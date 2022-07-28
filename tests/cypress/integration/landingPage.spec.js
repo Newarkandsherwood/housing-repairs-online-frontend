@@ -52,7 +52,7 @@ describe('App', () => {
   });
 
   it('has an accessibility link', () => {
-    cy.get('a').contains('Accessibility').should('have.attr', 'href');
+    cy.get('a').contains('Accessibility Statement').should('have.attr', 'href');
   });
 
   it('has an privacy link', () => {
