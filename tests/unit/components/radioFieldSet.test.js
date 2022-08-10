@@ -209,25 +209,26 @@ describe('radioFieldSet', () => {
     });
     expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe('Required');
   })
-  xtest('Conditionals are displayed', () => {
+  test('Conditionals are displayed', () => {
     const fieldSetName = 'fieldSetName';
     const firstValue = 'first';
     const firstTitle = 'First';
-    const mockCallBack = jest.fn();
+    const label = 'Please enter your email address';
+    const type = 'email';
 
     act(() => {
       render(<RadioFieldSet
-        onSubmit={mockCallBack}
+        onSubmit={() => {}}
         name={fieldSetName}
         options={[{value: firstValue, title: firstTitle, conditional: {
-          label: 'Please enter your email address',
-          type: 'email'
+          label: label,
+          type: type
         }}]}
         title={''}
         checked={firstValue}
       />, container)
     });
-    // TODO: need to correct expect to verify conditional options are displayed
-    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe('Required');
+    expect(container.querySelector(`#conditional-${fieldSetName}-0`).textContent).toBe(label);
+    expect(container.querySelector(`#${fieldSetName}-${firstValue}`).type).toBe(type);
   })
 })
