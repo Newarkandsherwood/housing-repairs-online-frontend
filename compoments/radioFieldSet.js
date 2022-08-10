@@ -83,7 +83,7 @@ class RadioFieldSet extends Component {
               <div className={this.conditional ?'govuk-radios--conditional' : 'govuk-radios' }>
                 {this.options.map((o, i) => (
                   <span key={i}>
-                    { this.includeOrDivider(i) ? <div className="govuk-radios__divider">or</div> : <div className="govuk-!-margin-bottom-2"></div>}
+                    { this.includeOrDivider(i) ? <div id="final-divider" className="govuk-radios__divider">or</div> : <div className="govuk-!-margin-bottom-2"></div>}
                     <div className="govuk-radios__item">
                       <input className="govuk-radios__input govuk-input--width-10"
                         id={`${this.name}-${i}`} name={this.name}
@@ -124,7 +124,7 @@ class RadioFieldSet extends Component {
           </fieldset>
         </div>
         <div>
-          <div className="govuk-!-margin-top-6">
+          <div id="before-button-content" className="govuk-!-margin-top-6">
             {this.beforeButton}
           </div>
           <Button onClick={this.formSubmit}>{this.buttonText}</Button>
@@ -145,6 +145,8 @@ RadioFieldSet.propTypes = {
   checked: PropTypes.string,
   beforeButton:  PropTypes.object,
   hintText: PropTypes.string,
+  orDivider: PropTypes.bool,
+  buttonText: PropTypes.string
 };
 export default RadioFieldSet;
 
