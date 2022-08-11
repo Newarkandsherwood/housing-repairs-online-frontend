@@ -146,7 +146,8 @@ RadioFieldSet.propTypes = {
   beforeButton:  PropTypes.object,
   hintText: PropTypes.string,
   orDivider: PropTypes.bool,
-  buttonText: PropTypes.string
+  buttonText: PropTypes.string,
+  conditionalValue: PropTypes.object
 };
 export default RadioFieldSet;
 

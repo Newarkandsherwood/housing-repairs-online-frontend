@@ -231,4 +231,84 @@ describe('radioFieldSet', () => {
     expect(container.querySelector(`#conditional-${fieldSetName}-0`).textContent).toBe(label);
     expect(container.querySelector(`#${fieldSetName}-${firstValue}`).type).toBe(type);
   })
+  test('Clicking \'Submit\' button without conditional value shows error', () => {
+    const fieldSetName = 'fieldSetName';
+    const firstValue = 'first';
+    const firstTitle = 'First';
+    const label = 'Please enter your email address';
+    const type = 'email';
+    const mockCallBack = jest.fn();
+
+    act(() => {
+      render(<RadioFieldSet
+        onSubmit={mockCallBack}
+        name={fieldSetName}
+        options={[{value: firstValue, title: firstTitle, conditional: {
+          label: label,
+          type: type
+        }}]}
+        title={''}
+        checked={firstValue}
+      />, container)
+      let button = container.querySelector('button');
+      button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+    });
+    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe('Required');
+  })
+  test('Clicking \'Submit\' button with conditional value does not show error ', () => {
+    const fieldSetName = 'fieldSetName';
+    const firstValue = 'first';
+    const firstTitle = 'First';
+    const label = 'Please enter your email address';
+    const type = 'email';
+    const mockCallBack = jest.fn();
+
+    act(() => {
+      render(<RadioFieldSet
+        onSubmit={mockCallBack}
+        name={fieldSetName}
+        options={[{value: firstValue, title: firstTitle, conditional: {
+          label: label,
+          type: type
+        }}]}
+        title={''}
+        checked={firstValue}
+        conditionalValue={{[firstValue]: 'me@test.com'}}
+      />, container)
+      let button = container.querySelector('button');
+      button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+    });
+    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe('');
+  })
+  test('Clicking \'Submit\' button with invalid conditional value shows error', () => {
+    const fieldSetName = 'fieldSetName';
+    const firstValue = 'first';
+    const firstTitle = 'First';
+    const label = 'Please enter your email address';
+    const type = 'email';
+    const mockCallBack = jest.fn();
+    const invalidConditionalInputErrorMessage = 'Invalid input';
+    const conditionalInputValidator = {
+      errorMessage: invalidConditionalInputErrorMessage,
+      isValid: () => {return false}
+    }
+
+    act(() => {
+      render(<RadioFieldSet
+        onSubmit={mockCallBack}
+        name={fieldSetName}
+        options={[{value: firstValue, title: firstTitle, conditional: {
+          label: label,
+          type: type,
+          validator: conditionalInputValidator
+        }}]}
+        title={''}
+        checked={firstValue}
+        conditionalValue={{[firstValue]: 'bad value'}}
+      />, container)
+      let button = container.querySelector('button');
+      button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+    });
+    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe(invalidConditionalInputErrorMessage);
+  })
 })
