@@ -25,7 +25,6 @@ const ContactPerson = ({handleChange, values}) => {
         hint="Please enter a UK landline or mobile phone number"
         title={title}
         buttonText={'Continue'}
-        long={true}
         onKeyPress={phoneOnKeyPress}
       ></TextInput>
     </div>

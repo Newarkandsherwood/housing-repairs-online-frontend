@@ -68,7 +68,7 @@ class TextInput extends Component {
       <>
         <h1 className="govuk-heading-l">{this.title}</h1>
         <div className={this.state.error.msg ? 'govuk-form-group--error' : 'govuk-form-group'}>
-          <form action="" className={(this.long ? 'govuk-grid-column-two-thirds':'govuk-grid-column-one-third')}>
+          <form action="">
             <span id={`${this.name}-error`}
               className="govuk-error-message govuk-!-margin-bottom-0">
               {this.state.error.msg}
