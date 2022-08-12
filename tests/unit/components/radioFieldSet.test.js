@@ -315,4 +315,29 @@ describe('radioFieldSet', () => {
     });
     expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe(invalidConditionalInputErrorMessage);
   })
+  test('Clicking \'Submit\' button with empty conditional value shows error', () => {
+    const fieldSetName = 'fieldSetName';
+    const firstValue = 'first';
+    const firstTitle = 'First';
+    const label = 'Please enter your information';
+    const type = 'text';
+    const mockCallBack = jest.fn();
+    const emptyConditionalInputErrorMessage = 'Enter your information';
+
+    act(() => {
+      render(<RadioFieldSet
+        onSubmit={mockCallBack}
+        name={fieldSetName}
+        options={[{value: firstValue, title: firstTitle, conditional: {
+          label: label,
+          type: type,
+        }}]}
+        title={''}
+        checked={firstValue}
+      />, container)
+      let button = container.querySelector('button');
+      button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+    });
+    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe(emptyConditionalInputErrorMessage);
+  })
 })
