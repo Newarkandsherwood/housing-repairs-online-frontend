@@ -69,7 +69,7 @@ class RadioFieldSet extends Component {
         <div className="govuk-form-group">
           <fieldset className="govuk-fieldset" id="repair-emergency"
             name="repair-emergency">
-            <legend className="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-1">
+            <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
               <h1 className="govuk-fieldset__heading">
                 {this.title}
               </h1>
