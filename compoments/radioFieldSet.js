@@ -50,7 +50,7 @@ class RadioFieldSet extends Component {
             input: this.conditionalValue[value]
           })
         }
-        return this.setState({error: this.errorText})
+        return this.setState({error: selectedOption.conditional.emptyInputErrorMessage})
       }
       let display = selectedOption.title
       this.onSubmit({val: this.state.value, display: display})
