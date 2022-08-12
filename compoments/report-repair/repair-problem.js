@@ -23,6 +23,7 @@ const RepairProblem = ({handleChange, values, options}) => {
         onSubmit={Continue}
         checked={values[name]?.value}
         buttonText='Continue'
+        errorText={'Select the problem you are reporting'}
       />
     </div>
   </div>

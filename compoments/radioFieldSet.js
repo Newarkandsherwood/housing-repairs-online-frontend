@@ -26,6 +26,7 @@ class RadioFieldSet extends Component {
       value: {[this.name]: this.checked}
     };
     this.conditionalValue = this.props.conditionalValue;
+    this.errorText = this.props.errorText || 'Required';
   }
 
   setValue(event) {
@@ -49,12 +50,12 @@ class RadioFieldSet extends Component {
             input: this.conditionalValue[value]
           })
         }
-        return this.setState({error: 'Required'})
+        return this.setState({error: this.errorText})
       }
       let display = selectedOption.title
       this.onSubmit({val: this.state.value, display: display})
     } else {
-      this.setState({error: 'Required'})
+      this.setState({error: this.errorText})
     }
   };
 
@@ -147,6 +148,7 @@ RadioFieldSet.propTypes = {
   hintText: PropTypes.string,
   orDivider: PropTypes.bool,
   buttonText: PropTypes.string,
+  errorText: PropTypes.string,
   conditionalValue: PropTypes.object
 };
 export default RadioFieldSet;

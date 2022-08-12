@@ -36,6 +36,7 @@ const PriorityList = ({handleChange, values}) => {
         buttonText={'Continue'}
         checked={values[name]}
         orDivider={true}
+        errorText={'Select the problem you are reporting'}
       />
     </div>
   </div>)

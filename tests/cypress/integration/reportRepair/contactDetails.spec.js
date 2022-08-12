@@ -39,7 +39,7 @@ describe('contactDetails', () => {
 
     it('an error should be shown',  () => {
       cy.get('button').click()
-      cy.contains('Required');
+      cy.contains('Enter how you would like for us to send your appointment confirmation');
     });
   });
 
@@ -53,7 +53,7 @@ describe('contactDetails', () => {
     context('When a user doesn\'t type anything', ()=>{
       it('an error is displayed', () => {
         cy.get('button').click()
-        cy.contains('Required');
+        cy.contains('Enter a mobile number');
       });
     });
 
@@ -97,7 +97,7 @@ describe('contactDetails', () => {
     context('When a user doesn\'t type anything', ()=>{
       it('an error is displayed', () => {
         cy.get('button').click()
-        cy.contains('Required');
+        cy.contains('Enter an email address');
       });
     });
 

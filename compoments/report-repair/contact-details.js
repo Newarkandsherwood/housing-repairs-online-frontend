@@ -56,6 +56,7 @@ const ContactDetails = ({handleChange, values}) => {
         buttonText={'Continue'}
         conditionalValue={{[values[name]?.type]: values[name]?.value}}
         beforeButton={beforeButton}
+        errorText={'Enter how you would like for us to send your appointment confirmation'}
       ></RadioFieldSet>
     </div>
   </div>

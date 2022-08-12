@@ -10,7 +10,7 @@ describe('priorityList', () => {
   context('When a user doesn\'t select any option', ()=>{
     it('an error should be shown',  () => {
       cy.get('button').click()
-      cy.contains('Required');
+      cy.contains('Select the problem you are reporting');
     });
   });
 

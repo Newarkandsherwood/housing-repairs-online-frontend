@@ -196,6 +196,7 @@ describe('radioFieldSet', () => {
     const firstValue = 'first';
     const firstTitle = 'First';
     const mockCallBack = jest.fn();
+    const errorText = 'Required input value missing';
 
     act(() => {
       render(<RadioFieldSet
@@ -203,11 +204,12 @@ describe('radioFieldSet', () => {
         name={fieldSetName}
         options={[{value: firstValue, title: firstTitle}]}
         title={''}
+        errorText={errorText}
       />, container)
       let button = container.querySelector('button');
       button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
     });
-    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe('Required');
+    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe(errorText);
   })
   test('Conditionals are displayed', () => {
     const fieldSetName = 'fieldSetName';
@@ -238,6 +240,7 @@ describe('radioFieldSet', () => {
     const label = 'Please enter your email address';
     const type = 'email';
     const mockCallBack = jest.fn();
+    const errorText = 'Required input value missing';
 
     act(() => {
       render(<RadioFieldSet
@@ -249,11 +252,12 @@ describe('radioFieldSet', () => {
         }}]}
         title={''}
         checked={firstValue}
+        errorText={errorText}
       />, container)
       let button = container.querySelector('button');
       button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
     });
-    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe('Required');
+    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe(errorText);
   })
   test('Clicking \'Submit\' button with conditional value does not show error ', () => {
     const fieldSetName = 'fieldSetName';

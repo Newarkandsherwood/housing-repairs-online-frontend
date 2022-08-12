@@ -64,6 +64,14 @@ describe('repairProblem', () => {
     it('displays a "Damp or mould" option', () => {
       cy.contains('Damp or mould');
     });
+
+    context('When a user doesn\'t select anything', ()=>{
+      it('should show validation message',  () => {
+        cy.get('button').click().then(()=>{
+          cy.contains('Select the problem you are reporting');
+        });
+      });
+    });
   });
 
   context('Bathroom', () => {
@@ -116,6 +124,14 @@ describe('repairProblem', () => {
     it('displays a "heating" option', () => {
       cy.contains('Heating or hot water');
     });
+
+    context('When a user doesn\'t select anything', ()=>{
+      it('should show validation message',  () => {
+        cy.get('button').click().then(()=>{
+          cy.contains('Select the problem you are reporting');
+        });
+      });
+    });
   });
 
   context('Bedroom', () => {
@@ -141,6 +157,14 @@ describe('repairProblem', () => {
 
     it('displays a "Heating" option', () => {
       cy.contains('Heating');
+    });
+
+    context('When a user doesn\'t select anything', ()=>{
+      it('should show validation message',  () => {
+        cy.get('button').click().then(()=>{
+          cy.contains('Select the problem you are reporting');
+        });
+      });
     });
   });
 
@@ -174,6 +198,14 @@ describe('repairProblem', () => {
     it('displays a "Heating" option', () => {
       cy.contains('Heating');
     });
+
+    context('When a user doesn\'t select anything', ()=>{
+      it('should show validation message',  () => {
+        cy.get('button').click().then(()=>{
+          cy.contains('Select the problem you are reporting');
+        });
+      });
+    });
   });
 
   context('Outside', () => {
@@ -205,6 +237,14 @@ describe('repairProblem', () => {
 
     it('displays a "Garage, including roof and door" option', () => {
       cy.contains('Garage, including roof and door');
+    });
+
+    context('When a user doesn\'t select anything', ()=>{
+      it('should show validation message',  () => {
+        cy.get('button').click().then(()=>{
+          cy.contains('Select the problem you are reporting');
+        });
+      });
     });
   });
 });
