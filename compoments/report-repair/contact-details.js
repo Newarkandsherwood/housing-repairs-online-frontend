@@ -47,7 +47,7 @@ const ContactDetails = ({handleChange, values}) => {
     <header>
       <title>{title} - {serviceName}</title>
     </header>
-    <div>
+    <div className='govuk-grid-column-two-thirds'>
       <RadioFieldSet name={name}
         title={title}
         options={options}

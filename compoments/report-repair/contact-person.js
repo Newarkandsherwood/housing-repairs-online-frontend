@@ -15,7 +15,7 @@ const ContactPerson = ({handleChange, values}) => {
     <header>
       <title>{title} - {serviceName}</title>
     </header>
-    <div>
+    <div className='govuk-grid-column-two-thirds'>
       <TextInput
         value={values.contactPersonNumber}
         name={'phone-number'}
@@ -25,7 +25,6 @@ const ContactPerson = ({handleChange, values}) => {
         hint="Please enter a UK landline or mobile phone number"
         title={title}
         buttonText={'Continue'}
-        long={true}
         onKeyPress={phoneOnKeyPress}
       ></TextInput>
     </div>

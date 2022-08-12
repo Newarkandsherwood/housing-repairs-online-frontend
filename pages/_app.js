@@ -2,7 +2,6 @@ import '../styles/globals.css';
 import '../styles/globals.scss';
 import React from 'react';
 import App from 'next/app';
-import Link from 'next/link';
 import { useEffect } from 'react';
 import Header from '../compoments/header';
 
@@ -16,9 +15,7 @@ function MyApp({ Component, pageProps, err }) {
     <>
       <Header></Header>
       <div className="govuk-width-container">
-        <main className="govuk-main-wrapper govuk-!-padding-0">
-          <Component {...pageProps} err={err} />
-        </main>
+        <Component {...pageProps} err={err} />
       </div>
       <footer className="govuk-footer " role="contentinfo">
         <div className="govuk-width-container ">
