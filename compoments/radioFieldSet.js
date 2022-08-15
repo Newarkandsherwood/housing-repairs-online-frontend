@@ -68,7 +68,7 @@ class RadioFieldSet extends Component {
 
     return (
       <div>
-        <div className="govuk-form-group">
+        <div className={this.state.error ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <fieldset className="govuk-fieldset" id="repair-emergency"
             name="repair-emergency">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -77,7 +77,7 @@ class RadioFieldSet extends Component {
               </h1>
             </legend>
             { this.hintText && <div id={`hint-text-${this.name}`} className='govuk-hint'>{this.hintText}</div>}
-            <div className={this.state.error ? 'govuk-form-group--error' : 'govuk-form-group'}>
+            <div className="govuk-form-group">
               <span id={`${this.name}-error`}
                 className="govuk-error-message govuk-!-margin-bottom-0">
                 {this.state.error}
