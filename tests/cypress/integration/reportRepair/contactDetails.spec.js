@@ -61,7 +61,7 @@ describe('contactDetails', () => {
       it('an error is displayed', () => {
         cy.get('input#contactDetails-text').type('12345');
         cy.get('button').click()
-        cy.contains('Not a valid UK mobile number');
+        cy.contains('Enter a valid UK mobile number');
       });
     });
 
@@ -82,7 +82,7 @@ describe('contactDetails', () => {
       it('an error is displayed', () => {
         cy.get('input#contactDetails-text').type('02031234567');
         cy.get('button').click()
-        cy.contains('Not a valid UK mobile number');
+        cy.contains('Enter a valid UK mobile number');
       });
     });
   })
@@ -105,7 +105,7 @@ describe('contactDetails', () => {
       it('an error is displayed', () => {
         cy.get('input#contactDetails-email').type('abcde');
         cy.get('button').click()
-        cy.contains('Not a valid email');
+        cy.contains('Enter a valid email address');
       });
     });
 
@@ -129,13 +129,13 @@ describe('contactDetails', () => {
       it('an error is displayed when username is invalid', () => {
         cy.get('input#contactDetails-email').type('!@me.com');
         cy.get('button').click()
-        cy.contains('Not a valid email');
+        cy.contains('Enter a valid email address');
       });
 
       it('an error is displayed when domain is invalid', () => {
         cy.get('input#contactDetails-email').type('test@!.com');
         cy.get('button').click()
-        cy.contains('Not a valid email');
+        cy.contains('Enter a valid email address');
       });
     });
   });

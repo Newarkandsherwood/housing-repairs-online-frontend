@@ -19,7 +19,6 @@ const phoneValidator = {
 }
 
 const mobilePhoneNumberValidator = {
-  errorMessage: 'Not a valid UK mobile number',
   isValid: (val) => {
     return isPhoneNumberValid(val, (parsedNumber) => parsedNumber.getType() === 'MOBILE');
   }
@@ -33,7 +32,6 @@ const postCodeValidator = {
   }
 }
 const emailValidator = {
-  errorMessage: 'Not a valid email',
   isValid: (email) =>{
     const str = email.toLowerCase();
     const regexp = /^\w+([\.-]?\w+)*([\+\.-]?\w+)?@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

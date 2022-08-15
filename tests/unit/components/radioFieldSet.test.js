@@ -293,7 +293,6 @@ describe('radioFieldSet', () => {
     const mockCallBack = jest.fn();
     const invalidConditionalInputErrorMessage = 'Invalid input';
     const conditionalInputValidator = {
-      errorMessage: invalidConditionalInputErrorMessage,
       isValid: () => {return false}
     }
 
@@ -304,7 +303,8 @@ describe('radioFieldSet', () => {
         options={[{value: firstValue, title: firstTitle, conditional: {
           label: label,
           type: type,
-          validator: conditionalInputValidator
+          validator: conditionalInputValidator,
+          invalidInputErrorMessage: invalidConditionalInputErrorMessage,
         }}]}
         title={''}
         checked={firstValue}
