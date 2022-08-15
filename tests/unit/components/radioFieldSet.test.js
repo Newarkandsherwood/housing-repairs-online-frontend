@@ -257,7 +257,7 @@ describe('radioFieldSet', () => {
       let button = container.querySelector('button');
       button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
     });
-    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe(emptyConditionalInputErrorMessage);
+    expect(container.querySelector(`#${fieldSetName}-conditional-0-error`).textContent).toBe(emptyConditionalInputErrorMessage);
   })
   test('Clicking \'Submit\' button with conditional value does not show error ', () => {
     const fieldSetName = 'fieldSetName';
@@ -313,6 +313,6 @@ describe('radioFieldSet', () => {
       let button = container.querySelector('button');
       button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
     });
-    expect(container.querySelector(`#${fieldSetName}-error`).textContent).toBe(invalidConditionalInputErrorMessage);
+    expect(container.querySelector(`#${fieldSetName}-conditional-0-error`).textContent).toBe(invalidConditionalInputErrorMessage);
   })
 })

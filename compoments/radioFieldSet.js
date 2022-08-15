@@ -32,7 +32,8 @@ class RadioFieldSet extends Component {
   setValue(event) {
     this.setState({
       value: {[this.name]: event.target.value},
-      error: null
+      error: null,
+      conditionalError: null
     })
   };
 
@@ -43,14 +44,14 @@ class RadioFieldSet extends Component {
       if (selectedOption.conditional) {
         if (this.conditionalValue[value]) {
           if (selectedOption.conditional.validator && !selectedOption.conditional.validator.isValid(this.conditionalValue[value])) {
-            return this.setState({error: selectedOption.conditional.validator.errorMessage})
+            return this.setState({conditionalError: selectedOption.conditional.validator.errorMessage})
           }
           return this.onSubmit({
             selected: value,
             input: this.conditionalValue[value]
           })
         }
-        return this.setState({error: selectedOption.conditional.emptyInputErrorMessage})
+        return this.setState({conditionalError: selectedOption.conditional.emptyInputErrorMessage})
       }
       let display = selectedOption.title
       this.onSubmit({val: this.state.value, display: display})
@@ -101,10 +102,14 @@ class RadioFieldSet extends Component {
                     {o.conditional && <div
                       className={`govuk-radios__conditional ${this.state.value[this.name] != o.value && 'govuk-visually-hidden'}`}
                       id={`conditional-${this.name}-${i}`}>
-                      <div className="govuk-form-group" key={`conditional-${i}`}>
+                      <div className={this.state.conditionalError ? 'govuk-form-group--error' : 'govuk-form-group'} key={`conditional-${i}`}>
                         <label className="govuk-hint" htmlFor={`${this.name}-${o.value}`}>
                           {o.conditional.label}
                         </label>
+                        <span id={`${this.name}-conditional-${i}-error`}
+                          className="govuk-error-message">
+                          {this.state.conditionalError}
+                        </span>
                         <input className="govuk-input govuk-!-width-one-third"
                           id={`${this.name}-${o.value}`} name={`${this.name}-${o.value}`}
                           type={o.conditional.type}
