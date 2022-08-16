@@ -68,6 +68,23 @@ class RadioFieldSet extends Component {
 
     return (
       <div>
+        { (this.state.error || this.state.conditionalError) &&
+        <div className="govuk-error-summary" aria-labelledby="error-summary-title"
+          role="alert" data-module="govuk-error-summary">
+          <h2 className="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+          </h2>
+          <div className="govuk-error-summary__body">
+            <ul className="govuk-list govuk-error-summary__list">
+              <li>
+                <a id="error-summary-text" href="#" className="govuk-link--no-visited-state">
+                  { this.state.error || this.state.conditionalError }
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        }
         <div className={this.state.error ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <fieldset className="govuk-fieldset" id="repair-emergency"
             name="repair-emergency">

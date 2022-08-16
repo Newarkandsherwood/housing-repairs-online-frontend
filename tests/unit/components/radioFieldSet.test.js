@@ -315,4 +315,100 @@ describe('radioFieldSet', () => {
     });
     expect(container.querySelector(`#${fieldSetName}-conditional-0-error`).textContent).toBe(invalidConditionalInputErrorMessage);
   })
+  test('Clicking \'Submit\' button without conditional value shows error summary title', () => {
+    const fieldSetName = 'fieldSetName';
+    const firstValue = 'first';
+    const firstTitle = 'First';
+    const label = 'Please enter your information';
+    const type = 'text';
+    const mockCallBack = jest.fn();
+    const errorSummaryTitle = 'There is a problem';
+    const emptyInputErrorMessage = 'Please enter something';
+
+    act(() => {
+      render(<RadioFieldSet
+        onSubmit={mockCallBack}
+        name={fieldSetName}
+        options={[{value: firstValue, title: firstTitle, conditional: {
+          label: label,
+          type: type,
+          emptyInputErrorMessage: emptyInputErrorMessage
+        }}]}
+        title={''}
+        checked={firstValue}
+      />, container)
+      let button = container.querySelector('button');
+      button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+    });
+
+    expect(container.querySelector('#error-summary-title').textContent).toBe(errorSummaryTitle);
+  })
+  test('Clicking \'Submit\' button without selection shows error summary title', () => {
+    const fieldSetName = 'fieldSetName';
+    const firstValue = 'first';
+    const firstTitle = 'First';
+    const mockCallBack = jest.fn();
+    const errorText = 'Required input value missing';
+    const errorSummaryTitle = 'There is a problem';
+
+    act(() => {
+      render(<RadioFieldSet
+        onSubmit={mockCallBack}
+        name={fieldSetName}
+        options={[{value: firstValue, title: firstTitle}]}
+        title={''}
+        errorText={errorText}
+      />, container)
+      let button = container.querySelector('button');
+      button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+    });
+    expect(container.querySelector('#error-summary-title').textContent).toBe(errorSummaryTitle);
+  });
+  test('Clicking \'Submit\' button without selection shows error summary text', () => {
+    const fieldSetName = 'fieldSetName';
+    const firstValue = 'first';
+    const firstTitle = 'First';
+    const mockCallBack = jest.fn();
+    const errorText = 'Required input value missing';
+
+    act(() => {
+      render(<RadioFieldSet
+        onSubmit={mockCallBack}
+        name={fieldSetName}
+        options={[{value: firstValue, title: firstTitle}]}
+        title={''}
+        errorText={errorText}
+      />, container)
+      let button = container.querySelector('button');
+      button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+    });
+    expect(container.querySelector('#error-summary-text').textContent).toBe(errorText);
+  });
+  test('Clicking \'Submit\' button without conditional value shows error summary text', () => {
+    const fieldSetName = 'fieldSetName';
+    const firstValue = 'first';
+    const firstTitle = 'First';
+    const label = 'Please enter your information';
+    const type = 'text';
+    const mockCallBack = jest.fn();
+    const emptyInputErrorMessage = 'Please enter something';
+
+    act(() => {
+      render(<RadioFieldSet
+        onSubmit={mockCallBack}
+        name={fieldSetName}
+        options={[{value: firstValue, title: firstTitle, conditional: {
+          label: label,
+          type: type,
+          emptyInputErrorMessage: emptyInputErrorMessage
+        }}]}
+        title={''}
+        checked={firstValue}
+      />, container)
+      let button = container.querySelector('button');
+      button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+    });
+
+    expect(container.querySelector('#error-summary-text').textContent).toBe(emptyInputErrorMessage);
+  });
 })
