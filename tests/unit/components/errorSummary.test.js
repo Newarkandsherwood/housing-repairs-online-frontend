@@ -1,7 +1,7 @@
-import {ErrorSummary} from '../../../compoments/errorSummary';
+import { ErrorSummary } from '../../../compoments/errorSummary';
 import React from 'react';
-import {act} from 'react-dom/test-utils';
-import {render, unmountComponentAtNode} from 'react-dom';
+import { act } from 'react-dom/test-utils';
+import { render, unmountComponentAtNode } from 'react-dom';
 
 let container = null;
 
@@ -11,7 +11,7 @@ beforeEach(() => {
   document.body.appendChild(container);
 
   act(() => {
-    render(<ErrorSummary/>, container)
+    render(<ErrorSummary />, container)
   });
 });
 
