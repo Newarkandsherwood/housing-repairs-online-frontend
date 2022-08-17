@@ -66,17 +66,17 @@ class TextInput extends Component {
   render(){
     return (
       <>
-        <h1 id={`${this.name}-title`}  className="govuk-heading-l">{this.title}</h1>
+        <h1 className="govuk-heading-l" data-testid={`${this.name}-title`}>{this.title}</h1>
         <div className={this.state.error.msg ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <form action="">
             <span id={`${this.name}-error`}
-              className="govuk-error-message govuk-!-margin-bottom-0">
+              className="govuk-error-message govuk-!-margin-bottom-0" data-testid={`${this.name}-error`}>
               {this.state.error.msg}
             </span>
-            <label id={`${this.name}-label`} className="govuk-label" htmlFor={this.input.id}>
+            <label className="govuk-label" htmlFor={this.input.id} data-testid={`${this.name}-label`}>
               {this.label}
             </label>
-            <div id={`${this.name}-hint-text`} className="govuk-hint">
+            <div id="event-name-hint" className="govuk-hint" data-testid={`${this.name}-hint-text`}>
               {this.hint}
             </div>
             <input className="govuk-input govuk-!-margin-bottom-6" id={this.input.id}
@@ -86,6 +86,7 @@ class TextInput extends Component {
               defaultValue={this.input.defaultValue}
               onWheel={(e) => e.target.blur()}
               onKeyPress={this.onKeyPress}
+              data-testid={this.input.id}
             />
             <Button onClick={this.formSubmit} >{this.buttonText}</Button>
           </form>

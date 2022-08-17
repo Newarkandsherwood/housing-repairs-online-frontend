@@ -29,7 +29,7 @@ describe('textInput', () => {
         title={titleText}
       />, container)
     });
-    expect(container.querySelector(`#${textInputName}-title`).textContent).toContain(titleText);
+    expect(container.querySelector(`[data-testid="${textInputName}-title"]`).textContent).toContain(titleText);
   })
 
   test('Displays label text', () => {
@@ -44,7 +44,7 @@ describe('textInput', () => {
         label={labelText}
       />, container)
     });
-    expect(container.querySelector(`#${textInputName}-label`).textContent).toContain(labelText);
+    expect(container.querySelector(`[data-testid="${textInputName}-label"]`).textContent).toContain(labelText);
   })
 
   test('Displays hint text', () => {
@@ -59,7 +59,7 @@ describe('textInput', () => {
         hint={hintText}
       />, container)
     });
-    expect(container.querySelector(`#${textInputName}-hint-text`).textContent).toContain(hintText);
+    expect(container.querySelector(`[data-testid="${textInputName}-hint-text"]`).textContent).toContain(hintText);
   })
 
   test('Text input has provided type', () => {
@@ -74,7 +74,7 @@ describe('textInput', () => {
         type={inputType}
       />, container)
     });
-    expect(container.querySelector(`#${textInputName}`).getAttribute('type')).toBe(inputType);
+    expect(container.querySelector(`[data-testid="${textInputName}"]`).getAttribute('type')).toBe(inputType);
   })
 
   test('Displays button text', () => {
@@ -104,7 +104,7 @@ describe('textInput', () => {
         value={value}
       />, container)
     });
-    expect(container.querySelector(`#${textInputName}`).value).toBe(value);
+    expect(container.querySelector(`[data-testid="${textInputName}"]`).value).toBe(value);
   })
 
   test('Clicking \'Submit\' button calls \'onSubmit\' handler', () => {
@@ -136,7 +136,7 @@ describe('textInput', () => {
       let button = container.querySelector('button');
       button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
     });
-    expect(container.querySelector(`#${textInputName}-error`).textContent).toBe('Required');
+    expect(container.querySelector(`[data-testid="${textInputName}-error"]`).textContent).toBe('Required');
   })
 
   test('Clicking \'Submit\' button with invalid value shows error', () => {
@@ -158,6 +158,6 @@ describe('textInput', () => {
       let button = container.querySelector('button');
       button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
     });
-    expect(container.querySelector(`#${textInputName}-error`).textContent).toBe(invalidInputErrorMessage);
+    expect(container.querySelector(`[data-testid="${textInputName}-error"]`).textContent).toBe(invalidInputErrorMessage);
   })
 })
