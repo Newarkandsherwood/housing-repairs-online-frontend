@@ -70,9 +70,9 @@ class RadioFieldSet extends Component {
     return (
       <div>
         {(this.state.error || this.state.conditionalError) &&
-          <ErrorSummary errorSummaryText={this.errorText} errorSummaryLocation={`#${this.name}-error`} />
+          <ErrorSummary errorSummaryText={this.state.conditionalError || this.errorText} errorSummaryLocation={this.state.conditionalError ? `#${this.name}-conditional-error` : `#${this.name}-error`} />
         }
-        <div className={this.state.error ? 'govuk-form-group--error' : 'govuk-form-group'}>
+        <div className={this.state.error && !this.state.conditionalError ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <fieldset className="govuk-fieldset" id="repair-emergency"
             name="repair-emergency">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -110,7 +110,7 @@ class RadioFieldSet extends Component {
                         <label className="govuk-hint" htmlFor={`${this.name}-${o.value}`}>
                           {o.conditional.label}
                         </label>
-                        <span id={`${this.name}-conditional-${i}-error`}
+                        <span id={`${this.name}-conditional-error`}
                           className="govuk-error-message">
                           {this.state.conditionalError}
                         </span>
