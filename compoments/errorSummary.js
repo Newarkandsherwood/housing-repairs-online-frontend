@@ -19,7 +19,7 @@ export class ErrorSummary extends Component {
         <div className="govuk-error-summary__body">
           <ul className="govuk-list govuk-error-summary__list">
             <li>
-              <a id="error-summary-text" href={`#${this.errorSummaryLocation}`} className="govuk-link--no-visited-state">
+              <a id="error-summary-text" href={this.errorSummaryLocation} className="govuk-link--no-visited-state">
                 {this.errorSummaryText}
               </a>
             </li>

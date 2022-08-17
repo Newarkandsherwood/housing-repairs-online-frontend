@@ -36,6 +36,6 @@ describe('errorSummary', () => {
   })
 
   test('Error summary description link should be rendered', () => {
-    expect(container.querySelector('#error-summary-text').getAttribute('href')).toBe(`#${linkValue}`)
+    expect(container.querySelector('#error-summary-text').getAttribute('href')).toBe(linkValue)
   })
 })
