@@ -67,8 +67,8 @@ class TextInput extends Component {
   render(){
     return (
       <>
-        <h1 id={`${this.name}-title`}  className="govuk-heading-l">{this.title}</h1>
         <div className={this.state.error.msg ? 'govuk-form-group--error' : 'govuk-form-group'}>
+          <h1 id={`${this.name}-title`}  className="govuk-heading-l">{this.title}</h1>
           <form action="">
             <span id={`${this.name}-error`}
               className="govuk-error-message govuk-!-margin-bottom-0">
