@@ -6,7 +6,7 @@ export class ErrorSummary extends Component {
   constructor(props) {
     super(props);
     this.errorSummaryText = this.props.errorSummaryText;
-    this.errorSummaryHref = this.props.errorSummaryHref;
+    this.errorSummaryLocation = this.props.errorSummaryLocation;
   }
 
   render() {
@@ -19,7 +19,7 @@ export class ErrorSummary extends Component {
         <div className="govuk-error-summary__body">
           <ul className="govuk-list govuk-error-summary__list">
             <li>
-              <a id="error-summary-text" href="`${this.errorSummaryHref}`" className="govuk-link--no-visited-state">
+              <a id="error-summary-text" href={`#${this.errorSummaryLocation}`} className="govuk-link--no-visited-state">
                 {this.errorSummaryText}
               </a>
             </li>
@@ -32,5 +32,5 @@ export class ErrorSummary extends Component {
 
 ErrorSummary.propTypes = {
   errorSummaryText: PropTypes.string.isRequired,
-  errorSummaryHref: PropTypes.array.isRequired,
+  errorSummaryLocation: PropTypes.string.isRequired,
 };

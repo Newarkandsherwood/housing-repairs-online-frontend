@@ -5,13 +5,17 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 let container = null;
 
+const errorSummaryTitle = 'There is a problem';
+const errorSummaryDescription = 'Select the problem you are reporting';
+const linkValue = 'errorLink';
+
 beforeEach(() => {
   // setup a DOM element as a render target
   container = document.createElement('div');
   document.body.appendChild(container);
 
   act(() => {
-    render(<ErrorSummary />, container)
+    render(<ErrorSummary errorSummaryText={errorSummaryDescription} errorSummaryLocation={linkValue} />, container)
   });
 });
 
@@ -21,10 +25,6 @@ afterEach(() => {
   container.remove();
   container = null;
 });
-
-const errorSummaryTitle = 'There is a problem';
-const errorSummaryDescription = 'Select the problem you are reporting';
-const linkValue = '#errorLink';
 
 describe('errorSummary', () => {
   test('Error summary title should be rendered', () => {
@@ -36,6 +36,6 @@ describe('errorSummary', () => {
   })
 
   test('Error summary description link should be rendered', () => {
-    expect(container.querySelector('#error-summary-text').getAttribute('href')).toBe(linkValue)
+    expect(container.querySelector('#error-summary-text').getAttribute('href')).toBe(`#${linkValue}`)
   })
 })
