@@ -34,7 +34,7 @@ describe('postcode', () => {
     it('an error should be shown',  () => {
       cy.get('input').type('postcode');
       cy.get('button').click()
-      cy.contains('Not a valid postcode');
+      cy.contains('Enter a valid postcode');
     });
   });
 
