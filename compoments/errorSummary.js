@@ -5,8 +5,6 @@ import React from 'react';
 export class ErrorSummary extends Component {
   constructor(props) {
     super(props);
-    this.errorSummaryText = this.props.errorSummaryText;
-    this.errorSummaryLocation = this.props.errorSummaryLocation;
   }
 
   render() {
@@ -19,8 +17,8 @@ export class ErrorSummary extends Component {
         <div className="govuk-error-summary__body">
           <ul className="govuk-list govuk-error-summary__list">
             <li>
-              <a id="error-summary-text" href={this.errorSummaryLocation} className="govuk-link--no-visited-state">
-                {this.errorSummaryText}
+              <a id="error-summary-text" href={this.props.errorSummaryLocation} className="govuk-link--no-visited-state">
+                {this.props.errorSummaryText}
               </a>
             </li>
           </ul>
