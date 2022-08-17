@@ -26,7 +26,7 @@ describe('contactPerson', () => {
     it('an error is displayed', () => {
       cy.get('input').type('12345');
       cy.get('button').click()
-      cy.contains('Not a valid uk number');
+      cy.contains('Enter a valid contact number');
     });
   });
 

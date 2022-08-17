@@ -12,7 +12,6 @@ const isPhoneNumberValid = (val, additionalValidation) => {
 }
 
 const phoneValidator = {
-  errorMessage: 'Not a valid uk number',
   isValid: (val) =>{
     return isPhoneNumberValid(val, () => true)
   }
@@ -24,7 +23,6 @@ const mobilePhoneNumberValidator = {
   }
 }
 const postCodeValidator = {
-  errorMessage: 'Not a valid postcode',
   isValid: (postcode) =>{
     const str = postcode.toUpperCase();
     const regexp = /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$|^[A-Z]{2}-?[0-9]{4}$/;
