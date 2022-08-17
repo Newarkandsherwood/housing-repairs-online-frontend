@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import Button from './button';
-import {Component} from 'react';
+import { Component } from 'react';
 
 import React from 'react';
+import { ErrorSummary } from './errorSummary';
 
 class RadioFieldSet extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class RadioFieldSet extends Component {
     this.buttonText = this.props.buttonText;
     this.orDivider = this.props.orDivider;
     this.hintText = this.props.hintText;
-    this.options = this.props.options.map(o =>{
+    this.options = this.props.options.map(o => {
       if (this.checked == o.value) {
         o.checked = true
       }
@@ -23,7 +24,7 @@ class RadioFieldSet extends Component {
     this.beforeButton = this.props.beforeButton;
     this.state = {
       error: null,
-      value: {[this.name]: this.checked}
+      value: { [this.name]: this.checked }
     };
     this.conditionalValue = this.props.conditionalValue;
     this.errorText = this.props.errorText || 'Required';
@@ -31,7 +32,7 @@ class RadioFieldSet extends Component {
 
   setValue(event) {
     this.setState({
-      value: {[this.name]: event.target.value},
+      value: { [this.name]: event.target.value },
       error: null,
       conditionalError: null
     })
@@ -44,19 +45,19 @@ class RadioFieldSet extends Component {
       if (selectedOption.conditional) {
         if (this.conditionalValue[value]) {
           if (selectedOption.conditional.validator && !selectedOption.conditional.validator.isValid(this.conditionalValue[value])) {
-            return this.setState({conditionalError: selectedOption.conditional.invalidInputErrorMessage})
+            return this.setState({ conditionalError: selectedOption.conditional.invalidInputErrorMessage })
           }
           return this.onSubmit({
             selected: value,
             input: this.conditionalValue[value]
           })
         }
-        return this.setState({conditionalError: selectedOption.conditional.emptyInputErrorMessage})
+        return this.setState({ conditionalError: selectedOption.conditional.emptyInputErrorMessage })
       }
       let display = selectedOption.title
-      this.onSubmit({val: this.state.value, display: display})
+      this.onSubmit({ val: this.state.value, display: display })
     } else {
-      this.setState({error: this.errorText})
+      this.setState({ error: this.errorText })
     }
   };
 
@@ -64,26 +65,12 @@ class RadioFieldSet extends Component {
     return this.orDivider && i == (this.options.length - 1);
   };
 
-  render(){
+  render() {
 
     return (
       <div>
-        { (this.state.error || this.state.conditionalError) &&
-        <div className="govuk-error-summary" aria-labelledby="error-summary-title"
-          role="alert" data-module="govuk-error-summary">
-          <h2 className="govuk-error-summary__title" id="error-summary-title">
-            There is a problem
-          </h2>
-          <div className="govuk-error-summary__body">
-            <ul className="govuk-list govuk-error-summary__list">
-              <li>
-                <a id="error-summary-text" href="#" className="govuk-link--no-visited-state">
-                  { this.state.error || this.state.conditionalError }
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        {(this.state.error || this.state.conditionalError) &&
+          <ErrorSummary errorSummaryText="mock error summary test" errorSummaryHref="#mockErrorSummaryHref" />
         }
         <div className={this.state.error ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <fieldset className="govuk-fieldset" id="repair-emergency"
@@ -93,16 +80,16 @@ class RadioFieldSet extends Component {
                 {this.title}
               </h1>
             </legend>
-            { this.hintText && <div id={`hint-text-${this.name}`} className='govuk-hint'>{this.hintText}</div>}
+            {this.hintText && <div id={`hint-text-${this.name}`} className='govuk-hint'>{this.hintText}</div>}
             <div className="govuk-form-group">
               <span id={`${this.name}-error`}
                 className="govuk-error-message govuk-!-margin-bottom-0">
                 {this.state.error}
               </span>
-              <div className={this.conditional ?'govuk-radios--conditional' : 'govuk-radios' }>
+              <div className={this.conditional ? 'govuk-radios--conditional' : 'govuk-radios'}>
                 {this.options.map((o, i) => (
                   <span key={i}>
-                    { this.includeOrDivider(i) ? <div id="final-divider" className="govuk-radios__divider">or</div> : <div className="govuk-!-margin-bottom-2"></div>}
+                    {this.includeOrDivider(i) ? <div id="final-divider" className="govuk-radios__divider">or</div> : <div className="govuk-!-margin-bottom-2"></div>}
                     <div className="govuk-radios__item">
                       <input className="govuk-radios__input govuk-input--width-10"
                         id={`${this.name}-${i}`} name={this.name}
@@ -131,14 +118,14 @@ class RadioFieldSet extends Component {
                           id={`${this.name}-${o.value}`} name={`${this.name}-${o.value}`}
                           type={o.conditional.type}
                           defaultValue={this.conditionalValue[o.value]}
-                          onChange={(e)=>{
+                          onChange={(e) => {
                             this.conditionalValue[o.value] = e.target.value
                           }}
                           onWheel={(e) => e.target.blur()}
                           onKeyPress={o.conditional.onKeyPress}
                         />
                       </div>
-                    </div> }
+                    </div>}
                   </span>
                 ))}
               </div>
@@ -164,9 +151,9 @@ RadioFieldSet.propTypes = {
   name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  title:  PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   checked: PropTypes.string,
-  beforeButton:  PropTypes.object,
+  beforeButton: PropTypes.object,
   hintText: PropTypes.string,
   orDivider: PropTypes.bool,
   buttonText: PropTypes.string,
