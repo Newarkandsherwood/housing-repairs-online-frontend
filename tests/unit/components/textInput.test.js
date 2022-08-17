@@ -126,17 +126,19 @@ describe('textInput', () => {
 
   test('Clicking \'Submit\' button without value shows error', () => {
     const textInputName= 'textInputName';
+    const emptyInputErrorMessage = 'Enter your information';
 
     act(() => {
       render(<TextInput
         name={textInputName}
         onSubmit={() =>{}}
         title={''}
+        emptyInputErrorMessage={emptyInputErrorMessage}
       />, container)
       let button = container.querySelector('button');
       button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
     });
-    expect(container.querySelector(`[data-testid="${textInputName}-error"]`).textContent).toBe('Required');
+    expect(container.querySelector(`[data-testid="${textInputName}-error"]`).textContent).toBe(emptyInputErrorMessage);
   })
 
   test('Clicking \'Submit\' button with invalid value shows error', () => {

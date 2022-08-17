@@ -16,6 +16,7 @@ class TextInput extends Component {
     this.buttonText = this.props.buttonText;
     this.validation = this.props.validation;
     this.type = this.props.type;
+    this.emptyInputErrorMessage = this.props.emptyInputErrorMessage;
     this.state = {
       value: this.props.value || '',
       error: {}
@@ -57,7 +58,7 @@ class TextInput extends Component {
     this.setState({
       value: this.state.value,
       error: {
-        msg: 'Required',
+        msg: this.emptyInputErrorMessage || 'Required',
         touched: true
       }
     })
@@ -109,5 +110,6 @@ TextInput.propTypes = {
   }),
   hint: PropTypes.string,
   buttonText: PropTypes.string,
+  emptyInputErrorMessage: PropTypes.string,
 };
 export default TextInput;

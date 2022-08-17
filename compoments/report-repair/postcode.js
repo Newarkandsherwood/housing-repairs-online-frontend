@@ -24,6 +24,7 @@ const Postcode = ({handleChange, values}) => {
         label="Postcode"
         title={title}
         buttonText={'Continue'}
+        emptyInputErrorMessage={'Enter the property postcode'}
       ></TextInput>
     </div>
   </div>
