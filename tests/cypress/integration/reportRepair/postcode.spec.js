@@ -26,7 +26,7 @@ describe('postcode', () => {
   context('When a user doesn\'t type anything', ()=>{
     it('an error should be shown',  () => {
       cy.get('button').click()
-      cy.contains('Required');
+      cy.contains('Enter the property postcode');
     });
   });
 

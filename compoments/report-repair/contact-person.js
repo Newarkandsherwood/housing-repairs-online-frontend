@@ -26,6 +26,7 @@ const ContactPerson = ({handleChange, values}) => {
         title={title}
         buttonText={'Continue'}
         onKeyPress={phoneOnKeyPress}
+        emptyInputErrorMessage={'Enter a contact number'}
       ></TextInput>
     </div>
   </div>
