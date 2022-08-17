@@ -6,7 +6,6 @@ import { renderToStaticMarkup } from 'react-dom/server';
 
 let container = null;
 
-
 const fieldSetName = 'fieldSetName';
 const firstValue = 'first';
 const firstTitle = 'First';
