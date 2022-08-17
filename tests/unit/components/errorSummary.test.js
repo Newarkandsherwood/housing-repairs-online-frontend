@@ -22,7 +22,7 @@ describe('errorSummary', () => {
     const errorSummaryTitle = 'There is a problem';
 
     act(() => {
-      render(<ErrorSummary/>)
+      render(<ErrorSummary/>, container)
     });
 
     expect(container.querySelector('#error-summary-title').textContent).toBe(errorSummaryTitle);
