@@ -25,7 +25,6 @@ In one terminal run the next development server:
 ```bash
 nvm use && yarn dev
 ```
-
 In another terminal run the function server:
 
 Copy the `example.env` file and set the values to point to the repairs API:
