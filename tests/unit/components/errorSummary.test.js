@@ -24,7 +24,7 @@ afterEach(() => {
 
 const errorSummaryTitle = 'There is a problem';
 const errorSummaryDescription = 'Select the problem you are reporting';
-const linkValue = "#errorLink";
+const linkValue = '#errorLink';
 
 describe('errorSummary', () => {
   test('Error summary title should be rendered', () => {
