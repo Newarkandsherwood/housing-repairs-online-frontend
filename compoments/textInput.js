@@ -20,12 +20,12 @@ class TextInput extends Component {
       value: this.props.value || '',
       error: {}
     };
-  }
 
-  input = {
-    defaultValue: this.props.value,
-    id: this.name,
-    onChange: this.setValue.bind(this)
+    this.input = {
+      defaultValue: this.props.value,
+      id: this.name,
+      onChange: this.setValue.bind(this)
+    }
   }
 
   setValue(event) {
@@ -66,17 +66,17 @@ class TextInput extends Component {
   render(){
     return (
       <>
-        <h1 className="govuk-heading-l">{this.title}</h1>
+        <h1 id={`${this.name}-title`}  className="govuk-heading-l">{this.title}</h1>
         <div className={this.state.error.msg ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <form action="">
             <span id={`${this.name}-error`}
               className="govuk-error-message govuk-!-margin-bottom-0">
               {this.state.error.msg}
             </span>
-            <label className="govuk-label" htmlFor={this.input.id}>
+            <label id={`${this.name}-label`} className="govuk-label" htmlFor={this.input.id}>
               {this.label}
             </label>
-            <div id="event-name-hint" className="govuk-hint">
+            <div id={`${this.name}-hint-text`} className="govuk-hint">
               {this.hint}
             </div>
             <input className="govuk-input govuk-!-margin-bottom-6" id={this.input.id}
@@ -97,7 +97,7 @@ class TextInput extends Component {
 
 TextInput.propTypes = {
   value: PropTypes.string,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   label: PropTypes.string,
   type: PropTypes.string,
@@ -106,5 +106,7 @@ TextInput.propTypes = {
     errorMessage: PropTypes.string,
     isValid: PropTypes.func
   }),
+  hint: PropTypes.string,
+  buttonText: PropTypes.string,
 };
 export default TextInput;
