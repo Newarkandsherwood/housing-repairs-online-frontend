@@ -23,9 +23,8 @@ Globally install azure function tools:
 In one terminal run the next development server:
 
 ```bash
-nvm use 14.0.0 && yarn dev
+nvm use && yarn dev
 ```
-If there is an error about a missing binding try running `npm rebuild node-sass` and then re-run `nvm use 14.0.0 && yarn dev`.
 
 In another terminal run the function server:
 
@@ -74,3 +73,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
   - [Cypress](https://docs.cypress.io/) is used for integration testing `yarn test:integration`
 - Local dev
   https://github.com/Azure/static-web-apps-cli
+- M1 Macs setup:
+  - run nvm use 14.0.0 && yarn dev
+  - if there is an error about a missing binding try running `npm rebuild node-sass` and then re-run `nvm use 14.0.0 && yarn dev`
