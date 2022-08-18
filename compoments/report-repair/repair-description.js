@@ -122,10 +122,10 @@ const RepairDescription = ({handleChange, values}) => {
           </div>
         </div>
       </form>
-      <h3 className="govuk-heading-m">
-        Upload a photo (optional)
-      </h3>
       <div className={error.img ? 'govuk-form-group--error' : 'govuk-form-group'}>
+        <h3 className="govuk-heading-m">
+          Upload a photo (optional)
+        </h3>
         <label className="govuk-label" htmlFor="upload-a-photo">
           Upload a file
         </label>
