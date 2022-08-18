@@ -37,7 +37,7 @@ describe('repair description', () => {
         'ochia, mundo cognita civitas, cui non certaverit alia advecticiis ' +
         'ita adfluere copiis et internis, et laodicia et apamia itidemque ' +
         'seleucia iam inde a primis auspiciis florentissimae.');
-      cy.contains('Description must be 255 characters or fewer');
+      cy.contains('Enter a description of the problem using 255 characters or less');
     });
   });
 

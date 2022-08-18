@@ -15,7 +15,7 @@ const RepairDescription = ({handleChange, values}) => {
   const title = 'Describe your problem in more detail'
   function textTooLong() {
     setError({
-      text: `Description must be ${textLimit} characters or fewer`,
+      text: `Enter a description of the problem using ${textLimit} characters or less`,
       img: error.img
     });
   }
