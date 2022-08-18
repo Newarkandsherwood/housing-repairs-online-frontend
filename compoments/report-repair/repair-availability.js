@@ -89,7 +89,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
     <header>
       <title>{title} - {serviceName}</title>
     </header>
-    <div className="govuk-grid-column-two-thirds">
+    <div className={`govuk-grid-column-two-thirds ${error ? 'govuk-form-group--error' : 'govuk-form-group'}`}>
       <h1 className="govuk-heading-l">
         {title}
       </h1>
@@ -102,7 +102,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
         suitable time slot
       </h3>
       <hr/>
-      <div className={error ? 'govuk-form-group--error' : 'govuk-form-group'}>
+      <div>
         <span id={`${fieldName}-error`}
           className="govuk-error-message">
           {error}
