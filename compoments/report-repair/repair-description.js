@@ -106,6 +106,9 @@ const RepairDescription = ({handleChange, values}) => {
           </div>
         </label>
         <div className={error.text ? 'govuk-form-group--error' : 'govuk-form-group'}>
+          <label className="govuk-label govuk-label--m" htmlFor="description">
+            Description of problem
+          </label>
           <span id={'description-error'}
             className="govuk-error-message">
             {error.text}
