@@ -78,7 +78,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
         appointmentSlotKey: value,
       });
     }
-    setError('Required')
+    setError('Select the date and time you are available for a repair appointment')
   }
 
   const onChange = (event) =>{
