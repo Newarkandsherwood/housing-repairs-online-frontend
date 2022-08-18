@@ -41,7 +41,7 @@ const RepairDescription = ({handleChange, values}) => {
         base64img: base64img
       });
     }
-    setError({text: 'Required', img: error.img})
+    setError({text: 'Enter a description of the problem', img: error.img})
   }
 
   const PhotoChange = (event) => {
