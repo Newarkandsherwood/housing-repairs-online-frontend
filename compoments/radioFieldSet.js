@@ -24,7 +24,8 @@ class RadioFieldSet extends Component {
     this.beforeButton = this.props.beforeButton;
     this.state = {
       error: null,
-      value: { [this.name]: this.checked }
+      value: { [this.name]: this.checked },
+      actionableFieldId: `${this.name}-0`
     };
     this.conditionalValue = this.props.conditionalValue;
     this.errorText = this.props.errorText || 'Required';
@@ -70,7 +71,6 @@ class RadioFieldSet extends Component {
   }
 
   render() {
-
     return (
       <div>
         {this.hasAnyError() &&
@@ -100,6 +100,7 @@ class RadioFieldSet extends Component {
                         type="radio" value={o.value}
                         defaultChecked={o.checked}
                         onChange={this.setValue.bind(this)}
+                        onClick={() => {this.setState({ actionableFieldId: `${this.name}-${o.value}` })}}
                         data-aria-controls={`conditional-${this.name}-${i}`}
                       />
                       <label className="govuk-label govuk-radios__label"
