@@ -89,23 +89,23 @@ const RepairDescription = ({handleChange, values}) => {
       <h1 className="govuk-heading-l">
         {title}
       </h1>
-      <div className={error.text ? 'govuk-form-group--error' : 'govuk-form-group'}>
-        <form action="">
-          <label className="govuk-label" htmlFor="description">
-            <div>
-              <p>Please describe:</p>
-              <ul className="govuk-list govuk-list--bullet">
-                <li>the size and location of the problem</li>
-                <li>the source of the problem</li>
-                <li>how long you have been experiencing the problem</li>
-                <li>how many items are damaged, for example 3 floor tiles</li>
-              </ul>
-              <div className="govuk-inset-text">
-                Please report <strong>only one problem</strong> at a time. You will have
-                a chance to report another repair after this one.
-              </div>
+      <form action="">
+        <label className="govuk-label" htmlFor="description">
+          <div>
+            <p>Please describe:</p>
+            <ul className="govuk-list govuk-list--bullet">
+              <li>the size and location of the problem</li>
+              <li>the source of the problem</li>
+              <li>how long you have been experiencing the problem</li>
+              <li>how many items are damaged, for example 3 floor tiles</li>
+            </ul>
+            <div className="govuk-inset-text">
+              Please report <strong>only one problem</strong> at a time. You will have
+              a chance to report another repair after this one.
             </div>
-          </label>
+          </div>
+        </label>
+        <div className={error.text ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <span id={'description-error'}
             className="govuk-error-message">
             {error.text}
@@ -117,8 +117,8 @@ const RepairDescription = ({handleChange, values}) => {
             className={`${textLimit - textAreaCount < 0 ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message govuk-!-margin-bottom-6`}
             aria-live="polite">{generateCharacterCountText()}
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
       <h3 className="govuk-heading-m">
         Upload a photo (optional)
       </h3>
