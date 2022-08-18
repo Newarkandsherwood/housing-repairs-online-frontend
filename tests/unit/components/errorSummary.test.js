@@ -1,4 +1,4 @@
-import { ErrorSummary } from '../../../compoments/errorSummary';
+import ErrorSummary from '../../../compoments/errorSummary';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';

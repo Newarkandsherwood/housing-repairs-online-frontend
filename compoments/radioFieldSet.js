@@ -3,7 +3,7 @@ import Button from './button';
 import { Component } from 'react';
 
 import React from 'react';
-import { ErrorSummary } from './errorSummary';
+import ErrorSummary from './errorSummary';
 
 class RadioFieldSet extends Component {
   constructor(props) {
