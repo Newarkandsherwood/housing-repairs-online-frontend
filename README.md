@@ -11,7 +11,7 @@ Install all dependencies:
 yarn install
 ```
 
-Copy the `example.sentryclirc` file and set the token to from your sentry account:
+Copy the `example.sentryclirc` file and set the token in the `.sentryclirc` file to the value in your Sentry account API settings ([sentry.io](https://sentry.io/settings/account/api/auth-tokens) - you will need to request access first):
 
 ```bash
 cp example.sentryclirc .sentryclirc
