@@ -40,7 +40,7 @@ describe('address', () => {
     context('When a user doesn\'t select anything', ()=>{
       it('an error should be shown',  () => {
         cy.get('button').click()
-        cy.contains('Required');
+        cy.contains('Select the property address');
       });
     });
 

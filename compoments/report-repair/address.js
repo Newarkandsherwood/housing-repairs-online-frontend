@@ -39,7 +39,7 @@ const Address = ({handleChange, values}) => {
 
     if (state.value === 'null') {
       return setState({error: {
-        msg: 'Required',
+        msg: 'Select the property address',
         touched: true
       }})
     }
