@@ -73,6 +73,14 @@ const RepairDescription = ({handleChange, values}) => {
       )
   }
 
+  function generateCharacterCountText() {
+    const characterCountDifference = textLimit - textAreaCount;
+    const absoluteCharacterCountDifference = `${Math.abs(characterCountDifference)}`;
+    const suffix = `${characterCountDifference < 0 ? 'too many' : 'remaining'}`;
+    const characterWord = `character${absoluteCharacterCountDifference == 1 ? '' : 's'}`;
+    return `You have ${absoluteCharacterCountDifference} ${characterWord} ${suffix}`
+  }
+
   return <div className="govuk-grid-row" data-cy="repair-description">
     <header>
       <title>{title} - {serviceName}</title>
@@ -102,12 +110,12 @@ const RepairDescription = ({handleChange, values}) => {
             className="govuk-error-message">
             {error.text}
           </span>
-          <textarea className="govuk-textarea govuk-!-margin-bottom-0" id="description"
+          <textarea className={`govuk-textarea ${error.text && 'govuk-textarea--error'} govuk-!-margin-bottom-0`} id="description"
             name="description" type="text" onChange={TextChange} defaultValue={text}
             rows="5"></textarea>
           <div id="with-hint-info"
-            className="govuk-hint govuk-character-count__message  govuk-!-margin-bottom-6"
-            aria-live="polite">You have {textLimit - textAreaCount} characters remaining
+            className={`${textLimit - textAreaCount < 0 ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message govuk-!-margin-bottom-6`}
+            aria-live="polite">{generateCharacterCountText()}
           </div>
         </form>
       </div>
