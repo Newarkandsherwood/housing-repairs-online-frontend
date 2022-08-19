@@ -6,7 +6,7 @@ const ErrorSummary = ({ errorSummaryText, errorSummaryLocation }) => {
 
   useEffect(() => {
     focusReference.current.focus();
-  }, []);
+  });
 
   return (
     <div className="govuk-error-summary" aria-labelledby="error-summary-title"
