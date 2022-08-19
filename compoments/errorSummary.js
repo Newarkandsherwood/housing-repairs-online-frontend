@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React, {useRef, useEffect} from 'react';
+import { serviceName } from '../helpers/constants';
 
-const ErrorSummary = ({ errorSummaryText, errorSummaryLocation }) => {
+const ErrorSummary = ({ errorSummaryText, errorSummaryLocation, pageTitle }) => {
   const focusReference = useRef(null);
 
   useEffect(() => {
     focusReference.current.focus();
+    document.title = `Error: ${pageTitle} - ${serviceName}`;
   });
 
   return (
@@ -30,6 +32,7 @@ const ErrorSummary = ({ errorSummaryText, errorSummaryLocation }) => {
 ErrorSummary.propTypes = {
   errorSummaryText: PropTypes.string.isRequired,
   errorSummaryLocation: PropTypes.string.isRequired,
+  pageTitle: PropTypes.string.isRequired,
 };
 
 export default ErrorSummary;

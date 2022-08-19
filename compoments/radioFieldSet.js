@@ -70,7 +70,7 @@ class RadioFieldSet extends Component {
     return (
       <div>
         {(!!this.state.error || !!this.state.conditionalError) &&
-          <ErrorSummary errorSummaryText={this.state.conditionalError || this.errorText} errorSummaryLocation={`#${this.state.actionableFieldId}`} />
+          <ErrorSummary errorSummaryText={this.state.conditionalError || this.errorText} errorSummaryLocation={`#${this.state.actionableFieldId}`} pageTitle={this.title} />
         }
         <div className={this.state.error && !this.state.conditionalError ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <fieldset className="govuk-fieldset" id="repair-emergency"

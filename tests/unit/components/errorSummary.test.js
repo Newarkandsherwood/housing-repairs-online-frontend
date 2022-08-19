@@ -8,6 +8,7 @@ let container = null;
 const errorSummaryTitle = 'There is a problem';
 const errorSummaryDescription = 'Select the problem you are reporting';
 const linkValue = 'errorLink';
+const pageTitle = 'This is a title';
 
 beforeEach(() => {
   // setup a DOM element as a render target
@@ -15,7 +16,7 @@ beforeEach(() => {
   document.body.appendChild(container);
 
   act(() => {
-    render(<ErrorSummary errorSummaryText={errorSummaryDescription} errorSummaryLocation={linkValue} />, container)
+    render(<ErrorSummary errorSummaryText={errorSummaryDescription} errorSummaryLocation={linkValue} pageTitle={pageTitle} />, container)
   });
 });
 
@@ -42,5 +43,9 @@ describe('errorSummary', () => {
   test('Error summary is focused on render', () => {
     const errorSummary = container.querySelector('.govuk-error-summary')
     expect(document.activeElement).toEqual(errorSummary);
+  })
+
+  test('Displays correct page title', () => {
+    expect(document.title).toEqual('Error: This is a title - Housing Repairs');
   })
 })
