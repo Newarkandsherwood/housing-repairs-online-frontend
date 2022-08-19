@@ -66,14 +66,10 @@ class RadioFieldSet extends Component {
     return this.orDivider && i == (this.options.length - 1);
   };
 
-  hasAnyError(){
-    return !!this.state.error || !!this.state.conditionalError;
-  }
-
   render() {
     return (
       <div>
-        {this.hasAnyError() &&
+        {(!!this.state.error || !!this.state.conditionalError) &&
           <ErrorSummary errorSummaryText={this.state.conditionalError || this.errorText} errorSummaryLocation={`#${this.state.actionableFieldId}`} />
         }
         <div className={this.state.error && !this.state.conditionalError ? 'govuk-form-group--error' : 'govuk-form-group'}>
