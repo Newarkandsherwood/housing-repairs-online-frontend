@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 
 const ErrorSummary = ({ errorSummaryText, errorSummaryLocation }) => {
+  const inputReference = useRef(null);
+
+  useEffect(() => {
+    inputReference.current.focus();
+  }, []);
+
   return (
     <div className="govuk-error-summary" aria-labelledby="error-summary-title"
-      role="alert" data-module="govuk-error-summary">
+      role="alert" data-module="govuk-error-summary" tabIndex="0" ref={inputReference}>
       <h2 className="govuk-error-summary__title" id="error-summary-title">
         There is a problem
       </h2>
