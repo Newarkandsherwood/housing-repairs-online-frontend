@@ -10,7 +10,7 @@ const ErrorSummary = ({ errorSummaryText, errorSummaryLocation }) => {
 
   return (
     <div className="govuk-error-summary" aria-labelledby="error-summary-title"
-      role="alert" data-module="govuk-error-summary" tabIndex="0" ref={focusReference}>
+      role="alert" data-module="govuk-error-summary" tabIndex="-1" ref={focusReference}>
       <h2 className="govuk-error-summary__title" id="error-summary-title">
         There is a problem
       </h2>
