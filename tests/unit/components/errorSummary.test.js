@@ -36,6 +36,11 @@ describe('errorSummary', () => {
   })
 
   test('Error summary description link should be rendered', () => {
-    expect(container.querySelector('#error-summary-text').getAttribute('href')).toBe(linkValue)
+    expect(container.querySelector('#error-summary-text').getAttribute('href')).toBe(linkValue);
+  })
+
+  test('Error summary is focused on render', () => {
+    const errorSummary = container.querySelector('.govuk-error-summary')
+    expect(document.activeElement).toEqual(errorSummary);
   })
 })
