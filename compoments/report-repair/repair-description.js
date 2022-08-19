@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import Button from '../button';
 import imageToBase64 from 'image-to-base64/browser';
 import {serviceName} from '../../helpers/constants';
+import ErrorSummary from '../errorSummary';
 
 const RepairDescription = ({handleChange, values}) => {
   const [error, setError] = useState({});
@@ -86,6 +87,9 @@ const RepairDescription = ({handleChange, values}) => {
       <title>{title} - {serviceName}</title>
     </header>
     <div className="govuk-grid-column-two-thirds">
+      {
+        (error.text || error.img) && <ErrorSummary errorSummaryText={error.text || error.img} errorSummaryLocation={error.text ? '#description-error' : '#upload-a-photo-error' } />
+      }
       <h1 className="govuk-heading-l">
         {title}
       </h1>
