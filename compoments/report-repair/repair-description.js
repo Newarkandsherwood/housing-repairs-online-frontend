@@ -83,13 +83,20 @@ const RepairDescription = ({handleChange, values}) => {
     return `You have ${absoluteCharacterCountDifference} ${characterWord} ${suffix}`
   }
 
+  const getErrorSummaryTextAndLocation = () => {
+    const errorSummaryTextAndLocation = [];
+    error.text && errorSummaryTextAndLocation.push({text: error.text, location: '#description-error'});
+    error.img && errorSummaryTextAndLocation.push({text: error.img, location: '#upload-a-photo-error'});
+    return errorSummaryTextAndLocation;
+  }
+
   return <div className="govuk-grid-row" data-cy="repair-description">
     <header>
       <title>{pageTitle}</title>
     </header>
     <div className="govuk-grid-column-two-thirds">
       {
-        (error.text || error.img) && <ErrorSummary errorSummaryText={error.text || error.img} errorSummaryLocation={error.text ? '#description-error' : '#upload-a-photo-error' } pageTitle={pageTitle} />
+        (error.text || error.img) && <ErrorSummary errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
       }
       <h1 className="govuk-heading-l">
         {title}
