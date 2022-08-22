@@ -20,6 +20,7 @@ const RepairDescription = ({handleChange, values}) => {
       img: error.img
     });
   }
+  const pageTitle = `${title} - ${serviceName}`;
 
   const TextChange = (e) => {
     setText(e.target.value)
@@ -84,11 +85,11 @@ const RepairDescription = ({handleChange, values}) => {
 
   return <div className="govuk-grid-row" data-cy="repair-description">
     <header>
-      <title>{title} - {serviceName}</title>
+      <title>{pageTitle}</title>
     </header>
     <div className="govuk-grid-column-two-thirds">
       {
-        (error.text || error.img) && <ErrorSummary errorSummaryText={error.text || error.img} errorSummaryLocation={error.text ? '#description-error' : '#upload-a-photo-error' } />
+        (error.text || error.img) && <ErrorSummary errorSummaryText={error.text || error.img} errorSummaryLocation={error.text ? '#description-error' : '#upload-a-photo-error' } pageTitle={pageTitle} />
       }
       <h1 className="govuk-heading-l">
         {title}
