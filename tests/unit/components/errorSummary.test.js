@@ -8,7 +8,7 @@ let container = null;
 const errorSummaryTitle = 'There is a problem';
 const errorSummaryDescription = 'Select the problem you are reporting';
 const linkValue = 'errorLink';
-const pageTitle = 'This is a title';
+const pageTitle = 'This is a title - Housing Repairs';
 
 beforeEach(() => {
   // setup a DOM element as a render target

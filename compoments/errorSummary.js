@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React, {useRef, useEffect} from 'react';
-import { serviceName } from '../helpers/constants';
 
 const ErrorSummary = ({ errorSummaryText, errorSummaryLocation, pageTitle }) => {
   const focusReference = useRef(null);
 
   useEffect(() => {
     focusReference.current.focus();
-    document.title = `Error: ${pageTitle} - ${serviceName}`;
+    document.title = `Error: ${pageTitle}`;
   });
 
   return (

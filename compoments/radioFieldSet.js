@@ -4,6 +4,7 @@ import { Component } from 'react';
 
 import React from 'react';
 import ErrorSummary from './errorSummary';
+import { serviceName } from '../helpers/constants';
 
 class RadioFieldSet extends Component {
   constructor(props) {
@@ -70,7 +71,7 @@ class RadioFieldSet extends Component {
     return (
       <div>
         {(!!this.state.error || !!this.state.conditionalError) &&
-          <ErrorSummary errorSummaryText={this.state.conditionalError || this.errorText} errorSummaryLocation={`#${this.state.actionableFieldId}`} pageTitle={this.title} />
+          <ErrorSummary errorSummaryText={this.state.conditionalError || this.errorText} errorSummaryLocation={`#${this.state.actionableFieldId}`} pageTitle={`${this.title} - ${serviceName}`} />
         }
         <div className={this.state.error && !this.state.conditionalError ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <fieldset className="govuk-fieldset" id="repair-emergency"
