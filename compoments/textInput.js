@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import Button from './button';
 import React from 'react';
 import {Component} from 'react';
+import ErrorSummary from './errorSummary';
+import { serviceName } from '../helpers/constants';
 
 class TextInput extends Component {
   constructor(props) {
@@ -67,6 +69,7 @@ class TextInput extends Component {
   render(){
     return (
       <>
+        {this.state.error.msg && <ErrorSummary errorSummaryTextAndLocation={[{text: this.state.error.msg, location: `#${this.input.id}`}]} pageTitle={`${this.title} - ${serviceName}`} />}
         <div className={this.state.error.msg ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <h1 id={`${this.name}-title`}  className="govuk-heading-l" data-testid={`${this.name}-title`}>{this.title}</h1>
           <form action="">
