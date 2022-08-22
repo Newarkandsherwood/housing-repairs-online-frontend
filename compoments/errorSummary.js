@@ -9,7 +9,6 @@ const ErrorSummary = ({ errorSummaryTextAndLocation, pageTitle }) => {
     document.title = `Error: ${pageTitle}`;
   });
 
-  console.log(errorSummaryTextAndLocation)
   return (
     <div className="govuk-error-summary" aria-labelledby="error-summary-title"
       role="alert" data-module="govuk-error-summary" tabIndex="-1" ref={focusReference}>
