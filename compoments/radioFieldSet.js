@@ -34,9 +34,7 @@ class RadioFieldSet extends Component {
 
   setValue(event) {
     this.setState({
-      value: { [this.name]: event.target.value },
-      error: null,
-      conditionalError: null
+      value: { [this.name]: event.target.value }
     })
   };
 
