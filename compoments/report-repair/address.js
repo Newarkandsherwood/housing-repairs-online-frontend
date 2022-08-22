@@ -8,13 +8,15 @@ import {fetcher} from '../../helpers/fetcher';
 import Loader from '../loader';
 import Error from '../error';
 import {serviceName} from '../../helpers/constants';
+import ErrorSummary from '../errorSummary';
 
 const Address = ({handleChange, values}) => {
   const [state, setState] = useState({error: {}, value: 'null'});
 
   const { data, error } = useSWR(`/api/address?postcode=${values.postcode}`, fetcher)
 
-  const title = 'Select an address'
+  const title = 'Select an address';
+  const pageTitle = `${title} - ${serviceName}`;
 
   if (error) return <Error
     name="summary"
@@ -54,8 +56,9 @@ const Address = ({handleChange, values}) => {
     <header>
       <title>{title} - {serviceName}</title>
     </header>
+    {state.error.msg && <ErrorSummary errorSummaryTextAndLocation={[{text:state.error.msg, location: '#address'}]} pageTitle={pageTitle} />}
     <div className="govuk-grid-column-two-thirds">
-      <h1 className="govuk-heading-l">Select an address</h1>
+      <h1 className="govuk-heading-l">{pageTitle}</h1>
       <form action="">
         <div className={state.error.msg ? 'govuk-form-group govuk-form-group--error' : 'govuk-form-group'}>
           <span id={'address-error'}
