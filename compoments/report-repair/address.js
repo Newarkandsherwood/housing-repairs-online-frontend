@@ -33,7 +33,7 @@ const Address = ({handleChange, values}) => {
   const found_addresses = `${addresses?.length} ${addresses?.length === 1 ? 'address': 'addresses'} found`
 
   const onChange = e => {
-    setState({error: {}, value: JSON.parse(e.target.value)})
+    setState({error: state.error, value: JSON.parse(e.target.value)})
   }
 
   const Continue = e => {
