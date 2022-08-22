@@ -6,8 +6,12 @@ import { render, unmountComponentAtNode } from 'react-dom';
 let container = null;
 
 const errorSummaryTitle = 'There is a problem';
-const errorSummaryDescription = 'Select the problem you are reporting';
 const linkValue = 'errorLink';
+const errorSummaryDescription = 'Select the problem you are reporting';
+const errorSummaryTextAndLocation= [{
+  text: errorSummaryDescription,
+  location: linkValue
+}]
 const pageTitle = 'This is a title - Housing Repairs';
 
 beforeEach(() => {
@@ -16,7 +20,7 @@ beforeEach(() => {
   document.body.appendChild(container);
 
   act(() => {
-    render(<ErrorSummary errorSummaryText={errorSummaryDescription} errorSummaryLocation={linkValue} pageTitle={pageTitle} />, container)
+    render(<ErrorSummary errorSummaryTextAndLocation={errorSummaryTextAndLocation} pageTitle={pageTitle} />, container)
   });
 });
 
@@ -33,11 +37,11 @@ describe('errorSummary', () => {
   })
 
   test('Error summary description should be rendered', () => {
-    expect(container.querySelector('#error-summary-text').textContent).toBe(errorSummaryDescription);
+    expect(container.querySelector('#error-summary-text-0').textContent).toBe(errorSummaryDescription);
   })
 
   test('Error summary description link should be rendered', () => {
-    expect(container.querySelector('#error-summary-text').getAttribute('href')).toBe(linkValue);
+    expect(container.querySelector('#error-summary-text-0').getAttribute('href')).toBe(linkValue);
   })
 
   test('Error summary is focused on render', () => {

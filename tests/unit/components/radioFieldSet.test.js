@@ -331,7 +331,7 @@ describe('radioFieldSet', () => {
       let button = container.querySelector('button');
       button.dispatchEvent(new MouseEvent('click', { bubbles: true }))
     });
-    expect(container.querySelector('#error-summary-text').textContent).toBe(errorText);
+    expect(container.querySelector('#error-summary-text-0').textContent).toBe(errorText);
   });
   test('Clicking \'Submit\' button without conditional value shows error summary text', () => {
     const label = 'Please enter your information';
@@ -353,6 +353,6 @@ describe('radioFieldSet', () => {
       let button = container.querySelector('button');
       button.dispatchEvent(new MouseEvent('click', { bubbles: true }))
     });
-    expect(container.querySelector('#error-summary-text').textContent).toBe(emptyInputErrorMessage);
+    expect(container.querySelector('#error-summary-text-0').textContent).toBe(emptyInputErrorMessage);
   });
 })

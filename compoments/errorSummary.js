@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useRef, useEffect} from 'react';
 
-const ErrorSummary = ({ errorSummaryText, errorSummaryLocation, pageTitle }) => {
+const ErrorSummary = ({ errorSummaryTextAndLocation, pageTitle }) => {
   const focusReference = useRef(null);
 
   useEffect(() => {
@@ -9,6 +9,7 @@ const ErrorSummary = ({ errorSummaryText, errorSummaryLocation, pageTitle }) => 
     document.title = `Error: ${pageTitle}`;
   });
 
+  console.log(errorSummaryTextAndLocation)
   return (
     <div className="govuk-error-summary" aria-labelledby="error-summary-title"
       role="alert" data-module="govuk-error-summary" tabIndex="-1" ref={focusReference}>
@@ -17,11 +18,14 @@ const ErrorSummary = ({ errorSummaryText, errorSummaryLocation, pageTitle }) => 
       </h2>
       <div className="govuk-error-summary__body">
         <ul className="govuk-list govuk-error-summary__list">
-          <li>
-            <a id="error-summary-text" href={errorSummaryLocation} className="govuk-link--no-visited-state">
-              {errorSummaryText}
-            </a>
-          </li>
+          {errorSummaryTextAndLocation.map((error, index) => (
+            <li key={`error-summary-${index}`}>
+              <a id={`error-summary-text-${index}`} href={error.location} className="govuk-link--no-visited-state">
+                {error.text}
+              </a>
+            </li>
+          ))
+          }
         </ul>
       </div>
     </div>
@@ -29,8 +33,10 @@ const ErrorSummary = ({ errorSummaryText, errorSummaryLocation, pageTitle }) => 
 }
 
 ErrorSummary.propTypes = {
-  errorSummaryText: PropTypes.string.isRequired,
-  errorSummaryLocation: PropTypes.string.isRequired,
+  errorSummaryTextAndLocation: PropTypes.arrayOf(PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+  })).isRequired,
   pageTitle: PropTypes.string.isRequired,
 };
 
