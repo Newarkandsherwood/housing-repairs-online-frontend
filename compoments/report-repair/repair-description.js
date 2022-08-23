@@ -28,7 +28,8 @@ const RepairDescription = ({handleChange, values}) => {
     setTextAreaCount(e.target.value.length);
   }
 
-  const saveImage = (image) => {
+  const saveFileAsImage = (file) => {
+    const image = URL.createObjectURL(file);
     imageToBase64(image)
       .then(
         (response) => {
@@ -47,8 +48,8 @@ const RepairDescription = ({handleChange, values}) => {
 
   const PhotoChange = (event) => {
     const uploadedFile = event.target.files[0]
-    console.log(uploadedFile)
     setFile(uploadedFile)
+    saveFileAsImage(uploadedFile)
   }
 
   const Continue = () => {
@@ -74,8 +75,7 @@ const RepairDescription = ({handleChange, values}) => {
           text: error.text
         })
       }
-      const image = URL.createObjectURL(file);
-      saveImage(image);
+      saveFileAsImage(file);
     }
     setError({text: 'Enter a description of the problem', img: error.img})
   }
