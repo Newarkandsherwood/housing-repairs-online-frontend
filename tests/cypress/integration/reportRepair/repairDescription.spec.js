@@ -1,4 +1,5 @@
 describe('repair description', () => {
+  const repairDescriptionTextInputId = 'repair-description-text-input';
   beforeEach(() => {
     cy.visit('http://localhost:3000/report-repair/repair-description');
   });
@@ -75,7 +76,7 @@ describe('repair description', () => {
 
   context('When a types an acceptable description that\'s too long', ()=>{
     it('Remaining characters are counted correctly',  () => {
-      cy.get('#description').type('Eius postea venit saepius arcessitus. dein ' +
+      cy.get(`#${repairDescriptionTextInputId}`).type('Eius postea venit saepius arcessitus. dein ' +
         'syria per speciosam interpatet diffusa planitiem. hanc nobilitat ' +
         'seleucia iam inde a primis auspiciis florentissimae.');
       cy.contains('You have 95 characters remaining');
@@ -85,7 +86,7 @@ describe('repair description', () => {
   describe('When a user types a description', () => {
     context('That\'s one less than the allowed limit', () => {
       it('Remaining characters are displayed correctly', () => {
-        cy.get('#description').type('Lorem ipsum dolor sit amet, ' +
+        cy.get(`#${repairDescriptionTextInputId}`).type('Lorem ipsum dolor sit amet, ' +
           'consectetur adipiscing elit. Nulla ut magna fringilla ipsum ' +
           'tincidunt sollicitudin nec in nisi. Nam faucibus, justo sed ' +
           'faucibus cursus, ligula massa volutpat augue, id aliquet turpis ' +
@@ -95,7 +96,7 @@ describe('repair description', () => {
     });
     context('That\'s exactly the allowed limit', () => {
       it('Remaining characters are displayed correctly', () => {
-        cy.get('#description').type('Lorem ipsum dolor sit amet, ' +
+        cy.get(`#${repairDescriptionTextInputId}`).type('Lorem ipsum dolor sit amet, ' +
           'consectetur adipiscing elit. Curabitur suscipit justo id neque ' +
           'sodales, vel sagittis sem ornare. Vivamus scelerisque vulputate ' +
           'enim, aliquam placerat lectus tristique nec. Quisque posuere ' +
@@ -105,7 +106,7 @@ describe('repair description', () => {
     });
     context('That\'s one more than the allowed limit', () => {
       it('Remaining characters are displayed correctly', () => {
-        cy.get('#description').type('Lorem ipsum dolor sit amet, ' +
+        cy.get(`#${repairDescriptionTextInputId}`).type('Lorem ipsum dolor sit amet, ' +
           'consectetur adipiscing elit. Nullam aliquam sollicitudin massa ' +
           'vitae placerat. Phasellus et tellus eget est scelerisque ' +
           'efficitur id non mi. Fusce finibus eros in ultrices ' +
@@ -115,7 +116,7 @@ describe('repair description', () => {
     });
     context('That\'s 2 or more than the allowed limit', () => {
       it('Remaining characters are displayed correctly', () => {
-        cy.get('#description').type('Lorem ipsum dolor sit amet, ' +
+        cy.get(`#${repairDescriptionTextInputId}`).type('Lorem ipsum dolor sit amet, ' +
           'consectetur adipiscing elit. Quisque id tempus urna, ' +
           'id placerat elit. Aenean rutrum rutrum felis, dictum efficitur ' +
           'ante blandit eu. Suspendisse suscipit varius metus, at ' +
