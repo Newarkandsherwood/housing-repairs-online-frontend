@@ -47,8 +47,8 @@ const RepairDescription = ({handleChange, values}) => {
   }
 
   const Continue = () => {
-    let textError = error.text;
-    let imageError = error.img;
+    let textError = undefined;
+    let imageError = undefined;
     if (selectedFile) {
       if (selectedFile.type !== 'image/jpeg') {
         imageError = 'The selected file must be a JPG';
