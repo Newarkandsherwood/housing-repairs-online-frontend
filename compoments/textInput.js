@@ -34,7 +34,6 @@ class TextInput extends Component {
   setValue(event) {
     this.setState({
       value: event.target.value,
-      error: {}
     })
   };
 
