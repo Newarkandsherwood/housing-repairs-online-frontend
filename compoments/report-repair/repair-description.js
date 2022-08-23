@@ -78,6 +78,7 @@ const RepairDescription = ({handleChange, values}) => {
         base64img: base64img
       });
     } else {
+      setSelectedImage(null);
       return setError({text: textError, img: imageError})
     }
   }
