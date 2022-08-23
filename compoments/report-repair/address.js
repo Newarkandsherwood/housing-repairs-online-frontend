@@ -17,6 +17,7 @@ const Address = ({handleChange, values}) => {
 
   const title = 'Select an address';
   const pageTitle = `${title} - ${serviceName}`;
+  const addressDropdownInputName = 'address';
 
   if (error) return <Error
     name="summary"
@@ -57,8 +58,8 @@ const Address = ({handleChange, values}) => {
     <header>
       <title>{title} - {serviceName}</title>
     </header>
-    {state.error.msg && <ErrorSummary active={state.activeError} errorSummaryTextAndLocation={[{text:state.error.msg, location: '#address'}]} pageTitle={pageTitle} />}
     <div className="govuk-grid-column-two-thirds">
+      {state.error.msg && <ErrorSummary active={state.activeError} errorSummaryTextAndLocation={[{text:state.error.msg, location: '#address'}]} pageTitle={pageTitle} />}
       <h1 className="govuk-heading-l">{pageTitle}</h1>
       <form action="">
         <div className={state.error.msg ? 'govuk-form-group govuk-form-group--error' : 'govuk-form-group'}>
