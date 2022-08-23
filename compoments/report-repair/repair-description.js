@@ -7,6 +7,7 @@ import ErrorSummary from '../errorSummary';
 
 const RepairDescription = ({handleChange, values}) => {
   const [error, setError] = useState({});
+  const [file, setFile] = useState();
   const [selectedImage, setSelectedImage] = useState(values.description?.photo);
   const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
   const [base64img, setBase64img] = useState(values.description?.base64img);
@@ -27,34 +28,7 @@ const RepairDescription = ({handleChange, values}) => {
     setTextAreaCount(e.target.value.length);
   }
 
-  const Continue = () => {
-    if (textAreaCount > textLimit) {
-      return textTooLong()
-    }
-    if (text) {
-      return handleChange('description', {
-        photo: selectedImage,
-        text: text,
-        fileExtension: fileExtension,
-        base64img: base64img
-      });
-    }
-    setError({text: 'Enter a description of the problem', img: error.img})
-  }
-
-  const PhotoChange = (event) => {
-    const file = event.target.files[0]
-    if (file.type !== 'image/jpeg') {
-      return setError({img: 'The selected file must be a JPG', text: error.text})
-    }
-    let size = (file.size / 1024 / 1024).toFixed(2);
-    if (size > 10) {
-      return setError({
-        img: `The selected file must be smaller than 10MB. Your file size is: ${size}MB`,
-        text: error.text
-      })
-    }
-    const image = URL.createObjectURL(file)
+  const saveImage = (image) => {
     imageToBase64(image)
       .then(
         (response) => {
@@ -69,6 +43,41 @@ const RepairDescription = ({handleChange, values}) => {
           console.log(error);
         }
       )
+  }
+
+  const PhotoChange = (event) => {
+    const uploadedFile = event.target.files[0]
+    console.log(uploadedFile)
+    setFile(uploadedFile)
+  }
+
+  const Continue = () => {
+    if (textAreaCount > textLimit) {
+      return textTooLong()
+    }
+    if (text) {
+      return handleChange('description', {
+        photo: selectedImage,
+        text: text,
+        fileExtension: fileExtension,
+        base64img: base64img
+      });
+    }
+    if (file) {
+      if (file.type !== 'image/jpeg') {
+        return setError({img: 'The selected file must be a JPG', text: error.text})
+      }
+      let size = (file.size / 1024 / 1024).toFixed(2);
+      if (size > 10) {
+        return setError({
+          img: `The selected file must be smaller than 10MB. Your file size is: ${size}MB`,
+          text: error.text
+        })
+      }
+      const image = URL.createObjectURL(file);
+      saveImage(image);
+    }
+    setError({text: 'Enter a description of the problem', img: error.img})
   }
 
   function generateCharacterCountText() {
