@@ -17,6 +17,8 @@ const RepairDescription = ({handleChange, values}) => {
   const textLimit = 255
   const title = 'Describe your problem in more detail'
   const pageTitle = `${title} - ${serviceName}`;
+  const repairDescriptionTextInputId = 'repair-description-text-input';
+  const repairDescriptionUploadPhotoInputId = 'repair-description-upload-a-photo-input';
 
   const TextChange = (e) => {
     setText(e.target.value)
@@ -90,8 +92,8 @@ const RepairDescription = ({handleChange, values}) => {
 
   const getErrorSummaryTextAndLocation = () => {
     const errorSummaryTextAndLocation = [];
-    error.text && errorSummaryTextAndLocation.push({text: error.text, location: '#description-error'});
-    error.img && errorSummaryTextAndLocation.push({text: error.img, location: '#upload-a-photo-error'});
+    error.text && errorSummaryTextAndLocation.push({text: error.text, location: `#${repairDescriptionTextInputId}`});
+    error.img && errorSummaryTextAndLocation.push({text: error.img, location: `#${repairDescriptionUploadPhotoInputId}`});
     return errorSummaryTextAndLocation;
   }
 
@@ -132,7 +134,7 @@ const RepairDescription = ({handleChange, values}) => {
             className="govuk-error-message">
             {error.text}
           </span>
-          <textarea className={`govuk-textarea ${error.text && 'govuk-textarea--error'} govuk-!-margin-bottom-0`} id="description"
+          <textarea className={`govuk-textarea ${error.text && 'govuk-textarea--error'} govuk-!-margin-bottom-0`} id={repairDescriptionTextInputId}
             name="description" type="text" onChange={TextChange} defaultValue={text}
             rows="5"></textarea>
           <div id="with-hint-info"
@@ -170,7 +172,7 @@ const RepairDescription = ({handleChange, values}) => {
           </table>
         ) : (
           <input className="govuk-file-upload govuk-file-upload--error"
-            id="upload-a-photo" name="upload-a-photo" type="file"
+            id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
             aria-describedby="upload-a-photo-error" onChange={PhotoChange}/>
         )}
       </div>
