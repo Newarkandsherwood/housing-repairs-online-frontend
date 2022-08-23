@@ -9,6 +9,7 @@ import Loader from '../loader';
 import UnableToBook from './unable-to-book';
 import Error from '../error';
 import {serviceName} from '../../helpers/constants';
+import ErrorSummary from '../errorSummary';
 
 const RepairAvailability = ({handleChange, values, fromDate}) => {
   const [error, setError] = useState();
@@ -20,6 +21,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
     locationId: values.address?.locationId,
   }
   const title = 'When are you available?'
+  const pageTitle = `${title} - ${serviceName}`
   if (values.repairProblemBestDescription) {
     params['repairIssue'] = values.repairProblemBestDescription.value
   }
@@ -87,9 +89,10 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
 
   return <div className="govuk-grid-row" data-cy="repair-availability">
     <header>
-      <title>{title} - {serviceName}</title>
+      <title>{pageTitle}</title>
     </header>
     <div className={`govuk-grid-column-two-thirds ${error ? 'govuk-form-group--error' : 'govuk-form-group'}`}>
+      {error && <ErrorSummary errorSummaryTextAndLocation={[{text: error, location: `#${fieldName}-0-0`}]} pageTitle={pageTitle} />}
       <h1 className="govuk-heading-l">
         {title}
       </h1>
