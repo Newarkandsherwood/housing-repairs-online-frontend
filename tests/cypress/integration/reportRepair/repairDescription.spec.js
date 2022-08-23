@@ -59,6 +59,15 @@ describe('repair description', () => {
     });
   });
 
+  context('When a user uploads an image, is shown a validation error, then they clear the image', ()=>{
+    it('validation doesn\'t stop them from proceeding', () => {
+      cy.get('input').attachFile('wrong.png');
+      cy.get('button').click();
+      cy.get('button').contains('Continue', {timeout: 15000}).click()
+      cy.get('#upload-a-photo-error').should('be.empty');
+    });
+  });
+
   context('When a user uploads a good image', ()=>{
     it('the image is shown', () => {
       cy.get('input').attachFile('good.jpg');

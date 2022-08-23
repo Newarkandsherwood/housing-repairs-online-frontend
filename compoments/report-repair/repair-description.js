@@ -79,6 +79,7 @@ const RepairDescription = ({handleChange, values}) => {
       });
     } else {
       setSelectedImage(null);
+      setSelectedFile(null);
       return setError({text: textError, img: imageError})
     }
   }
