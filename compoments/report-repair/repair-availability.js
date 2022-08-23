@@ -137,10 +137,12 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
       <div>
         {fromDate ? (
           <a className="govuk-button govuk-button--secondary" onClick={()=>{
+            setError(undefined);
             router.push(`${router.asPath}`, 'repair-availability', { shallow: true })
           }}>Previous 5 days</a>
         ) : (
           <a className="govuk-button govuk-button--secondary" onClick={()=>{
+            setError(undefined);
             router.push(`${router.asPath}/?fromDate=${nextAppointmentSearchFromDate}`, `${router.asPath}/?next=true`, { shallow: true })
           }}>Next 5 days</a>
         )}
