@@ -7,7 +7,7 @@ const ErrorSummary = ({ errorSummaryTextAndLocation, pageTitle }) => {
   useEffect(() => {
     focusReference.current.focus();
     document.title = `Error: ${pageTitle}`;
-  });
+  }, []);
 
   return (
     <div className="govuk-error-summary" aria-labelledby="error-summary-title"
