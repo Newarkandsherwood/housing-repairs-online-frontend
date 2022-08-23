@@ -6,8 +6,8 @@ import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 
 const RepairDescription = ({handleChange, values}) => {
-  const [error, setError] = useState({});
-  const [file, setFile] = useState();
+  const [error, setError] = useState({text: undefined, img: undefined});
+  const [selectedFile, setSelectedFile] = useState();
   const [selectedImage, setSelectedImage] = useState(values.description?.photo);
   const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
   const [base64img, setBase64img] = useState(values.description?.base64img);
@@ -15,12 +15,6 @@ const RepairDescription = ({handleChange, values}) => {
   const [textAreaCount, setTextAreaCount] = React.useState(0);
   const textLimit = 255
   const title = 'Describe your problem in more detail'
-  function textTooLong() {
-    setError({
-      text: `Enter a description of the problem using ${textLimit} characters or less`,
-      img: error.img
-    });
-  }
   const pageTitle = `${title} - ${serviceName}`;
 
   const TextChange = (e) => {
@@ -36,7 +30,7 @@ const RepairDescription = ({handleChange, values}) => {
           setBase64img(response);
           setSelectedImage(image);
           setFileExtension(file.name.split('.').pop());
-          setError({img: false, text: error.text});
+          // setError({img: false, text: error.text});
         }
       )
       .catch(
@@ -48,36 +42,38 @@ const RepairDescription = ({handleChange, values}) => {
 
   const PhotoChange = (event) => {
     const uploadedFile = event.target.files[0]
-    setFile(uploadedFile)
+    setSelectedFile(uploadedFile)
     saveFileAsImage(uploadedFile)
   }
 
   const Continue = () => {
-    if (textAreaCount > textLimit) {
-      return textTooLong()
+    let textError = error.text;
+    let imageError = error.img;
+    if (selectedFile) {
+      if (selectedFile.type !== 'image/jpeg') {
+        imageError = 'The selected file must be a JPG';
+      }
+      let size = (selectedFile.size / 1024 / 1024).toFixed(2);
+      if (size > 10) {
+        imageError = `The selected file must be smaller than 10MB. Your file size is: ${size}MB`;
+      }
     }
-    if (text) {
+    if (textAreaCount > textLimit) {
+      textError = `Enter a description of the problem using ${textLimit} characters or less`;
+    }
+    if (!text) {
+      textError = 'Enter a description of the problem';
+    }
+    if (!textError && !imageError) {
       return handleChange('description', {
         photo: selectedImage,
         text: text,
         fileExtension: fileExtension,
         base64img: base64img
       });
+    } else {
+      return setError({text: textError, img: imageError})
     }
-    if (file) {
-      if (file.type !== 'image/jpeg') {
-        return setError({img: 'The selected file must be a JPG', text: error.text})
-      }
-      let size = (file.size / 1024 / 1024).toFixed(2);
-      if (size > 10) {
-        return setError({
-          img: `The selected file must be smaller than 10MB. Your file size is: ${size}MB`,
-          text: error.text
-        })
-      }
-      saveFileAsImage(file);
-    }
-    setError({text: 'Enter a description of the problem', img: error.img})
   }
 
   function generateCharacterCountText() {
@@ -94,6 +90,8 @@ const RepairDescription = ({handleChange, values}) => {
     error.img && errorSummaryTextAndLocation.push({text: error.img, location: '#upload-a-photo-error'});
     return errorSummaryTextAndLocation;
   }
+
+  console.log(error)
 
   return <div className="govuk-grid-row" data-cy="repair-description">
     <header>
