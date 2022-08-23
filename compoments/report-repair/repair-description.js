@@ -25,10 +25,6 @@ const RepairDescription = ({handleChange, values}) => {
   const TextChange = (e) => {
     setText(e.target.value)
     setTextAreaCount(e.target.value.length);
-    if (e.target.value.length > textLimit) {
-      return textTooLong()
-    }
-    setError({text: false, img: error.img})
   }
 
   const Continue = () => {
