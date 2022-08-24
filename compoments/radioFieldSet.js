@@ -81,7 +81,7 @@ class RadioFieldSet extends Component {
   render() {
     return (
       <div>
-        {(!!this.state.error || !!this.state.conditionalError) &&
+        {(this.state.error || this.state.conditionalError) &&
           <ErrorSummary active={this.state.activeError} errorSummaryTextAndLocation={[{text: this.state.conditionalError ? this.state.conditionalError.msg : this.errorText, location: `#${this.state.actionableFieldId}`}]} pageTitle={`${this.title} - ${serviceName}`} />
         }
         <div className={`govuk-form-group ${this.state.error && !this.state.conditionalError ? 'govuk-form-group--error' : ''}`}>
