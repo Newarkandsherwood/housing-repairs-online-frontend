@@ -63,13 +63,13 @@ const Address = ({handleChange, values}) => {
       <h1 className="govuk-heading-l">{title}</h1>
       <form action="">
         <div className={state.error.msg ? 'govuk-form-group govuk-form-group--error' : 'govuk-form-group'}>
+          <label className="govuk-label" htmlFor="select-address-dropdown">
+            {title}
+          </label>
           <span id={'address-error'}
             className="govuk-error-message">
             {state.error.msg}
           </span>
-          <label className="govuk-label" htmlFor="select-address-dropdown">
-            {title}
-          </label>
           <Select
             input={{
               name: 'address',
