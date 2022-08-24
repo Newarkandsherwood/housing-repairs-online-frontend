@@ -280,7 +280,8 @@ describe('radioFieldSet', () => {
       let button = container.querySelector('button');
       button.dispatchEvent(new MouseEvent('click', { bubbles: true }))
     });
-    expect(container.querySelector(`#${fieldSetName}-conditional-error`).textContent).toBe(invalidConditionalInputErrorMessage);
+
+    expect(container.querySelector('#error-summary-text-0').textContent).toBe(invalidConditionalInputErrorMessage);
   })
   test('Clicking \'Submit\' button without conditional value shows error summary title', () => {
     const label = 'Please enter your information';

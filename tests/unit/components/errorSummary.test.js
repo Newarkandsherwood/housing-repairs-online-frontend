@@ -46,7 +46,7 @@ describe('errorSummary', () => {
 
   test('Second error summary link and descriptions for 2 errors should be rendered', () => {
     act(() => {
-      render(<ErrorSummary errorSummaryTextAndLocation={[errorSummaryTextAndLocation, {text: 'Another error description',
+      render(<ErrorSummary active={true} errorSummaryTextAndLocation={[errorSummaryTextAndLocation, {text: 'Another error description',
         location: 'anotherErrorLink'}]} pageTitle={pageTitle} />, container)
     });
 
