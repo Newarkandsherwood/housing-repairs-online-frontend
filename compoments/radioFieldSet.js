@@ -39,7 +39,7 @@ class RadioFieldSet extends Component {
     })
   };
 
-  getConditionalInputId(value){
+  getConditionalInputId(value) {
     return `${this.name}-${value}`
   }
 
@@ -56,7 +56,7 @@ class RadioFieldSet extends Component {
       if (selectedOption.conditional) {
         if (this.conditionalValue[value]) {
           if (selectedOption.conditional.validator && !selectedOption.conditional.validator.isValid(this.conditionalValue[value])) {
-            return this.setState({ conditionalError: {msg: selectedOption.conditional.invalidInputErrorMessage}, activeError: true })
+            return this.setState({ conditionalError: { msg: selectedOption.conditional.invalidInputErrorMessage }, activeError: true })
           }
           return this.onSubmit({
             selected: value,
@@ -65,7 +65,7 @@ class RadioFieldSet extends Component {
         }
         const optionIndex = this.options.findIndex(o => o.value === value)
         this.setState({ actionableFieldId: this.getConditionalInputId(value) })
-        return this.setState({ conditionalError: {msg: selectedOption.conditional.emptyInputErrorMessage, field: this.getConditionalId(optionIndex)}, activeError: true })
+        return this.setState({ conditionalError: { msg: selectedOption.conditional.emptyInputErrorMessage, field: this.getConditionalId(optionIndex) }, activeError: true })
       }
       let display = selectedOption.title
       this.onSubmit({ val: this.state.value, display: display })
@@ -86,7 +86,7 @@ class RadioFieldSet extends Component {
     return (
       <div>
         {(this.state.error || this.state.conditionalError) &&
-          <ErrorSummary active={this.state.activeError} errorSummaryTextAndLocation={[{text: this.state.conditionalError ? this.state.conditionalError.msg : this.errorText, location: `#${this.state.actionableFieldId}`}]} pageTitle={`${this.title} - ${serviceName}`} />
+          <ErrorSummary active={this.state.activeError} errorSummaryTextAndLocation={[{ text: this.state.conditionalError ? this.state.conditionalError.msg : this.errorText, location: `#${this.state.actionableFieldId}` }]} pageTitle={`${this.title} - ${serviceName}`} />
         }
         <div className={`govuk-form-group ${this.state.error && !this.state.conditionalError ? 'govuk-form-group--error' : ''}`}>
           <fieldset className="govuk-fieldset" id="repair-emergency"
@@ -111,7 +111,7 @@ class RadioFieldSet extends Component {
                       type="radio" value={o.value}
                       defaultChecked={o.checked}
                       onChange={this.setValue.bind(this)}
-                      onClick={() => {this.setState({ activeError: false })}}
+                      onClick={() => { this.setState({ activeError: false }) }}
                       data-aria-controls={this.getConditionalId(i)}
                     />
                     <label className="govuk-label govuk-radios__label"
@@ -127,10 +127,10 @@ class RadioFieldSet extends Component {
                         {o.conditional.label}
                       </label>
                       {this.hasConditionalError(i) &&
-                      <span id={`${this.name}-conditional-error`}
-                        className="govuk-error-message">
-                        {this.state.conditionalError.msg}
-                      </span>
+                        <span id={`${this.name}-conditional-error`}
+                          className="govuk-error-message">
+                          {this.state.conditionalError.msg}
+                        </span>
                       }
                       <input className="govuk-input govuk-!-width-one-third"
                         id={this.getConditionalInputId(o.value)} name={this.getConditionalInputId(o.value)}
