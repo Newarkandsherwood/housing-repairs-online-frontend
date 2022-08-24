@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import React, {useRef, useEffect} from 'react';
 
-const ErrorSummary = ({ errorSummaryTextAndLocation, pageTitle }) => {
+const ErrorSummary = ({ errorSummaryTextAndLocation, pageTitle, active }) => {
   const focusReference = useRef(null);
 
   useEffect(() => {
-    focusReference.current.focus();
     document.title = `Error: ${pageTitle}`;
-  }, []);
+    if(active) {
+      focusReference.current.focus();
+    }
+  });
 
   return (
     <div className="govuk-error-summary" aria-labelledby="error-summary-title"
@@ -37,6 +39,7 @@ ErrorSummary.propTypes = {
     location: PropTypes.string.isRequired,
   })).isRequired,
   pageTitle: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired
 };
 
 export default ErrorSummary;

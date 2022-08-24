@@ -20,7 +20,7 @@ beforeEach(() => {
   document.body.appendChild(container);
 
   act(() => {
-    render(<ErrorSummary errorSummaryTextAndLocation={[errorSummaryTextAndLocation]} pageTitle={pageTitle} />, container)
+    render(<ErrorSummary active={true} errorSummaryTextAndLocation={[errorSummaryTextAndLocation]} pageTitle={pageTitle} />, container)
   });
 });
 
