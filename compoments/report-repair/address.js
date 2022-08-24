@@ -11,7 +11,7 @@ import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 
 const Address = ({handleChange, values}) => {
-  const [state, setState] = useState({error: {}, value: 'null'});
+  const [state, setState] = useState({error: {}, value: 'null', activeError: false});
 
   const { data, error } = useSWR(`/api/address?postcode=${values.postcode}`, fetcher)
 
@@ -33,7 +33,7 @@ const Address = ({handleChange, values}) => {
   const found_addresses = `${addresses?.length} ${addresses?.length === 1 ? 'address': 'addresses'} found`
 
   const onChange = e => {
-    setState({error: state.error, value: JSON.parse(e.target.value)})
+    setState({error: state.error, value: JSON.parse(e.target.value, ), activeError: false})
   }
 
   const Continue = e => {
@@ -43,7 +43,8 @@ const Address = ({handleChange, values}) => {
       return setState({error: {
         msg: 'Select the property address',
         touched: true
-      }})
+      },
+      activeError: true})
     }
 
     return handleChange('address', {
@@ -56,7 +57,7 @@ const Address = ({handleChange, values}) => {
     <header>
       <title>{title} - {serviceName}</title>
     </header>
-    {state.error.msg && <ErrorSummary errorSummaryTextAndLocation={[{text:state.error.msg, location: '#address'}]} pageTitle={pageTitle} />}
+    {state.error.msg && <ErrorSummary active={state.activeError} errorSummaryTextAndLocation={[{text:state.error.msg, location: '#address'}]} pageTitle={pageTitle} />}
     <div className="govuk-grid-column-two-thirds">
       <h1 className="govuk-heading-l">{pageTitle}</h1>
       <form action="">
