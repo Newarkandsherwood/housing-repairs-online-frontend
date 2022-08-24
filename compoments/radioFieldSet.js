@@ -54,16 +54,16 @@ class RadioFieldSet extends Component {
     if (value) {
       const selectedOption = this.options.find(o => o.value === value);
       if (selectedOption.conditional) {
+        const optionIndex = this.options.findIndex(o => o.value === value)
         if (this.conditionalValue[value]) {
           if (selectedOption.conditional.validator && !selectedOption.conditional.validator.isValid(this.conditionalValue[value])) {
-            return this.setState({ conditionalError: { msg: selectedOption.conditional.invalidInputErrorMessage }, activeError: true })
+            return this.setState({ conditionalError: { msg: selectedOption.conditional.invalidInputErrorMessage, field: this.getConditionalId(optionIndex) }, activeError: true })
           }
           return this.onSubmit({
             selected: value,
             input: this.conditionalValue[value]
           })
         }
-        const optionIndex = this.options.findIndex(o => o.value === value)
         this.setState({ actionableFieldId: this.getConditionalInputId(value) })
         return this.setState({ conditionalError: { msg: selectedOption.conditional.emptyInputErrorMessage, field: this.getConditionalId(optionIndex) }, activeError: true })
       }
