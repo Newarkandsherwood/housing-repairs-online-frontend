@@ -43,6 +43,10 @@ class RadioFieldSet extends Component {
     return `${this.name}-${value}`
   }
 
+  getConditionalId(i) {
+    return `conditional-${this.name}-${i}`
+  }
+
   formSubmit = () => {
     const value = this.state.value[this.name];
     this.setState({ error: null })
@@ -61,7 +65,7 @@ class RadioFieldSet extends Component {
         }
         const optionIndex = this.options.findIndex(o => o.value === value)
         this.setState({ actionableFieldId: this.getConditionalInputId(value) })
-        return this.setState({ conditionalError: {msg: selectedOption.conditional.emptyInputErrorMessage, field: `conditional-${this.name}-${optionIndex}`}, activeError: true })
+        return this.setState({ conditionalError: {msg: selectedOption.conditional.emptyInputErrorMessage, field: this.getConditionalId(optionIndex)}, activeError: true })
       }
       let display = selectedOption.title
       this.onSubmit({ val: this.state.value, display: display })
@@ -73,10 +77,6 @@ class RadioFieldSet extends Component {
   includeOrDivider(i) {
     return this.orDivider && i == (this.options.length - 1);
   };
-
-  getConditionalId(i) {
-    return `conditional-${this.name}-${i}`
-  }
 
   hasConditionalError(i) {
     return this.state.conditionalError && this.state.conditionalError.field === this.getConditionalId(i);
