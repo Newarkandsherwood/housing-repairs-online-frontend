@@ -34,7 +34,6 @@ const RepairDescription = ({handleChange, values}) => {
           setBase64img(response);
           setSelectedImage(image);
           setFileExtension(file.name.split('.').pop());
-          // setError({img: false, text: error.text});
         }
       )
       .catch(
@@ -98,8 +97,6 @@ const RepairDescription = ({handleChange, values}) => {
     error.img && errorSummaryTextAndLocation.push({text: error.img, location: `#${repairDescriptionUploadPhotoInputId}`});
     return errorSummaryTextAndLocation;
   }
-
-  console.log(error)
 
   return <div className="govuk-grid-row" data-cy="repair-description">
     <header>
