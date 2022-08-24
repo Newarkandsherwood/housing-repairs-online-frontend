@@ -39,6 +39,10 @@ class RadioFieldSet extends Component {
     })
   };
 
+  getConditionalInputId(value){
+    return `${this.name}-${value}`
+  }
+
   formSubmit = () => {
     const value = this.state.value[this.name];
     this.setState({ error: null })
@@ -56,7 +60,7 @@ class RadioFieldSet extends Component {
           })
         }
         const optionIndex = this.options.findIndex(o => o.value === value)
-        this.setState({ actionableFieldId: `${this.name}-${value}` })
+        this.setState({ actionableFieldId: this.getConditionalInputId(value) })
         return this.setState({ conditionalError: {msg: selectedOption.conditional.emptyInputErrorMessage, field: `conditional-${this.name}-${optionIndex}`}, activeError: true })
       }
       let display = selectedOption.title
@@ -119,7 +123,7 @@ class RadioFieldSet extends Component {
                     className={`govuk-radios__conditional ${this.state.value[this.name] != o.value && 'govuk-visually-hidden'}`}
                     id={this.getConditionalId(i)}>
                     <div className={this.hasConditionalError(i) ? 'govuk-form-group--error' : 'govuk-form-group'} key={`conditional-${i}`}>
-                      <label className="govuk-hint" htmlFor={`${this.name}-${o.value}`}>
+                      <label className="govuk-hint" htmlFor={this.getConditionalInputId(o.value)}>
                         {o.conditional.label}
                       </label>
                       {this.hasConditionalError(i) &&
@@ -129,7 +133,7 @@ class RadioFieldSet extends Component {
                       </span>
                       }
                       <input className="govuk-input govuk-!-width-one-third"
-                        id={`${this.name}-${o.value}`} name={`${this.name}-${o.value}`}
+                        id={this.getConditionalInputId(o.value)} name={this.getConditionalInputId(o.value)}
                         type={o.conditional.type}
                         defaultValue={this.conditionalValue[o.value]}
                         onChange={(e) => {
