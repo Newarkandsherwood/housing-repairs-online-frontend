@@ -73,7 +73,7 @@ class RadioFieldSet extends Component {
         {(!!this.state.error || !!this.state.conditionalError) &&
           <ErrorSummary active={this.state.activeError} errorSummaryTextAndLocation={[{text: this.state.conditionalError || this.errorText, location: `#${this.state.actionableFieldId}`}]} pageTitle={`${this.title} - ${serviceName}`} />
         }
-        <div className={this.state.error && !this.state.conditionalError ? 'govuk-form-group--error' : 'govuk-form-group'}>
+        <div className={`govuk-form-group ${this.state.error && !this.state.conditionalError ? 'govuk-form-group--error' : ''}`}>
           <fieldset className="govuk-fieldset" id="repair-emergency"
             name="repair-emergency">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -82,61 +82,59 @@ class RadioFieldSet extends Component {
               </h1>
             </legend>
             {this.hintText && <div id={`hint-text-${this.name}`} className='govuk-hint'>{this.hintText}</div>}
-            <div className="govuk-form-group">
-              <span id={`${this.name}-error`}
-                className="govuk-error-message govuk-!-margin-bottom-0">
-                {this.state.error}
-              </span>
-              <div className={this.conditional ? 'govuk-radios--conditional' : 'govuk-radios'}>
-                {this.options.map((o, i) => (
-                  <span key={i}>
-                    {this.includeOrDivider(i) ? <div id="final-divider" className="govuk-radios__divider">or</div> : <div className="govuk-!-margin-bottom-2"></div>}
-                    <div className="govuk-radios__item">
-                      <input className="govuk-radios__input govuk-input--width-10"
-                        id={`${this.name}-${i}`} name={this.name}
-                        type="radio" value={o.value}
-                        defaultChecked={o.checked}
-                        onChange={this.setValue.bind(this)}
-                        onClick={() => {this.setState({ actionableFieldId: `${this.name}-${o.value}`, activeError: false })}}
-                        data-aria-controls={`conditional-${this.name}-${i}`}
-                      />
-                      <label className="govuk-label govuk-radios__label"
-                        htmlFor={`${this.name}-${i}`}>
-                        {o.title}
+            <span id={`${this.name}-error`}
+              className="govuk-error-message govuk-!-margin-bottom-0">
+              {this.state.error}
+            </span>
+            <div className={this.conditional ? 'govuk-radios--conditional' : 'govuk-radios'}>
+              {this.options.map((o, i) => (
+                <span key={i}>
+                  {this.includeOrDivider(i) ? <div id="final-divider" className="govuk-radios__divider">or</div> : <div className="govuk-!-margin-bottom-2"></div>}
+                  <div className="govuk-radios__item">
+                    <input className="govuk-radios__input govuk-input--width-10"
+                      id={`${this.name}-${i}`} name={this.name}
+                      type="radio" value={o.value}
+                      defaultChecked={o.checked}
+                      onChange={this.setValue.bind(this)}
+                      onClick={() => {this.setState({ actionableFieldId: `${this.name}-${o.value}`, activeError: false })}}
+                      data-aria-controls={`conditional-${this.name}-${i}`}
+                    />
+                    <label className="govuk-label govuk-radios__label"
+                      htmlFor={`${this.name}-${i}`}>
+                      {o.title}
+                    </label>
+                  </div>
+                  {o.conditional && <div
+                    className={`govuk-radios__conditional ${this.state.value[this.name] != o.value && 'govuk-visually-hidden'}`}
+                    id={`conditional-${this.name}-${i}`}>
+                    <div className={this.state.conditionalError ? 'govuk-form-group--error' : 'govuk-form-group'} key={`conditional-${i}`}>
+                      <label className="govuk-hint" htmlFor={`${this.name}-${o.value}`}>
+                        {o.conditional.label}
                       </label>
+                      <span id={`${this.name}-conditional-error`}
+                        className="govuk-error-message">
+                        {this.state.conditionalError}
+                      </span>
+                      <input className="govuk-input govuk-!-width-one-third"
+                        id={`${this.name}-${o.value}`} name={`${this.name}-${o.value}`}
+                        type={o.conditional.type}
+                        defaultValue={this.conditionalValue[o.value]}
+                        onChange={(e) => {
+                          this.conditionalValue[o.value] = e.target.value
+                        }}
+                        onWheel={(e) => e.target.blur()}
+                        onKeyPress={o.conditional.onKeyPress}
+                      />
                     </div>
-                    {o.conditional && <div
-                      className={`govuk-radios__conditional ${this.state.value[this.name] != o.value && 'govuk-visually-hidden'}`}
-                      id={`conditional-${this.name}-${i}`}>
-                      <div className={this.state.conditionalError ? 'govuk-form-group--error' : 'govuk-form-group'} key={`conditional-${i}`}>
-                        <label className="govuk-hint" htmlFor={`${this.name}-${o.value}`}>
-                          {o.conditional.label}
-                        </label>
-                        <span id={`${this.name}-conditional-error`}
-                          className="govuk-error-message">
-                          {this.state.conditionalError}
-                        </span>
-                        <input className="govuk-input govuk-!-width-one-third"
-                          id={`${this.name}-${o.value}`} name={`${this.name}-${o.value}`}
-                          type={o.conditional.type}
-                          defaultValue={this.conditionalValue[o.value]}
-                          onChange={(e) => {
-                            this.conditionalValue[o.value] = e.target.value
-                          }}
-                          onWheel={(e) => e.target.blur()}
-                          onKeyPress={o.conditional.onKeyPress}
-                        />
-                      </div>
-                    </div>}
-                  </span>
-                ))}
-              </div>
+                  </div>}
+                </span>
+              ))}
             </div>
 
           </fieldset>
         </div>
         <div>
-          <div id="before-button-content" className="govuk-!-margin-top-6">
+          <div id="before-button-content">
             {this.beforeButton}
           </div>
           <Button onClick={this.formSubmit}>{this.buttonText}</Button>
