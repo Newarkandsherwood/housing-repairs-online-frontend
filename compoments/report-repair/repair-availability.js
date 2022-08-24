@@ -14,6 +14,7 @@ import ErrorSummary from '../errorSummary';
 const RepairAvailability = ({handleChange, values, fromDate}) => {
   const [error, setError] = useState();
   const [value, setValue] = useState(values.availability?.appointmentSlotKey);
+  const [activeError, setActiveError] = useState(false);
   const baseURL = '/api/availability';
   const params =  {
     repairLocation:  values.repairLocation?.value,
@@ -81,10 +82,12 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
       });
     }
     setError('Select the date and time you are available for a repair appointment')
+    setActiveError(true)
   }
 
   const onChange = (event) =>{
     setValue(event.target.value)
+    setActiveError(false)
   }
 
   return <div className="govuk-grid-row" data-cy="repair-availability">
@@ -92,7 +95,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
       <title>{pageTitle}</title>
     </header>
     <div className='govuk-grid-column-two-thirds'>
-      {error && <ErrorSummary errorSummaryTextAndLocation={[{text: error, location: `#${fieldName}-0-0`}]} pageTitle={pageTitle} />}
+      {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{text: error, location: `#${fieldName}-0-0`}]} pageTitle={pageTitle} />}
       <div className={`govuk-form-group ${error && 'govuk-form-group--error' }`}>
         <h1 className="govuk-heading-l">
           {title}
