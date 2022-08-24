@@ -26,7 +26,8 @@ class RadioFieldSet extends Component {
     this.state = {
       error: null,
       value: { [this.name]: this.checked },
-      actionableFieldId: `${this.name}-0`
+      actionableFieldId: `${this.name}-0`,
+      activeError: false
     };
     this.conditionalValue = this.props.conditionalValue;
     this.errorText = this.props.errorText || 'Required';
@@ -34,30 +35,31 @@ class RadioFieldSet extends Component {
 
   setValue(event) {
     this.setState({
-      value: { [this.name]: event.target.value }
+      value: { [this.name]: event.target.value },
     })
   };
 
   formSubmit = () => {
     const value = this.state.value[this.name];
+
     if (value) {
       const selectedOption = this.options.find(o => o.value === value);
       if (selectedOption.conditional) {
         if (this.conditionalValue[value]) {
           if (selectedOption.conditional.validator && !selectedOption.conditional.validator.isValid(this.conditionalValue[value])) {
-            return this.setState({ conditionalError: selectedOption.conditional.invalidInputErrorMessage })
+            return this.setState({ conditionalError: selectedOption.conditional.invalidInputErrorMessage, activeError: true })
           }
           return this.onSubmit({
             selected: value,
             input: this.conditionalValue[value]
           })
         }
-        return this.setState({ conditionalError: selectedOption.conditional.emptyInputErrorMessage })
+        return this.setState({ conditionalError: selectedOption.conditional.emptyInputErrorMessage, activeError: true })
       }
       let display = selectedOption.title
       this.onSubmit({ val: this.state.value, display: display })
     } else {
-      this.setState({ error: this.errorText })
+      this.setState({ error: this.errorText, activeError: true })
     }
   };
 
@@ -69,7 +71,7 @@ class RadioFieldSet extends Component {
     return (
       <div>
         {(!!this.state.error || !!this.state.conditionalError) &&
-          <ErrorSummary errorSummaryTextAndLocation={[{text: this.state.conditionalError || this.errorText, location: `#${this.state.actionableFieldId}`}]} pageTitle={`${this.title} - ${serviceName}`} />
+          <ErrorSummary active={this.state.activeError} errorSummaryTextAndLocation={[{text: this.state.conditionalError || this.errorText, location: `#${this.state.actionableFieldId}`}]} pageTitle={`${this.title} - ${serviceName}`} />
         }
         <div className={this.state.error && !this.state.conditionalError ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <fieldset className="govuk-fieldset" id="repair-emergency"
@@ -95,7 +97,7 @@ class RadioFieldSet extends Component {
                         type="radio" value={o.value}
                         defaultChecked={o.checked}
                         onChange={this.setValue.bind(this)}
-                        onClick={() => {this.setState({ actionableFieldId: `${this.name}-${o.value}` })}}
+                        onClick={() => {this.setState({ actionableFieldId: `${this.name}-${o.value}`, activeError: false })}}
                         data-aria-controls={`conditional-${this.name}-${i}`}
                       />
                       <label className="govuk-label govuk-radios__label"
