@@ -55,7 +55,7 @@ describe('repair description', () => {
     it('an error is shown', () => {
       cy.get('input').attachFile('large.jpg');
       cy.get('button').click()
-      cy.contains('The selected file must be smaller than 10MB. Your file size is: 12.02MB');
+      cy.contains('The selected file must be smaller than 10MB. Your file size is 12.02MB');
     });
   });
 

@@ -61,7 +61,7 @@ const RepairDescription = ({handleChange, values}) => {
       }
       let size = (selectedFile.size / 1024 / 1024).toFixed(2);
       if (size > 10) {
-        imageError = `The selected file must be smaller than 10MB. Your file size is: ${size}MB`;
+        imageError = `The selected file must be smaller than 10MB. Your file size is ${size}MB`;
       }
     }
     if (textAreaCount > textLimit) {
