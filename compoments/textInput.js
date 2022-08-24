@@ -21,7 +21,8 @@ class TextInput extends Component {
     this.emptyInputErrorMessage = this.props.emptyInputErrorMessage;
     this.state = {
       value: this.props.value || '',
-      error: {}
+      error: {},
+      activeError: false
     };
 
     this.input = {
@@ -34,6 +35,7 @@ class TextInput extends Component {
   setValue(event) {
     this.setState({
       value: event.target.value,
+      activeError: false
     })
   };
 
@@ -51,7 +53,8 @@ class TextInput extends Component {
           error: {
             msg: this.validation.errorMessage,
             touched: true
-          }
+          },
+          activeError: true
         })
       }
       return this.onSubmit(this.state.value)
@@ -61,14 +64,15 @@ class TextInput extends Component {
       error: {
         msg: this.emptyInputErrorMessage || 'Required',
         touched: true
-      }
+      },
+      activeError: true
     })
   };
 
   render(){
     return (
       <>
-        {this.state.error.msg && <ErrorSummary errorSummaryTextAndLocation={[{text: this.state.error.msg, location: `#${this.input.id}`}]} pageTitle={`${this.title} - ${serviceName}`} />}
+        {this.state.error.msg && <ErrorSummary active={this.state.activeError} errorSummaryTextAndLocation={[{text: this.state.error.msg, location: `#${this.input.id}`}]} pageTitle={`${this.title} - ${serviceName}`} />}
         <div className={this.state.error.msg ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <h1 id={`${this.name}-title`}  className="govuk-heading-l" data-testid={`${this.name}-title`}>{this.title}</h1>
           <form action="">
