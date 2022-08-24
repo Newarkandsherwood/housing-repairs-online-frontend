@@ -7,6 +7,7 @@ import ErrorSummary from '../errorSummary';
 
 const RepairDescription = ({handleChange, values}) => {
   const [error, setError] = useState({text: undefined, img: undefined});
+  const [activeError, setActiveError] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [selectedImage, setSelectedImage] = useState(values.description?.photo);
   const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
@@ -20,6 +21,7 @@ const RepairDescription = ({handleChange, values}) => {
   const TextChange = (e) => {
     setText(e.target.value)
     setTextAreaCount(e.target.value.length);
+    setActiveError(false)
   }
 
   const saveFileAsImage = (file) => {
@@ -42,6 +44,7 @@ const RepairDescription = ({handleChange, values}) => {
 
   const PhotoChange = (event) => {
     const uploadedFile = event.target.files[0]
+    setActiveError(false)
     setSelectedFile(uploadedFile)
     saveFileAsImage(uploadedFile)
   }
@@ -49,6 +52,7 @@ const RepairDescription = ({handleChange, values}) => {
   const Continue = () => {
     let textError = undefined;
     let imageError = undefined;
+    setActiveError(true);
     if (selectedFile) {
       if (selectedFile.type !== 'image/jpeg') {
         imageError = 'The selected file must be a JPG';
@@ -99,7 +103,7 @@ const RepairDescription = ({handleChange, values}) => {
     </header>
     <div className="govuk-grid-column-two-thirds">
       {
-        (error.text || error.img) && <ErrorSummary errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
+        (error.text || error.img) && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
       }
       <h1 className="govuk-heading-l">
         {title}
