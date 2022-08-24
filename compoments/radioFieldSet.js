@@ -41,20 +41,23 @@ class RadioFieldSet extends Component {
 
   formSubmit = () => {
     const value = this.state.value[this.name];
+    this.setState({ error: null })
 
     if (value) {
       const selectedOption = this.options.find(o => o.value === value);
       if (selectedOption.conditional) {
         if (this.conditionalValue[value]) {
           if (selectedOption.conditional.validator && !selectedOption.conditional.validator.isValid(this.conditionalValue[value])) {
-            return this.setState({ conditionalError: selectedOption.conditional.invalidInputErrorMessage, activeError: true })
+            return this.setState({ conditionalError: {msg: selectedOption.conditional.invalidInputErrorMessage}, activeError: true })
           }
           return this.onSubmit({
             selected: value,
             input: this.conditionalValue[value]
           })
         }
-        return this.setState({ conditionalError: selectedOption.conditional.emptyInputErrorMessage, activeError: true })
+        const optionIndex = this.options.findIndex(o => o.value === value)
+        this.setState({ actionableFieldId: `${this.name}-${value}` })
+        return this.setState({ conditionalError: {msg: selectedOption.conditional.emptyInputErrorMessage, field: `conditional-${this.name}-${optionIndex}`}, activeError: true })
       }
       let display = selectedOption.title
       this.onSubmit({ val: this.state.value, display: display })
@@ -67,11 +70,19 @@ class RadioFieldSet extends Component {
     return this.orDivider && i == (this.options.length - 1);
   };
 
+  getConditionalId(i) {
+    return `conditional-${this.name}-${i}`
+  }
+
+  hasConditionalError(i) {
+    return this.state.conditionalError && this.state.conditionalError.field === this.getConditionalId(i);
+  }
+
   render() {
     return (
       <div>
         {(!!this.state.error || !!this.state.conditionalError) &&
-          <ErrorSummary active={this.state.activeError} errorSummaryTextAndLocation={[{text: this.state.conditionalError || this.errorText, location: `#${this.state.actionableFieldId}`}]} pageTitle={`${this.title} - ${serviceName}`} />
+          <ErrorSummary active={this.state.activeError} errorSummaryTextAndLocation={[{text: this.state.conditionalError ? this.state.conditionalError.msg : this.errorText, location: `#${this.state.actionableFieldId}`}]} pageTitle={`${this.title} - ${serviceName}`} />
         }
         <div className={`govuk-form-group ${this.state.error && !this.state.conditionalError ? 'govuk-form-group--error' : ''}`}>
           <fieldset className="govuk-fieldset" id="repair-emergency"
@@ -96,8 +107,8 @@ class RadioFieldSet extends Component {
                       type="radio" value={o.value}
                       defaultChecked={o.checked}
                       onChange={this.setValue.bind(this)}
-                      onClick={() => {this.setState({ actionableFieldId: `${this.name}-${o.value}`, activeError: false })}}
-                      data-aria-controls={`conditional-${this.name}-${i}`}
+                      onClick={() => {this.setState({ activeError: false })}}
+                      data-aria-controls={this.getConditionalId(i)}
                     />
                     <label className="govuk-label govuk-radios__label"
                       htmlFor={`${this.name}-${i}`}>
@@ -106,15 +117,17 @@ class RadioFieldSet extends Component {
                   </div>
                   {o.conditional && <div
                     className={`govuk-radios__conditional ${this.state.value[this.name] != o.value && 'govuk-visually-hidden'}`}
-                    id={`conditional-${this.name}-${i}`}>
-                    <div className={this.state.conditionalError ? 'govuk-form-group--error' : 'govuk-form-group'} key={`conditional-${i}`}>
+                    id={this.getConditionalId(i)}>
+                    <div className={this.hasConditionalError(i) ? 'govuk-form-group--error' : 'govuk-form-group'} key={`conditional-${i}`}>
                       <label className="govuk-hint" htmlFor={`${this.name}-${o.value}`}>
                         {o.conditional.label}
                       </label>
+                      {this.hasConditionalError(i) &&
                       <span id={`${this.name}-conditional-error`}
                         className="govuk-error-message">
-                        {this.state.conditionalError}
+                        {this.state.conditionalError.msg}
                       </span>
+                      }
                       <input className="govuk-input govuk-!-width-one-third"
                         id={`${this.name}-${o.value}`} name={`${this.name}-${o.value}`}
                         type={o.conditional.type}
