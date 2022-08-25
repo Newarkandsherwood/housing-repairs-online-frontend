@@ -4,6 +4,7 @@ import React from 'react';
 import App from 'next/app';
 import { useEffect } from 'react';
 import Header from '../compoments/header';
+import SkipLink from '../compoments/skipLink';
 
 function MyApp({ Component, pageProps, err }) {
   const enableJavascript = () => {
@@ -13,6 +14,7 @@ function MyApp({ Component, pageProps, err }) {
 
   return (
     <>
+      <SkipLink linkLocation ='#main-content' />
       <Header></Header>
       <div className="govuk-width-container">
         <Component {...pageProps} err={err} />
