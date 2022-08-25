@@ -593,7 +593,7 @@ function ReportRepair() {
   return (
     <>
       {showBack && <BackLink href="#" onClick={prevStep}>Back</BackLink>}
-      <main className="govuk-main-wrapper">
+      <main className="govuk-main-wrapper" id='main-content'>
         {formError}
         {component()}
       </main>
