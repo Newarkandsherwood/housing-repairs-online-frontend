@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps, err }) {
 
   return (
     <>
-      <SkipLink linkLocation ='main-content' />
+      <SkipLink linkLocation='main-content' />
       <Header></Header>
       <div className="govuk-width-container">
         <Component {...pageProps} err={err} />
