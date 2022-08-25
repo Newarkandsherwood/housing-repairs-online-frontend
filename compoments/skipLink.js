@@ -9,7 +9,7 @@ const SkipLink = ({ linkLocation }) => {
       <a href={`#${linkLocation}`} className="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a></>)
 };
 
-linkLocation.propTypes = {
+SkipLink.propTypes = {
   linkLocation: PropTypes.string.isRequired,
 }
 
