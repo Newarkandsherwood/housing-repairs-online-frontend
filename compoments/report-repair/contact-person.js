@@ -20,12 +20,16 @@ const ContactPerson = ({handleChange, values}) => {
         value={values.contactPersonNumber}
         name={'phone-number'}
         onSubmit={Continue}
-        validation={phoneValidator}
+        validation={{
+          errorMessage: 'Enter a valid contact number',
+          isValid: phoneValidator.isValid,
+        }}
         type="tel"
         hint="Please enter a UK landline or mobile phone number"
         title={title}
         buttonText={'Continue'}
         onKeyPress={phoneOnKeyPress}
+        emptyInputErrorMessage={'Enter a contact number'}
       ></TextInput>
     </div>
   </div>

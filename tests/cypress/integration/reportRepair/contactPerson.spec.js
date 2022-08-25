@@ -18,7 +18,7 @@ describe('contactPerson', () => {
   context('When a user doesn\'t type anything', ()=>{
     it('an error should be shown',  () => {
       cy.get('button').click()
-      cy.contains('Required');
+      cy.contains('Enter a contact number');
     });
   });
 
@@ -26,7 +26,7 @@ describe('contactPerson', () => {
     it('an error is displayed', () => {
       cy.get('input').type('12345');
       cy.get('button').click()
-      cy.contains('Not a valid uk number');
+      cy.contains('Enter a valid contact number');
     });
   });
 
