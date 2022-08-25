@@ -5,7 +5,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 let container = null;
 
-const linkBody = 'To view the skip link component tab to this example, or click inside this example and press tab.';
 const linkText = 'Skip to main content';
 const linkLocation = '#content';
 
@@ -27,9 +26,6 @@ afterEach(() => {
 });
 
 describe('SkipLink', () => {
-  test('SkipLink body should be rendered', () => {
-    expect(container.querySelector('.govuk-body').textContent).toBe(linkBody);
-  })
 
   test('SkipLink text should be rendered', () => {
     expect(container.querySelector('.govuk-skip-link').textContent).toBe(linkText);

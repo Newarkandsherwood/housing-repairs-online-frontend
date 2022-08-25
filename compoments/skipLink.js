@@ -3,10 +3,7 @@ import React from 'react';
 
 
 const SkipLink = ({ linkLocation }) => {
-  return (
-    <><p className="govuk-body">To view the skip link component tab to this example, or click inside this example and press tab.</p>
-
-      <a href={`#${linkLocation}`} className="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a></>)
+  return <a href={`#${linkLocation}`} className="govuk-skip-link govuk-link--no-visited-state" data-module="govuk-skip-link">Skip to main content</a>
 };
 
 SkipLink.propTypes = {
