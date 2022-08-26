@@ -6,13 +6,15 @@ const Footer = () => {
       <h2 className="govuk-visually-hidden">Support links</h2>
       <ul className="govuk-footer__inline-list">
         <li className="govuk-footer__inline-list-item">
-          <a className="govuk-footer__link" href="">
+          <a className="govuk-footer__link" href=""
+            id="govuk-footer__link_accessibility">
           Accessibility Statement
           </a>
         </li>
         <li className="govuk-footer__inline-list-item">
           <a
             className="govuk-footer__link"
+            id="govuk-footer__link_privacy"
             href="https://www.newark-sherwooddc.gov.uk/privacynotice/"
           >
           Privacy
