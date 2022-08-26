@@ -29,15 +29,15 @@ afterEach(() => {
 describe('Footer', () => {
 
   test('accessibilityLink should be rendered', () => {
-    expect(container.querySelector('#govuk-footer__link_accessibility').textContent).toBe(accessibilityLink);
+    expect(container.querySelector('[data-testid="govuk-footer__link_0"]').textContent).toBe(accessibilityLink);
   })
 
   test('privacyText should be rendered', () => {
-    expect(container.querySelector('#govuk-footer__link_privacy').textContent).toBe(privacyText);
+    expect(container.querySelector('[data-testid="govuk-footer__link_1"]').textContent).toBe(privacyText);
   })
 
   test('privacyLink location should be rendered', () => {
-    expect(container.querySelector('#govuk-footer__link_privacy').getAttribute('href')).toBe(privacyLink);
+    expect(container.querySelector('[data-testid="govuk-footer__link_1"]').getAttribute('href')).toBe(privacyLink);
   })
 
 })
