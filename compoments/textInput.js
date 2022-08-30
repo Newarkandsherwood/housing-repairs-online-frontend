@@ -19,6 +19,7 @@ class TextInput extends Component {
     this.validation = this.props.validation;
     this.type = this.props.type;
     this.emptyInputErrorMessage = this.props.emptyInputErrorMessage;
+    this.widthClassName = this.props.widthClassName;
     this.state = {
       value: this.props.value || '',
       error: {},
@@ -86,7 +87,7 @@ class TextInput extends Component {
               className="govuk-error-message" data-testid={`${this.name}-error`}>
               {this.state.error.msg}
             </span>
-            <input className="govuk-input" id={this.input.id}
+            <input className={`govuk-input ${this.widthClassName ?? ''}`} id={this.input.id}
               name={this.name}
               type={this.type}
               onChange={this.input.onChange}
@@ -117,5 +118,6 @@ TextInput.propTypes = {
   hint: PropTypes.string,
   buttonText: PropTypes.string,
   emptyInputErrorMessage: PropTypes.string,
+  widthClassName: PropTypes.string,
 };
 export default TextInput;
