@@ -28,6 +28,7 @@ const Postcode = ({handleChange, values}) => {
         title={title}
         buttonText={'Continue'}
         emptyInputErrorMessage={'Enter the property postcode'}
+        widthClassName='govuk-input--width-10'
       ></TextInput>
     </div>
   </div>
