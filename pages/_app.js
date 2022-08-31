@@ -15,7 +15,6 @@ function MyApp({ Component, pageProps, err }) {
   useEffect(enableJavascript, []);
 
   const focusRef = useRef(null);
-
   const router = useRouter()
   const currentPath = router.query.route
 
