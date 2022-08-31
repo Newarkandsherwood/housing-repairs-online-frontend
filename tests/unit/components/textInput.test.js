@@ -107,6 +107,23 @@ describe('textInput', () => {
     expect(container.querySelector(`[data-testid="${textInputName}"]`).value).toBe(value);
   })
 
+  test('Displays autoComplete', () => {
+    const value = 'Click me';
+    const textInputName= 'textInputName';
+    const autocompleteValue = 'email';
+
+    act(() => {
+      render(<TextInput
+        name={textInputName}
+        onSubmit={() => {}}
+        title=''
+        value={value}
+        autoComplete={autocompleteValue}
+      />, container)
+    });
+    expect(container.querySelector(`[data-testid="${textInputName}"]`).getAttribute('autocomplete')).toBe(autocompleteValue);
+  })
+
   test('Clicking \'Submit\' button calls \'onSubmit\' handler', () => {
     const textInputName= 'textInputName';
     const mockCallBack = jest.fn();
