@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FooterListItem = ({text, location, index}) => {
-  return (<li className="govuk-footer__inline-list-item">
-    <a className="govuk-footer__link" href={location}
-      data-testid={`govuk-footer__link_${index}`}>
-      {text}
-    </a>
-  </li>)
+  return (
+    <li className="govuk-footer__inline-list-item">
+      <a className="govuk-footer__link" href={location}
+        data-testid={`govuk-footer__link_${index}`}>
+        {text}
+      </a>
+    </li>)
 }
 
 FooterListItem.propTypes = {
