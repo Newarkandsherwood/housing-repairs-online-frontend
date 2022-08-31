@@ -137,7 +137,7 @@ const RepairDescription = ({handleChange, values}) => {
             name="description" type="text" onChange={TextChange} defaultValue={text}
             rows="5"></textarea>
           <div id="with-hint-info"
-            className={`${textLimit - textAreaCount < 0 ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message govuk-!-margin-bottom-6`}
+            className={`${textLimit - textAreaCount < 0 ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message`}
             aria-live="polite">{generateCharacterCountText()}
           </div>
         </div>
