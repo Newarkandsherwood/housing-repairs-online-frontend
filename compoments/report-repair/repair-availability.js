@@ -96,47 +96,49 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
     </header>
     <div className='govuk-grid-column-two-thirds'>
       {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{text: error, location: `#${fieldName}-0-0`}]} pageTitle={pageTitle} />}
-      <div className={`govuk-form-group ${error && 'govuk-form-group--error' }`}>
-        <h1 className="govuk-heading-l">
-          {title}
-        </h1>
-        <p className="govuk-body-l">
-          A responsible adult must be at the property
-          for all of the repair appointment time slot and during the repair
-          appointment.
-        </p>
-        <h3 className="govuk-heading-m govuk-!-padding-top-4">Please select a
-          suitable time slot
-        </h3>
-        <hr/>
-        <div>
-          <span id={`${fieldName}-error`}
-            className="govuk-error-message">
-            {error}
-          </span>
-          <div className="govuk-radios" onChange={onChange}>
-            {Object.keys(availability).map((date, i) => (
-              <div key={i} className='govuk-!-padding-bottom-4'>
-                <h3 className="govuk-heading-m govuk-!-padding-top-4">
-                  {date}
-                </h3>
-                {availability[date].map((timeSlot, ti)=>(
-                  <div className="govuk-radios__item" key={`${i}-${ti}`}>
-                    <input data-cy={`availability-slot-${i}-${ti}`} className="govuk-radios__input govuk-input--width-10"
-                      id={`${fieldName}-${i}-${ti}`} name={fieldName}
-                      type="radio" value={timeSlot.appointmentSlotKey}
-                      defaultChecked={values.availability?.startDateTime === timeSlot.startDateTime && values.availability?.endDateTime === timeSlot.endDateTime}/>
-                    <label className="govuk-label govuk-radios__label"
-                      htmlFor={`${fieldName}-${i}-${ti}`}>
-                      {timeSlot.timeString}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            ))}
+      <form>
+        <div className={`govuk-form-group ${error && 'govuk-form-group--error' }`}>
+          <h1 className="govuk-heading-l">
+            {title}
+          </h1>
+          <p className="govuk-body-l">
+            A responsible adult must be at the property
+            for all of the repair appointment time slot and during the repair
+            appointment.
+          </p>
+          <h3 className="govuk-heading-m govuk-!-padding-top-4">Please select a
+            suitable time slot
+          </h3>
+          <hr/>
+          <div>
+            <span id={`${fieldName}-error`}
+              className="govuk-error-message">
+              {error}
+            </span>
+            <div className="govuk-radios" onChange={onChange}>
+              {Object.keys(availability).map((date, i) => (
+                <div key={i} className='govuk-!-padding-bottom-4'>
+                  <h3 className="govuk-heading-m govuk-!-padding-top-4">
+                    {date}
+                  </h3>
+                  {availability[date].map((timeSlot, ti)=>(
+                    <div className="govuk-radios__item" key={`${i}-${ti}`}>
+                      <input data-cy={`availability-slot-${i}-${ti}`} className="govuk-radios__input govuk-input--width-10"
+                        id={`${fieldName}-${i}-${ti}`} name={fieldName}
+                        type="radio" value={timeSlot.appointmentSlotKey}
+                        defaultChecked={values.availability?.startDateTime === timeSlot.startDateTime && values.availability?.endDateTime === timeSlot.endDateTime}/>
+                      <label className="govuk-label govuk-radios__label"
+                        htmlFor={`${fieldName}-${i}-${ti}`}>
+                        {timeSlot.timeString}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </form>
       <div>
         {fromDate ? (
           <a className="govuk-button govuk-button--secondary" onClick={()=>{
