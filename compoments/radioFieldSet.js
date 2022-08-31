@@ -166,7 +166,18 @@ RadioFieldSet.defaultProps = {
 
 RadioFieldSet.propTypes = {
   name: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    conditional: PropTypes.objectOf(PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      validator: PropTypes.func.isRequired,
+      onKeyPress: PropTypes.func,
+      emptyInputErrorMessage: PropTypes.string.isRequired,
+      invalidInputErrorMessage: PropTypes.string.isRequired,
+    }))
+  })).isRequired,
   onSubmit: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   checked: PropTypes.string,
@@ -178,5 +189,3 @@ RadioFieldSet.propTypes = {
   conditionalValue: PropTypes.object
 };
 export default RadioFieldSet;
-
-
