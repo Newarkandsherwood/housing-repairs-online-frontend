@@ -107,10 +107,40 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 # General note dump
 
 - Testing:
-  - [Jest](https://jestjs.io/docs/getting-started) is used for unit testing `yarn test`
-  - [Cypress](https://docs.cypress.io/) is used for integration testing `yarn test:integration`
+  - [Jest](https://jestjs.io/docs/getting-started) is used for unit testing:
+    ```bash
+    yarn test
+    ```
+  - [Cypress](https://docs.cypress.io/) is used for integration testing:
+    ```bash
+    yarn test:integration
+    ```
 - Local dev
   https://github.com/Azure/static-web-apps-cli
 - M1 Macs setup:
-  - run nvm use 14.0.0 && yarn dev
-  - if there is an error about a missing binding try running `npm rebuild node-sass` and then re-run `nvm use 14.0.0 && yarn dev`
+  - You may need to use node 14.0.0. Install this using 
+    ```bash
+    nvm install v14.0.0
+    ```
+    and then run 
+      ```bash
+      nvm use 14.0.0 && yarn dev
+      ```
+  - If there is an error about a missing binding try rebuilding sass: 
+    ```bash 
+    npm rebuild node-sass
+    ``` 
+    and then re-run the web server: 
+      ```bash
+      nvm use 14.0.0 && yarn dev
+      ```
+  - If you get this error message when running the web server:
+    ```bash
+    Error: Node Sass does not yet support your current environment: OS X Unsupported architecture (arm64)
+    ```
+    In package.json set the version of sass to 6.0.0:
+
+       ```bash
+       "node-sass": "^6.0.0",
+       ```
+    Then rebuild sass before re-running the web server as above.
