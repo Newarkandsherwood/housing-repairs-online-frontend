@@ -97,7 +97,7 @@ describe('textInput', () => {
     expect(container.querySelector(`[data-testid="${textInputName}"]`).value).toBe(value);
   })
 
-  test('Displays autoComplete', () => {
+  test('Text input has correct autoComplete attribute', () => {
     const autocompleteValue = 'email';
 
     act(() => {
