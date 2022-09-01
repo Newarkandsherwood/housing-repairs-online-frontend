@@ -125,20 +125,22 @@ const RepairDescription = ({handleChange, values}) => {
             </div>
           </div>
         </label>
-        <div className={error.text ? 'govuk-form-group--error' : 'govuk-form-group'}>
-          <label className="govuk-label govuk-label--m" htmlFor="description">
+        <div className='govuk-character-count'>
+          <div className={error.text ? 'govuk-form-group--error' : 'govuk-form-group'}>
+            <label className="govuk-label govuk-label--m" htmlFor="description">
             Description of problem
-          </label>
-          <span id={'description-error'}
-            className="govuk-error-message">
-            {error.text}
-          </span>
-          <textarea className={`govuk-textarea ${error.text && 'govuk-textarea--error'} govuk-!-margin-bottom-0`} id={repairDescriptionTextInputId}
-            name="description" type="text" onChange={TextChange} defaultValue={text}
-            rows="5"></textarea>
-          <div id="with-hint-info"
-            className={`${textLimit - textAreaCount < 0 ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message`}
-            aria-live="polite">{generateCharacterCountText()}
+            </label>
+            <span id={'description-error'}
+              className="govuk-error-message">
+              {error.text}
+            </span>
+            <textarea className={`govuk-textarea ${error.text && 'govuk-textarea--error'}`} id={repairDescriptionTextInputId}
+              name="description" type="text" onChange={TextChange} defaultValue={text}
+              rows="5"></textarea>
+            <div id="with-hint-info"
+              className={`${textLimit - textAreaCount < 0 ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message`}
+              aria-live="polite">{generateCharacterCountText()}
+            </div>
           </div>
         </div>
       </form>
