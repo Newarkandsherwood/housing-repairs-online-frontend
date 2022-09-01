@@ -106,7 +106,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
             for all of the repair appointment time slot and during the repair
             appointment.
           </p>
-          <h3 className="govuk-heading-m govuk-!-padding-top-4">Please select a
+          <h3 className="govuk-heading-m">Please select a
             suitable time slot
           </h3>
           <hr/>
