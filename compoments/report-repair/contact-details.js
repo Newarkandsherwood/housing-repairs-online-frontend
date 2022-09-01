@@ -21,13 +21,13 @@ const ContactDetails = ({handleChange, values}) => {
 
   const options =  [
     { value: 'text', title: 'Text message (recommended)', conditional: {
-      label: 'Please enter a UK mobile number',
+      label: 'UK mobile number',
       type: 'tel', validator: mobilePhoneNumberValidator, onKeyPress: phoneOnKeyPress,
       emptyInputErrorMessage: 'Enter a UK mobile number',
       invalidInputErrorMessage: 'Enter a valid UK mobile number',
     }},
     { value: 'email', title: 'Email', conditional: {
-      label: 'Please enter your email address',
+      label: 'Email address',
       type: 'email', validator: emailValidator,
       emptyInputErrorMessage: 'Enter an email address',
       invalidInputErrorMessage: 'Enter a valid email address',
