@@ -6,6 +6,14 @@ import React from 'react';
 import ErrorSummary from './errorSummary';
 import { serviceName } from '../helpers/constants';
 
+const TextDivider = ({text}) => {
+  return <div id="final-divider" className="govuk-radios__divider">{text}</div>
+}
+
+TextDivider.propTypes = {
+  text: PropTypes.string.isRequired,
+};
+
 class RadioFieldSet extends Component {
   constructor(props) {
     super(props);
@@ -104,7 +112,7 @@ class RadioFieldSet extends Component {
             <div className={this.conditional ? 'govuk-radios--conditional' : 'govuk-radios'}>
               {this.options.map((o, i) => (
                 <>
-                  {this.includeOrDivider(i) && <div id="final-divider" className="govuk-radios__divider">or</div>}
+                  {this.includeOrDivider(i) && <TextDivider text='or' /> }
                   <div className="govuk-radios__item" key={`radio-item-${i}`}>
                     <input className="govuk-radios__input govuk-input--width-10"
                       id={`${this.name}-${i}`} name={this.name}
@@ -178,6 +186,7 @@ RadioFieldSet.propTypes = {
   errorText: PropTypes.string,
   conditionalValue: PropTypes.object
 };
+
 export default RadioFieldSet;
 
 
