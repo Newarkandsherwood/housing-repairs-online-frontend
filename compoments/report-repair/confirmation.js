@@ -32,7 +32,6 @@ const Confirmation = ({ requestId, confirmation }) => {
         <TextLink href="/">
           Report another issue
         </TextLink>
-        <div className="govuk-!-margin-bottom-9"></div>
       </div>
     </div>
   );
