@@ -10,7 +10,7 @@ export default function Home() {
   const title = 'Request a repair';
   return (
     <main className="govuk-main-wrapper" id='main-content'>
-      <div className="govuk-grid-row govuk-body-m govuk-!-margin-top-7">
+      <div className="govuk-grid-row govuk-body-m">
         <header>
           <title>
             {title} - {serviceName}
@@ -21,7 +21,6 @@ export default function Home() {
           <h2 className={'govuk-heading-m'}>Before you start</h2>
           <WarningText
             testid="landing-page-report-limit-warning"
-            className="govuk-!-margin-top-4"
           >
           This service can only be used to request one repair at a time to a
           council property.
@@ -49,7 +48,6 @@ export default function Home() {
           </p>
           <Details
             summary="What is a communal area?"
-            className="govuk-!-margin-top-6"
             data-testid="landing-page-communal-prompt"
           >
             <div data-testid="landing-page-communal-info">
@@ -82,7 +80,6 @@ export default function Home() {
           </WarningText>
           <Details
             summary="What is an emergency?"
-            className="govuk-!-margin-top-6"
             testid="landing-page-emergency-prompt"
           >
             <div data-testid="landing-page-emergency-info">
