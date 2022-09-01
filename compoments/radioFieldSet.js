@@ -98,14 +98,14 @@ class RadioFieldSet extends Component {
             </legend>
             {this.hintText && <div id={`hint-text-${this.name}`} className='govuk-hint'>{this.hintText}</div>}
             <span id={`${this.name}-error`}
-              className="govuk-error-message govuk-!-margin-bottom-0">
+              className="govuk-error-message">
               {this.state.error}
             </span>
             <div className={this.conditional ? 'govuk-radios--conditional' : 'govuk-radios'}>
               {this.options.map((o, i) => (
-                <span key={i}>
-                  {this.includeOrDivider(i) ? <div id="final-divider" className="govuk-radios__divider">or</div> : <div className="govuk-!-margin-bottom-2"></div>}
-                  <div className="govuk-radios__item">
+                <>
+                  {this.includeOrDivider(i) && <div id="final-divider" className="govuk-radios__divider">or</div>}
+                  <div className="govuk-radios__item" key={`radio-item-${i}`}>
                     <input className="govuk-radios__input govuk-input--width-10"
                       id={`${this.name}-${i}`} name={this.name}
                       type="radio" value={o.value}
@@ -119,7 +119,8 @@ class RadioFieldSet extends Component {
                       {o.title}
                     </label>
                   </div>
-                  {o.conditional && <div
+                  {o.conditional &&
+                  <div key={`radio-conditional-${i}`}
                     className={`govuk-radios__conditional ${this.state.value[this.name] != o.value && 'govuk-visually-hidden'}`}
                     id={this.getConditionalId(i)}>
                     <div className={this.hasConditionalError(i) ? 'govuk-form-group--error' : 'govuk-form-group'} key={`conditional-${i}`}>
@@ -144,7 +145,7 @@ class RadioFieldSet extends Component {
                       />
                     </div>
                   </div>}
-                </span>
+                </>
               ))}
             </div>
 
