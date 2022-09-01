@@ -5,6 +5,52 @@ import imageToBase64 from 'image-to-base64/browser';
 import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 
+const CharacterCount = ({errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit}) => {
+
+  const generateCharacterCountText = () => {
+    const characterCountDifference = textLimit - textAreaCount;
+    const absoluteCharacterCountDifference = `${Math.abs(characterCountDifference)}`;
+    const suffix = `${characterCountDifference < 0 ? 'too many' : 'remaining'}`;
+    const characterWord = `character${absoluteCharacterCountDifference == 1 ? '' : 's'}`;
+    return `You have ${absoluteCharacterCountDifference} ${characterWord} ${suffix}`
+  }
+
+  return (
+    <div className='govuk-character-count'>
+      <div className={errorText ? 'govuk-form-group--error' : 'govuk-form-group'}>
+        <label className="govuk-label govuk-label--m" htmlFor="description">
+            Description of problem
+        </label>
+        <span id={'description-error'}
+          className="govuk-error-message">
+          {errorText}
+        </span>
+        <textarea
+          className={`govuk-textarea ${errorText && 'govuk-textarea--error'}`}
+          id={repairDescriptionTextInputId}
+          name="description" type="text"
+          onChange={(e) => onChange(e)}
+          defaultValue={text}
+          rows="5"></textarea>
+        <div id="with-hint-info"
+          className={`${hasExceededTextLimit ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message`}
+          aria-live="polite">{generateCharacterCountText()}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+CharacterCount.propTypes = {
+  errorText: PropTypes.string.isRequired,
+  hasExceededTextLimit: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  repairDescriptionTextInputId: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  textAreaCount: PropTypes.number.isRequired,
+  textLimit:PropTypes.number.isRequired,
+}
+
 const RepairDescription = ({handleChange, values}) => {
   const [error, setError] = useState({text: undefined, img: undefined});
   const [activeError, setActiveError] = useState(false);
@@ -83,14 +129,6 @@ const RepairDescription = ({handleChange, values}) => {
     }
   }
 
-  function generateCharacterCountText() {
-    const characterCountDifference = textLimit - textAreaCount;
-    const absoluteCharacterCountDifference = `${Math.abs(characterCountDifference)}`;
-    const suffix = `${characterCountDifference < 0 ? 'too many' : 'remaining'}`;
-    const characterWord = `character${absoluteCharacterCountDifference == 1 ? '' : 's'}`;
-    return `You have ${absoluteCharacterCountDifference} ${characterWord} ${suffix}`
-  }
-
   const getErrorSummaryTextAndLocation = () => {
     const errorSummaryTextAndLocation = [];
     error.text && errorSummaryTextAndLocation.push({text: error.text, location: `#${repairDescriptionTextInputId}`});
@@ -125,24 +163,15 @@ const RepairDescription = ({handleChange, values}) => {
             </div>
           </div>
         </label>
-        <div className='govuk-character-count'>
-          <div className={error.text ? 'govuk-form-group--error' : 'govuk-form-group'}>
-            <label className="govuk-label govuk-label--m" htmlFor="description">
-            Description of problem
-            </label>
-            <span id={'description-error'}
-              className="govuk-error-message">
-              {error.text}
-            </span>
-            <textarea className={`govuk-textarea ${error.text && 'govuk-textarea--error'}`} id={repairDescriptionTextInputId}
-              name="description" type="text" onChange={TextChange} defaultValue={text}
-              rows="5"></textarea>
-            <div id="with-hint-info"
-              className={`${textLimit - textAreaCount < 0 ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message`}
-              aria-live="polite">{generateCharacterCountText()}
-            </div>
-          </div>
-        </div>
+        <CharacterCount
+          errorText={error.text}
+          hasExceededTextLimit={textLimit - textAreaCount < 0}
+          onChange={TextChange}
+          repairDescriptionTextInputId={repairDescriptionTextInputId}
+          text={text}
+          textAreaCount={textAreaCount}
+          textLimit={textLimit}
+        />
       </form>
       <div className={error.img ? 'govuk-form-group--error' : 'govuk-form-group'}>
         <h3 className="govuk-heading-m">
@@ -182,8 +211,6 @@ const RepairDescription = ({handleChange, values}) => {
     </div>
   </div>
 };
-
-
 
 RepairDescription.propTypes = {
   storeAddresses: PropTypes.func,
