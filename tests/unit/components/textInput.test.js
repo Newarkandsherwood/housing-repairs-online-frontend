@@ -3,6 +3,10 @@ import React from 'react';
 import {act} from 'react-dom/test-utils';
 import TextInput from '../../../compoments/textInput';
 
+const textInputName= 'textInputName';
+const titleText = 'A Title';
+const value = 'Click me';
+
 let container = null;
 beforeEach(() => {
   // setup a DOM element as a render target
@@ -19,9 +23,6 @@ afterEach(() => {
 
 describe('textInput', () => {
   test('Displays title', () => {
-    const titleText = 'A Title'
-    const textInputName= 'textInputName';
-
     act(() => {
       render(<TextInput
         name={textInputName}
@@ -34,8 +35,6 @@ describe('textInput', () => {
 
   test('Displays label text', () => {
     const labelText = 'A label';
-    const textInputName= 'textInputName';
-
     act(() => {
       render(<TextInput
         name={textInputName}
@@ -49,8 +48,6 @@ describe('textInput', () => {
 
   test('Displays hint text', () => {
     const hintText = 'A hint';
-    const textInputName= 'textInputName';
-
     act(() => {
       render(<TextInput
         name={textInputName}
@@ -64,8 +61,6 @@ describe('textInput', () => {
 
   test('Text input has provided type', () => {
     const inputType = 'text';
-    const textInputName= 'textInputName';
-
     act(() => {
       render(<TextInput
         name={textInputName}
@@ -79,8 +74,6 @@ describe('textInput', () => {
 
   test('Displays button text', () => {
     const buttonText = 'Click me';
-    const textInputName= 'textInputName';
-
     act(() => {
       render(<TextInput
         name={textInputName}
@@ -93,9 +86,6 @@ describe('textInput', () => {
   })
 
   test('Displays value', () => {
-    const value = 'Click me';
-    const textInputName= 'textInputName';
-
     act(() => {
       render(<TextInput
         name={textInputName}
@@ -107,8 +97,22 @@ describe('textInput', () => {
     expect(container.querySelector(`[data-testid="${textInputName}"]`).value).toBe(value);
   })
 
+  test('Text input has correct autoComplete attribute', () => {
+    const autocompleteValue = 'email';
+
+    act(() => {
+      render(<TextInput
+        name={textInputName}
+        onSubmit={() => {}}
+        title=''
+        value={value}
+        autoComplete={autocompleteValue}
+      />, container)
+    });
+    expect(container.querySelector(`[data-testid="${textInputName}"]`).getAttribute('autocomplete')).toBe(autocompleteValue);
+  })
+
   test('Clicking \'Submit\' button calls \'onSubmit\' handler', () => {
-    const textInputName= 'textInputName';
     const mockCallBack = jest.fn();
 
     act(() => {
@@ -125,9 +129,7 @@ describe('textInput', () => {
   })
 
   test('Clicking \'Submit\' button without value shows error', () => {
-    const textInputName= 'textInputName';
     const emptyInputErrorMessage = 'Enter your information';
-
     act(() => {
       render(<TextInput
         name={textInputName}
@@ -142,13 +144,11 @@ describe('textInput', () => {
   })
 
   test('Clicking \'Submit\' button with invalid value shows error', () => {
-    const textInputName= 'textInputName';
     const invalidInputErrorMessage = 'Invalid input';
     const inputValidator = {
       errorMessage: invalidInputErrorMessage,
       isValid: () => {return false}
     }
-
     act(() => {
       render(<TextInput
         name={textInputName}

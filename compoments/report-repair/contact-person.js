@@ -17,6 +17,7 @@ const ContactPerson = ({handleChange, values}) => {
     </header>
     <div className='govuk-grid-column-two-thirds'>
       <TextInput
+        autoComplete='tel'
         value={values.contactPersonNumber}
         name={'phone-number'}
         onSubmit={Continue}
@@ -31,7 +32,7 @@ const ContactPerson = ({handleChange, values}) => {
         onKeyPress={phoneOnKeyPress}
         emptyInputErrorMessage={'Enter a contact number'}
         widthClassName='govuk-input--width-20'
-      ></TextInput>
+      />
     </div>
   </div>
 };
