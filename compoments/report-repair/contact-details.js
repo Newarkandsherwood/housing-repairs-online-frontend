@@ -25,7 +25,7 @@ const ContactDetails = ({handleChange, values}) => {
       title: 'Text message (recommended)',
       conditional: {
         autoComplete: 'tel',
-        label: 'Please enter a UK mobile number',
+        label: 'UK mobile number',
         type: 'tel',
         validator: mobilePhoneNumberValidator,
         onKeyPress: phoneOnKeyPress,
@@ -37,8 +37,8 @@ const ContactDetails = ({handleChange, values}) => {
       value: 'email',
       title: 'Email',
       conditional: {
-        autoComplete: 'email',
-        label: 'Please enter your email address',
+        autoComplete: 'tel',
+        label: 'Email address',
         type: 'email',
         validator: emailValidator,
         emptyInputErrorMessage: 'Enter an email address',
