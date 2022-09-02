@@ -188,6 +188,7 @@ describe('radioFieldSet', () => {
   test('Conditionals are displayed', () => {
     const label = 'Please enter your email address';
     const type = 'email';
+    const autocomplete = 'email';
 
     act(() => {
       render(<RadioFieldSet
@@ -196,7 +197,8 @@ describe('radioFieldSet', () => {
         options={[{
           value: firstValue, title: firstTitle, conditional: {
             label: label,
-            type: type
+            type: type,
+            autoComplete: autocomplete
           }
         }]}
         title={''}
@@ -205,6 +207,7 @@ describe('radioFieldSet', () => {
     });
     expect(container.querySelector(`#conditional-${fieldSetName}-0`).textContent).toBe(label);
     expect(container.querySelector(`#${fieldSetName}-${firstValue}`).type).toBe(type);
+    expect(container.querySelector(`#${fieldSetName}-${firstValue}`).getAttribute('autocomplete')).toBe(autocomplete);
   })
   test('Clicking \'Submit\' button without conditional value shows error', () => {
     const label = 'Please enter your information';

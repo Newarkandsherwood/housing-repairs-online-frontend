@@ -88,7 +88,9 @@ const Address = ({handleChange, values}) => {
             ))}
           </Select>
         </div>
-        <TextLink href="not-eligible">I can&apos;t find my address on this list</TextLink>
+        <p class="govuk-body">
+          <TextLink href="not-eligible">I can&apos;t find my address on this list</TextLink>
+        </p>
         <br/>
         <br/>
         <Button onClick={Continue} >Continue</Button>

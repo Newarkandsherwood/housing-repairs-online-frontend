@@ -123,7 +123,7 @@ class RadioFieldSet extends Component {
                     className={`govuk-radios__conditional ${this.state.value[this.name] != o.value && 'govuk-radios__conditional--hidden'}`}
                     id={this.getConditionalId(i)}>
                     <div className={this.hasConditionalError(i) ? 'govuk-form-group--error' : 'govuk-form-group'} key={`conditional-${i}`}>
-                      <label className="govuk-hint" htmlFor={this.getConditionalInputId(o.value)}>
+                      <label className="govuk-label" htmlFor={this.getConditionalInputId(o.value)}>
                         {o.conditional.label}
                       </label>
                       {this.hasConditionalError(i) &&
@@ -133,7 +133,9 @@ class RadioFieldSet extends Component {
                         </span>
                       }
                       <input className="govuk-input govuk-!-width-one-third"
-                        id={this.getConditionalInputId(o.value)} name={this.getConditionalInputId(o.value)}
+                        autoComplete={o.conditional.autoComplete}
+                        id={this.getConditionalInputId(o.value)}
+                        name={this.getConditionalInputId(o.value)}
                         type={o.conditional.type}
                         defaultValue={this.conditionalValue[o.value]}
                         onChange={(e) => {
@@ -166,7 +168,19 @@ RadioFieldSet.defaultProps = {
 
 RadioFieldSet.propTypes = {
   name: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    conditional: PropTypes.objectOf(PropTypes.shape({
+      autoComplete: PropTypes.string,
+      label: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      validator: PropTypes.func.isRequired,
+      onKeyPress: PropTypes.func,
+      emptyInputErrorMessage: PropTypes.string.isRequired,
+      invalidInputErrorMessage: PropTypes.string.isRequired,
+    }))
+  })).isRequired,
   onSubmit: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   checked: PropTypes.string,
@@ -178,5 +192,3 @@ RadioFieldSet.propTypes = {
   conditionalValue: PropTypes.object
 };
 export default RadioFieldSet;
-
-
