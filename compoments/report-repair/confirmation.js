@@ -29,9 +29,11 @@ const Confirmation = ({ requestId, confirmation }) => {
           We will assess your repair and may be in touch to ask follow-up
           questions.
         </p>
-        <TextLink href="/">
-          Report another issue
-        </TextLink>
+        <p class="govuk-body">
+          <TextLink href="/">
+            Report another issue
+          </TextLink>
+        </p>
         <div className="govuk-!-margin-bottom-9"></div>
       </div>
     </div>

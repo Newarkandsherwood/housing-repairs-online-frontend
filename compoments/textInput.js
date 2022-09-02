@@ -8,6 +8,7 @@ import { serviceName } from '../helpers/constants';
 class TextInput extends Component {
   constructor(props) {
     super(props);
+    this.autoComplete = this.props.autoComplete;
     this.name = this.props.name;
     this.title = this.props.title;
     this.label = this.props.label;
@@ -95,6 +96,7 @@ class TextInput extends Component {
               onWheel={(e) => e.target.blur()}
               onKeyPress={this.onKeyPress}
               data-testid={this.input.id}
+              autoComplete={this.autoComplete}
             />
           </div>
           <Button onClick={this.formSubmit} >{this.buttonText}</Button>
@@ -105,6 +107,7 @@ class TextInput extends Component {
 }
 
 TextInput.propTypes = {
+  autoComplete: PropTypes.string,
   value: PropTypes.string,
   name: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
