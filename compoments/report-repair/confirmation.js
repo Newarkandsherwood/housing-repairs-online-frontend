@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React from 'react';
 import TextLink from '../textLink';
 import {serviceName} from '../../helpers/constants';
 
