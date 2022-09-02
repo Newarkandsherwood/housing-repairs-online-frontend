@@ -148,7 +148,7 @@ class RadioFieldSet extends Component {
                       key={`conditional-${i}`}
                     >
                       <label
-                        className="govuk-hint"
+                        className="govuk-label"
                         htmlFor={this.getConditionalInputId(o.value)}
                       >
                         {o.conditional.label}
@@ -162,6 +162,7 @@ class RadioFieldSet extends Component {
                       }
                       <input
                         className="govuk-input govuk-!-width-one-third"
+                        autoComplete={o.conditional.autoComplete}
                         id={this.getConditionalInputId(o.value)}
                         name={this.getConditionalInputId(o.value)}
                         type={o.conditional.type}
@@ -196,7 +197,19 @@ RadioFieldSet.defaultProps = {
 
 RadioFieldSet.propTypes = {
   name: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    conditional: PropTypes.objectOf(PropTypes.shape({
+      autoComplete: PropTypes.string,
+      label: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      validator: PropTypes.func.isRequired,
+      onKeyPress: PropTypes.func,
+      emptyInputErrorMessage: PropTypes.string.isRequired,
+      invalidInputErrorMessage: PropTypes.string.isRequired,
+    }))
+  })).isRequired,
   onSubmit: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   checked: PropTypes.string,
@@ -209,5 +222,3 @@ RadioFieldSet.propTypes = {
 };
 
 export default RadioFieldSet;
-
-
