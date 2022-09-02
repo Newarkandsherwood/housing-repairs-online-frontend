@@ -30,6 +30,7 @@ const Communal = ({handleChange, values}) => {
         onSubmit={Continue} buttonText={'Continue'}
         checked={values[name]}
         hintText={hintText}
+        errorText={'Select yes if the problem is in a communal area'}
       />
     </div>
   </div>)

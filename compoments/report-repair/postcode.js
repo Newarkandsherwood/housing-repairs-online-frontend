@@ -19,11 +19,16 @@ const Postcode = ({handleChange, values}) => {
         value={values.postcode}
         name={'postcode'}
         onSubmit={Continue}
-        validation={postCodeValidator}
+        validation={{
+          errorMessage: 'Enter a valid postcode',
+          isValid:postCodeValidator.isValid,
+        }}
         type="text"
         label="Postcode"
         title={title}
         buttonText={'Continue'}
+        emptyInputErrorMessage={'Enter the property postcode'}
+        widthClassName='govuk-input--width-10'
       ></TextInput>
     </div>
   </div>

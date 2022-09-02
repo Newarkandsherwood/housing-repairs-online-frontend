@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import Button from './button';
 import React from 'react';
 import {Component} from 'react';
+import ErrorSummary from './errorSummary';
+import { serviceName } from '../helpers/constants';
 
 class TextInput extends Component {
   constructor(props) {
@@ -16,22 +18,25 @@ class TextInput extends Component {
     this.buttonText = this.props.buttonText;
     this.validation = this.props.validation;
     this.type = this.props.type;
+    this.emptyInputErrorMessage = this.props.emptyInputErrorMessage;
+    this.widthClassName = this.props.widthClassName;
     this.state = {
       value: this.props.value || '',
-      error: {}
+      error: {},
+      activeError: false
     };
-  }
 
-  input = {
-    defaultValue: this.props.value,
-    id: this.name,
-    onChange: this.setValue.bind(this)
+    this.input = {
+      defaultValue: this.props.value,
+      id: this.name,
+      onChange: this.setValue.bind(this)
+    }
   }
 
   setValue(event) {
     this.setState({
       value: event.target.value,
-      error: {}
+      activeError: false
     })
   };
 
@@ -49,7 +54,8 @@ class TextInput extends Component {
           error: {
             msg: this.validation.errorMessage,
             touched: true
-          }
+          },
+          activeError: true
         })
       }
       return this.onSubmit(this.state.value)
@@ -57,39 +63,42 @@ class TextInput extends Component {
     this.setState({
       value: this.state.value,
       error: {
-        msg: 'Required',
+        msg: this.emptyInputErrorMessage || 'Required',
         touched: true
-      }
+      },
+      activeError: true
     })
   };
 
   render(){
     return (
       <>
-        <h1 className="govuk-heading-l">{this.title}</h1>
-        <div className={this.state.error.msg ? 'govuk-form-group--error' : 'govuk-form-group'}>
-          <form action="">
-            <span id={`${this.name}-error`}
-              className="govuk-error-message govuk-!-margin-bottom-0">
-              {this.state.error.msg}
-            </span>
-            <label className="govuk-label" htmlFor={this.input.id}>
+        <form action="">
+          {this.state.error.msg && <ErrorSummary active={this.state.activeError} errorSummaryTextAndLocation={[{text: this.state.error.msg, location: `#${this.input.id}`}]} pageTitle={`${this.title} - ${serviceName}`} />}
+          <div className={`govuk-form-group ${this.state.error.msg ? 'govuk-form-group--error' : ''}`}>
+            <h1 id={`${this.name}-title`}  className="govuk-heading-l" data-testid={`${this.name}-title`}>{this.title}</h1>
+            <label className="govuk-label" htmlFor={this.input.id} data-testid={`${this.name}-label`}>
               {this.label}
             </label>
-            <div id="event-name-hint" className="govuk-hint">
+            <div id="event-name-hint" className="govuk-hint" data-testid={`${this.name}-hint-text`}>
               {this.hint}
             </div>
-            <input className="govuk-input govuk-!-margin-bottom-6" id={this.input.id}
+            <span id={`${this.name}-error`}
+              className="govuk-error-message" data-testid={`${this.name}-error`}>
+              {this.state.error.msg}
+            </span>
+            <input className={`govuk-input ${this.widthClassName ?? ''}`} id={this.input.id}
               name={this.name}
               type={this.type}
               onChange={this.input.onChange}
               defaultValue={this.input.defaultValue}
               onWheel={(e) => e.target.blur()}
               onKeyPress={this.onKeyPress}
+              data-testid={this.input.id}
             />
-            <Button onClick={this.formSubmit} >{this.buttonText}</Button>
-          </form>
-        </div>
+          </div>
+          <Button onClick={this.formSubmit} >{this.buttonText}</Button>
+        </form>
       </>
     )
   }
@@ -97,7 +106,7 @@ class TextInput extends Component {
 
 TextInput.propTypes = {
   value: PropTypes.string,
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   label: PropTypes.string,
   type: PropTypes.string,
@@ -106,5 +115,9 @@ TextInput.propTypes = {
     errorMessage: PropTypes.string,
     isValid: PropTypes.func
   }),
+  hint: PropTypes.string,
+  buttonText: PropTypes.string,
+  emptyInputErrorMessage: PropTypes.string,
+  widthClassName: PropTypes.string,
 };
 export default TextInput;

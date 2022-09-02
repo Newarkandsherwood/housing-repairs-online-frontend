@@ -29,7 +29,7 @@ describe('communal', () => {
       cy.wait(150);
       cy.get('button').click({force: true}).then(()=>{
         cy.get('button').click();
-        cy.contains('Required');
+        cy.contains('Select yes if the problem is in a communal area');
       });
     });
   });

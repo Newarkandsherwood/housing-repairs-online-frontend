@@ -29,6 +29,7 @@ const RepairLocation = ({handleChange, values}) => {
         onSubmit={Continue}
         checked={values[name]?.value}
         buttonText='Continue'
+        errorText={'Select the location of the problem you are reporting'}
       />
     </div>
   </div>

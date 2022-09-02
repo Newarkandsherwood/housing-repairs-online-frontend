@@ -9,6 +9,7 @@ on:
 
 jobs:
   test:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     name: Lint and Test
     runs-on: ubuntu-latest
     strategy:
@@ -26,6 +27,7 @@ jobs:
       - run: yarn lint
       - run: yarn test
   cypress-run:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     name: Cypress run
     runs-on: ubuntu-20.04
     container: cypress/browsers:node14.17.0-chrome88-ff89
@@ -63,6 +65,7 @@ jobs:
 
   terraform:
     name: 'Terraform'
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}

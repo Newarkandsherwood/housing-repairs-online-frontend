@@ -32,9 +32,9 @@ describe('repairLocation', () => {
   });
 
   context('When a user doesn\'t select anything', ()=>{
-    it('should show required message',  () => {
+    it('should show validation message',  () => {
       cy.get('button').click().then(()=>{
-        cy.contains('Required');
+        cy.contains('Select the location of the problem you are reporting');
       });
     });
   });

@@ -23,6 +23,7 @@ const RepairProblemBestDescription = ({handleChange, values, options}) => {
         onSubmit={Continue}
         checked={values[name]?.value}
         buttonText='Continue'
+        errorText={'Select what best describes the problem'}
       />
     </div>
   </div>

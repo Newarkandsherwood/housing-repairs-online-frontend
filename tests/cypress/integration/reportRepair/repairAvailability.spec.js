@@ -66,7 +66,7 @@ describe('repair availability', () => {
     context('When a user select anything', () => {
       it('an error should be shown', () => {
         cy.get('button').click()
-        cy.contains('Required');
+        cy.contains('Select the date and time you are available for a repair appointment');
       });
     });
   });

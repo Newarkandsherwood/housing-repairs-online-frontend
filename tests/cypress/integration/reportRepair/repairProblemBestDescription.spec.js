@@ -160,6 +160,14 @@ describe('repairProblemBestDescription', () => {
       it('displays a "Missing door" option', () => {
         cy.contains('Missing door');
       });
+
+      context('When a user doesn\'t select anything', ()=>{
+        it('should show validation message',  () => {
+          cy.get('button').click().then(()=>{
+            cy.contains('Select what best describes the problem');
+          });
+        });
+      });
     })
 
     context('Heating or hot water', () => {
@@ -200,6 +208,14 @@ describe('repairProblemBestDescription', () => {
       it('displays a "Cooker switch" option', () => {
         cy.contains('Cooker switch');
       });
+
+      context('When a user doesn\'t select anything', ()=>{
+        it('should show validation message',  () => {
+          cy.get('button').click().then(()=>{
+            cy.contains('Select what best describes the problem');
+          });
+        });
+      });
     });
 
     context('Damaged or stuck doors', () => {
@@ -229,6 +245,14 @@ describe('repairProblemBestDescription', () => {
 
       it('displays a "Sliding door" option', () => {
         cy.contains('Sliding door');
+      });
+
+      context('When a user doesn\'t select anything', ()=>{
+        it('should show validation message',  () => {
+          cy.get('button').click().then(()=>{
+            cy.contains('Select what best describes the problem');
+          });
+        });
       });
     });
 
