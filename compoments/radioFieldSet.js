@@ -140,7 +140,7 @@ class RadioFieldSet extends Component {
                   {o.conditional &&
                   <div
                     key={`radio-conditional-${i}`}
-                    className={`govuk-radios__conditional ${this.state.value[this.name] != o.value && 'govuk-visually-hidden'}`}
+                    className={`govuk-radios__conditional ${this.state.value[this.name] != o.value && 'govuk-radios__conditional--hidden'}`}
                     id={this.getConditionalId(i)}
                   >
                     <div
