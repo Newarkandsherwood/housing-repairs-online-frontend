@@ -1,24 +1,24 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Button from '../button';
-import {fetcher} from '../../helpers/fetcher';
+import { fetcher } from '../../helpers/fetcher';
 import useSWR from 'swr';
 import moment from 'moment';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import Loader from '../loader';
 import UnableToBook from './unable-to-book';
 import Error from '../error';
-import {serviceName} from '../../helpers/constants';
+import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 
-const RepairAvailability = ({handleChange, values, fromDate}) => {
+const RepairAvailability = ({ handleChange, values, fromDate }) => {
   const [error, setError] = useState();
   const [value, setValue] = useState(values.availability?.appointmentSlotKey);
   const [activeError, setActiveError] = useState(false);
   const baseURL = '/api/availability';
-  const params =  {
-    repairLocation:  values.repairLocation?.value,
-    repairProblem:  values.repairProblem?.value,
+  const params = {
+    repairLocation: values.repairLocation?.value,
+    repairProblem: values.repairProblem?.value,
     locationId: values.address?.locationId,
   }
   const title = 'When are you available?'
@@ -40,7 +40,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
     heading="An error occurred while looking for available appointments"
     body="Please try again later or call 01522 873333 to complete your repair request" />
 
-  if (!data) return <Loader/>
+  if (!data) return <Loader />
 
   let availability = {};
   let availabilityValues = {};
@@ -49,7 +49,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
 
   if (data) {
     if (data.length == 0) {
-      return <UnableToBook/>;
+      return <UnableToBook />;
     }
     let startTimes = data.map(d => moment(d.startTime))
     nextAppointmentSearchFromDate = moment.max(startTimes).add(1, 'day').format('YYYY-MM-DD');
@@ -63,9 +63,9 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
       const appointmentSlotKey = `${startDateTime.unix()}-${endDateTime.unix()}`
       const timeString = `${startTime} to ${endTime}`
       const timeStringSummary = `between ${timeString}`
-      const appointmentSlotData = {timeString, startDateTime:d.startTime, endDateTime:d.endTime, appointmentSlotKey}
+      const appointmentSlotData = { timeString, startDateTime: d.startTime, endDateTime: d.endTime, appointmentSlotKey }
       availability[dateString] ? availability[dateString].push(appointmentSlotData) : availability[dateString] = [appointmentSlotData]
-      availabilityValues[appointmentSlotKey] = {startDateTime:d.startTime, endDateTime:d.endTime, display:`${dateString} ${timeStringSummary}`}
+      availabilityValues[appointmentSlotKey] = { startDateTime: d.startTime, endDateTime: d.endTime, display: `${dateString} ${timeStringSummary}` }
     })
   }
 
@@ -75,8 +75,8 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
     if (value) {
       let selectedAppointmentSlot = availabilityValues[value];
       return handleChange(fieldName, {
-        startDateTime:selectedAppointmentSlot.startDateTime,
-        endDateTime:selectedAppointmentSlot.endDateTime,
+        startDateTime: selectedAppointmentSlot.startDateTime,
+        endDateTime: selectedAppointmentSlot.endDateTime,
         display: selectedAppointmentSlot.display,
         appointmentSlotKey: value,
       });
@@ -85,7 +85,7 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
     setActiveError(true)
   }
 
-  const onChange = (event) =>{
+  const onChange = (event) => {
     setValue(event.target.value)
     setActiveError(false)
   }
@@ -95,9 +95,9 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
       <title>{pageTitle}</title>
     </header>
     <div className='govuk-grid-column-two-thirds'>
-      {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{text: error, location: `#${fieldName}-0-0`}]} pageTitle={pageTitle} />}
+      {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{ text: error, location: `#${fieldName}-0-0` }]} pageTitle={pageTitle} />}
       <form>
-        <div className={`govuk-form-group ${error && 'govuk-form-group--error' }`}>
+        <div className={`govuk-form-group ${error && 'govuk-form-group--error'}`}>
           <h1 className="govuk-heading-l">
             {title}
           </h1>
@@ -109,24 +109,24 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
           <h3 className="govuk-heading-m">Please select a
             suitable time slot
           </h3>
-          <hr/>
+          <hr />
           <div>
-            <span id={`${fieldName}-error`}
+            {error && (<span id={`${fieldName}-error`}
               className="govuk-error-message">
               {error}
-            </span>
+            </span>)}
             <div className="govuk-radios" onChange={onChange}>
               {Object.keys(availability).map((date, i) => (
-                <div key={i} className='govuk-!-padding-bottom-4'>
-                  <h3 className="govuk-heading-m govuk-!-padding-top-4">
+                <div key={i} className='govuk-!-padding-bottom-6'>
+                  <h3 className="govuk-heading-m govuk-!-padding-top-6">
                     {date}
                   </h3>
-                  {availability[date].map((timeSlot, ti)=>(
+                  {availability[date].map((timeSlot, ti) => (
                     <div className="govuk-radios__item" key={`${i}-${ti}`}>
                       <input data-cy={`availability-slot-${i}-${ti}`} className="govuk-radios__input govuk-input--width-10"
                         id={`${fieldName}-${i}-${ti}`} name={fieldName}
                         type="radio" value={timeSlot.appointmentSlotKey}
-                        defaultChecked={values.availability?.startDateTime === timeSlot.startDateTime && values.availability?.endDateTime === timeSlot.endDateTime}/>
+                        defaultChecked={values.availability?.startDateTime === timeSlot.startDateTime && values.availability?.endDateTime === timeSlot.endDateTime} />
                       <label className="govuk-label govuk-radios__label"
                         htmlFor={`${fieldName}-${i}-${ti}`}>
                         {timeSlot.timeString}
@@ -141,20 +141,20 @@ const RepairAvailability = ({handleChange, values, fromDate}) => {
       </form>
       <div>
         {fromDate ? (
-          <a className="govuk-button govuk-button--secondary" onClick={()=>{
+          <a className="govuk-button govuk-button--secondary" onClick={() => {
             setError(undefined);
             router.push(`${router.asPath}`, 'repair-availability', { shallow: true })
           }}>Previous 5 days</a>
         ) : (
-          <a className="govuk-button govuk-button--secondary" onClick={()=>{
+          <a className="govuk-button govuk-button--secondary" onClick={() => {
             setError(undefined);
             router.push(`${router.asPath}/?fromDate=${nextAppointmentSearchFromDate}`, `${router.asPath}/?next=true`, { shallow: true })
           }}>Next 5 days</a>
         )}
       </div>
       <Button onClick={Continue} >Continue</Button>
-    </div>
-  </div>
+    </div >
+  </div >
 };
 
 
