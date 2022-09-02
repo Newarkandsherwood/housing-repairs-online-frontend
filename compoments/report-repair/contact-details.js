@@ -24,7 +24,7 @@ const ContactDetails = ({handleChange, values}) => {
       value: 'text',
       title: 'Text message (recommended)',
       conditional: {
-        autoComplete: 'tel-national',
+        autoComplete: 'tel',
         label: 'Please enter a UK mobile number',
         type: 'tel',
         validator: mobilePhoneNumberValidator,

@@ -17,7 +17,7 @@ const ContactPerson = ({handleChange, values}) => {
     </header>
     <div className='govuk-grid-column-two-thirds'>
       <TextInput
-        autoComplete='tel-national'
+        autoComplete='tel'
         value={values.contactPersonNumber}
         name={'phone-number'}
         onSubmit={Continue}
