@@ -34,8 +34,108 @@ function ReportRepair() {
 
   const [prevSteps, setPrevSteps] = useState([]);
 
-  const flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps);
+  const emergencyValue = 'emergency';
+  const emergencyRepairNextStep = 'emergency-repair';
+  const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
+  const notEligibleNonEmergencyRepairNextStep = 'not-eligible-non-emergency';
 
+  const [ data, setData ] = useState()
+
+  useEffect(() => {
+    console.log(`data is ${data}`)
+    fetch(`http://localhost:3000/api/configuration/?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}`, {
+      method: 'GET',
+    }).then(response => {
+      console.log(`response is ${response.ok}`);
+      if (response.ok) {
+        return response.json();
+      }
+    }).then(d => {
+      setData(d);
+    })
+  }, []);
+
+  let flow;
+  if (data) {
+    console.log(data)
+
+    // repair location
+    // const repairLocationFlowNextSteps = [
+    //   {condition: 'kitchen', nextStep: 'repair-problems'},
+    //   {condition: 'bathroom', nextStep: 'repair-problems'},
+    //   {condition: 'bedroom', nextStep: 'repair-bedroom-problems'},
+    //   {condition: 'livingAreas', nextStep: 'repair-living-areas-problems'},
+    //   {condition: 'outside', nextStep: 'repair-outside-problems'}
+    // ]
+    const repairLocationFlowNextSteps = data.map((a) => {
+      return {condition: a.value, nextStep: 'repair-problems'};
+    })
+
+    // repair problem
+    // const repairProblemFlowNextSteps = [
+    //   {condition: 'cupboards', nextStep: 'repair-problem-best-description'},
+    //   {condition: 'windows', nextStep: 'repair-problem-best-description'},
+    //   {condition: 'dampOrMould', nextStep: 'damp-mould-problems'},
+    //   {condition: 'electrical', nextStep: 'kitchen-electrical-problems'},
+    //   {condition: 'worktop', nextStep: 'repair-description'},
+    //   {condition: 'sink', nextStep: 'sink-problems'},
+    //   {condition: 'heatingOrHotWater', nextStep: 'unable-to-book'},
+    //   {condition: 'drip-or-leak', nextStep: 'repair-description-leak'},
+    //   {condition: 'door', nextStep: 'kitchen-door-problems'},
+    //   {
+    //     condition: 'wallsFloorsCeiling',
+    //     nextStep: 'wall-floor-ceiling-problems'
+    //   },
+    //   {condition: 'bath', nextStep: 'repair-problem-best-description'},
+    // ]
+    const locationKeys = data.map((a)=>{
+      return a.value;
+    })
+    const repairProblemFlowNextSteps = locationKeys.map((loc) => {
+      const locationOption = data.find(x => x.value == loc);
+      let problemOptions;
+      problemOptions = locationOption.options?.map((a) => {
+        const nextStep = a.value === emergencyValue ? emergencyRepairNextStep : a.options ? 'repair-problem-best-description' : 'repair-description'
+        return { condition: a.value, nextStep: nextStep };
+      })
+      return problemOptions;
+    }).flat().filter(n => n);
+    console.log(`repairProblemFlowNextSteps is ${JSON.stringify(repairProblemFlowNextSteps)}`);
+
+    // repair best description
+    // const repairDescriptionFlowNextSteps = [
+    //   {condition: 'internalDoorIssue', nextStep: 'repair-description'},
+    //   {condition: 'lockOnDoor', nextStep: 'not-eligible-non-emergency'},
+    //   {condition: 'adjustingDoorAfterCarpetFitting', nextStep: 'emergency-repair'}
+    // ];
+    const repairBestDescriptionFlowNextSteps = locationKeys.map((loc) => {
+      const specifyOption = data.find(x => x.value == loc);
+      let problemOptions;
+      problemOptions = specifyOption.options?.map((a) => {
+        const nextSteps = a.options?.map(b => {
+          let nextStep;
+          switch (b.value) {
+          case emergencyValue:
+            nextStep = emergencyRepairNextStep;
+            break;
+          case notEligibleNonEmergencyValue:
+            nextStep = notEligibleNonEmergencyRepairNextStep;
+            break;
+          default:
+            nextStep = 'repair-description';
+            break;
+          }
+          return { condition: b.value, nextStep: nextStep };
+        })
+        return nextSteps?.flat();
+      })
+      // console.log(`problemOptions is: ${JSON.stringify(problemOptions?.flat())}`);
+      return problemOptions?.flat();
+    }).flat().filter(n => n);
+    console.log(`repairDescriptionFlowNextSteps is ${JSON.stringify(repairBestDescriptionFlowNextSteps)}`)
+
+    flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, repairLocationFlowNextSteps, repairProblemFlowNextSteps, repairBestDescriptionFlowNextSteps);
+  }
   useEffect(() => {
     router.beforePopState(({ as }) => {
       flow.prevStep(state)
@@ -48,6 +148,7 @@ function ReportRepair() {
   }, [router]);
 
   const handleChange = (input, value) => {
+    //console.log(`handling change with: input= ${input}, value= ${value}`)
     flow.handleChange(input,value,state)
   };
 
@@ -59,6 +160,10 @@ function ReportRepair() {
   const [confirmation, setConfirmation] = useState('');
   const [formError, setFormError] = useState();
   const [requestId, setRequestId] = useState();
+
+  if (!data) {
+    return <p>No List to show</p>
+  }
 
   const cleanPayload = (payload) => {
     delete payload.availability.appointmentSlotKey
@@ -194,378 +299,424 @@ function ReportRepair() {
           values={values}/>
       )
     case 'repair-location':
+      const locationOptions = data.map((a) => {
+        return {value: a.value, title: a.display};
+      })
       return (
         <RepairLocation
           handleChange={handleChange}
           values={values}
+          options={locationOptions}
         />
       )
-    case 'repair-kitchen-problems':
+    case 'repair-problems':
+      const selectedLocationOption = data.find(x => x.value == values['repairLocation'].value);
+      console.log(selectedLocationOption);
+      const problemOptions = selectedLocationOption.options.map((a) => {
+        return {value: a.value, title: a.display};
+      })
       return (
         <RepairProblem
           handleChange={handleChange}
           values={values}
-          options = {[
-            { value: 'cupboards', title: 'Cupboards, including damaged cupboard doors'},
-            { value: 'electrical', title: 'Electrical, including extractor fans and lightbulbs'},
-            { value: 'worktop', title:   'Damaged worktop'},
-            commonProblems.heatingOrHotWater,
-            { value: 'door', title: 'Damaged or stuck doors'},
-            commonProblems.wallsFloorAndCeiling,
-            commonProblems.sink,
-            commonProblems.windows,
-            commonProblems.dampOrMould
-          ]}
+          options={problemOptions}
+          // options = {[
+          //   { value: 'cupboards', title: 'Cupboards, including damaged cupboard doors'},
+          //   { value: 'electrical', title: 'Electrical, including extractor fans and lightbulbs'},
+          //   { value: 'worktop', title:   'Damaged worktop'},
+          //   commonProblems.heatingOrHotWater,
+          //   { value: 'door', title: 'Damaged or stuck doors'},
+          //   commonProblems.wallsFloorAndCeiling,
+          //   commonProblems.sink,
+          //   commonProblems.windows,
+          //   commonProblems.dampOrMould
+          // ]}
         />
       )
-    case 'repair-bathroom-problems':
-      return (
-        <RepairProblem
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'bath', title: 'Bath, including taps'},
-            commonProblems.wallsFloorAndCeiling,
-            { value: 'electricsExtractorCords', title: 'Electrics, including extractor fan and pull cords'},
-            commonProblems.windows,
-            commonProblems.sink,
-            {value: 'dampOrMould', title: 'Damp or mould'},
-            commonProblems.damagedOrStuckDoors,
-            { value: 'showerIncludingTrayAndDoor', title: 'Shower, including the tray and shower door'},
-            { value: 'toilet', title: 'Toilet'},
-            commonProblems.heatingOrHotWater,
-          ]}
-        />
-      )
-    case 'repair-bedroom-problems':
-      return (
-        <RepairProblem
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            commonProblems.electricsLightsSwitches,
-            commonProblems.wallsFloorAndCeiling,
-            commonProblems.windows,
-            commonProblems.damagedOrStuckDoors,
-            commonProblems.dampOrMould,
-            commonProblems.heating,
-          ]}
-        />
-      )
-    case 'repair-living-areas-problems':
-      return (
-        <RepairProblem
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            commonProblems.electricsLightsSwitches,
-            commonProblems.wallsFloorAndCeiling,
-            commonProblems.windows,
-            commonProblems.damagedOrStuckDoors,
-            commonProblems.dampOrMould,
-            { value: 'stairs', title: 'Stairs (including handrail)'},
-            commonProblems.heating,
-          ]}
-        />
-      )
-
-    case 'repair-stairs-problems':
+    // case 'repair-kitchen-problems':
+    //   return (
+    //     <RepairProblem
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'cupboards', title: 'Cupboards, including damaged cupboard doors'},
+    //         { value: 'electrical', title: 'Electrical, including extractor fans and lightbulbs'},
+    //         { value: 'worktop', title:   'Damaged worktop'},
+    //         commonProblems.heatingOrHotWater,
+    //         { value: 'door', title: 'Damaged or stuck doors'},
+    //         commonProblems.wallsFloorAndCeiling,
+    //         commonProblems.sink,
+    //         commonProblems.windows,
+    //         commonProblems.dampOrMould
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-bathroom-problems':
+    //   return (
+    //     <RepairProblem
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'bath', title: 'Bath, including taps'},
+    //         commonProblems.wallsFloorAndCeiling,
+    //         { value: 'electricsExtractorCords', title: 'Electrics, including extractor fan and pull cords'},
+    //         commonProblems.windows,
+    //         commonProblems.sink,
+    //         {value: 'dampOrMould', title: 'Damp or mould'},
+    //         commonProblems.damagedOrStuckDoors,
+    //         { value: 'showerIncludingTrayAndDoor', title: 'Shower, including the tray and shower door'},
+    //         { value: 'toilet', title: 'Toilet'},
+    //         commonProblems.heatingOrHotWater,
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-bedroom-problems':
+    //   return (
+    //     <RepairProblem
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         commonProblems.electricsLightsSwitches,
+    //         commonProblems.wallsFloorAndCeiling,
+    //         commonProblems.windows,
+    //         commonProblems.damagedOrStuckDoors,
+    //         commonProblems.dampOrMould,
+    //         commonProblems.heating,
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-living-areas-problems':
+    //   return (
+    //     <RepairProblem
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         commonProblems.electricsLightsSwitches,
+    //         commonProblems.wallsFloorAndCeiling,
+    //         commonProblems.windows,
+    //         commonProblems.damagedOrStuckDoors,
+    //         commonProblems.dampOrMould,
+    //         { value: 'stairs', title: 'Stairs (including handrail)'},
+    //         commonProblems.heating,
+    //       ]}
+    //     />
+    //   )
+    //
+    // case 'repair-stairs-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         {value: 'damagedSteps', title: 'Damaged stairs'},
+    //         {value: 'damagedPalistrades', title: 'Damaged palistrades'},
+    //         {value: 'handRail', title: 'Handrail'},
+    //         {value: 'stairRailLoose', title: 'Stair rail come loose'}
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-toilet-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'notFlushing', title: 'Not flushing'},
+    //         { value: 'overflowing', title: 'Overflowing'},
+    //         { value: 'looseFromFloorOrWall', title: 'Coming loose from the floor or wall'},
+    //         { value: 'cracked', title: 'Cracked'},
+    //         { value: 'seat', title: 'Toilet seat'} ]}
+    //     />
+    //   )
+    // case 'repair-outside-problems':
+    //   return (
+    //     <RepairProblem
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'door', title: 'Door, including shed and outhouse'},
+    //         { value: 'securityLights', title: 'Outdoor security lights'},
+    //         { value: 'roof', title: 'Roof, including insulation and shed roof'},
+    //         { value: 'garage', title: 'Garage, including roof and door'},
+    //         { value: 'gatesAndPathways', title: 'Gates and pathways'}
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-garage-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'doorDamage', title: 'Door damage'},
+    //         { value: 'lockDamage', title: 'Lock damage'},
+    //         { value: 'brokenInto', title: 'Broken into'},
+    //         { value: 'roofIssueOrLeak', title: 'Roof issue or leak'},
+    //         { value: 'securityLights', title: 'Outdoor security lights'},
+    //       ]}
+    //     />
+    //   )
+    // case 'outside-roof-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'shedOuthouseRoof', title: 'Shed or outhouse roof'},
+    //         { value: 'loftInsulation', title: 'Loft insulation'},
+    //         { value: 'looseTiles', title: 'Loose tiles'},
+    //         { value: 'flatRoofProblems', title: 'Problem with a flat roof'},
+    //         { value: 'securityLights', title: 'Outdoor security lights'}
+    //       ]}
+    //     />
+    //   )
+    // case 'gates-and-pathways-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         {value: 'frontGate', title: 'Front gate'},
+    //         {value: 'backGate', title: 'Back gate'},
+    //         {value: 'driveway', title: 'Driveway'},
+    //         {value: 'concretePath', title: 'Concrete path around the property'},
+    //         {value: 'steps', title: 'Steps'}
+    //       ]}
+    //     />
+    //   )
+    // case 'outside-door-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'shedDoor', title: 'Shed door'},
+    //         { value: 'outhouseCupboardDoor', title: 'Outhouse cupboard door'},
+    //         { value: 'woodenBackDoor', title: 'Wooden back door'},
+    //         { value: 'upvcBackDoor', title: 'UPVC back door'},
+    //         { value: 'frenchDoors', title: 'French doors'}
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-window-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'smashed', title: 'Smashed window(s)'},
+    //         { value: 'stuckOpen', title: 'Window stuck open'},
+    //         { value: 'stuckShut', title: 'Window stuck shut'},
+    //         { value: 'condensation', title: 'Condensation'}
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-shower-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'electricShowerUnit', title: 'Electric shower unit'},
+    //         { value: 'showerTap', title: 'Tap shower'},
+    //         { value: 'showerHose', title: 'Shower hose'},
+    //         { value: 'showerHead', title: 'Shower head'},
+    //         { value: 'showerTrayBroken', title: 'Shower tray broken'},
+    //         { value: 'cubicleDoorBroken', title: 'Cubicle door broken'},
+    //         { value: 'showerDrainBlocked', title: 'Shower drain blocked'}
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-door-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'internalDoorIssue', title: 'Internal door issue, including hinges, handle, sticking'},
+    //         { value: 'lockOnDoor', title: 'Lock on the door'},
+    //         { value: 'adjustingDoorAfterCarpetFitting', title: 'Adjusting a door after a carpet fitting'},
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-living-area-door-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'internalDoorIssue', title: 'Internal door issue, including hinges, handle, sticking'},
+    //         { value: 'lockOnDoor', title: 'Lock on the door'},
+    //         { value: 'adjustingDoorAfterCarpetFitting', title: 'Adjusting a door after a carpet fitting'},
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-bedroom-door-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options={[
+    //         { value: 'internalDoorIssue', title: 'Internal door issue, including hinges, handle, sticking'},
+    //         { value: 'adjustingDoorAfterCarpetFitting', title: 'Adjusting a door after a carpet fitting'},
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-bedroom-lighting-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'lights', title: 'Lights'},
+    //         { value: 'sockets', title: 'Sockets'}
+    //       ]}
+    //     />
+    //   )
+    // case 'bathroom-damp-mould-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'emergency', title: 'Damp or mould caused by a leak'},
+    //         { value: 'dampOrMould', title: 'Damp or mould caused by something else'}
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-living-areas-lighting-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'lights', title: 'Lights'},
+    //         { value: 'sockets', title: 'Sockets'}
+    //       ]}
+    //     />
+    //   )
+    // case 'repair-bathroom-electric-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'spotLights', title: 'Spot lights'},
+    //         { value: 'tubeLights', title: 'Tube light'},
+    //         { value: 'pullCord', title: 'Pull cord for light or shower'},
+    //         { value: 'extractorFan', title: 'Extractor fan not working'},
+    //       ]}
+    //     />
+    //   )
+    case 'repair-problem-best-description':
+      const specifyLocationOption = data.find(x => x.value == values['repairLocation'].value);
+      const specifyProblemOption = specifyLocationOption.options.find(x => x.value == values['repairProblem'].value);
+      // console.log(specifyOption);
+      const bestDescriptionOptions = specifyProblemOption.options.map((a) => {
+        return {value: a.value, title: a.display};
+      })
       return (
         <RepairProblemBestDescription
           handleChange={handleChange}
           values={values}
-          options = {[
-            {value: 'damagedSteps', title: 'Damaged stairs'},
-            {value: 'damagedPalistrades', title: 'Damaged palistrades'},
-            {value: 'handRail', title: 'Handrail'},
-            {value: 'stairRailLoose', title: 'Stair rail come loose'}
-          ]}
-        />
-      )
-    case 'repair-toilet-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'notFlushing', title: 'Not flushing'},
-            { value: 'overflowing', title: 'Overflowing'},
-            { value: 'looseFromFloorOrWall', title: 'Coming loose from the floor or wall'},
-            { value: 'cracked', title: 'Cracked'},
-            { value: 'seat', title: 'Toilet seat'} ]}
-        />
-      )
-    case 'repair-outside-problems':
-      return (
-        <RepairProblem
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'door', title: 'Door, including shed and outhouse'},
-            { value: 'securityLights', title: 'Outdoor security lights'},
-            { value: 'roof', title: 'Roof, including insulation and shed roof'},
-            { value: 'garage', title: 'Garage, including roof and door'},
-            { value: 'gatesAndPathways', title: 'Gates and pathways'}
-          ]}
-        />
-      )
-    case 'repair-garage-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'doorDamage', title: 'Door damage'},
-            { value: 'lockDamage', title: 'Lock damage'},
-            { value: 'brokenInto', title: 'Broken into'},
-            { value: 'roofIssueOrLeak', title: 'Roof issue or leak'},
-            { value: 'securityLights', title: 'Outdoor security lights'},
-          ]}
-        />
-      )
-    case 'outside-roof-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'shedOuthouseRoof', title: 'Shed or outhouse roof'},
-            { value: 'loftInsulation', title: 'Loft insulation'},
-            { value: 'looseTiles', title: 'Loose tiles'},
-            { value: 'flatRoofProblems', title: 'Problem with a flat roof'},
-            { value: 'securityLights', title: 'Outdoor security lights'}
-          ]}
-        />
-      )
-    case 'gates-and-pathways-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            {value: 'frontGate', title: 'Front gate'},
-            {value: 'backGate', title: 'Back gate'},
-            {value: 'driveway', title: 'Driveway'},
-            {value: 'concretePath', title: 'Concrete path around the property'},
-            {value: 'steps', title: 'Steps'}
-          ]}
-        />
-      )
-    case 'outside-door-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'shedDoor', title: 'Shed door'},
-            { value: 'outhouseCupboardDoor', title: 'Outhouse cupboard door'},
-            { value: 'woodenBackDoor', title: 'Wooden back door'},
-            { value: 'upvcBackDoor', title: 'UPVC back door'},
-            { value: 'frenchDoors', title: 'French doors'}
-          ]}
-        />
-      )
-    case 'repair-window-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'smashed', title: 'Smashed window(s)'},
-            { value: 'stuckOpen', title: 'Window stuck open'},
-            { value: 'stuckShut', title: 'Window stuck shut'},
-            { value: 'condensation', title: 'Condensation'}
-          ]}
-        />
-      )
-    case 'repair-shower-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'electricShowerUnit', title: 'Electric shower unit'},
-            { value: 'showerTap', title: 'Tap shower'},
-            { value: 'showerHose', title: 'Shower hose'},
-            { value: 'showerHead', title: 'Shower head'},
-            { value: 'showerTrayBroken', title: 'Shower tray broken'},
-            { value: 'cubicleDoorBroken', title: 'Cubicle door broken'},
-            { value: 'showerDrainBlocked', title: 'Shower drain blocked'}
-          ]}
-        />
-      )
-    case 'repair-door-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'internalDoorIssue', title: 'Internal door issue, including hinges, handle, sticking'},
-            { value: 'lockOnDoor', title: 'Lock on the door'},
-            { value: 'adjustingDoorAfterCarpetFitting', title: 'Adjusting a door after a carpet fitting'},
-          ]}
-        />
-      )
-    case 'repair-living-area-door-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'internalDoorIssue', title: 'Internal door issue, including hinges, handle, sticking'},
-            { value: 'lockOnDoor', title: 'Lock on the door'},
-            { value: 'adjustingDoorAfterCarpetFitting', title: 'Adjusting a door after a carpet fitting'},
-          ]}
-        />
-      )
-    case 'repair-bedroom-door-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options={[
-            { value: 'internalDoorIssue', title: 'Internal door issue, including hinges, handle, sticking'},
-            { value: 'adjustingDoorAfterCarpetFitting', title: 'Adjusting a door after a carpet fitting'},
-          ]}
-        />
-      )
-    case 'repair-bedroom-lighting-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'lights', title: 'Lights'},
-            { value: 'sockets', title: 'Sockets'}
-          ]}
-        />
-      )
-    case 'bathroom-damp-mould-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'emergency', title: 'Damp or mould caused by a leak'},
-            { value: 'dampOrMould', title: 'Damp or mould caused by something else'}
-          ]}
-        />
-      )
-    case 'repair-living-areas-lighting-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'lights', title: 'Lights'},
-            { value: 'sockets', title: 'Sockets'}
-          ]}
-        />
-      )
-    case 'repair-bathroom-electric-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'spotLights', title: 'Spot lights'},
-            { value: 'tubeLights', title: 'Tube light'},
-            { value: 'pullCord', title: 'Pull cord for light or shower'},
-            { value: 'extractorFan', title: 'Extractor fan not working'},
-          ]}
-        />
-      )
-    case 'repair-kitchen-cupboard-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
+          options={bestDescriptionOptions}
+          /*options = {[
             { value: 'doorHangingOff', title: 'Hanging door'},
             { value: 'doorMissing', title: 'Missing door'},
-          ]}
+          ]}*/
         />
       )
-    case 'kitchen-electrical-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            {value: 'extractorFan', title: 'Extractor fan'},
-            {value: 'sockets', title: 'Socket(s)'},
-            {value: 'lightFitting', title: 'Light fitting(s)'},
-            {value: 'cookerSwitch', title: 'Cooker switch'}
-          ]}
-        />
-      )
-    case 'bath-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            {value: 'bathTaps', title: 'Bath taps'},
-            {value: 'sealAroundBath', title: 'Seal around bath'},
-            {value: 'bathPanel', title: 'Bath panel'},
-            {value: 'bathBlockage', title: 'Blockage'}
-          ]}
-        />
-      )
-    case 'kitchen-door-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            {value: 'backDoorWooden', title: 'Wooden back door'},
-            {value: 'backDoorUPVC', title: 'UPVC back door'},
-            {value: 'backFrenchDoors', title: 'French doors'},
-            {value: 'internal', title: 'Internal door issue, including hinges, handle, sticking'},
-            {value: 'sliding', title: 'Sliding door'}
-          ]}
-        />
-      )
-    case 'wall-floor-ceiling-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'wallTiles', title: 'Wall tiles'},
-            { value: 'floorTiles', title: 'Floor tiles'},
-            { value: 'lightFitting', title: 'Light fitting(s)'},
-            { value: 'skirtingBoardArchitrave', title: 'Skirting boards or architraves'},
-            { value: 'plasteringCeiling', title: 'Plastering on the ceiling'},
-            { value: 'plasteringWalls', title: 'Plastering on the walls'},
-            { value: 'woodenFloorboards', title: 'Wooden floorboards'},
-          ]}
-        />
-      )
-    case 'sink-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'taps', title: 'Tap(s)'},
-            { value: 'pipeworkLeak', title: 'Pipework leak'},
-            { value: 'leakBlockage', title: 'Leak or blockage'},
-            { value: 'damageSink', title: 'Damage to the sink'}
-          ]}
-        />
-      )
-    case 'damp-mould-problems':
-      return (
-        <RepairProblemBestDescription
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'dampMouldCausedByLeak', title: 'Damp or mould caused by a leak'},
-            { value: 'dampOrMould', title: 'Damp or mould caused by something else'}
-          ]}
-        />
-      )
+    // case 'repair-kitchen-cupboard-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'doorHangingOff', title: 'Hanging door'},
+    //         { value: 'doorMissing', title: 'Missing door'},
+    //       ]}
+    //     />
+    //   )
+    // case 'kitchen-electrical-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         {value: 'extractorFan', title: 'Extractor fan'},
+    //         {value: 'sockets', title: 'Socket(s)'},
+    //         {value: 'lightFitting', title: 'Light fitting(s)'},
+    //         {value: 'cookerSwitch', title: 'Cooker switch'}
+    //       ]}
+    //     />
+    //   )
+    // case 'bath-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         {value: 'bathTaps', title: 'Bath taps'},
+    //         {value: 'sealAroundBath', title: 'Seal around bath'},
+    //         {value: 'bathPanel', title: 'Bath panel'},
+    //         {value: 'bathBlockage', title: 'Blockage'}
+    //       ]}
+    //     />
+    //   )
+    // case 'kitchen-door-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         {value: 'backDoorWooden', title: 'Wooden back door'},
+    //         {value: 'backDoorUPVC', title: 'UPVC back door'},
+    //         {value: 'backFrenchDoors', title: 'French doors'},
+    //         {value: 'internal', title: 'Internal door issue, including hinges, handle, sticking'},
+    //         {value: 'sliding', title: 'Sliding door'}
+    //       ]}
+    //     />
+    //   )
+    // case 'wall-floor-ceiling-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'wallTiles', title: 'Wall tiles'},
+    //         { value: 'floorTiles', title: 'Floor tiles'},
+    //         { value: 'lightFitting', title: 'Light fitting(s)'},
+    //         { value: 'skirtingBoardArchitrave', title: 'Skirting boards or architraves'},
+    //         { value: 'plasteringCeiling', title: 'Plastering on the ceiling'},
+    //         { value: 'plasteringWalls', title: 'Plastering on the walls'},
+    //         { value: 'woodenFloorboards', title: 'Wooden floorboards'},
+    //       ]}
+    //     />
+    //   )
+    // case 'sink-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'taps', title: 'Tap(s)'},
+    //         { value: 'pipeworkLeak', title: 'Pipework leak'},
+    //         { value: 'leakBlockage', title: 'Leak or blockage'},
+    //         { value: 'damageSink', title: 'Damage to the sink'}
+    //       ]}
+    //     />
+    //   )
+    // case 'damp-mould-problems':
+    //   return (
+    //     <RepairProblemBestDescription
+    //       handleChange={handleChange}
+    //       values={values}
+    //       options = {[
+    //         { value: 'dampMouldCausedByLeak', title: 'Damp or mould caused by a leak'},
+    //         { value: 'dampOrMould', title: 'Damp or mould caused by something else'}
+    //       ]}
+    //     />
+    //   )
     case 'smell-gas':
       return (
         <SmellGas/>
@@ -619,33 +770,35 @@ export async function getStaticPaths() {
     {params: { route: 'priority-list'} },
     {params: { route: 'repair-location'} },
     {params: { route: 'smell-gas'} },
-    {params: { route: 'repair-kitchen-problems'} },
-    {params: { route: 'sink-problems'} },
-    {params: { route: 'repair-bathroom-problems'} },
-    {params: { route: 'repair-bedroom-problems'} },
-    {params: { route: 'bathroom-damp-mould-problems'} },
-    {params: { route: 'repair-living-areas-problems'} },
-    {params: { route: 'repair-living-areas-lighting-problems'} },
-    {params: { route: 'wall-floor-ceiling-problems'} },
-    {params: { route: 'repair-stairs-problems'} },
-    {params: { route: 'bath-problems'} },
-    {params: { route: 'damp-mould-problems'} },
-    {params: { route: 'kitchen-electrical-problems'} },
-    {params: { route: 'kitchen-door-problems'} },
-    {params: { route: 'repair-kitchen-cupboard-problems'} },
-    {params: { route: 'repair-bedroom-lighting-problems'} },
-    {params: { route: 'repair-bathroom-electric-problems'} },
-    {params: { route: 'repair-living-area-door-problems'} },
-    {params: { route: 'repair-bedroom-door-problems'} },
-    {params: { route: 'repair-door-problems'}},
-    {params: { route: 'repair-toilet-problems'}},
-    {params: { route: 'repair-garage-problems'}},
-    {params: { route: 'repair-window-problems'} },
-    {params: { route: 'repair-outside-problems'}},
-    {params: { route: 'outside-roof-problems'}},
-    {params: { route: 'outside-door-problems'}},
-    {params: { route: 'gates-and-pathways-problems'}},
-    {params: { route: 'repair-shower-problems'} },
+    {params: { route: 'repair-problems'} },
+    // {params: { route: 'repair-kitchen-problems'} },
+    // {params: { route: 'sink-problems'} },
+    // {params: { route: 'repair-bathroom-problems'} },
+    // {params: { route: 'repair-bedroom-problems'} },
+    // {params: { route: 'bathroom-damp-mould-problems'} },
+    // {params: { route: 'repair-living-areas-problems'} },
+    // {params: { route: 'repair-living-areas-lighting-problems'} },
+    // {params: { route: 'wall-floor-ceiling-problems'} },
+    // {params: { route: 'repair-stairs-problems'} },
+    // {params: { route: 'bath-problems'} },
+    // {params: { route: 'damp-mould-problems'} },
+    // {params: { route: 'kitchen-electrical-problems'} },
+    // {params: { route: 'kitchen-door-problems'} },
+    // {params: { route: 'repair-kitchen-cupboard-problems'} },
+    {params: { route: 'repair-problem-best-description'} },
+    // {params: { route: 'repair-bedroom-lighting-problems'} },
+    // {params: { route: 'repair-bathroom-electric-problems'} },
+    // {params: { route: 'repair-living-area-door-problems'} },
+    // {params: { route: 'repair-bedroom-door-problems'} },
+    // {params: { route: 'repair-door-problems'}},
+    // {params: { route: 'repair-toilet-problems'}},
+    // {params: { route: 'repair-garage-problems'}},
+    // {params: { route: 'repair-window-problems'} },
+    // {params: { route: 'repair-outside-problems'}},
+    // {params: { route: 'outside-roof-problems'}},
+    // {params: { route: 'outside-door-problems'}},
+    // {params: { route: 'gates-and-pathways-problems'}},
+    // {params: { route: 'repair-shower-problems'} },
     {params: { route: 'repair-description'} },
     {params: { route: 'repair-availability'} },
     {params: { route: 'smell-gas'} }
