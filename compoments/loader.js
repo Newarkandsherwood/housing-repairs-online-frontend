@@ -8,7 +8,7 @@ export default function Loader({}) {
         <title>Loading - {serviceName}</title>
       </header>
       <div className="loader"></div>
-      <h4 className="govuk-!-text-align-centre  govuk-!-margin-bottom-7">
+      <h4 className="govuk-!-text-align-centre">
         Loading
       </h4>
     </>

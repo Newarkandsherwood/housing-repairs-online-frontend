@@ -6,6 +6,14 @@ import React from 'react';
 import ErrorSummary from './errorSummary';
 import { serviceName } from '../helpers/constants';
 
+const TextDivider = ({text}) => {
+  return <div id="final-divider" className="govuk-radios__divider">{text}</div>
+}
+
+TextDivider.propTypes = {
+  text: PropTypes.string.isRequired,
+};
+
 class RadioFieldSet extends Component {
   constructor(props) {
     super(props);
@@ -97,42 +105,63 @@ class RadioFieldSet extends Component {
               </h1>
             </legend>
             {this.hintText && <div id={`hint-text-${this.name}`} className='govuk-hint'>{this.hintText}</div>}
-            <span id={`${this.name}-error`}
-              className="govuk-error-message govuk-!-margin-bottom-0">
+            <span
+              id={`${this.name}-error`}
+              className="govuk-error-message"
+            >
               {this.state.error}
             </span>
             <div className={this.conditional ? 'govuk-radios--conditional' : 'govuk-radios'}>
               {this.options.map((o, i) => (
-                <span key={i}>
-                  {this.includeOrDivider(i) ? <div id="final-divider" className="govuk-radios__divider">or</div> : <div className="govuk-!-margin-bottom-2"></div>}
-                  <div className="govuk-radios__item">
-                    <input className="govuk-radios__input govuk-input--width-10"
-                      id={`${this.name}-${i}`} name={this.name}
-                      type="radio" value={o.value}
+                <>
+                  {this.includeOrDivider(i) && <TextDivider text='or' />}
+                  <div
+                    className="govuk-radios__item"
+                    key={`radio-item-${i}`}
+                  >
+                    <input
+                      className="govuk-radios__input govuk-input--width-10"
+                      id={`${this.name}-${i}`}
+                      name={this.name}
+                      type="radio"
+                      value={o.value}
                       defaultChecked={o.checked}
                       onChange={this.setValue.bind(this)}
                       onClick={() => { this.setState({ activeError: false }) }}
                       data-aria-controls={this.getConditionalId(i)}
                     />
-                    <label className="govuk-label govuk-radios__label"
-                      htmlFor={`${this.name}-${i}`}>
+                    <label
+                      className="govuk-label govuk-radios__label"
+                      htmlFor={`${this.name}-${i}`}
+                    >
                       {o.title}
                     </label>
                   </div>
-                  {o.conditional && <div
+                  {o.conditional &&
+                  <div
+                    key={`radio-conditional-${i}`}
                     className={`govuk-radios__conditional ${this.state.value[this.name] != o.value && 'govuk-radios__conditional--hidden'}`}
-                    id={this.getConditionalId(i)}>
-                    <div className={this.hasConditionalError(i) ? 'govuk-form-group--error' : 'govuk-form-group'} key={`conditional-${i}`}>
-                      <label className="govuk-label" htmlFor={this.getConditionalInputId(o.value)}>
+                    id={this.getConditionalId(i)}
+                  >
+                    <div
+                      className={this.hasConditionalError(i) ? 'govuk-form-group--error' : 'govuk-form-group'}
+                      key={`conditional-${i}`}
+                    >
+                      <label
+                        className="govuk-label"
+                        htmlFor={this.getConditionalInputId(o.value)}
+                      >
                         {o.conditional.label}
                       </label>
                       {this.hasConditionalError(i) &&
-                        <span id={`${this.name}-conditional-error`}
+                        <span
+                          id={`${this.name}-conditional-error`}
                           className="govuk-error-message">
                           {this.state.conditionalError.msg}
                         </span>
                       }
-                      <input className="govuk-input govuk-!-width-one-third"
+                      <input
+                        className="govuk-input govuk-!-width-one-third"
                         autoComplete={o.conditional.autoComplete}
                         id={this.getConditionalInputId(o.value)}
                         name={this.getConditionalInputId(o.value)}
@@ -146,7 +175,7 @@ class RadioFieldSet extends Component {
                       />
                     </div>
                   </div>}
-                </span>
+                </>
               ))}
             </div>
 
@@ -191,4 +220,5 @@ RadioFieldSet.propTypes = {
   errorText: PropTypes.string,
   conditionalValue: PropTypes.object
 };
+
 export default RadioFieldSet;

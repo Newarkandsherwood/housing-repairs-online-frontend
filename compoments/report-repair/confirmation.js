@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React from 'react';
 import TextLink from '../textLink';
 import {serviceName} from '../../helpers/constants';
 
@@ -29,12 +29,11 @@ const Confirmation = ({ requestId, confirmation }) => {
           We will assess your repair and may be in touch to ask follow-up
           questions.
         </p>
-        <p class="govuk-body">
+        <p className="govuk-body">
           <TextLink href="/">
-            Report another issue
+          Report another issue
           </TextLink>
         </p>
-        <div className="govuk-!-margin-bottom-9"></div>
       </div>
     </div>
   );

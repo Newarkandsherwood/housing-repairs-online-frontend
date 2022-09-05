@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link'
+
 export default function SummaryList ({summary, goToStep}) {
 
-  return(<dl className="govuk-summary-list govuk-!-margin-bottom-9">
+  return(<dl className="govuk-summary-list">
     {summary.map((o, i) => (
       <div className="govuk-summary-list__row" key={i}>
         <dt className="govuk-summary-list__key">
