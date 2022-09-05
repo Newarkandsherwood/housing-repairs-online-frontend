@@ -29,7 +29,7 @@ const Confirmation = ({ requestId, confirmation }) => {
           We will assess your repair and may be in touch to ask follow-up
           questions.
         </p>
-        <p>
+        <p className="govuk-body">
           <TextLink href="/">
           Report another issue
           </TextLink>
