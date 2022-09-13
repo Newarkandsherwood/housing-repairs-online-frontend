@@ -507,22 +507,13 @@ context('Bedroom', () => {
     testWallOption();
   });
 
-  context('Electrics, including extractor fan and pull cords', () => {
+  context('Electrics, including lights and switches', () => {
     before(()=>{
       navigateToLocation()
       cy.contains('Bedroom').click();
       cy.get('button').click();
     });
 
-    electricsOption();
-  });
-
-  context('Electrical, including extractor fans and lightbulbs', () => {
-    before(()=>{
-      navigateToLocation()
-      cy.contains('Bedroom').click();
-      cy.get('button').click();
-    });
     electricsOption();
   });
 
