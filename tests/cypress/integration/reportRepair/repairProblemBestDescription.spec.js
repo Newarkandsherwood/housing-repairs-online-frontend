@@ -409,82 +409,82 @@ describe('repairProblemBestDescription', () => {
       });
       testDoorOption();
     });
-  });
 
-  context('Toilet', () => {
-    before(()=>{
-      navigateToLocation()
-      cy.contains('Bathroom').click();
-      cy.get('button').click();
-      cy.contains('Toilet').click();
-      cy.get('button').click();
+    context('Toilet', () => {
+      before(()=>{
+        navigateToLocation()
+        cy.contains('Bathroom').click();
+        cy.get('button').click();
+        cy.contains('Toilet').click();
+        cy.get('button').click();
+      });
+
+      it('displays the repair issue question', () => {
+        cy.contains('What best describes the problem?');
+      });
+
+      it('displays a "Not flushing" option', () => {
+        cy.contains('Not flushing');
+      });
+
+      it('displays a "Overflowing" option', () => {
+        cy.contains('Overflowing');
+      });
+
+      it('displays a "Coming loose from the floor or wall" option', () => {
+        cy.contains('Coming loose from the floor or wall');
+      });
+
+      it('displays a "Cracked" option', () => {
+        cy.contains('Cracked');
+      });
+
+      it('displays a "Toilet seat" option', () => {
+        cy.contains('Toilet seat');
+      });
+
     });
 
-    it('displays the repair issue question', () => {
-      cy.contains('What best describes the problem?');
-    });
+    context('Shower, including the tray and shower door', () => {
+      before(()=>{
+        navigateToLocation()
+        cy.contains('Bathroom').click();
+        cy.get('button').click();
+        cy.contains('Shower, including the tray and shower door').click();
+        cy.get('button').click();
+      });
 
-    it('displays a "Not flushing" option', () => {
-      cy.contains('Not flushing');
-    });
+      it('displays the repair issue question', () => {
+        cy.contains('What best describes the problem?');
+      });
 
-    it('displays a "Overflowing" option', () => {
-      cy.contains('Overflowing');
-    });
+      it('displays a "Electric shower unit" option', () => {
+        cy.contains('Electric shower unit');
+      });
 
-    it('displays a "Coming loose from the floor or wall" option', () => {
-      cy.contains('Coming loose from the floor or wall');
-    });
+      it('displays a "Tap shower" option', () => {
+        cy.contains('Tap shower');
+      });
 
-    it('displays a "Cracked" option', () => {
-      cy.contains('Cracked');
-    });
+      it('displays a "Shower hose" option', () => {
+        cy.contains('Shower hose');
+      });
 
-    it('displays a "Toilet seat" option', () => {
-      cy.contains('Toilet seat');
-    });
+      it('displays a "Shower head" option', () => {
+        cy.contains('Shower head');
+      });
 
-  });
+      it('displays a "Shower tray broken" option', () => {
+        cy.contains('Shower tray broken');
+      });
 
-  context('Shower, including the tray and shower door', () => {
-    before(()=>{
-      navigateToLocation()
-      cy.contains('Bathroom').click();
-      cy.get('button').click();
-      cy.contains('Shower, including the tray and shower door').click();
-      cy.get('button').click();
-    });
+      it('displays a "Cubicle door broken" option', () => {
+        cy.contains('Cubicle door broken');
+      });
 
-    it('displays the repair issue question', () => {
-      cy.contains('What best describes the problem?');
-    });
-
-    it('displays a "Electric shower unit" option', () => {
-      cy.contains('Electric shower unit');
-    });
-
-    it('displays a "Tap shower" option', () => {
-      cy.contains('Tap shower');
-    });
-
-    it('displays a "Shower hose" option', () => {
-      cy.contains('Shower hose');
-    });
-
-    it('displays a "Shower head" option', () => {
-      cy.contains('Shower head');
-    });
-
-    it('displays a "Shower tray broken" option', () => {
-      cy.contains('Shower tray broken');
-    });
-
-    it('displays a "Cubicle door broken" option', () => {
-      cy.contains('Cubicle door broken');
-    });
-
-    it('displays a "Shower drain blocked" option', () => {
-      cy.contains('Shower drain blocked');
+      it('displays a "Shower drain blocked" option', () => {
+        cy.contains('Shower drain blocked');
+      });
     });
   });
 
