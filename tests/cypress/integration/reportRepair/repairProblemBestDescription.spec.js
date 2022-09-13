@@ -137,14 +137,12 @@ const testDampOrMouldOption = () => {
 describe('repairProblemBestDescription', () => {
 
   context('Kitchen', () => {
-    before(()=>{
-      navigateToLocation()
-      cy.contains('Kitchen').click();
-      cy.get('button').click();
-    });
 
     context('Cupboards, including damaged cupboard doors', () => {
       before(()=>{
+        navigateToLocation()
+        cy.contains('Kitchen').click();
+        cy.get('button').click();
         cy.contains('Cupboards, including damaged cupboard doors').click();
         cy.get('button').click();
       });
@@ -301,14 +299,12 @@ describe('repairProblemBestDescription', () => {
   })
 
   context('Bathroom', () => {
-    before(()=>{
-      navigateToLocation()
-      cy.contains('Bathroom').click();
-      cy.get('button').click();
-    });
 
     context('Bath, including taps', () => {
       before(() => {
+        navigateToLocation()
+        cy.contains('Bathroom').click();
+        cy.get('button').click();
         cy.contains('Bath, including taps').click();
         cy.get('button').click();
       });
@@ -489,14 +485,12 @@ describe('repairProblemBestDescription', () => {
   });
 
   context('Bedroom', () => {
-    before(()=>{
-      navigateToLocation()
-      cy.contains('Bedroom').click();
-      cy.get('button').click();
-    });
 
     context('Walls, floor or ceiling, excluding damp', () => {
       before(() => {
+        navigateToLocation()
+        cy.contains('Bedroom').click();
+        cy.get('button').click();
         cy.contains('Walls, floor or ceiling, excluding damp').click();
         cy.get('button').click();
       });
@@ -547,14 +541,12 @@ describe('repairProblemBestDescription', () => {
   });
 
   context('Living Area', () => {
-    before(()=>{
-      navigateToLocation()
-      cy.contains('Living Area').click();
-      cy.get('button').click();
-    });
 
     context('Walls, floor or ceiling, excluding damp', () => {
       before(() => {
+        navigateToLocation()
+        cy.contains('Living Area').click();
+        cy.get('button').click();
         cy.contains('Walls, floor or ceiling, excluding damp').click();
         cy.get('button').click();
       });
@@ -636,13 +628,11 @@ describe('repairProblemBestDescription', () => {
   });
 
   context('Outside', () => {
-    before(()=>{
+
+    it('Outdoor security lights goes to description',  () => {
       navigateToLocation()
       cy.contains('Outside').click();
       cy.get('button').click();
-    });
-
-    it('Outdoor security lights goes to description',  () => {
       cy.contains('Outdoor security lights').click();
       cy.get('button').click();
       cy.url().should('include', '/report-repair/repair-description');
