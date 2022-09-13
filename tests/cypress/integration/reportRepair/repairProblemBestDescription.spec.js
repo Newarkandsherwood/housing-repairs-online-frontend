@@ -59,7 +59,7 @@ const testWallOption = () => {
   });
 }
 
-const electricsOption = () => {
+const testElectricsOption = () => {
   before(() => {
     cy.contains('Electrics, including lights and switches').click();
     cy.get('button').click();
@@ -511,7 +511,7 @@ describe('repairProblemBestDescription', () => {
         cy.get('button').click();
       });
 
-      electricsOption();
+      testElectricsOption();
     });
 
     context('Damaged or stuck windows', () => {
@@ -568,7 +568,7 @@ describe('repairProblemBestDescription', () => {
         cy.get('button').click();
       });
 
-      electricsOption();
+      testElectricsOption();
     });
 
     context('Damaged or stuck windows', () => {
