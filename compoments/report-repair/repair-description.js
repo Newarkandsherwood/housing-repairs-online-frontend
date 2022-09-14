@@ -80,7 +80,8 @@ const RepairDescription = ({handleChange, values}) => {
               name="description" type="text"
               onChange={TextChange}
               defaultValue={text}
-              rows="5" />
+              rows="5"
+            />
             <CharacterCountMessage
               textAreaCount={textAreaCount}
               textLimit={textLimit}
