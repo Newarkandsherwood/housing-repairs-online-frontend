@@ -3,27 +3,18 @@ import React, {useState} from 'react';
 import Button from '../button';
 import ErrorSummary from '../errorSummary';
 import {serviceName} from '../../helpers/constants';
+import imageToBase64 from 'image-to-base64/browser';
 
 const RepairPicture = ({ handleChange, values }) => {
-  const [error, setError] = useState({ text: undefined, img: undefined });
+  const [error, setError] = useState(undefined);
   const [activeError, setActiveError] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [selectedImage, setSelectedImage] = useState(values.description?.photo);
   const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
   const [base64img, setBase64img] = useState(values.description?.base64img);
-  const [text, setText] = useState(values.description?.text)
-  const [textAreaCount, setTextAreaCount] = React.useState(0);
-  const textLimit = 255
   const title = 'Upload an image of the problem (optional)'
   const pageTitle = `${title} - ${serviceName}`;
-  const repairDescriptionTextInputId = 'repair-description-text-input';
   const repairDescriptionUploadPhotoInputId = 'repair-description-upload-a-photo-input';
-
-  const TextChange = (e) => {
-    setText(e.target.value)
-    setTextAreaCount(e.target.value.length);
-    setActiveError(false)
-  }
 
   const saveFileAsImage = (file) => {
     const image = URL.createObjectURL(file);
@@ -50,7 +41,6 @@ const RepairPicture = ({ handleChange, values }) => {
   }
 
   const Continue = () => {
-    let textError = undefined;
     let imageError = undefined;
     setActiveError(true);
     if (selectedFile) {
@@ -62,31 +52,17 @@ const RepairPicture = ({ handleChange, values }) => {
         imageError = `The selected file must be smaller than 10MB. Your file size is ${size}MB`;
       }
     }
-    if (textAreaCount > textLimit) {
-      textError = `Enter a description of the problem using ${textLimit} characters or less`;
-    }
-    if (!text) {
-      textError = 'Enter a description of the problem';
-    }
-    if (!textError && !imageError) {
+    if (!imageError) {
       return handleChange('description', {
         photo: selectedImage,
-        text: text,
         fileExtension: fileExtension,
         base64img: base64img
       });
     } else {
       setSelectedImage(null);
       setSelectedFile(null);
-      return setError({ text: textError, img: imageError })
+      return setError(imageError)
     }
-  }
-
-  const getErrorSummaryTextAndLocation = () => {
-    const errorSummaryTextAndLocation = [];
-    error.text && errorSummaryTextAndLocation.push({ text: error.text, location: `#${repairDescriptionTextInputId}` });
-    error.img && errorSummaryTextAndLocation.push({ text: error.img, location: `#${repairDescriptionUploadPhotoInputId}` });
-    return errorSummaryTextAndLocation;
   }
 
   return <div className="govuk-grid-row" data-cy="repair-description">
@@ -94,14 +70,12 @@ const RepairPicture = ({ handleChange, values }) => {
       <title>{pageTitle}</title>
     </header>
     <div className="govuk-grid-column-two-thirds">
-      {
-        (error.text || error.img) && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
-      }
+      {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{ text: error, location: '#repair-description-upload-a-photo-input' }]} pageTitle={pageTitle} />}
       <h1 className="govuk-heading-l">
         {title}
       </h1>
       <form action="">
-        <div className={error.img ? 'govuk-form-group--error' : 'govuk-form-group'}>
+        <div className={error ? 'govuk-form-group--error' : 'govuk-form-group'}>
           <h3 className="govuk-heading-m">
                     Upload a photo (optional)
           </h3>
@@ -109,7 +83,7 @@ const RepairPicture = ({ handleChange, values }) => {
                     Upload a file
           </label>
           <span id="upload-a-photo-error" className="govuk-error-message">
-            {error.img}
+            {error}
           </span>
           {selectedImage ? (
             <table>
