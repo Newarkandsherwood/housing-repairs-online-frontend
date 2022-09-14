@@ -71,46 +71,43 @@ const RepairPicture = ({ handleChange, values }) => {
     </header>
     <div className="govuk-grid-column-two-thirds">
       {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{ text: error, location: '#repair-description-upload-a-photo-input' }]} pageTitle={pageTitle} />}
-      <h1 className="govuk-heading-l">
-        {title}
-      </h1>
       <form action="">
-        <div className={error ? 'govuk-form-group--error' : 'govuk-form-group'}>
-          <h3 className="govuk-heading-m">
-                    Upload a photo (optional)
-          </h3>
-          <label className="govuk-label" htmlFor="upload-a-photo">
-                    Upload a file
-          </label>
-          <span id="upload-a-photo-error" className="govuk-error-message">
-            {error}
-          </span>
-          {selectedImage ? (
-            <table>
-              <tbody>
-                <tr>
-                  <td align="center" valign="center">
-                    <img alt="not fount" width="200px" src={selectedImage} />
-                  </td>
-                  <td align="center" valign="center">
-                    <button
-                      className="govuk-button govuk-button--warning"
-                      onClick={() => setSelectedImage(null)}>
+        <div className="govuk-form-group">
+          <h1 className="govuk-label-wrapper">
+            <label className="govuk-label govuk-label--xl" htmlFor="repairImage">{title}</label>
+          </h1>
+          <div className={error ? 'govuk-form-group--error' : 'govuk-form-group'}>
+            <div className="govuk-hint">You do not have to upload an image but doing so may help us arrange your repair faster</div>
+            <span id="upload-a-photo-error" className="govuk-error-message">
+              {error}
+            </span>
+            {selectedImage ? (
+              <table>
+                <tbody>
+                  <tr>
+                    <td align="center" valign="center">
+                      <img alt="not fount" width="200px" src={selectedImage} />
+                    </td>
+                    <td align="center" valign="center">
+                      <button
+                        className="govuk-button govuk-button--warning"
+                        onClick={() => setSelectedImage(null)}>
                                         Delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          ) : (
-            <input className="govuk-file-upload govuk-file-upload--error"
-              id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
-              aria-describedby="upload-a-photo-error" onChange={PhotoChange} />
-          )}
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            ) : (
+              <input className="govuk-file-upload govuk-file-upload--error"
+                id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
+                aria-describedby="upload-a-photo-error" onChange={PhotoChange} />
+            )}
+          </div>
         </div>
-      </form>
-      <br />
+        <br />
       <Button onClick={Continue} >Continue</Button>
+      </form>
     </div>
   </div>
 };
