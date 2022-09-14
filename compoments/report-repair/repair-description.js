@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import Button from '../button';
-import imageToBase64 from 'image-to-base64/browser';
 import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 
@@ -70,30 +69,6 @@ const RepairDescription = ({handleChange, values}) => {
     setText(e.target.value)
     setTextAreaCount(e.target.value.length);
     setActiveError(false)
-  }
-
-  const saveFileAsImage = (file) => {
-    const image = URL.createObjectURL(file);
-    imageToBase64(image)
-      .then(
-        (response) => {
-          setBase64img(response);
-          setSelectedImage(image);
-          setFileExtension(file.name.split('.').pop());
-        }
-      )
-      .catch(
-        (error) => {
-          console.log(error);
-        }
-      )
-  }
-
-  const PhotoChange = (event) => {
-    const uploadedFile = event.target.files[0]
-    setActiveError(false)
-    setSelectedFile(uploadedFile)
-    saveFileAsImage(uploadedFile)
   }
 
   const Continue = () => {
