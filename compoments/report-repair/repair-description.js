@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Button from '../button';
 import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
-import CharacterCount from '../character-count';
+import CharacterCountMessage from '../character-count-message';
 
 const RepairDescription = ({handleChange, values}) => {
   const [error, setError] = useState(undefined);
@@ -65,15 +65,28 @@ const RepairDescription = ({handleChange, values}) => {
             </div>
           </div>
         </label>
-        <CharacterCount
-          errorText={error}
-          hasExceededTextLimit={textLimit - textAreaCount < 0}
-          onChange={TextChange}
-          repairDescriptionTextInputId={repairDescriptionTextInputId}
-          text={text}
-          textAreaCount={textAreaCount}
-          textLimit={textLimit}
-        />
+        <div className='govuk-character-count'>
+          <div className={error ? 'govuk-form-group--error' : 'govuk-form-group'}>
+            <label className="govuk-label govuk-label--m" htmlFor="description">
+            Description of problem
+            </label>
+            <span id={'description-error'}
+              className="govuk-error-message">
+              {error}
+            </span>
+            <textarea
+              className={`govuk-textarea ${error && 'govuk-textarea--error'}`}
+              id={repairDescriptionTextInputId}
+              name="description" type="text"
+              onChange={TextChange}
+              defaultValue={text}
+              rows="5" />
+            <CharacterCountMessage
+              textAreaCount={textAreaCount}
+              textLimit={textLimit}
+            />
+          </div>
+        </div>
       </form>
       <br/>
       <Button onClick={Continue}>Continue</Button>
