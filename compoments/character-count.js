@@ -27,7 +27,7 @@ const CharacterCount = ({errorText, hasExceededTextLimit, onChange, repairDescri
           name="description" type="text"
           onChange={(e) => onChange(e)}
           defaultValue={text}
-          rows="5"></textarea>
+          rows="5" />
         <div id="with-hint-info"
           className={`${hasExceededTextLimit ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message`}
           aria-live="polite">{generateCharacterCountText()}

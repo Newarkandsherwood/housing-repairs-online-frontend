@@ -53,7 +53,7 @@ const RepairDescription = ({handleChange, values}) => {
       <form action="">
         <label className="govuk-label" htmlFor="description">
           <div>
-            <p>Please describe:</p>
+            <p className="govuk-body">Try to include:</p>
             <ul className="govuk-list govuk-list--bullet">
               <li>the size and location of the problem</li>
               <li>the source of the problem</li>
@@ -61,8 +61,7 @@ const RepairDescription = ({handleChange, values}) => {
               <li>how many items are damaged, for example 3 floor tiles</li>
             </ul>
             <div className="govuk-inset-text">
-              Please report <strong>only one problem</strong> at a time. You will have
-              a chance to report another repair after this one.
+              Only report <strong>one problem</strong> at a time. You can report another repair after this one.
             </div>
           </div>
         </label>
@@ -77,7 +76,7 @@ const RepairDescription = ({handleChange, values}) => {
         />
       </form>
       <br/>
-      <Button onClick={Continue} >Continue</Button>
+      <Button onClick={Continue}>Continue</Button>
     </div>
   </div>
 };
