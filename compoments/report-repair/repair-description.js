@@ -84,19 +84,13 @@ const RepairDescription = ({handleChange, values}) => {
     }
   }
 
-  const getErrorSummaryTextAndLocation = () => {
-    const errorSummaryTextAndLocation = [];
-    error && errorSummaryTextAndLocation.push({text: error, location: `#${repairDescriptionTextInputId}`});
-    return errorSummaryTextAndLocation;
-  }
-
   return <div className="govuk-grid-row" data-cy="repair-description">
     <header>
       <title>{pageTitle}</title>
     </header>
     <div className="govuk-grid-column-two-thirds">
       {
-        error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
+        error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{text: error, location: `#${repairDescriptionTextInputId}`}]} pageTitle={pageTitle} />
       }
       <h1 className="govuk-heading-l">
         {title}
