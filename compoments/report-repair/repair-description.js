@@ -51,19 +51,14 @@ CharacterCount.propTypes = {
 }
 
 const RepairDescription = ({handleChange, values}) => {
-  const [error, setError] = useState({text: undefined, img: undefined});
+  const [error, setError] = useState(undefined);
   const [activeError, setActiveError] = useState(false);
-  const [selectedFile, setSelectedFile] = useState();
-  const [selectedImage, setSelectedImage] = useState(values.description?.photo);
-  const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
-  const [base64img, setBase64img] = useState(values.description?.base64img);
   const [text, setText] = useState(values.description?.text)
   const [textAreaCount, setTextAreaCount] = React.useState(0);
   const textLimit = 255
   const title = 'Describe your problem in more detail'
   const pageTitle = `${title} - ${serviceName}`;
   const repairDescriptionTextInputId = 'repair-description-text-input';
-  const repairDescriptionUploadPhotoInputId = 'repair-description-upload-a-photo-input';
 
   const TextChange = (e) => {
     setText(e.target.value)
@@ -73,41 +68,25 @@ const RepairDescription = ({handleChange, values}) => {
 
   const Continue = () => {
     let textError = undefined;
-    let imageError = undefined;
     setActiveError(true);
-    if (selectedFile) {
-      if (selectedFile.type !== 'image/jpeg') {
-        imageError = 'The selected file must be a JPG';
-      }
-      let size = (selectedFile.size / 1024 / 1024).toFixed(2);
-      if (size > 10) {
-        imageError = `The selected file must be smaller than 10MB. Your file size is ${size}MB`;
-      }
-    }
     if (textAreaCount > textLimit) {
       textError = `Enter a description of the problem using ${textLimit} characters or less`;
     }
     if (!text) {
       textError = 'Enter a description of the problem';
     }
-    if (!textError && !imageError) {
+    if (!textError) {
       return handleChange('description', {
-        photo: selectedImage,
         text: text,
-        fileExtension: fileExtension,
-        base64img: base64img
       });
     } else {
-      setSelectedImage(null);
-      setSelectedFile(null);
-      return setError({text: textError, img: imageError})
+      return setError(textError)
     }
   }
 
   const getErrorSummaryTextAndLocation = () => {
     const errorSummaryTextAndLocation = [];
-    error.text && errorSummaryTextAndLocation.push({text: error.text, location: `#${repairDescriptionTextInputId}`});
-    error.img && errorSummaryTextAndLocation.push({text: error.img, location: `#${repairDescriptionUploadPhotoInputId}`});
+    error && errorSummaryTextAndLocation.push({text: error, location: `#${repairDescriptionTextInputId}`});
     return errorSummaryTextAndLocation;
   }
 
@@ -117,7 +96,7 @@ const RepairDescription = ({handleChange, values}) => {
     </header>
     <div className="govuk-grid-column-two-thirds">
       {
-        (error.text || error.img) && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
+        error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
       }
       <h1 className="govuk-heading-l">
         {title}
@@ -139,7 +118,7 @@ const RepairDescription = ({handleChange, values}) => {
           </div>
         </label>
         <CharacterCount
-          errorText={error.text}
+          errorText={error}
           hasExceededTextLimit={textLimit - textAreaCount < 0}
           onChange={TextChange}
           repairDescriptionTextInputId={repairDescriptionTextInputId}
