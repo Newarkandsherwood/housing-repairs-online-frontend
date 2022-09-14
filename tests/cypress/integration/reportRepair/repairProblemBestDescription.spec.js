@@ -371,6 +371,14 @@ describe('repairProblemBestDescription', () => {
         cy.contains('Tube light');
       });
 
+      it('displays a "Pull cord" option', () => {
+        cy.contains('Pull cord for light or shower');
+      });
+
+      it('displays a "Extractor fan" option', () => {
+        cy.contains('Extractor fan not working');
+      });
+
     });
 
     context('Damp or mould', () => {
