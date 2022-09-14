@@ -173,39 +173,6 @@ const RepairDescription = ({handleChange, values}) => {
           textLimit={textLimit}
         />
       </form>
-      <div className={error.img ? 'govuk-form-group--error' : 'govuk-form-group'}>
-        <h3 className="govuk-heading-m">
-          Upload a photo (optional)
-        </h3>
-        <label className="govuk-label" htmlFor="upload-a-photo">
-          Upload a file
-        </label>
-        <span id="upload-a-photo-error" className="govuk-error-message">
-          {error.img}
-        </span>
-        {selectedImage ? (
-          <table>
-            <tbody>
-              <tr>
-                <td align="center" valign="center">
-                  <img alt="not fount" width="200px" src={selectedImage} />
-                </td>
-                <td align="center" valign="center">
-                  <button
-                    className="govuk-button govuk-button--warning"
-                    onClick={()=>setSelectedImage(null)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        ) : (
-          <input className="govuk-file-upload govuk-file-upload--error"
-            id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
-            aria-describedby="upload-a-photo-error" onChange={PhotoChange}/>
-        )}
-      </div>
       <br/>
       <Button onClick={Continue} >Continue</Button>
     </div>
