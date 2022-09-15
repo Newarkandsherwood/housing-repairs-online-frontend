@@ -29,15 +29,12 @@ import Loader from '../../compoments/loader';
 const emergencyValue = 'emergency';
 const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
 
-function getTriageOptions () {
-  return fetch(`http://localhost:3000/api/configuration/?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}`, {
+async function getTriageOptions() {
+  const response = await fetch(`http://localhost:3000/api/configuration/?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}`, {
     method: 'GET',
-  }).then(response => {
-    console.log(`response is ${response.ok}`);
-    if (response.ok) {
-      return response.json();
-    }
-  })
+  });
+  const data = await response.json();
+  return data;
 }
 
 function ReportRepair() {
