@@ -29,7 +29,7 @@ import Loader from '../../compoments/loader';
 const emergencyValue = 'emergency';
 const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
 
-function getTriageOptions() {
+function getRepairTriageOptions() {
   return fetch(`http://localhost:3000/api/configuration/?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}`, {
     method: 'GET',
   })
@@ -53,7 +53,7 @@ function ReportRepair() {
 
   useEffect(() => {
     if(currentPath === 'repair-location') {
-      setTriageOptions(getTriageOptions ())
+      setTriageOptions(getRepairTriageOptions ())
       console.log(triageOptions)
     }
   }, [currentPath])
