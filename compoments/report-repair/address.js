@@ -9,6 +9,7 @@ import Loader from '../loader';
 import Error from '../error';
 import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
+import {inHoursEmergencyRepairsNumber} from '../../globals'
 
 const Address = ({handleChange, values}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
@@ -17,12 +18,11 @@ const Address = ({handleChange, values}) => {
 
   const title = 'Select an address';
   const pageTitle = `${title} - ${serviceName}`;
-  const addressDropdownInputName = 'address';
 
   if (error) return <Error
     name="summary"
     heading="An error occurred while looking for your address"
-    body="Please try again later or call 01522 873333 to complete your repair request" />
+    body={`Please try again later or call ${inHoursEmergencyRepairsNumber} to complete your repair request`} />
 
   if (!data) return <Loader/>
 
