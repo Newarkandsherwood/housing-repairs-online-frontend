@@ -8,6 +8,7 @@ import {
 import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
 import {serviceName} from '../../helpers/constants';
+import {inHoursEmergencyRepairsNumber} from '../../globals'
 
 const ContactDetails = ({handleChange, values}) => {
   const title = 'How should we confirm the appointment?'
@@ -50,7 +51,7 @@ const ContactDetails = ({handleChange, values}) => {
   const beforeButton =  (
     <Details summary="I have neither a mobile number nor an email address" testid="no-applicable-contact-options-prompt">
       <div data-testid='no-applicable-contact-options-info'>
-        Please call 01522 873333 to report your repair during the office hours below
+        Please call {inHoursEmergencyRepairsNumber} to report your repair during the office hours below
         <li>Monday 9am - 5pm</li>
         <li>Tuesday 9am - 5pm</li>
         <li>Wednesday 9am - 4.30pm</li>
