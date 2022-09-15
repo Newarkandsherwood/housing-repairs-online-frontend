@@ -1,7 +1,7 @@
 import React from 'react';
 import ContactNumbers from '../contactNumbers';
 import {serviceName} from '../../helpers/constants';
-import { emergencyGasServiceNumber, textPhoneMiniComNumber } from '../../globals';
+import { emergencyGasServiceNumber, textPhoneMiniComNumber, OpeningHours } from '../../globals';
 
 
 const EmergencyRepair = () => {
@@ -23,13 +23,7 @@ const EmergencyRepair = () => {
       <p>
         Opening times:
       </p>
-      <ul>
-        <li>Monday 9am - 5pm</li>
-        <li>Tuesday 9am - 5pm</li>
-        <li>Wednesday 10am - 4.30pm</li>
-        <li>Thursday 9am - 5pm</li>
-        <li>Friday 9am - 4.30pm</li>
-      </ul>
+      <OpeningHours />
       <p>
         Please do not call the emergency out of hours number if the repair is not urgent.
       </p>

@@ -5,7 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 import ContactNumbers from '../compoments/contactNumbers';
 import { serviceName } from '../helpers/constants';
-import { emergencyGasServiceNumber, textPhoneMiniComNumber, councilWebsiteAddress } from '../globals';
+import { emergencyGasServiceNumber, textPhoneMiniComNumber, councilWebsiteAddress, OpeningHours } from '../globals';
 
 export default function Home() {
   const title = 'Request a repair';
@@ -91,13 +91,7 @@ export default function Home() {
               </p>
               <ContactNumbers />
               <p>Opening times:</p>
-              <ul>
-                <li>Monday 9am - 5pm</li>
-                <li>Tuesday 9am - 5pm</li>
-                <li>Wednesday 10am - 4.30pm</li>
-                <li>Thursday 9am - 5pm</li>
-                <li>Friday 9am - 4.30pm</li>
-              </ul>
+              <OpeningHours />
             </div>
           </Details>
           <Link href="/report-repair/priority-list">
