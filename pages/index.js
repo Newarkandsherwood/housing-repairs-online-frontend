@@ -5,7 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 import ContactNumbers from '../compoments/contactNumbers';
 import { serviceName } from '../helpers/constants';
-import LocalAuthorityDetails from '../localAuthorityDetails.json';
+import { emergencyGasServiceNumber } from '../globals';
 
 export default function Home() {
   const title = 'Request a repair';
@@ -66,7 +66,7 @@ export default function Home() {
           </Details>
           <WarningText testid="landing-page-gas-warning" className="">
           If you suspect you have a gas leak, you must report it immediately to
-          the Gas Emergency Service on {LocalAuthorityDetails.contactNumber.gasEmergencyService} or via textphone (minicom)
+          the Gas Emergency Service on {emergencyGasServiceNumber} or via textphone (minicom)
           on 0800 371 787
           </WarningText>
           <WarningText testid="landing-page-emergency-warning" className="">
