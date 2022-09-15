@@ -15,12 +15,12 @@ const apiRequester = require('./apiRequester')(axios);
 const searchPropertiesGateway = require('./SearchPropertiesGateway')(apiRequester.makeGetRequest);
 const availableAppointmentsGateway = require('./AvailableAppointmentsGateway')(apiRequester.makeGetRequest);
 const saveRepairGateway = require('./SaveRepairGateway')(apiRequester.makePostRequest);
-const configurationGateway = require('./ConfigurationGateway')(apiRequester.makeGetRequest);
+const repairTriageGateway = require('./RepairTriageGateway')(apiRequester.makeGetRequest);
 
 module.exports = {
   searchPropertiesGateway,
   availableAppointmentsGateway,
   saveRepairGateway,
-  configurationGateway,
+  repairTriageGateway,
   sentryParams
 };
