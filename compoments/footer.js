@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {councilWebsiteAddress} from '../globals'
 
 const FooterListItem = ({text, location, index}) => {
   return (
@@ -21,7 +22,7 @@ const Footer = () => {
 
   const links = [
     {text: 'Accessibility Statement', location: '#'},
-    {text: 'Privacy', location: 'https://www.newark-sherwooddc.gov.uk/privacynotice/'}
+    {text: 'Privacy', location: `${councilWebsiteAddress}/privacynotice/`}
   ]
 
   return (
