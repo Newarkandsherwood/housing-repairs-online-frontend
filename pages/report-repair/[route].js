@@ -24,13 +24,36 @@ import Confirmation from '../../compoments/report-repair/confirmation';
 import Error from '../../compoments/error';
 import NotEligibleNonEmergency from '../../compoments/report-repair/not-eligible-non-emergency';
 import UnableToBook from '../../compoments/report-repair/unable-to-book';
+import Loader from '../../compoments/loader';
+
+const emergencyValue = 'emergency';
+const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
+
+function getTriageOptions () {
+  return fetch(`http://localhost:3000/api/configuration/?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}`, {
+    method: 'GET',
+  }).then(response => {
+    console.log(`response is ${response.ok}`);
+    if (response.ok) {
+      return response.json();
+    }
+  })
+}
 
 function ReportRepair() {
   const [state, setState] = useState({data:{}, step: 'priority-list'});
+  const [triageOptions, setTriageOptions] = useState(undefined);
   const [changeLinkUrls, setChangeLinkUrls] = useState({});
   const router = useRouter()
 
   const currentPath = router.query.route
+
+  useEffect(() => {
+    if(currentPath === 'repair-location') {
+      setTriageOptions(getTriageOptions ())
+      console.log(triageOptions)
+    }
+  }, [currentPath, triageOptions])
 
   const [prevSteps, setPrevSteps] = useState([]);
 
@@ -194,12 +217,13 @@ function ReportRepair() {
           values={values}/>
       )
     case 'repair-location':
-      return (
-        <RepairLocation
+      return triageOptions ?
+        (<RepairLocation
           handleChange={handleChange}
           values={values}
-        />
-      )
+        />)
+        :
+        (<Loader />)
     case 'repair-kitchen-problems':
       return (
         <RepairProblem
