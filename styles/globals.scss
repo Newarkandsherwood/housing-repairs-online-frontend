@@ -9,3 +9,11 @@
       background-color:  #204d74
   }
 }
+
+.govuk-button--secondary {
+  background-color: #f3f2f1;
+  border-radius: 4px;
+  &:hover {
+      background-color:  #b1b4b6
+  }
+}
