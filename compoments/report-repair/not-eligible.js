@@ -2,7 +2,7 @@ import Details from '../details';
 import React from 'react';
 import ContactNumbers from '../contactNumbers';
 import {serviceName} from '../../helpers/constants';
-import { emergencyGasServiceNumber } from '../../globals';
+import { emergencyGasServiceNumber, textPhoneMiniComNumber } from '../../globals';
 
 
 const NotEligible = () => {
@@ -36,7 +36,7 @@ const NotEligible = () => {
         <p>
           If you suspect you have a gas leak, you must report it immediately to
           the Gas Emergency Service <strong>{emergencyGasServiceNumber}</strong> or via textphone (minicom)
-          on <strong>0800 371 787</strong>
+          on <strong>{textPhoneMiniComNumber}</strong>
         </p>
         <hr></hr>
         <h3>Non-emergency requests</h3>
