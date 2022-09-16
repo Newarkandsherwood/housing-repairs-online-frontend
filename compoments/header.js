@@ -1,5 +1,5 @@
 import React from 'react';
-import {councilWebsiteAddress} from '../globals'
+import {councilWebsiteHomePageUrl} from '../globals'
 
 export default function Header() {
   return (
@@ -13,7 +13,7 @@ export default function Header() {
           <div className="govuk-header__logo">
             <a
               aria-label="Newark and Sherwood Council Home Page"
-              href={`${councilWebsiteAddress}`}
+              href={`${councilWebsiteHomePageUrl}`}
               className="govuk-header__link govuk-header__link--homepage header-link govuk-link--no-visited-state"
             >
               <span className="govuk-header__logotype">
