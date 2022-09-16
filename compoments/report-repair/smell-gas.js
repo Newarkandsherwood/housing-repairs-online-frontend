@@ -1,6 +1,6 @@
 import React from 'react';
 import {serviceName} from '../../helpers/constants';
-import { emergencyGasServiceNumber } from '../../globals';
+import { nationalGasEmergencyServiceTelephoneNumber } from '../../globals';
 
 const SmellGas = () => {
   const title = 'If you smell gas'
@@ -11,7 +11,7 @@ const SmellGas = () => {
     <div className="govuk-grid-column-two-thirds">
       <h1 className='govuk-heading-xl'>{title}</h1>
       <p className="govuk-body-m">
-        If you can smell gas, please call the gas emergency number: {emergencyGasServiceNumber}
+        If you can smell gas, please call the gas emergency number: {nationalGasEmergencyServiceTelephoneNumber}
       </p>
     </div>
   </div>
