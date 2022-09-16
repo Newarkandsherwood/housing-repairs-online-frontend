@@ -25,39 +25,21 @@ import Error from '../../compoments/error';
 import NotEligibleNonEmergency from '../../compoments/report-repair/not-eligible-non-emergency';
 import UnableToBook from '../../compoments/report-repair/unable-to-book';
 import Loader from '../../compoments/loader';
-
-const emergencyValue = 'emergency';
-const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
-const unableToBookValue = 'unableToBook';
-
-function getRepairTriageOptions() {
-  return fetch(`http://localhost:3000/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`, {
-    method: 'GET',
-  })
-    .then(response => {
-      if (response.ok) {
-        response.json();
-      }
-    })
-    .then(data => {
-      return data;
-    })
-}
+import useSWR from 'swr'
+import { fetcher } from '../../helpers/fetcher';
 
 function ReportRepair() {
   const [state, setState] = useState({data:{}, step: 'priority-list'});
-  const [triageOptions, setTriageOptions] = useState(undefined);
   const [changeLinkUrls, setChangeLinkUrls] = useState({});
   const router = useRouter()
 
   const currentPath = router.query.route
 
-  useEffect(() => {
-    if(currentPath === 'repair-location') {
-      setTriageOptions(getRepairTriageOptions ())
-      console.log(triageOptions)
-    }
-  }, [currentPath])
+  const emergencyValue = 'emergency';
+  const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
+  const unableToBookValue = 'unableToBook';
+  const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`
+  const { repairTriageData, repairTriageFetchError } = useSWR(currentPath === 'repair-location' ? repairTriageApiUrl : null, fetcher)
 
   const [prevSteps, setPrevSteps] = useState([]);
 
@@ -221,7 +203,12 @@ function ReportRepair() {
           values={values}/>
       )
     case 'repair-location':
-      return triageOptions ?
+      console.log('repairTriageFetchError', repairTriageFetchError)
+      if (repairTriageFetchError) return <Error
+        name="summary"
+        heading="An error occurred while looking for your address"
+        body="Please try again later or call 01522 873333 to complete your repair request" />
+      return repairTriageData ?
         (<RepairLocation
           handleChange={handleChange}
           values={values}
