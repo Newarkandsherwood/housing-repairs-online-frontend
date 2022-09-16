@@ -11,8 +11,7 @@ module.exports = async function (context, req) {
   let results;
 
   try {
-    throw new Error('Hello')
-    // results = await repairTriageGateway(req.query.emergencyValue, req.query.notEligibleNonEmergencyValue, req.query.unableToBookValue);
+    results = await repairTriageGateway(req.query.emergencyValue, req.query.notEligibleNonEmergencyValue, req.query.unableToBookValue);
     // results = [
     //   {
     //     'value': 'kitchen',

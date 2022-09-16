@@ -39,7 +39,7 @@ function ReportRepair() {
   const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
   const unableToBookValue = 'unableToBook';
   const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`
-  const { repairTriageData, repairTriageFetchError } = useSWR(currentPath === 'repair-location' ? repairTriageApiUrl : null, fetcher)
+  const { data: repairTriageData, error: repairTriageFetchError } = useSWR(currentPath === 'repair-location' ? repairTriageApiUrl : null, fetcher)
 
   const [prevSteps, setPrevSteps] = useState([]);
 
