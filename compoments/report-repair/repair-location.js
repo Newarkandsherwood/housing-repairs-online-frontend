@@ -30,9 +30,9 @@ const RepairLocation = ({handleChange, values, options}) => {
 };
 
 RepairLocation.propTypes = {
-  nextStep: PropTypes.func,
   values: PropTypes.object,
   handleChange: PropTypes.func,
+  options: PropTypes.array,
 }
 
 export default RepairLocation;
