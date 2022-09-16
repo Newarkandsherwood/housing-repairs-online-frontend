@@ -1,6 +1,6 @@
 import React from 'react';
 import {serviceName} from '../../helpers/constants';
-import {inHoursEmergencyRepairsNumber} from '../../globals'
+import {customerServicesTelephoneNumber} from '../../globals'
 
 const UnableToBook = () => {
   const title = 'Your repair could not be booked'
@@ -12,7 +12,7 @@ const UnableToBook = () => {
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>Your repair could not be booked</h1>
         <p>
-          To book your repair, please call <strong>{inHoursEmergencyRepairsNumber}</strong>.
+          To book your repair, please call <strong>{customerServicesTelephoneNumber}</strong>.
         </p>
       </div>
     </div>

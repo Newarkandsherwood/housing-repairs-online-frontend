@@ -1,14 +1,14 @@
 import React from 'react';
-import {inHoursEmergencyRepairsNumber} from '../globals'
+import {customerServicesTelephoneNumber} from '../globals'
 
 export default function ContactNumbers({ }) {
   return (
     <>
       <p>
-        Emergency Out of Hours Repairs - Telephone: <strong>{inHoursEmergencyRepairsNumber}</strong>
+        Emergency Out of Hours Repairs - Telephone: <strong>{customerServicesTelephoneNumber}</strong>
       </p>
       <p>
-        Emergency In Hours Repairs - Telephone:  <strong>{inHoursEmergencyRepairsNumber}</strong>
+        Emergency In Hours Repairs - Telephone:  <strong>{customerServicesTelephoneNumber}</strong>
       </p>
     </>
   )

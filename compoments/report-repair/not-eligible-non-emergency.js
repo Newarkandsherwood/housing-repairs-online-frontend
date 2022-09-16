@@ -1,5 +1,6 @@
 import React from 'react';
 import {serviceName} from '../../helpers/constants';
+import {customerServicesTelephoneNumber} from '../../globals'
 
 
 const NotEligibleNonEmergency = () => {
@@ -12,10 +13,10 @@ const NotEligibleNonEmergency = () => {
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>{title}</h1>
         <p>
-          If you think the council is responsible for your property, please call <strong>01522 873 333</strong>.
+          If you think the council is responsible for your property, please call <strong>{customerServicesTelephoneNumber}</strong>.
         </p>
         <p>
-          If you are a leaseholder you can still report communal repairs on <strong>01522 873 333</strong>.
+          If you are a leaseholder you can still report communal repairs on <strong>{customerServicesTelephoneNumber}</strong>.
         </p>
       </div>
     </div>

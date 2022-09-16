@@ -9,7 +9,7 @@ import Loader from '../loader';
 import Error from '../error';
 import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
-import {inHoursEmergencyRepairsNumber} from '../../globals'
+import {customerServicesTelephoneNumber} from '../../globals'
 
 const Address = ({handleChange, values}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
@@ -22,7 +22,7 @@ const Address = ({handleChange, values}) => {
   if (error) return <Error
     name="summary"
     heading="An error occurred while looking for your address"
-    body={`Please try again later or call ${inHoursEmergencyRepairsNumber} to complete your repair request`} />
+    body={`Please try again later or call ${customerServicesTelephoneNumber} to complete your repair request`} />
 
   if (!data) return <Loader/>
 
