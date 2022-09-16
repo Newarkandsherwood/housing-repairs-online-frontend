@@ -1,6 +1,6 @@
 
 class Flow {
-  constructor(setState, history, path, prevSteps, setPrevSteps) {
+  constructor(setState, history, path, prevSteps, setPrevSteps, repairLocationNextSteps = undefined) {
     this.setState = setState;
     this.history = history;
     this.path = path;
@@ -24,13 +24,7 @@ class Flow {
       ]},
       'postcode': {prevStep: 'communal', nextStep: 'address'},
       'address': {prevStep: 'postcode', nextStep: 'repair-location'},
-      'repair-location': { prevStep: 'address', nextStep: [
-        {condition: 'kitchen', nextStep: 'repair-kitchen-problems'},
-        {condition: 'bathroom', nextStep: 'repair-bathroom-problems'},
-        {condition: 'bedroom', nextStep: 'repair-bedroom-problems'},
-        {condition: 'livingAreas', nextStep: 'repair-living-areas-problems'},
-        {condition: 'outside', nextStep: 'repair-outside-problems'}
-      ]},
+      'repair-location': { prevStep: 'address', nextStep: repairLocationNextSteps},
       'repair-outside-problems': { prevSteps: 'repair-location', nextStep: [
         {condition: 'securityLights', nextStep: 'repair-description'},
         {condition: 'roof', nextStep: 'outside-roof-problems'},

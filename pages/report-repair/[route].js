@@ -43,7 +43,7 @@ function ReportRepair() {
 
   const [prevSteps, setPrevSteps] = useState([]);
 
-  const flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps);
+  let flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps);
 
   useEffect(() => {
     router.beforePopState(({ as }) => {
@@ -210,6 +210,9 @@ function ReportRepair() {
         body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
       const options = repairTriageData.map(option => {return {value: option.value, title: option.display}} )
+      const nextSteps = repairTriageData.map(option => {return {condition: option.value, nextStep: 'repair-problems'}} )
+      flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, nextSteps);
+
       return repairTriageData ?
         (<RepairLocation
           handleChange={handleChange}
@@ -218,7 +221,7 @@ function ReportRepair() {
         />)
         :
         (<Loader />)
-    case 'repair-kitchen-problems':
+    case 'repair-problems':
       return (
         <RepairProblem
           handleChange={handleChange}
@@ -236,57 +239,6 @@ function ReportRepair() {
           ]}
         />
       )
-    case 'repair-bathroom-problems':
-      return (
-        <RepairProblem
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'bath', title: 'Bath, including taps'},
-            commonProblems.wallsFloorAndCeiling,
-            { value: 'electricsExtractorCords', title: 'Electrics, including extractor fan and pull cords'},
-            commonProblems.windows,
-            commonProblems.sink,
-            {value: 'dampOrMould', title: 'Damp or mould'},
-            commonProblems.damagedOrStuckDoors,
-            { value: 'showerIncludingTrayAndDoor', title: 'Shower, including the tray and shower door'},
-            { value: 'toilet', title: 'Toilet'},
-            commonProblems.heatingOrHotWater,
-          ]}
-        />
-      )
-    case 'repair-bedroom-problems':
-      return (
-        <RepairProblem
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            commonProblems.electricsLightsSwitches,
-            commonProblems.wallsFloorAndCeiling,
-            commonProblems.windows,
-            commonProblems.damagedOrStuckDoors,
-            commonProblems.dampOrMould,
-            commonProblems.heating,
-          ]}
-        />
-      )
-    case 'repair-living-areas-problems':
-      return (
-        <RepairProblem
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            commonProblems.electricsLightsSwitches,
-            commonProblems.wallsFloorAndCeiling,
-            commonProblems.windows,
-            commonProblems.damagedOrStuckDoors,
-            commonProblems.dampOrMould,
-            { value: 'stairs', title: 'Stairs (including handrail)'},
-            commonProblems.heating,
-          ]}
-        />
-      )
-
     case 'repair-stairs-problems':
       return (
         <RepairProblemBestDescription
@@ -311,20 +263,6 @@ function ReportRepair() {
             { value: 'looseFromFloorOrWall', title: 'Coming loose from the floor or wall'},
             { value: 'cracked', title: 'Cracked'},
             { value: 'seat', title: 'Toilet seat'} ]}
-        />
-      )
-    case 'repair-outside-problems':
-      return (
-        <RepairProblem
-          handleChange={handleChange}
-          values={values}
-          options = {[
-            { value: 'door', title: 'Door, including shed and outhouse'},
-            { value: 'securityLights', title: 'Outdoor security lights'},
-            { value: 'roof', title: 'Roof, including insulation and shed roof'},
-            { value: 'garage', title: 'Garage, including roof and door'},
-            { value: 'gatesAndPathways', title: 'Gates and pathways'}
-          ]}
         />
       )
     case 'repair-garage-problems':
@@ -636,13 +574,10 @@ export async function getStaticPaths() {
     {params: { route: 'postcode'} },
     {params: { route: 'priority-list'} },
     {params: { route: 'repair-location'} },
+    {params: { route: 'repair-problems'} },
     {params: { route: 'smell-gas'} },
-    {params: { route: 'repair-kitchen-problems'} },
     {params: { route: 'sink-problems'} },
-    {params: { route: 'repair-bathroom-problems'} },
-    {params: { route: 'repair-bedroom-problems'} },
     {params: { route: 'bathroom-damp-mould-problems'} },
-    {params: { route: 'repair-living-areas-problems'} },
     {params: { route: 'repair-living-areas-lighting-problems'} },
     {params: { route: 'wall-floor-ceiling-problems'} },
     {params: { route: 'repair-stairs-problems'} },
@@ -659,7 +594,6 @@ export async function getStaticPaths() {
     {params: { route: 'repair-toilet-problems'}},
     {params: { route: 'repair-garage-problems'}},
     {params: { route: 'repair-window-problems'} },
-    {params: { route: 'repair-outside-problems'}},
     {params: { route: 'outside-roof-problems'}},
     {params: { route: 'outside-door-problems'}},
     {params: { route: 'gates-and-pathways-problems'}},
