@@ -30,7 +30,7 @@ import Loader from '../../compoments/loader';
 import useSWR from 'swr'
 import { fetcher } from '../../helpers/fetcher';
 import ContactUs from '../../compoments/report-repair/contact-us';
-import {inHoursEmergencyRepairsNumber} from '../../globals'
+import {customerServicesTelephoneNumber} from '../../globals'
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
@@ -154,7 +154,7 @@ function ReportRepair() {
         <Error
           name="summary"
           heading="An error occurred while processing your request"
-          body={`Please call ${inHoursEmergencyRepairsNumber} to complete your repair request`} />
+          body={`Please call ${customerServicesTelephoneNumber} to complete your repair request`} />
       )
     })
   }

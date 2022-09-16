@@ -2,7 +2,7 @@ import Details from '../details';
 import React from 'react';
 import ContactNumbers from '../contactNumbers';
 import {serviceName} from '../../helpers/constants';
-import { emergencyGasServiceNumber, textPhoneMiniComNumber, inHoursEmergencyRepairsNumber, OpeningHours } from '../../globals';
+import { emergencyGasServiceNumber, textPhoneMiniComNumber, customerServicesTelephoneNumber, OpeningHours } from '../../globals';
 
 
 const NotEligible = () => {
@@ -37,10 +37,10 @@ const NotEligible = () => {
         <hr></hr>
         <h3>Non-emergency requests</h3>
         <p>
-          If you think the council is responsible for your property, please call <strong>{inHoursEmergencyRepairsNumber}</strong>.
+          If you think the council is responsible for your property, please call <strong>{customerServicesTelephoneNumber}</strong>.
         </p>
         <p>
-          If you are a leaseholder you can still report communal repairs on <strong>{inHoursEmergencyRepairsNumber}</strong>.
+          If you are a leaseholder you can still report communal repairs on <strong>{customerServicesTelephoneNumber}</strong>.
         </p>
       </div>
     </div>

@@ -10,7 +10,7 @@ import UnableToBook from './unable-to-book';
 import Error from '../error';
 import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
-import {inHoursEmergencyRepairsNumber} from '../../globals'
+import {customerServicesTelephoneNumber} from '../../globals'
 
 const RepairAvailability = ({ handleChange, values, fromDate }) => {
   const [error, setError] = useState();
@@ -39,7 +39,7 @@ const RepairAvailability = ({ handleChange, values, fromDate }) => {
   if (dataError) return <Error
     name="summary"
     heading="An error occurred while looking for available appointments"
-    body={`Please try again later or call ${inHoursEmergencyRepairsNumber} to complete your repair request`} />
+    body={`Please try again later or call ${customerServicesTelephoneNumber} to complete your repair request`} />
 
   if (!data) return <Loader />
 
