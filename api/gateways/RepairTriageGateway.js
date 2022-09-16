@@ -1,8 +1,9 @@
+
 module.exports = makeGetRequest => {
-  return async (emergencyValue, notEligibleNonEmergencyValue) => {
+  return async (emergencyValue, notEligibleNonEmergencyValue, unableToBookValue) => {
     let result;
     result = await makeGetRequest({
-      uri: `/configuration?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}`
+      uri: `/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`
     }).then(response => {
       return response.data;
     });

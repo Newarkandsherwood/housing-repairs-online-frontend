@@ -1,6 +1,6 @@
 const Sentry = require('@sentry/node');
 
-const {configurationGateway: repairTriageGateway, sentryParams} = require('../gateways');
+const {repairTriageGateway, sentryParams} = require('../gateways');
 
 module.exports = async function (context, req) {
   Sentry.init(sentryParams);
@@ -11,7 +11,7 @@ module.exports = async function (context, req) {
   let results;
 
   try {
-    results = await repairTriageGateway(req.query.emergencyValue, req.query.notEligibleNonEmergencyValue);
+    results = await repairTriageGateway(req.query.emergencyValue, req.query.notEligibleNonEmergencyValue, req.query.unableToBookValue);
   } catch (e) {
     Sentry.captureException(e);
     await Sentry.flush(2000);
