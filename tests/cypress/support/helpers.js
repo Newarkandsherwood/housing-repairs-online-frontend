@@ -29,22 +29,180 @@ function intercept_repair_triage() {
     {
       'value': 'kitchen',
       'display': 'Kitchen',
+      'options': [
+        {
+          'value': 'cupboards',
+          'display': 'Cupboards, including damaged cupboard doors'
+        },
+        {
+          'value': 'electrical',
+          'display': 'Electrical, including extractor fans and lightbulbs'
+        },
+        {
+          'value': 'worktop',
+          'display': 'Damaged worktop'
+        },
+        {
+          'value': 'unableToBook',
+          'display': 'Heating or hot water'
+        },
+        {
+          'value': 'damagedOrStuckDoors',
+          'display': 'Damaged or stuck doors'
+        },
+        {
+          'value': 'wallsFloorsCeiling',
+          'display': 'Walls, floor or ceiling, excluding damp'
+        },
+        {
+          'value': 'sink',
+          'display': 'Sink, including taps and drainage'
+        },
+        {
+          'value': 'damagedOrStuckWindows',
+          'display': 'Damaged or stuck windows'
+        },
+        {
+          'value': 'dampOrMould',
+          'display': 'Damp or mould'
+        }
+      ]
     },
     {
       'value': 'bathroom',
       'display': 'Bathroom',
+      'options': [
+        {
+          'value': 'bath',
+          'display': 'Bath, including taps'
+        },
+        {
+          'value': 'wallsFloorsCeiling',
+          'display': 'Walls, floor or ceiling, excluding damp'
+        },
+        {
+          'value': 'electrics',
+          'display': 'Electrics, including extractor fan and pull cords'
+        },
+        {
+          'value': 'windows',
+          'display': 'Damaged or stuck windows'
+        },
+        {
+          'value': 'sink',
+          'display': 'Sink, including taps and drainage'
+        },
+        {
+          'value': 'dampOrMould',
+          'display': 'Damp or mould'
+        },
+        {
+          'value': 'door',
+          'display': 'Damaged or stuck doors'
+        },
+        {
+          'value': 'shower',
+          'display': 'Shower, including the tray and shower door'
+        },
+        {
+          'value': 'toilet',
+          'display': 'Toilet'
+        },
+        {
+          'value': 'heating',
+          'display': 'Heating or hot water'
+        }
+      ]
     },
     {
       'value': 'bedroom',
       'display': 'Bedroom',
+      'options': [
+        {
+          'value': 'electrics',
+          'display': 'Electrics, including lights and switches'
+        },
+        {
+          'value': 'walls',
+          'display': 'Walls, floor or ceiling, excluding damp'
+        },
+        {
+          'value': 'damagedOrStuckWindows',
+          'display': 'Damaged or stuck windows'
+        },
+        {
+          'value': 'damagedOrStuckDoors',
+          'display': 'Damaged or stuck doors'
+        },
+        {
+          'value': 'dampOrMould',
+          'display': 'Damp or mould'
+        },
+        {
+          'value': 'heating',
+          'display': 'Heating'
+        }
+      ]
     },
     {
       'value': 'livingAreas',
       'display': 'Living Areas',
+      'options': [
+        {
+          'value': 'electrics',
+          'display': 'Electrics, including lights and switches'
+        },
+        {
+          'value': 'walls',
+          'display': 'Walls, floor or ceiling, excluding damp'
+        },
+        {
+          'value': 'damagedOrStuckWindows',
+          'display': 'Damaged or stuck windows'
+        },
+        {
+          'value': 'damagedOrStuckDoors',
+          'display': 'Damaged or stuck doors'
+        },
+        {
+          'value': 'dampOrMould',
+          'display': 'Damp or mould'
+        },
+        {
+          'value': 'stairs',
+          'display': 'Stairs (including handrail)'
+        },
+        {
+          'value': 'heating',
+          'display': 'Heating'
+        }
+      ]
     },
     {
       'value': 'outside',
       'display': 'Outside',
+      'options': [
+        {
+          'value': 'damagedOrStuckDoors',
+          'display': 'Door, including shed and outhouse'
+        },
+        {
+          'value': 'securityLights',
+          'display': 'Outdoor security lights'
+        },
+        {
+          'value': 'roof',
+          'display': 'Roof, including insulation and shed roof'
+        },
+        {
+          'value': 'garage',
+          'display': 'Garage, including roof and door'
+        },
+        {
+          'value': 'gatesAndPathways',
+          'display': 'Gates and pathways'
+        }
+      ]
     }
   ]
 
