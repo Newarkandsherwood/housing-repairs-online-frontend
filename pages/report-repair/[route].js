@@ -208,10 +208,13 @@ function ReportRepair() {
         name="summary"
         heading="An error occurred while looking for your address"
         body="Please try again later or call 01522 873333 to complete your repair request" />
+      if (!repairTriageData) return <Loader />
+      const options = repairTriageData.map(option => {return {value: option.value, title: option.display}} )
       return repairTriageData ?
         (<RepairLocation
           handleChange={handleChange}
           values={values}
+          options={options}
         />)
         :
         (<Loader />)
