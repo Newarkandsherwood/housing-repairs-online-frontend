@@ -28,9 +28,10 @@ import Loader from '../../compoments/loader';
 
 const emergencyValue = 'emergency';
 const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
+const unableToBookValue = 'unableToBook';
 
 function getRepairTriageOptions() {
-  return fetch(`http://localhost:3000/api/configuration/?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}`, {
+  return fetch(`http://localhost:3000/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`, {
     method: 'GET',
   })
     .then(response => {
