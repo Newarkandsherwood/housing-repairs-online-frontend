@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const nationalGasEmergencyServiceTelephoneNumber = '0800 111 999'
-export const nationalGasEmergencyServiceTextphoneNumber = '0800 371 787'
-export const customerServicesTelephoneNumber = '01636 650 000'
-export const councilWebsiteHomePageUrl = 'https://www.newark-sherwooddc.gov.uk'
+export const nationalGasEmergencyServiceTelephoneNumber = process.env.NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER
+export const nationalGasEmergencyServiceTextphoneNumber = process.env.NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER
+export const customerServicesTelephoneNumber = process.env.CUSTOMER_SERVICES_TELEPHONE_NUMBER
+export const councilWebsiteHomePageUrl = process.env.COUNCIL_WEBSITE_HOMEPAGE_URL
 
 export const OpeningHours = () => {
 

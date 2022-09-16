@@ -1,9 +1,18 @@
+require('dotenv').config()
+
 const path = require('path')
 require('dotenv').config();
 
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const moduleExports =  {
+  env: {
+    NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER: process.env.NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER,
+    NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER: process.env.NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER,
+    CUSTOMER_SERVICES_TELEPHONE_NUMBER: process.env.CUSTOMER_SERVICES_TELEPHONE_NUMBER,
+    COUNCIL_WEBSITE_HOMEPAGE_URL: process.env.COUNCIL_WEBSITE_HOMEPAGE_URL
+  },
+
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
