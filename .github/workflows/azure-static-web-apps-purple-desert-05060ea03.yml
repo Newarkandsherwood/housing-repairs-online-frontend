@@ -63,6 +63,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NEXT_PUBLIC_APP_ENV: test
           CYPRESS_RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
+          NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER: "0800 111 999"
+          NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER: "0800 371 787"
+          COUNCIL_WEBSITE_HOMEPAGE_URL: "https://www.newark-sherwooddc.gov.uk"
 
   terraform:
     name: 'Terraform'

@@ -1,6 +1,6 @@
 describe('App', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('/');
   });
 
   it('displays service title', () => {
@@ -10,7 +10,7 @@ describe('App', () => {
   it('displays a smell gas warning on the landing page', () => {
     cy.get('[data-testid=landing-page-gas-warning]').should(
       'have.contain',
-      'If you suspect you have a gas leak, you must report it immediately to the Gas Emergency Service on 0800 111 999 or via textphone (minicom) on 0800 371 787'
+      `If you suspect you have a gas leak, you must report it immediately to the Gas Emergency Service on ${Cypress.env('national_gas_emergency_service_telephone_number')} or via textphone (minicom) on ${Cypress.env('national_gas_emergency_service_textphone_number')}`
     );
   });
 
@@ -22,7 +22,7 @@ describe('App', () => {
     cy.get('[data-testid=landing-page-emergency-warning] a').should(
       'have.attr',
       'href',
-      'https://www.newark-sherwooddc.gov.uk/contactus/'
+      `${Cypress.env('council_website_homepage_url')}/contactus/`
     );
   });
 
@@ -61,7 +61,7 @@ describe('App', () => {
       .should(
         'have.attr',
         'href',
-        'https://www.newark-sherwooddc.gov.uk/privacynotice/'
+        `${Cypress.env('council_website_homepage_url')}/privacynotice/`
       );
   });
 });
