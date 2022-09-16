@@ -39,7 +39,7 @@ function ReportRepair() {
   const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
   const unableToBookValue = 'unableToBook';
   const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`
-  const { data: repairTriageData, error: repairTriageFetchError } = useSWR(currentPath === 'repair-location' ? repairTriageApiUrl : null, fetcher)
+  const { data: repairTriageData, error: repairTriageFetchError } = useSWR(currentPath === 'repair-location' || currentPath === 'repair-problems' ? repairTriageApiUrl : null, fetcher)
 
   const [prevSteps, setPrevSteps] = useState([]);
 
@@ -107,18 +107,6 @@ function ReportRepair() {
       )
     })
   }
-
-  const commonProblems = {
-    wallsFloorAndCeiling: { value: 'wallsFloorsCeiling', title: 'Walls, floor or ceiling, excluding damp' },
-    sink: { value: 'sink', title: 'Sink, including taps and drainage'},
-    damagedOrStuckDoors: { value: 'damagedOrStuckDoors', title: 'Damaged or stuck doors' },
-    electricsLightsSwitches: {value: 'electricsLightsSwitches', title: 'Electrics, including lights and switches'},
-    windows: { value: 'windows', title: 'Damaged or stuck windows'},
-    dampOrMould: { value: 'dampOrMould', title: 'Damp or mould'},
-    heatingOrHotWater: { value: 'heatingOrHotWater', title: 'Heating or hot water'},
-    heating: { value: 'heating', title: 'Heating'},
-  }
-
   const prevStep = (e) => {
     e?.preventDefault();
     flow.prevStep(state)
@@ -203,7 +191,6 @@ function ReportRepair() {
           values={values}/>
       )
     case 'repair-location':
-      console.log('repairTriageFetchError', repairTriageFetchError)
       if (repairTriageFetchError) return <Error
         name="summary"
         heading="An error occurred while looking for your address"
@@ -222,21 +209,21 @@ function ReportRepair() {
         :
         (<Loader />)
     case 'repair-problems':
+      if (repairTriageFetchError) return <Error
+        name="summary"
+        heading="An error occurred while looking for your address"
+        body="Please try again later or call 01522 873333 to complete your repair request" />
+      if (!repairTriageData) return <Loader />
+      const selectedLocation = repairTriageData.find(option => option.value === state.data['repairLocation'].value);
+      const problemOptions = selectedLocation.options.map(option => {return {value: option.value, title: option.display}} )
+      const problemNextSteps = repairTriageData.map(option => {return {condition: option.value, nextStep: 'repair-problems'}} )
+      flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, problemNextSteps);
+
       return (
         <RepairProblem
           handleChange={handleChange}
           values={values}
-          options = {[
-            { value: 'cupboards', title: 'Cupboards, including damaged cupboard doors'},
-            { value: 'electrical', title: 'Electrical, including extractor fans and lightbulbs'},
-            { value: 'worktop', title:   'Damaged worktop'},
-            commonProblems.heatingOrHotWater,
-            { value: 'door', title: 'Damaged or stuck doors'},
-            commonProblems.wallsFloorAndCeiling,
-            commonProblems.sink,
-            commonProblems.windows,
-            commonProblems.dampOrMould
-          ]}
+          options = {problemOptions}
         />
       )
     case 'repair-stairs-problems':
