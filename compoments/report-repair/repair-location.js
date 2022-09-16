@@ -3,16 +3,10 @@ import RadioFieldSet from '../radioFieldSet';
 import React from 'react';
 import {serviceName} from '../../helpers/constants';
 
-const RepairLocation = ({handleChange, values}) => {
+const RepairLocation = ({handleChange, values, options}) => {
   const name =  'repairLocation';
   const title =  'Where is the problem?';
-  const options =  [
-    { value: 'kitchen', title: 'Kitchen'},
-    { value: 'bedroom', title: 'Bedroom'},
-    { value: 'bathroom', title: 'Bathroom'},
-    { value: 'livingAreas', title: 'Living Areas'},
-    { value: 'outside', title: 'Outside'},
-  ];
+
 
   const Continue = ({val, display}) => {
     handleChange(name, {value: val[name], display: display});
