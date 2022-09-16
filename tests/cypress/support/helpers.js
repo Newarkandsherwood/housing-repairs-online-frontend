@@ -23,6 +23,37 @@ function intercept_address_search(
   }).as('address');
 }
 
+function intercept_repair_triage() {
+  const api_url = 'http://localhost:3000/api';
+  const response = [
+    {
+      'value': 'kitchen',
+      'display': 'Kitchen',
+    },
+    {
+      'value': 'bathroom',
+      'display': 'Bathroom',
+    },
+    {
+      'value': 'bedroom',
+      'display': 'Bedroom',
+    },
+    {
+      'value': 'livingAreas',
+      'display': 'Living Areas',
+    },
+    {
+      'value': 'outside',
+      'display': 'Outside',
+    }
+  ]
+
+  cy.intercept('GET', `${api_url}/repairTriage?*`, {
+    statusCode: 201,
+    body: response
+  }).as('repairTriage');
+}
+
 function intercept_availability_search(appointments = dummyAppointments) {
   const api_url = 'http://localhost:3000/api';
 
@@ -72,6 +103,7 @@ const convertDateToDisplayDate = (date) => {
 
 const navigateToLocation = () => {
   intercept_address_search();
+  intercept_repair_triage();
   cy.visit('http://localhost:3000/report-repair/');
 
   navigateToPageSelectRadioOptionAndContinue({
