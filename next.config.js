@@ -19,18 +19,23 @@ const moduleExports =  {
     ]
   },
 
+  env: {
+    releaseVersion: 'mvp',
+  },// in code, this is available as {process.env.releaseVersion}
+  
   images: {
     loader: 'default'
   },
 };
 
-if(process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_APP_ENV === 'test'){
+//if(process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_APP_ENV === 'test'){
   module.exports = moduleExports;
-} else {
-  module.exports = withSentryConfig(moduleExports, {
-    project: 'housing-repairs-online-frontend',
-    authToken: process.env.SENTRY_AUTH_TOKEN || process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN,
-    dryRun: false,
-    include: './.next'
-  });
-}
+// } else {
+//   module.exports = withSentryConfig(moduleExports, {
+//     project: 'housing-repairs-online-frontend',
+//     authToken: process.env.SENTRY_AUTH_TOKEN || process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN,
+//     dryRun: false,
+//     include: './.next'
+//   }
+//);
+//}
