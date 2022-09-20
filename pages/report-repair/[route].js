@@ -265,7 +265,7 @@ function ReportRepair() {
       if (!repairTriageData) return <Loader />
       const selectedLocationBestDescription = getRepairLocation();
       const selectedOption = selectedLocationBestDescription.options.find(option => option.value === state.data['repairProblem'].value);
-      const problemBestDescriptionOptions = getRepairOptions(selectedOption)
+      const problemBestDescriptionOptions = getRepairOptions(selectedOption.options);
       const problemBestDescriptionNextSteps = problemBestDescriptionOptions.map(option => {return {
         condition: option.value,
         nextStep:
