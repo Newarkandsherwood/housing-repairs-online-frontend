@@ -1,5 +1,7 @@
 import {
-  navigateToLocation
+  navigateToLocation,
+  makeSelectionAndClickButton,
+  checkIfSelectionGoesToCorrectUrl
 } from '../../support/helpers';
 
 const genericWhatIsTheProblemOptions = () => {
@@ -21,8 +23,7 @@ describe('repairProblem', () => {
   context('kitchen', () => {
     before(() => {
       navigateToLocation()
-      cy.contains('Kitchen').click();
-      cy.get('button').click();
+      makeSelectionAndClickButton('Kitchen');
     });
 
     it('displays the repair problem question', () => {
@@ -77,8 +78,7 @@ describe('repairProblem', () => {
   context('Bathroom', () => {
     before(() => {
       navigateToLocation()
-      cy.contains('Bathroom').click();
-      cy.get('button').click();
+      makeSelectionAndClickButton('Bathroom');
     });
 
     it('displays the repair problem question', () => {
@@ -137,8 +137,7 @@ describe('repairProblem', () => {
   context('Bedroom', () => {
     before(() => {
       navigateToLocation()
-      cy.contains('Bedroom').click();
-      cy.get('button').click();
+      makeSelectionAndClickButton('Bedroom');
     });
 
     genericWhatIsTheProblemOptions();
@@ -171,8 +170,7 @@ describe('repairProblem', () => {
   context('Living Areas', () => {
     before(() => {
       navigateToLocation();
-      cy.contains('Living Areas').click();
-      cy.get('button').click();
+      makeSelectionAndClickButton('Living Areas');
     });
 
     it('displays a "walls" option', () => {
@@ -211,8 +209,7 @@ describe('repairProblem', () => {
   context('Outside', () => {
     before(() => {
       navigateToLocation()
-      cy.contains('Outside').click();
-      cy.get('button').click();
+      makeSelectionAndClickButton('Outside');
     });
 
     it('displays the repair problem question', () => {
@@ -253,25 +250,13 @@ describe('repairProblem', () => {
       navigateToLocation();
     })
     it('should redirect them to unable to book page',  () => {
-      cy.contains('Kitchen').click();
-      cy.get('button').click();
-      cy.contains('Heating or hot water').click();
-      cy.get('button').click();
-      cy.url().should('include', '/report-repair/unable-to-book');
+      checkIfSelectionGoesToCorrectUrl('Kitchen', 'Heating or hot water', '/report-repair/unable-to-book')
     });
     it('should redirect them to the emergency page',  () => {
-      cy.contains('Hallway').click();
-      cy.get('button').click();
-      cy.contains('Rug is on fire').click();
-      cy.get('button').click();
-      cy.url().should('include', '/report-repair/emergency-repair');
+      checkIfSelectionGoesToCorrectUrl('Hallway', 'Rug is on fire', '/report-repair/emergency-repair')
     });
     it('should redirect them to the not eligible and non-emergency page',  () => {
-      cy.contains('Hallway').click();
-      cy.get('button').click();
-      cy.contains('Mirror is dirty').click();
-      cy.get('button').click();
-      cy.url().should('include', '/report-repair/not-eligible-non-emergency');
+      checkIfSelectionGoesToCorrectUrl('Hallway', 'Mirror is dirty', '/report-repair/not-eligible-non-emergency')
     });
   });
 
@@ -280,11 +265,7 @@ describe('repairProblem', () => {
       navigateToLocation();
     })
     it('should redirect them to description page',  () => {
-      cy.contains('Kitchen').click();
-      cy.get('button').click();
-      cy.contains('Damaged worktop').click();
-      cy.get('button').click();
-      cy.url().should('include', '/report-repair/repair-description');
+      checkIfSelectionGoesToCorrectUrl('Kitchen', 'Damaged worktop', '/report-repair/repair-description')
     })
   });
 });
