@@ -26,6 +26,7 @@ class Flow {
       'address': {prevStep: 'postcode', nextStep: 'repair-location'},
       'repair-location': { prevStep: 'address', nextStep: repairLocationNextSteps},
       'repair-problems': { prevStep: 'repair-location', nextStep: repairLocationNextSteps},
+      'repair-problem-best-description': { prevStep: 'repair-problems', nextStep: repairLocationNextSteps},
       // TODO: remove redundant options
       'repair-outside-problems': { prevSteps: 'repair-location', nextStep: [
         {condition: 'securityLights', nextStep: 'repair-description'},
