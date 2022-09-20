@@ -247,4 +247,44 @@ describe('repairProblem', () => {
       });
     });
   });
+
+  context.only('When a user selects a problem which is an early exit', ()=>{
+    beforeEach(()=>{
+      navigateToLocation();
+    })
+    it('should redirect them to unable to book page',  () => {
+      cy.contains('Kitchen').click();
+      cy.get('button').click();
+      cy.contains('Heating or hot water').click();
+      cy.get('button').click();
+      cy.url().should('include', '/report-repair/unable-to-book');
+    });
+    it('should redirect them to the emergency page',  () => {
+      cy.contains('Hallway').click();
+      cy.get('button').click();
+      cy.contains('Rug is on fire').click();
+      cy.get('button').click();
+      cy.url().should('include', '/report-repair/emergency-repair');
+    });
+    it('should redirect them to the not eligible and non-emergency page',  () => {
+      cy.contains('Hallway').click();
+      cy.get('button').click();
+      cy.contains('Mirror is dirty').click();
+      cy.get('button').click();
+      cy.url().should('include', '/report-repair/not-eligible-non-emergency');
+    });
+  });
+
+  context.only('When a user selects a location and problem which allows them to continue', ()=>{
+    beforeEach(()=>{
+      navigateToLocation();
+    })
+    it('should redirect them to description page',  () => {
+      cy.contains('Kitchen').click();
+      cy.get('button').click();
+      cy.contains('Damaged worktop').click();
+      cy.get('button').click();
+      cy.url().should('include', '/report-repair/repair-description');
+    })
+  });
 });
