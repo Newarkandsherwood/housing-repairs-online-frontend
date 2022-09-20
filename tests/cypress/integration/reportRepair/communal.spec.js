@@ -1,4 +1,4 @@
-import {intercept_address_search, makeSelectionAndClickButton} from "../../support/helpers";
+import {checkIfSelectionGoesToCorrectUrl, intercept_address_search, makeSelectionAndClickButton} from "../../support/helpers";
 
 describe('communal', () => {
   beforeEach(() => {
@@ -35,8 +35,7 @@ describe('communal', () => {
 
   context('When a user selects: Yes', ()=>{
     it('should redirect them to not eligible non emergency page',  () => {
-      makeSelectionAndClickButton('Yes');
-      cy.url().should('include', '/report-repair/not-eligible-communal-repairs');
+      checkIfSelectionGoesToCorrectUrl('/report-repair/not-eligible-communal-repairs', 'Yes')
     });
   });
 

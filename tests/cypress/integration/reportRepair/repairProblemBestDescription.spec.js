@@ -1,4 +1,5 @@
 import {
+  makeSelectionAndClickButton,
   navigateToLocation
 } from '../../support/helpers';
 
@@ -140,11 +141,9 @@ describe('repairProblemBestDescription', () => {
 
     context('Cupboards, including damaged cupboard doors', () => {
       before(()=>{
-        navigateToLocation()
-        cy.contains('Kitchen').click();
-        cy.get('button').click();
-        cy.contains('Cupboards, including damaged cupboard doors').click();
-        cy.get('button').click();
+        navigateToLocation();
+        makeSelectionAndClickButton('Kitchen');
+        makeSelectionAndClickButton('Cupboards, including damaged cupboard doors')
       });
 
       it('displays the repair issue question', () => {
@@ -171,10 +170,8 @@ describe('repairProblemBestDescription', () => {
     context('Heating or hot water', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Kitchen').click();
-        cy.get('button').click();
-        cy.contains('Heating or hot water').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Kitchen');
+        makeSelectionAndClickButton('Heating or hot water')
       });
 
       it('should redirect them to not eligible non-emergency page',  () => {
@@ -219,10 +216,8 @@ describe('repairProblemBestDescription', () => {
     context('Damaged or stuck doors', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Kitchen').click();
-        cy.get('button').click();
-        cy.contains('Damaged or stuck doors').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Kitchen');
+        makeSelectionAndClickButton('Damaged or stuck doors')
       });
 
       it('displays a "Wooden back door" option', () => {
@@ -277,10 +272,8 @@ describe('repairProblemBestDescription', () => {
     context('Sink, including taps and drainage', () => {
       before(() => {
         navigateToLocation()
-        cy.contains('Kitchen').click();
-        cy.get('button').click();
-        cy.contains('Sink, including taps and drainage').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Kitchen');
+        makeSelectionAndClickButton('Sink, including taps and drainage')
       });
 
       testSinkOptions();

@@ -1,4 +1,4 @@
-import {navigateToLocation} from '../../support/helpers';
+import {checkIfSelectionGoesToCorrectUrl, makeSelectionAndClickButton, navigateToLocation} from '../../support/helpers';
 
 describe('repairLocation', () => {
   before(() => {
@@ -45,9 +45,7 @@ describe('repairLocation', () => {
     })
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
-        cy.contains('Kitchen').click();
-        cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-problems');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Kitchen')
       });
     });
     context('by checking the radio button', ()=>{
@@ -85,9 +83,7 @@ describe('repairLocation', () => {
     })
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
-        cy.contains('Bedroom').click();
-        cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-problems');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Bedroom')
       });
     });
     context('by checking the radio button', ()=>{
@@ -125,9 +121,7 @@ describe('repairLocation', () => {
     })
     context('by clicking the label', ()=>{
       it('should redirect them to outside repair type page',  () => {
-        cy.contains('Outside').click();
-        cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-problems');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Outside')
       });
     });
     context('by checking the radio button', ()=>{
@@ -145,8 +139,7 @@ describe('repairLocation', () => {
     })
 
     it('should be selected when they navigate back to the page',  () => {
-      cy.contains('Kitchen').click();
-      cy.get('button').click();
+      makeSelectionAndClickButton('Kitchen')
       cy.get('[data-cy=repair-problem]', {timeout: 10000}).then(() => {
         cy.contains('Back').click({force: true});
       });
