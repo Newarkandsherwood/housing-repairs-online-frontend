@@ -25,6 +25,7 @@ function intercept_address_search(
 
 function intercept_repair_triage() {
   const api_url = 'http://localhost:3000/api';
+  // TODO: extract data to fixture file
   const response = [
     {
       'value': 'kitchen',
@@ -202,6 +203,20 @@ function intercept_repair_triage() {
           'value': 'gatesAndPathways',
           'display': 'Gates and pathways'
         }
+      ]
+    },
+    {
+      'value': 'hallway',
+      'display': 'Hallway',
+      'options': [
+        {
+          'value': 'emergency',
+          'display': 'Rug is on fire'
+        },
+        {
+          'value': 'notEligibleNonEmergency',
+          'display': 'Mirror is dirty'
+        },
       ]
     }
   ]
