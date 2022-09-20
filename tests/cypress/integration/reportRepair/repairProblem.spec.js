@@ -245,27 +245,32 @@ describe('repairProblem', () => {
     });
   });
 
-  context.only('When a user selects a problem which is an early exit', ()=>{
+  context('When a user selects a problem which is an early exit', ()=>{
     beforeEach(()=>{
       navigateToLocation();
     })
     it('should redirect them to unable to book page',  () => {
-      checkIfSelectionGoesToCorrectUrl('Kitchen', 'Heating or hot water', '/report-repair/unable-to-book')
+      checkIfSelectionGoesToCorrectUrl('/report-repair/unable-to-book', 'Kitchen', 'Heating or hot water')
     });
     it('should redirect them to the emergency page',  () => {
-      checkIfSelectionGoesToCorrectUrl('Hallway', 'Rug is on fire', '/report-repair/emergency-repair')
+      checkIfSelectionGoesToCorrectUrl('/report-repair/emergency-repair', 'Hallway', 'Rug is on fire')
     });
     it('should redirect them to the not eligible and non-emergency page',  () => {
-      checkIfSelectionGoesToCorrectUrl('Hallway', 'Mirror is dirty', '/report-repair/not-eligible-non-emergency')
+      checkIfSelectionGoesToCorrectUrl('/report-repair/not-eligible-non-emergency', 'Hallway', 'Mirror is dirty')
     });
   });
 
-  context.only('When a user selects a location and problem which allows them to continue', ()=>{
+  context('When a user selects a location and problem which allows them to continue', ()=>{
     beforeEach(()=>{
       navigateToLocation();
     })
     it('should redirect them to description page',  () => {
-      checkIfSelectionGoesToCorrectUrl('Kitchen', 'Damaged worktop', '/report-repair/repair-description')
+      checkIfSelectionGoesToCorrectUrl('/report-repair/repair-description', 'Kitchen', 'Damaged worktop')
+    })
+
+    it('should redirect them to the best description page & then to description page',  () => {
+      checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problem-best-description', 'Kitchen', 'Cupboards, including damaged cupboard doors')
+      checkIfSelectionGoesToCorrectUrl('/report-repair/repair-description', 'Hanging Door');
     })
   });
 });
