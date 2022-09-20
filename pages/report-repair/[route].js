@@ -211,7 +211,12 @@ function ReportRepair() {
         body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
       const options = getRepairOptions(repairTriageData)
-      const nextSteps = repairTriageData.map(option => {return {condition: option.value, nextStep: 'repair-problems'}} )
+      const nextSteps = repairTriageData.map(
+        option => {return {
+          condition: option.value,
+          nextStep: 'repair-problems'
+        }}
+      )
       flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, nextSteps);
 
       return repairTriageData ?
@@ -229,7 +234,13 @@ function ReportRepair() {
         body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
       const selectedLocation = getRepairLocation();
-      const problemOptions = selectedLocation.options.map(option => {return {value: option.value, title: option.display, options: option.options}} )
+      const problemOptions = selectedLocation.options.map(
+        option => {return {
+          value: option.value,
+          title: option.display,
+          options: option.options
+        }}
+      )
       const problemNextSteps = problemOptions.map(option => {return {condition: option.value,
         nextStep:
         option.value === unableToBookValue ? 'unable-to-book' :
@@ -255,7 +266,15 @@ function ReportRepair() {
       const selectedLocationBestDescription = getRepairLocation();
       const selectedOption = selectedLocationBestDescription.options.find(option => option.value === state.data['repairProblem'].value);
       const problemBestDescriptionOptions = getRepairOptions(selectedOption)
-      const problemBestDescriptionNextSteps = problemBestDescriptionOptions.map(option => {return {condition: option.value, nextStep: option.value === unableToBookValue ? 'unable-to-book' : option.value === emergencyValue?'emergency-repair': option.value === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency': 'repair-description'}} )
+      const problemBestDescriptionNextSteps = problemBestDescriptionOptions.map(option => {return {
+        condition: option.value,
+        nextStep:
+        option.value === unableToBookValue ? 'unable-to-book' :
+          option.value === emergencyValue?'emergency-repair':
+            option.value === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency':
+              'repair-description'
+      }}
+      )
       flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, problemBestDescriptionNextSteps);
 
       return (
