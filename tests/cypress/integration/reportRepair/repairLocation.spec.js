@@ -63,9 +63,7 @@ describe('repairLocation', () => {
     })
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
-        cy.contains('Bathroom').click();
-        cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-problems');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Bathroom')
       });
     });
     context('by checking the radio button', ()=>{
@@ -101,9 +99,7 @@ describe('repairLocation', () => {
     })
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
-        cy.contains('Living Areas').click();
-        cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-problems');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Living Areas')
       });
     });
     context('by checking the radio button', ()=>{

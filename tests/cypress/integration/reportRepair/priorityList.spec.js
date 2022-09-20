@@ -30,9 +30,7 @@ describe('priorityList', () => {
 
   context('When a user selects: I have no water in the property', ()=>{
     it('should redirect them to emergency page',  () => {
-      cy.contains('I have no water in the property').click();
-      cy.get('button').click()
-      cy.url().should('include', '/report-repair/emergency-repair');
+      checkIfSelectionGoesToCorrectUrl('/report-repair/emergency-repair', 'I have no water in the property')
     });
   })
 
@@ -44,9 +42,7 @@ describe('priorityList', () => {
 
   context('When a user selects: I have water leaking on to electrics', ()=>{
     it('should redirect them to emergency page',  () => {
-      cy.contains('I have water leaking on to electrics').click();
-      cy.get('button').click()
-      cy.url().should('include', '/report-repair/emergency-repair');
+      checkIfSelectionGoesToCorrectUrl('/report-repair/emergency-repair', 'I have water leaking on to electrics')
     });
   });
 
@@ -66,9 +62,7 @@ describe('priorityList', () => {
 
   context('When a user selects: My carbon monoxide or smoke alarm is beeping', ()=>{
     it('should redirect them to emergency page',  () => {
-      cy.contains('My carbon monoxide or smoke alarm is beeping').click();
-      cy.get('button').click()
-      cy.url().should('include', '/report-repair/emergency-repair');
+      checkIfSelectionGoesToCorrectUrl('/report-repair/emergency-repair', 'My carbon monoxide or smoke alarm is beeping')
     });
   });
 
@@ -80,9 +74,7 @@ describe('priorityList', () => {
 
   context('User uses back buttons to navigate out of an exit page and selects a different option', ()=>{
     it('should redirect the user to a different exit page',  () => {
-      cy.contains('I can smell gas in or near the property').click();
-      cy.get('button').click();
-      cy.url().should('include', '/report-repair/smell-gas');
+      checkIfSelectionGoesToCorrectUrl('/report-repair/smell-gas', 'I can smell gas in or near the property')
       cy.go('back');
       checkIfSelectionGoesToCorrectUrl('/report-repair/emergency-repair', 'I have no heating in the property')
     })
