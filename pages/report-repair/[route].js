@@ -31,6 +31,7 @@ import { fetcher } from '../../helpers/fetcher';
 function ReportRepair() {
   const [state, setState] = useState({data:{}, step: 'priority-list'});
   const [changeLinkUrls, setChangeLinkUrls] = useState({});
+  const [repairTriageData, setRepairTriageData] = useState(undefined);
   const router = useRouter()
 
   const currentPath = router.query.route
@@ -38,8 +39,13 @@ function ReportRepair() {
   const emergencyValue = 'emergency';
   const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
   const unableToBookValue = 'unableToBook';
+
   const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`
-  const { data: repairTriageData, error: repairTriageFetchError } = useSWR(currentPath === 'repair-location' || currentPath === 'repair-problems' ? repairTriageApiUrl : null, fetcher)
+  const shouldRequestTriageData = repairTriageData === undefined && (currentPath === 'repair-location' || currentPath === 'repair-problems');
+  const { data: repairTriageResponse, error: repairTriageFetchError } = useSWR(shouldRequestTriageData ? repairTriageApiUrl : null, fetcher);
+  useEffect(() => {
+    !repairTriageData && setRepairTriageData(repairTriageResponse)
+  }, [repairTriageResponse, repairTriageData])
 
   const [prevSteps, setPrevSteps] = useState([]);
 
