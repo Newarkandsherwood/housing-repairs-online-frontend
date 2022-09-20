@@ -120,6 +120,10 @@ function ReportRepair() {
   const values = state.data;
   const changeLinkUrlValues = changeLinkUrls
 
+  const getRepairLocation = () => {
+    return repairTriageData.find(option => option.value === state.data['repairLocation'].value)
+  }
+
   const component = () => {
     switch (currentPath) {
     case 'summary' :
@@ -220,9 +224,15 @@ function ReportRepair() {
         heading="An error occurred while looking for your address"
         body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
-      const selectedLocation = repairTriageData.find(option => option.value === state.data['repairLocation'].value);
+      const selectedLocation = getRepairLocation();
       const problemOptions = selectedLocation.options.map(option => {return {value: option.value, title: option.display, options: option.options}} )
-      const problemNextSteps = problemOptions.map(option => {return {condition: option.value, nextStep: option.value === unableToBookValue ? 'unable-to-book' : option.value === emergencyValue?'emergency-repair': option.value === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency': option.options ? 'repair-problem-best-description' : 'repair-description'}} )
+      const problemNextSteps = problemOptions.map(option => {return {condition: option.value,
+        nextStep:
+        option.value === unableToBookValue ? 'unable-to-book' :
+          option.value === emergencyValue?'emergency-repair':
+            option.value === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency':
+              option.options ? 'repair-problem-best-description' : 'repair-description'
+      }} )
       flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, problemNextSteps);
 
       return (
@@ -238,7 +248,7 @@ function ReportRepair() {
         heading="An error occurred while looking for your address"
         body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
-      const selectedLocationBestDescription = repairTriageData.find(option => option.value === state.data['repairLocation'].value);
+      const selectedLocationBestDescription = getRepairLocation();
       const selectedOption = selectedLocationBestDescription.options.find(option => option.value === state.data['repairProblem'].value);
       const problemBestDescriptionOptions = selectedOption.options.map(option => {return {value: option.value, title: option.display}} )
       const problemBestDescriptionNextSteps = problemBestDescriptionOptions.map(option => {return {condition: option.value, nextStep: option.value === unableToBookValue ? 'unable-to-book' : option.value === emergencyValue?'emergency-repair': option.value === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency': 'repair-description'}} )
