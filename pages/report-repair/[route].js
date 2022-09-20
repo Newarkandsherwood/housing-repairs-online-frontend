@@ -221,8 +221,8 @@ function ReportRepair() {
         body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
       const selectedLocation = repairTriageData.find(option => option.value === state.data['repairLocation'].value);
-      const problemOptions = selectedLocation.options.map(option => {return {value: option.value, title: option.display}} )
-      const problemNextSteps = problemOptions.map(option => {return {condition: option.value, nextStep: option.value === unableToBookValue ? 'unable-to-book' : option.value === emergencyValue?'emergency-repair': option.value === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency': 'repair-description'}} )
+      const problemOptions = selectedLocation.options.map(option => {return {value: option.value, title: option.display, options: option.options}} )
+      const problemNextSteps = problemOptions.map(option => {return {condition: option.value, nextStep: option.value === unableToBookValue ? 'unable-to-book' : option.value === emergencyValue?'emergency-repair': option.value === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency': option.options ? 'repair-problem-best-description' : 'repair-description'}} )
       flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, problemNextSteps);
 
       return (
@@ -230,6 +230,25 @@ function ReportRepair() {
           handleChange={handleChange}
           values={values}
           options = {problemOptions}
+        />
+      )
+    case 'repair-problem-best-description':
+      if (repairTriageFetchError) return <Error
+        name="summary"
+        heading="An error occurred while looking for your address"
+        body="Please try again later or call 01522 873333 to complete your repair request" />
+      if (!repairTriageData) return <Loader />
+      const selectedLocationBestDescription = repairTriageData.find(option => option.value === state.data['repairLocation'].value);
+      const selectedOption = selectedLocationBestDescription.options.find(option => option.value === state.data['repairProblem'].value);
+      const problemBestDescriptionOptions = selectedOption.options.map(option => {return {value: option.value, title: option.display}} )
+      const problemBestDescriptionNextSteps = problemBestDescriptionOptions.map(option => {return {condition: option.value, nextStep: option.value === unableToBookValue ? 'unable-to-book' : option.value === emergencyValue?'emergency-repair': option.value === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency': 'repair-description'}} )
+      flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, problemBestDescriptionNextSteps);
+
+      return (
+        <RepairProblemBestDescription
+          handleChange={handleChange}
+          values={values}
+          options = {problemBestDescriptionOptions}
         />
       )
     case 'repair-stairs-problems':
@@ -568,6 +587,7 @@ export async function getStaticPaths() {
     {params: { route: 'priority-list'} },
     {params: { route: 'repair-location'} },
     {params: { route: 'repair-problems'} },
+    {params: { route: 'repair-problem-best-description'} },
     {params: { route: 'smell-gas'} },
     {params: { route: 'sink-problems'} },
     {params: { route: 'bathroom-damp-mould-problems'} },
