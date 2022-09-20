@@ -33,7 +33,17 @@ function intercept_repair_triage() {
       'options': [
         {
           'value': 'cupboards',
-          'display': 'Cupboards, including damaged cupboard doors'
+          'display': 'Cupboards, including damaged cupboard doors',
+          'options': [
+            {
+              'value': 'doorHangingOff',
+              'display': 'Hanging Door'
+            },
+            {
+              'value': 'doorMissing',
+              'display': 'Missing door'
+            }
+          ]
         },
         {
           'value': 'electrical',
@@ -303,9 +313,9 @@ function makeSelectionAndClickButton(buttonLabel) {
   cy.get('button').click();
 }
 
-function checkIfSelectionGoesToCorrectUrl(firstSelection, secondSelection, goToUrl) {
+function checkIfSelectionGoesToCorrectUrl(goToUrl, firstSelection, secondSelection = null) {
   makeSelectionAndClickButton(firstSelection);
-  makeSelectionAndClickButton(secondSelection);
+  secondSelection && makeSelectionAndClickButton(secondSelection);
   cy.url().should('include', goToUrl);
 }
 
