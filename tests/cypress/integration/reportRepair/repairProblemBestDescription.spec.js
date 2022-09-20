@@ -1,4 +1,5 @@
 import {
+  checkIfSelectionGoesToCorrectUrl,
   makeSelectionAndClickButton,
   navigateToLocation
 } from '../../support/helpers';
@@ -182,8 +183,7 @@ describe('repairProblemBestDescription', () => {
     context('Electrical, including extractor fans and lightbulbs', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Kitchen').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Kitchen');
         cy.contains('Electrical, including extractor fans and lightbulbs').click();
         cy.get('button').click();
       });
@@ -252,10 +252,8 @@ describe('repairProblemBestDescription', () => {
     context('Walls, floor or ceiling, excluding damp', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Kitchen').click();
-        cy.get('button').click();
-        cy.contains('Walls, floor or ceiling, excluding damp').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Kitchen')
+        makeSelectionAndClickButton('Walls, floor or ceiling, excluding damp')
       });
 
       testWallOption();
@@ -263,8 +261,7 @@ describe('repairProblemBestDescription', () => {
     context('Damaged or stuck windows', () => {
       before(()=>{
         cy.go(-1);
-        cy.contains('Damaged or stuck windows').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Damaged or stuck windows')
       });
       testWindowOption();
     });
@@ -282,10 +279,8 @@ describe('repairProblemBestDescription', () => {
     context('Damp or mould', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Kitchen').click();
-        cy.get('button').click();
-        cy.contains('Damp or mould').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Kitchen')
+        makeSelectionAndClickButton('Damp or mould')
       });
       testDampOrMouldOption();
     });
@@ -296,10 +291,8 @@ describe('repairProblemBestDescription', () => {
     context('Bath, including taps', () => {
       before(() => {
         navigateToLocation()
-        cy.contains('Bathroom').click();
-        cy.get('button').click();
-        cy.contains('Bath, including taps').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Kitchen');
+        makeSelectionAndClickButton('Bath, including taps');
       });
 
       it('displays the repair issue question', () => {
@@ -326,10 +319,8 @@ describe('repairProblemBestDescription', () => {
     context('Walls, floor or ceiling, excluding damp', () => {
       before(() => {
         navigateToLocation()
-        cy.contains('Bathroom').click();
-        cy.get('button').click();
-        cy.contains('Walls, floor or ceiling, excluding damp').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bathroom');
+        makeSelectionAndClickButton('Walls, floor or ceiling, excluding damp');
       });
 
       testWallOption();
@@ -338,10 +329,8 @@ describe('repairProblemBestDescription', () => {
     context('Sink, including taps and drainage', () => {
       before(() => {
         navigateToLocation()
-        cy.contains('Bathroom').click();
-        cy.get('button').click();
-        cy.contains('Sink, including taps and drainage').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bathroom');
+        makeSelectionAndClickButton('Sink, including taps and drainage');
       });
 
       testSinkOptions();
@@ -350,10 +339,8 @@ describe('repairProblemBestDescription', () => {
     context('Electrics, including extractor fan and pull cords', () => {
       before(() => {
         navigateToLocation()
-        cy.contains('Bathroom').click();
-        cy.get('button').click();
-        cy.contains('Electrics, including extractor fan and pull cords').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bathroom');
+        makeSelectionAndClickButton('Electrics, including extractor fan and pull cords');
       });
 
       it('displays a "Spot lights" option', () => {
@@ -377,30 +364,23 @@ describe('repairProblemBestDescription', () => {
     context('Damp or mould', () => {
       beforeEach(() => {
         navigateToLocation()
-        cy.contains('Bathroom').click();
-        cy.get('button').click();
-        cy.contains('Damp or mould').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bathroom');
+        makeSelectionAndClickButton('Damp or mould');
       });
 
       it('displays a "Damp or mould caused by a leak" option', () => {
-        cy.contains('Damp or mould caused by a leak').click();
-        cy.get('button').click();
-        cy.url().should('include', '/report-repair/emergency-repair');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/emergency-repair', 'Damp or mould caused by a leak')
       });
 
       it('displays a "Damp or mould caused by something else" option', () => {
-        cy.contains('Damp or mould caused by something else').click();
-        cy.get('button').click();
-        cy.url().should('include', '/report-repair/repair-description');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-description', 'Damp or mould caused by something else')
       });
     });
 
     context('Damaged or stuck doors', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Bathroom').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bathroom');
         cy.contains('Damaged or stuck doors').click();
         cy.get('button').click();
       });
@@ -410,8 +390,7 @@ describe('repairProblemBestDescription', () => {
     context('Toilet', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Bathroom').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bathroom');
         cy.contains('Toilet').click();
         cy.get('button').click();
       });
@@ -445,8 +424,7 @@ describe('repairProblemBestDescription', () => {
     context('Shower, including the tray and shower door', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Bathroom').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bathroom');
         cy.contains('Shower, including the tray and shower door').click();
         cy.get('button').click();
       });
@@ -490,8 +468,7 @@ describe('repairProblemBestDescription', () => {
     context('Walls, floor or ceiling, excluding damp', () => {
       before(() => {
         navigateToLocation()
-        cy.contains('Bedroom').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bedroom');
         cy.contains('Walls, floor or ceiling, excluding damp').click();
         cy.get('button').click();
       });
@@ -502,8 +479,7 @@ describe('repairProblemBestDescription', () => {
     context('Electrics, including lights and switches', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Bedroom').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bedroom');
       });
 
       testElectricsOption();
@@ -521,8 +497,7 @@ describe('repairProblemBestDescription', () => {
     context('Damaged or stuck doors', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Bedroom').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bedroom');
         cy.contains('Damaged or stuck doors').click();
         cy.get('button').click();
       });
@@ -532,8 +507,7 @@ describe('repairProblemBestDescription', () => {
     context('Damp or mould', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Bedroom').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Bedroom');
         cy.contains('Damp or mould').click();
         cy.get('button').click();
       });
@@ -546,8 +520,7 @@ describe('repairProblemBestDescription', () => {
     context('Walls, floor or ceiling, excluding damp', () => {
       before(() => {
         navigateToLocation()
-        cy.contains('Living Area').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Living Area');
         cy.contains('Walls, floor or ceiling, excluding damp').click();
         cy.get('button').click();
       });
@@ -557,8 +530,7 @@ describe('repairProblemBestDescription', () => {
     context('Electrics, including lights and switches', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Living Areas').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Living Area');
       });
 
       testElectricsOption();
@@ -567,8 +539,7 @@ describe('repairProblemBestDescription', () => {
     context('Damaged or stuck windows', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Living Areas').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Living Area');
         cy.contains('Damaged or stuck windows').click();
         cy.get('button').click();
       });
@@ -578,8 +549,7 @@ describe('repairProblemBestDescription', () => {
     context('Damaged or stuck doors', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Living Area').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Living Area');
         cy.contains('Damaged or stuck doors').click();
         cy.get('button').click();
       });
@@ -589,8 +559,7 @@ describe('repairProblemBestDescription', () => {
     context('Damp or mould', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Living Area').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Living Area');
         cy.contains('Damp or mould').click();
         cy.get('button').click();
       });
@@ -600,8 +569,7 @@ describe('repairProblemBestDescription', () => {
     context('Stairs (including handrail)', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Living Area').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Living Area');
         cy.contains('Stairs (including handrail)').click();
         cy.get('button').click();
       });
@@ -632,8 +600,7 @@ describe('repairProblemBestDescription', () => {
 
     it('Outdoor security lights goes to description',  () => {
       navigateToLocation()
-      cy.contains('Outside').click();
-      cy.get('button').click();
+      makeSelectionAndClickButton('Outside');
       cy.contains('Outdoor security lights').click();
       cy.get('button').click();
       cy.url().should('include', '/report-repair/repair-description');
@@ -642,8 +609,7 @@ describe('repairProblemBestDescription', () => {
     context('Roof, including insulation and shed roof', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Outside').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Outside');
         cy.contains('Roof, including insulation and shed roof').click();
         cy.get('button').click();
       });
@@ -672,8 +638,7 @@ describe('repairProblemBestDescription', () => {
     context('Garage, including roof and door', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Outside').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Outside');
         cy.contains('Garage, including roof and door').click();
         cy.get('button').click();
       });
@@ -702,8 +667,7 @@ describe('repairProblemBestDescription', () => {
     context('Door, including shed and outhouse', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Outside').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Outside');
         cy.contains('Door, including shed and outhouse').click();
         cy.get('button').click();
       });
@@ -736,8 +700,7 @@ describe('repairProblemBestDescription', () => {
     context('Gates and pathways', () => {
       before(()=>{
         navigateToLocation()
-        cy.contains('Outside').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Outside');
         cy.contains('Gates and pathways').click();
         cy.get('button').click();
       });
