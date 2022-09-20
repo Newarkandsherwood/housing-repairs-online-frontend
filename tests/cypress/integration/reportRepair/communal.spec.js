@@ -1,10 +1,9 @@
-import {intercept_address_search} from "../../support/helpers";
+import {intercept_address_search, makeSelectionAndClickButton} from "../../support/helpers";
 
 describe('communal', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/report-repair/');
-    cy.contains('Something else').click();
-    cy.get('button').click()
+    makeSelectionAndClickButton('Something else');
   });
 
   it('displays the question', () => {
@@ -36,8 +35,7 @@ describe('communal', () => {
 
   context('When a user selects: Yes', ()=>{
     it('should redirect them to not eligible non emergency page',  () => {
-      cy.contains('Yes').click();
-      cy.get('button').click()
+      makeSelectionAndClickButton('Yes');
       cy.url().should('include', '/report-repair/not-eligible-communal-repairs');
     });
   });
@@ -45,8 +43,7 @@ describe('communal', () => {
   context('When a user selects: No', ()=>{
     beforeEach(() => {
       intercept_address_search();
-      cy.contains('No').click();
-      cy.get('button').click()
+      makeSelectionAndClickButton('No');
     });
     it('should redirect them to postcode then address page respectively',  () => {
       cy.url().should('include', '/report-repair/postcode');

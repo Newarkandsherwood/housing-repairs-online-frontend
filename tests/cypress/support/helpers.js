@@ -298,6 +298,17 @@ const navigateToLocation = () => {
   });
 }
 
+function makeSelectionAndClickButton(buttonLabel) {
+  cy.contains(buttonLabel).click();
+  cy.get('button').click();
+}
+
+function checkIfSelectionGoesToCorrectUrl(firstSelection, secondSelection, goToUrl) {
+  makeSelectionAndClickButton(firstSelection);
+  makeSelectionAndClickButton(secondSelection);
+  cy.url().should('include', goToUrl);
+}
+
 export {
   intercept_address_search,
   intercept_availability_search,
@@ -306,5 +317,7 @@ export {
   convertDateToDisplayDate,
   intercept_save_repair,
   continueOnPage,
-  navigateToLocation
+  navigateToLocation,
+  makeSelectionAndClickButton,
+  checkIfSelectionGoesToCorrectUrl
 }

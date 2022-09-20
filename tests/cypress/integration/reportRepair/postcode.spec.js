@@ -1,13 +1,11 @@
-import {intercept_address_search} from '../../support/helpers';
+import {intercept_address_search, makeSelectionAndClickButton} from '../../support/helpers';
 
 describe('postcode', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/report-repair/');
-    cy.contains('Something else').click();
-    cy.get('button').click();
+    makeSelectionAndClickButton('Something else');
     cy.get('[data-cy=communal]', { timeout: 10000 }).then(($loadedSection) => {
-      cy.contains('No').click();
-      cy.get('button').click()
+      makeSelectionAndClickButton('No');
     });
     cy.get('[data-cy=postcode]', { timeout: 10000 })
   });
