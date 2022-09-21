@@ -12,7 +12,7 @@ const RepairPicture = ({ handleChange, values }) => {
   const [selectedImage, setSelectedImage] = useState(values.description?.photo);
   const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
   const [base64img, setBase64img] = useState(values.description?.base64img);
-  const title = 'Upload an image of the problem (optional)'
+  const title = process.env.releaseVersion == 'mvp'? 'Upload a photo (optional)': 'Upload an image of the problem (optional)';
   const pageTitle = `${title} - ${serviceName}`;
   const repairDescriptionUploadPhotoInputId = 'repair-description-upload-a-photo-input';
 
