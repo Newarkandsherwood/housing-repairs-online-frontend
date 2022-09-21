@@ -1,7 +1,8 @@
 import React from 'react';
 import ContactNumbers from '../contactNumbers';
 import {serviceName} from '../../helpers/constants';
-import { nationalGasEmergencyServiceTelephoneNumber, nationalGasEmergencyServiceTextphoneNumber, OpeningHours } from '../../globals';
+import { nationalGasEmergencyServiceTelephoneNumber, nationalGasEmergencyServiceTextphoneNumber } from '../../globals';
+import {OpeningHours} from '../openingHours';
 
 
 const EmergencyRepair = () => {
