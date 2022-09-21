@@ -3,6 +3,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
+
 (see below for Windows setup)
 
 Install all dependencies:
@@ -13,26 +14,31 @@ yarn install
 
 Copy the `example.sentryclirc` file and set the token environment variable in the `.sentryclirc` file to be the auth token in your Sentry account's API settings ([sentry.io](https://sentry.io/settings/account/api/auth-tokens) - you will need to have access first):
 
-```bash
-cp example.sentryclirc .sentryclirc
-```
+  ```bash
+  cp example.sentryclirc .sentryclirc
+  ```
+
+Copy the `example.env` file and set the environment variables in the `.env` file:
+  Set the RELEASE_VERSION value to `'mvp'` for the mvp application or any other value for full application.
+  Set the environment variables to be local authority details relevant for local development.
+  See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information
+
+  ```bash
+  cp example.env .env
+  ```
+
 Globally install azure function tools:
 
-```bash
- npm install -g azure-functions-core-tools@3 --unsafe-perm true
- ```
-
-Copy the `example.env` file in the root directory and set the RELEASE_VERSION value to `'mvp'` for the mvp application or any other value for full application:
-
-```bash
-cp example.env .env
-```
+  ```bash
+  npm install -g azure-functions-core-tools@3 --unsafe-perm true
+  ```
 
 In one terminal run the next development server:
 
-```bash
-nvm use && yarn dev
-```
+  ```bash
+  nvm use && yarn dev
+  ```
+
 In another terminal run the function server:
 
 Copy the `example.env` file and set the values to point to the repairs API:
@@ -46,7 +52,8 @@ Start the development function (still in the api directory)
 ```bash
 cd nvm use && yarn start
 ```
-> if the function doesn't start try switching your node version to 14.0.0 
+
+> if the function doesn't start try switching your node version to 14.0.0
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -68,6 +75,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
     yarn test:headless:integration:mvp
     ``` 
 ## Windows setup:
+
 ### Important:
 
 Install commands must be run as admin (in bash preferably to keep the below command syntax)
@@ -77,9 +85,11 @@ Install NVM for Windows:
 [`Install NodeJS on Windows`](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows)
 
 Install `win-node-env`:
+
 ```bash
 npm install -g win-node-env
 ```
+
 (for more info see [win-node-env](https://www.npmjs.com/package/win-node-env))
 
 Note: Environment variables may need to be set manually if the above fails:
@@ -88,25 +98,29 @@ System Properties > Advanced > Environment Variables
 
 Copy the value of NVM_HOME in the admin user to the value of NVM_HOME in the System variables
 
-
   After installing NVM, global utilities (e.g. yarn) will have to be reinstalled for each installed version of node:
-```bash
-nvm use 16.0.0
-npm install -g yarn
-nvm use 14.16.1
-npm install -g yarn
-```
+
+  ```bash
+    nvm use 16.0.0
+    npm install -g yarn
+    nvm use 14.16.1
+    npm install -g yarn
+    ```
+
 (for more info see [NVM for Windows](https://github.com/coreybutler/nvm-windows#installation—upgrades))
 
 Install all dependencies:
 ```bash
 yarn install
 ```
+
 (run as admin in the `main` directory and then again in the `api` directory)
 
 You can now continue with the instructions above.
+
 ## Look and feel
-The app can be deployed using original 
+
+The app can be deployed using original
 [Gov.uk design system](https://design-system.service.gov.uk/get-started/)
 styles or using Lincoln.gov styles.
 
@@ -128,34 +142,61 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-# General note dump
+## General note dump
+
+--------------------
+
+- Testing:
+  - [Jest](https://jestjs.io/docs/getting-started) is used for unit testing:
+
+    ```bash
+    yarn test
+    ```
+  
+  - [Cypress](https://docs.cypress.io/) is used for integration testing:
+  
+    ```bash
+    yarn test:integration
+    ```
 
 - Local dev
   https://github.com/Azure/static-web-apps-cli
+
 - M1 Macs setup:
-  - You may need to use node 14.0.0. Install this using 
+  - You may need to use node 14.0.0. Install this using
+
     ```bash
     nvm install v14.0.0
     ```
-    and then run 
-      ```bash
-      nvm use 14.0.0 && yarn dev
-      ```
-  - If there is an error about a missing binding try rebuilding sass: 
-    ```bash 
+
+    and then run
+
+    ```bash
+    nvm use 14.0.0 && yarn dev
+    ```
+
+  - If there is an error about a missing binding try rebuilding sass:
+
+    ```bash
     npm rebuild node-sass
-    ``` 
-    and then re-run the web server: 
-      ```bash
-      nvm use 14.0.0 && yarn dev
-      ```
+    ```
+
+    and then re-run the web server:
+
+    ```bash
+    nvm use 14.0.0 && yarn dev
+    ```
+
   - If you get this error message when running the web server:
+
     ```bash
     Error: Node Sass does not yet support your current environment: OS X Unsupported architecture (arm64)
     ```
+
     In package.json set the version of sass to 6.0.0:
 
-       ```bash
-       "node-sass": "^6.0.0",
-       ```
+      ```bash
+      "node-sass": "^6.0.0",
+      ```
+
     Then rebuild sass before re-running the web server as above.
