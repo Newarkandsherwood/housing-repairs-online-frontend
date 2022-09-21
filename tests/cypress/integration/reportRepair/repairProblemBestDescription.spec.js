@@ -381,8 +381,7 @@ describe('repairProblemBestDescription', () => {
       before(()=>{
         navigateToLocation()
         makeSelectionAndClickButton('Bathroom');
-        cy.contains('Damaged or stuck doors').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Damaged or stuck doors');
       });
       testDoorOption();
     });
@@ -391,8 +390,7 @@ describe('repairProblemBestDescription', () => {
       before(()=>{
         navigateToLocation()
         makeSelectionAndClickButton('Bathroom');
-        cy.contains('Toilet').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Toilet');
       });
 
       it('displays the repair issue question', () => {
@@ -488,8 +486,7 @@ describe('repairProblemBestDescription', () => {
     context('Damaged or stuck windows', () => {
       before(()=>{
         cy.go(-1);
-        cy.contains('Damaged or stuck windows').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Damaged or stuck windows');
       });
       testWindowOption();
     });
@@ -498,8 +495,7 @@ describe('repairProblemBestDescription', () => {
       before(()=>{
         navigateToLocation()
         makeSelectionAndClickButton('Bedroom');
-        cy.contains('Damaged or stuck doors').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Damaged or stuck doors');
       });
       testDoorOption(false);
     });
@@ -508,8 +504,7 @@ describe('repairProblemBestDescription', () => {
       before(()=>{
         navigateToLocation()
         makeSelectionAndClickButton('Bedroom');
-        cy.contains('Damp or mould').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Damp or mould');
       });
       testDampOrMouldOption();
     });
@@ -540,8 +535,7 @@ describe('repairProblemBestDescription', () => {
       before(()=>{
         navigateToLocation()
         makeSelectionAndClickButton('Living Area');
-        cy.contains('Damaged or stuck windows').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Damaged or stuck windows');
       });
       testWindowOption();
     });
@@ -550,8 +544,7 @@ describe('repairProblemBestDescription', () => {
       before(()=>{
         navigateToLocation()
         makeSelectionAndClickButton('Living Area');
-        cy.contains('Damaged or stuck doors').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Damaged or stuck doors');
       });
       testDoorOption();
     });
@@ -560,8 +553,7 @@ describe('repairProblemBestDescription', () => {
       before(()=>{
         navigateToLocation()
         makeSelectionAndClickButton('Living Area');
-        cy.contains('Damp or mould').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Damp or mould');
       });
       testDampOrMouldOption();
     });
@@ -601,9 +593,7 @@ describe('repairProblemBestDescription', () => {
     it('Outdoor security lights goes to description',  () => {
       navigateToLocation()
       makeSelectionAndClickButton('Outside');
-      cy.contains('Outdoor security lights').click();
-      cy.get('button').click();
-      cy.url().should('include', '/report-repair/repair-description');
+      checkIfSelectionGoesToCorrectUrl('/report-repair/repair-description', 'Outdoor security lights')
     });
 
     context('Roof, including insulation and shed roof', () => {
@@ -701,8 +691,7 @@ describe('repairProblemBestDescription', () => {
       before(()=>{
         navigateToLocation()
         makeSelectionAndClickButton('Outside');
-        cy.contains('Gates and pathways').click();
-        cy.get('button').click();
+        makeSelectionAndClickButton('Gates and pathways');
       });
 
       it('displays the repair issue question', () => {
