@@ -126,5 +126,6 @@ export {
   continueOnPage,
   navigateToLocation,
   makeSelectionAndClickButton,
-  checkIfSelectionGoesToCorrectUrl
+  checkIfSelectionGoesToCorrectUrl,
+  intercept_repair_triage
 }
