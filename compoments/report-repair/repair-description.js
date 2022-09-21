@@ -4,6 +4,7 @@ import Button from '../button';
 import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import CharacterCountMessage from '../character-count-message';
+import RepairPicture from '../../compoments/report-repair/repair-picture';
 
 const RepairDescription = ({handleChange, values}) => {
   const [error, setError] = useState(undefined);
@@ -21,6 +22,17 @@ const RepairDescription = ({handleChange, values}) => {
     setActiveError(false)
   }
 
+  const ImageUploadRender = () => {
+//    const env = process.env
+    if (process.env.releaseVersion == 'mvp'){
+      return <RepairPicture
+              handleChange={handleChange}
+              values={values}
+            />
+    }
+    else return "";
+  }
+
   const Continue = () => {
     let textError = undefined;
     setActiveError(true);
@@ -32,6 +44,7 @@ const RepairDescription = ({handleChange, values}) => {
     }
     if (!textError) {
       return handleChange('description', {
+        value: 'version-' + process.env.releaseVersion,
         text: text,
       });
     } else {
@@ -89,6 +102,7 @@ const RepairDescription = ({handleChange, values}) => {
           </div>
         </div>
       </form>
+      <ImageUploadRender/>
       <br/>
       <Button onClick={Continue}>Continue</Button>
     </div>

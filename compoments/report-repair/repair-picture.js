@@ -40,6 +40,13 @@ const RepairPicture = ({ handleChange, values }) => {
     saveFileAsImage(uploadedFile)
   }
 
+  const ContinueButtonRender = () => {
+    if (process.env.releaseVersion == 'mvp'){
+      return "";
+    }
+    else return <Button onClick={Continue} >Continue</Button>;
+  }  
+
   const Continue = () => {
     let imageError = undefined;
     setActiveError(true);
@@ -106,7 +113,7 @@ const RepairPicture = ({ handleChange, values }) => {
           </div>
         </div>
         <br />
-      <Button onClick={Continue} >Continue</Button>
+      <ContinueButtonRender></ContinueButtonRender>
       </form>
     </div>
   </div>
