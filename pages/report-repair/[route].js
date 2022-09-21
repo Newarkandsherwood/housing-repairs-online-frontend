@@ -40,7 +40,7 @@ function ReportRepair() {
   const unableToBookValue = 'unableToBook';
 
   const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`
-  const shouldRequestTriageData = repairTriageData === undefined && (currentPath === 'repair-location' || currentPath === 'repair-problems');
+  const shouldRequestTriageData = repairTriageData === undefined && currentPath === 'repair-location';
   const { data: repairTriageResponse, error: repairTriageFetchError } = useSWR(shouldRequestTriageData ? repairTriageApiUrl : null, fetcher);
   useEffect(() => {
     !repairTriageData && setRepairTriageData(repairTriageResponse)
