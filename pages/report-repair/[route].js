@@ -219,7 +219,7 @@ function ReportRepair() {
     case 'repair-location':
       if (repairTriageFetchError) return <Error
         name="summary"
-        heading="An error occurred while looking for your address"
+        heading="An error occurred while looking for repair options"
         body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
       const options = getRepairOptions(repairTriageData)
@@ -242,7 +242,7 @@ function ReportRepair() {
     case 'repair-problems':
       if (repairTriageFetchError) return <Error
         name="summary"
-        heading="An error occurred while looking for your address"
+        heading="An error occurred while looking for repair options"
         body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
       const selectedLocation = getRepairLocation();
@@ -268,7 +268,7 @@ function ReportRepair() {
     case 'repair-problem-best-description':
       if (repairTriageFetchError) return <Error
         name="summary"
-        heading="An error occurred while looking for your address"
+        heading="An error occurred while looking for repair options"
         body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
       const selectedLocationBestDescription = getRepairLocation();
