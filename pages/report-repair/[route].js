@@ -30,7 +30,6 @@ import { fetcher } from '../../helpers/fetcher';
 
 function ReportRepair() {
   const [state, setState] = useState({data:{}, step: 'priority-list'});
-  const [changeLinkUrls, setChangeLinkUrls] = useState({});
   const [repairTriageData, setRepairTriageData] = useState(undefined);
   const router = useRouter()
 
@@ -118,7 +117,6 @@ function ReportRepair() {
     flow.prevStep(state)
   }
   const values = state.data;
-  const changeLinkUrlValues = changeLinkUrls
 
   const getRepairLocation = () => {
     return repairTriageData.find(option => option.value === state.data['repairLocation'].value)
