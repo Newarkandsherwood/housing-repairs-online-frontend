@@ -121,7 +121,7 @@ describe('Flow', () => {
 
     describe('multiple previous step', ()=>{
       beforeEach(()=> {
-        prevStepsDummy = ['kitchen', 'repair-kitchen-cupboard-problems'];
+        prevStepsDummy = ['kitchen', 'repair-problems'];
 
         flow = new Flow(setStateSpy, historySpy, pathDummy, prevStepsDummy, setPrevStepsSpy);
       })
@@ -137,7 +137,7 @@ describe('Flow', () => {
         }
         flow.prevStep(state);
         expect(setStateSpy).toBeCalled();
-        expect(historySpy.push).toHaveBeenCalledWith('repair-kitchen-cupboard-problems');
+        expect(historySpy.push).toHaveBeenCalledWith('repair-problems');
       });
       test('redirects repair-kitchen-cupboard-problems when repairProblemBestDescription value is doorHangingOff', ()=>{
         const state = {
@@ -151,7 +151,7 @@ describe('Flow', () => {
         }
         flow.prevStep(state);
         expect(setStateSpy).toBeCalled();
-        expect(historySpy.push).toHaveBeenCalledWith('repair-kitchen-cupboard-problems');
+        expect(historySpy.push).toHaveBeenCalledWith('repair-problems');
       });
     })
   });
@@ -223,13 +223,17 @@ describe('Flow', () => {
     })
 
     describe('can generate next step from condition', ()=>{
-      test('walls/floors/ceiling', ()=>{
-        let result = flow.getNextStepFromCondition('wallsFloorsCeiling');
-        expect(result).toBe('wall-floor-ceiling-problems');
+      test('static route - emergency/2', ()=>{
+        let result = flow.getNextStepFromCondition('emergency/2');
+        expect(result).toBe('emergency-repair');
       });
-      test('kitchen', ()=>{
+      test('dynamic route - kitchen', ()=>{
+        const repairNextSteps = [
+          {condition: 'kitchen', nextStep: 'repair-problems'},
+        ]
+        flow = new Flow(setStateSpy, historySpy, pathDummy, prevStepsDummy, setPrevStepsSpy, repairNextSteps);
         let result = flow.getNextStepFromCondition('kitchen');
-        expect(result).toBe('repair-kitchen-problems');
+        expect(result).toBe('repair-problems');
       });
     });
 
