@@ -114,6 +114,7 @@ describe('confirmation', () => {
     before(() => {
       intercept_availability_search();
       intercept_address_search();
+      intercept_repair_triage();
       intercept_save_repair(repairID);
       completeJourney(true);
     });
