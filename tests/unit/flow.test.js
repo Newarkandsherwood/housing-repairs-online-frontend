@@ -262,13 +262,15 @@ describe('Flow', () => {
         })
       })
       test('then a repairProblemBestDescription is deselected and a repairProblemBestDescription does not exists', () =>{
+        const repairNextSteps = [{condition: 'worktop', nextStep: 'repair-description'}, {condition: 'damagedOrStuckDoors', nextStep: 'repair-description'}]
+        flow = new Flow(setStateSpy, historySpy, pathDummy, prevStepsDummy, setPrevStepsSpy, repairNextSteps);
         const state = {
-          step: 'repair-kitchen-problems',
+          step: 'repair-problem-best-description',
           data: {
             'repairProblem': 'windows',
             'repairProblemBestDescription': 'stuckOpen'
           },
-          prevStep: 'repair-kitchen-problems',
+          prevStep: 'repair-problems',
         }
         flow.handleChange('repairProblem', {display: 'Damaged worktop', value: 'worktop'}, state);
         expect(setStateSpy).toHaveBeenCalledWith({
@@ -276,7 +278,7 @@ describe('Flow', () => {
           data: {
             'repairProblem': {display: 'Damaged worktop', value: 'worktop'}
           },
-          prevStep: 'repair-kitchen-problems'})
+          prevStep: 'repair-problem-best-description'})
       })
     })
   });
