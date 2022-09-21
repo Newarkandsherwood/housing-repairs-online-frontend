@@ -1,5 +1,6 @@
 import {
   intercept_address_search,
+  intercept_repair_triage,
   intercept_availability_search,
   navigateToPageSelectRadioOptionAndContinue,
   navigateToPageTypeInputTextAndContinue,
@@ -17,6 +18,7 @@ describe('summary', () => {
   beforeEach(() => {
     intercept_availability_search();
     intercept_address_search();
+    intercept_repair_triage();
     cy.visit('http://localhost:3000/report-repair/');
 
     navigateToPageSelectRadioOptionAndContinue({
@@ -94,10 +96,10 @@ describe('summary', () => {
     cy.get('a[href*="repair-location"]').contains('Change')
     cy.contains('What is the problem?')
     cy.contains('Cupboards, including damaged cupboard doors')
-    cy.get('a[href*="repair-kitchen-problems"]').contains('Change')
+    cy.get('a[href*="repair-problems"]').contains('Change')
     cy.contains('What best describes the problem?')
     cy.contains('Hanging door')
-    cy.get('a[href*="repair-kitchen-cupboard-problems"]').contains('Change')
+    cy.get('a[href*="repair-problem-best-description"]').contains('Change')
     cy.contains('Description')
     cy.contains(repairDescription)
     cy.get('a[href*="repair-description"]').contains('Change');
@@ -178,8 +180,8 @@ describe('summary', () => {
       cy.contains('What is the problem?')
       cy.contains('Floor tiles')
 
-      cy.get('a[href*="wall-floor-ceiling-problems"]').contains('Change').click();
-      cy.location('href').should('eq', 'http://localhost:3000/report-repair/wall-floor-ceiling-problems');
+      cy.get('a[href*="repair-problem-best-description"]').contains('Change').click();
+      cy.location('href').should('eq', 'http://localhost:3000/report-repair/repair-problem-best-description');
 
       navigateToPageSelectRadioOptionAndContinue({
         page: 'repair-problem-best-description', option:'Wall tiles'
@@ -198,8 +200,8 @@ describe('summary', () => {
     });
 
     it('allows you to navigate to change what is the problem page', () => {
-      cy.get('a[href*="repair-kitchen-problems"]').contains('Change').click();
-      cy.location('href').should('eq', 'http://localhost:3000/report-repair/repair-kitchen-problems');
+      cy.get('a[href*="repair-problems"]').contains('Change').click();
+      cy.location('href').should('eq', 'http://localhost:3000/report-repair/repair-problems');
     });
 
     it('allows you to change the description text', () => {
