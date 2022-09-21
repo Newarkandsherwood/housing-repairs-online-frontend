@@ -129,10 +129,16 @@ function ReportRepair() {
   }
 
   function getNextSteps(optionValue) {
-    return optionValue === unableToBookValue ? 'unable-to-book' :
-      optionValue === emergencyValue ? 'emergency-repair' :
-        optionValue === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency' :
-          'repair-description';
+    switch (optionValue) {
+    case unableToBookValue:
+      return 'unable-to-book';
+    case emergencyValue:
+      return 'emergency-repair';
+    case notEligibleNonEmergencyValue:
+      return 'not-eligible-non-emergency';
+    default:
+      return 'repair-description';
+    }
   }
 
   const component = () => {
