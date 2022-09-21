@@ -128,6 +128,13 @@ function ReportRepair() {
     return selectedOptions.map(option => {return {value: option.value, title: option.display}} )
   }
 
+  function getNextSteps(optionValue) {
+    return optionValue === unableToBookValue ? 'unable-to-book' :
+      optionValue === emergencyValue ? 'emergency-repair' :
+        optionValue === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency' :
+          'repair-description';
+  }
+
   const component = () => {
     switch (currentPath) {
     case 'summary' :
@@ -242,11 +249,7 @@ function ReportRepair() {
         }}
       )
       const problemNextSteps = problemOptions.map(option => {return {condition: option.value,
-        nextStep:
-        option.value === unableToBookValue ? 'unable-to-book' :
-          option.value === emergencyValue?'emergency-repair':
-            option.value === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency':
-              option.options ? 'repair-problem-best-description' : 'repair-description'
+        nextStep:option.options ? 'repair-problem-best-description': getNextSteps(option.value)
       }} )
       flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, problemNextSteps);
 
@@ -268,11 +271,7 @@ function ReportRepair() {
       const problemBestDescriptionOptions = getRepairOptions(selectedOption.options);
       const problemBestDescriptionNextSteps = problemBestDescriptionOptions.map(option => {return {
         condition: option.value,
-        nextStep:
-        option.value === unableToBookValue ? 'unable-to-book' :
-          option.value === emergencyValue?'emergency-repair':
-            option.value === notEligibleNonEmergencyValue ? 'not-eligible-non-emergency':
-              'repair-description'
+        nextStep: getNextSteps(option.value)
       }}
       )
       flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, problemBestDescriptionNextSteps);
