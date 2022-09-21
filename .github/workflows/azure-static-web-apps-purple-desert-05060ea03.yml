@@ -108,7 +108,8 @@ jobs:
           terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
 
   build_and_deploy_job:
-    needs: [test, cypress-run, terraform]
+    # needs: [test, cypress-run, terraform]
+    needs: [terraform]
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
@@ -146,6 +147,15 @@ jobs:
           NEXT_PUBLIC_SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           NEXT_PUBLIC_APP_ENV: ${{ (github.event_name == 'pull_request' && 'staging') || ('production') }}
           RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
+          ###### Local Authority Configurable Content - These values can be configured to be the specific to the local authority ######
+          NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER: ${{ secrets.NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER }}
+          NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER: ${{ secrets.NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER }}
+          CUSTOMER_SERVICES_TELEPHONE_NUMBER: ${{ secrets.CUSTOMER_SERVICES_TELEPHONE_NUMBER }}
+          COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
+          # Opening times, only one of these is required. See documentation for further information:
+          CUSTOMER_SERVICES_OPENING_TIMES_SIMPLIFIED: ${{ secrets.CUSTOMER_SERVICES_OPENING_TIMES_SIMPLIFIED }}
+          CUSTOMER_SERVICES_OPENING_TIMES_FULL_DESCRIPTION: ${{ secrets.CUSTOMER_SERVICES_OPENING_TIMES_FULL_DESCRIPTION }}
+          ###### End of Local Authority Configurable Content ######
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
