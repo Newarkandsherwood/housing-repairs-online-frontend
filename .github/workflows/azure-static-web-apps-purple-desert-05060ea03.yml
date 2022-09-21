@@ -63,9 +63,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NEXT_PUBLIC_APP_ENV: test
           CYPRESS_RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
-          NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER: "0800 111 999"
-          NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER: "0800 371 787"
-          COUNCIL_WEBSITE_HOMEPAGE_URL: "https://www.newark-sherwooddc.gov.uk"
+          # Pass in local authority details that will be checked in UI tests
+          NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER: ${{ secrets.NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER }}
+          NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER: ${{ secrets.NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER }}
+          COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
 
   terraform:
     name: 'Terraform'
@@ -108,8 +109,7 @@ jobs:
           terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}"
 
   build_and_deploy_job:
-    # needs: [test, cypress-run, terraform]
-    needs: [terraform]
+    needs: [test, cypress-run, terraform]
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
