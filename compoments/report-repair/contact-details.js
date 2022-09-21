@@ -8,7 +8,8 @@ import {
 import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
 import {serviceName} from '../../helpers/constants';
-import {customerServicesTelephoneNumber, OpeningHours} from '../../globals'
+import {customerServicesTelephoneNumber} from '../../globals'
+import {OpeningHours} from '../openingHours';
 
 const ContactDetails = ({handleChange, values}) => {
   const title = 'How should we confirm the appointment?'

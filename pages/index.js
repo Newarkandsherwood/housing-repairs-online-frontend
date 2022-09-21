@@ -5,7 +5,8 @@ import React from 'react';
 import Link from 'next/link';
 import ContactNumbers from '../compoments/contactNumbers';
 import { serviceName } from '../helpers/constants';
-import { nationalGasEmergencyServiceTelephoneNumber, nationalGasEmergencyServiceTextphoneNumber, councilWebsiteHomePageUrl, OpeningHours } from '../globals';
+import { nationalGasEmergencyServiceTelephoneNumber, nationalGasEmergencyServiceTextphoneNumber, councilWebsiteHomePageUrl } from '../globals';
+import {OpeningHours} from '../compoments/openingHours';
 
 export default function Home() {
   const title = 'Request a repair';

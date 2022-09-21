@@ -2,7 +2,8 @@ import Details from '../details';
 import React from 'react';
 import ContactNumbers from '../contactNumbers';
 import {serviceName} from '../../helpers/constants';
-import { nationalGasEmergencyServiceTelephoneNumber, nationalGasEmergencyServiceTextphoneNumber, customerServicesTelephoneNumber, OpeningHours } from '../../globals';
+import { nationalGasEmergencyServiceTelephoneNumber, nationalGasEmergencyServiceTextphoneNumber, customerServicesTelephoneNumber } from '../../globals';
+import {OpeningHours} from '../openingHours';
 
 
 const NotEligible = () => {

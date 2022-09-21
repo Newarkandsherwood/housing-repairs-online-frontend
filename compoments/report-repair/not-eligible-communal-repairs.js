@@ -1,6 +1,7 @@
 import React from 'react';
 import {serviceName} from '../../helpers/constants';
-import {customerServicesTelephoneNumber, OpeningHours} from '../../globals'
+import {customerServicesTelephoneNumber} from '../../globals'
+import {OpeningHours} from '../openingHours';
 
 const NotEligibleCommunalRepairs = () => {
   const title = 'For communal repairs, please call us during the office hours below'
