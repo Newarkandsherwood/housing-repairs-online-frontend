@@ -37,7 +37,7 @@ function intercept_repair_triage() {
           'options': [
             {
               'value': 'doorHangingOff',
-              'display': 'Hanging Door'
+              'display': 'Hanging door'
             },
             {
               'value': 'doorMissing',
@@ -47,7 +47,25 @@ function intercept_repair_triage() {
         },
         {
           'value': 'electrical',
-          'display': 'Electrical, including extractor fans and lightbulbs'
+          'display': 'Electrical, including extractor fans and lightbulbs',
+          'options': [
+            {
+              'value': 'lightFitting',
+              'display': 'Light fitting(s)'
+            },
+            {
+              'value': 'sockets',
+              'display': 'Socket(s)'
+            },
+            {
+              'value': 'extractorFan',
+              'display': 'Extractor fan'
+            },
+            {
+              'value': 'cookerSwitch',
+              'display': 'Cooker switch'
+            }
+          ]
         },
         {
           'value': 'worktop',
@@ -59,23 +77,121 @@ function intercept_repair_triage() {
         },
         {
           'value': 'damagedOrStuckDoors',
-          'display': 'Damaged or stuck doors'
+          'display': 'Damaged or stuck doors',
+          'options': [
+            {
+              'value': 'backDoorWooden',
+              'display': 'Wooden back door'
+            },
+            {
+              'value': 'backDoorUPVC',
+              'display': 'UPVC back door'
+            },
+            {
+              'value': 'backFrenchDoors',
+              'display': 'French doors'
+            },
+            {
+              'value': 'internal',
+              'display': 'Internal door issue, including hinges, handle, sticking'
+            },
+            {
+              'value': 'sliding',
+              'display': 'Sliding door'
+            }
+          ]
         },
         {
           'value': 'wallsFloorsCeiling',
-          'display': 'Walls, floor or ceiling, excluding damp'
+          'display': 'Walls, floor or ceiling, excluding damp',
+          'options': [
+            {
+              'value': 'wallTiles',
+              'display': 'Wall tiles'
+            },
+            {
+              'value': 'floorTiles',
+              'display': 'Floor tiles'
+            },
+            {
+              'value': 'lightFitting',
+              'display': 'Light fitting(s)'
+            },
+            {
+              'value': 'skirtingBoardArchitrave',
+              'display': 'Skirting boards or architraves'
+            },
+            {
+              'value': 'plasteringCeiling',
+              'display': 'Plastering on the ceiling'
+            },
+            {
+              'value': 'plasteringWalls',
+              'display': 'Plastering on the walls'
+            },
+            {
+              'value': 'woodenFloorboards',
+              'display': 'Wooden floorboards'
+            }
+          ]
         },
         {
           'value': 'sink',
-          'display': 'Sink, including taps and drainage'
+          'display': 'Sink, including taps and drainage',
+          'options': [
+            {
+              'value': 'taps',
+              'display': 'Tap(s)'
+            },
+            {
+              'value': 'pipeworkLeak',
+              'display': 'Pipework leak'
+            },
+            {
+              'value': 'leakBlockage',
+              'display': 'Leak or blockage'
+            },
+            {
+              'value': 'damageSink',
+              'display': 'Damage to the sink'
+            }
+          ]
         },
         {
           'value': 'damagedOrStuckWindows',
-          'display': 'Damaged or stuck windows'
+          'display': 'Damaged or stuck windows',
+          'options': [
+            {
+              'value': 'smashed',
+              'display': 'Smashed window(s)'
+            },
+            {
+              'value': 'stuckOpen',
+              'display': 'Window stuck open'
+            },
+            {
+              'value': 'stuckShut',
+              'display': 'Window stuck shut'
+            },
+            {
+              'value': 'condensation',
+              'display': 'Condensation'
+            }
+          ]
         },
         {
           'value': 'dampOrMould',
-          'display': 'Damp or mould'
+          'display': 'Damp or mould',
+          'options': [
+            {
+              'value': 'emergency',
+              'display': 'Damp or mould caused by a leak'
+            },
+            {
+              'value': 'dampOrMould',
+              'display': 'Damp or mould caused by something else'
+            }
+          ]
         }
       ]
     },
@@ -85,15 +201,81 @@ function intercept_repair_triage() {
       'options': [
         {
           'value': 'bath',
-          'display': 'Bath, including taps'
+          'display': 'Bath, including taps',
+          'options': [
+            {
+              'value': 'bathTaps',
+              'display': 'Bath taps'
+            },
+            {
+              'value': 'sealAroundBath',
+              'display': 'Seal around bath'
+            },
+            {
+              'value': 'bathPanel',
+              'display': 'Bath panel'
+            },
+            {
+              'value': 'bathBlockage',
+              'display': 'Blockage'
+            }
+          ]
         },
         {
           'value': 'wallsFloorsCeiling',
-          'display': 'Walls, floor or ceiling, excluding damp'
+          'display': 'Walls, floor or ceiling, excluding damp',
+          'options': [
+            {
+              'value': 'wallTiles',
+              'display': 'Wall tiles'
+            },
+            {
+              'value': 'floorTiles',
+              'display': 'Floor tiles'
+            },
+            {
+              'value': 'lightFitting',
+              'display': 'Light fitting(s)'
+            },
+            {
+              'value': 'skirtingBoardArchitrave',
+              'display': 'Skirting boards or architraves'
+            },
+            {
+              'value': 'plasteringCeiling',
+              'display': 'Plastering on the ceiling'
+            },
+            {
+              'value': 'plasteringWalls',
+              'display': 'Plastering on the walls'
+            },
+            {
+              'value': 'woodenFloorboards',
+              'display': 'Wooden floorboards'
+            }
+          ]
         },
         {
           'value': 'electrics',
-          'display': 'Electrics, including extractor fan and pull cords'
+          'display': 'Electrics, including extractor fan and pull cords',
+          'options': [
+            {
+              'value': 'spotLights',
+              'display': 'Spot lights'
+            },
+            {
+              'value': 'tubeLights',
+              'display': 'Tube light'
+            },
+            {
+              'value': 'pullCord',
+              'display': 'Pull cord for light or shower'
+            },
+            {
+              'value': 'extractorFan',
+              'display': 'Extractor fan not working'
+            }
+          ]
         },
         {
           'value': 'windows',
@@ -101,23 +283,117 @@ function intercept_repair_triage() {
         },
         {
           'value': 'sink',
-          'display': 'Sink, including taps and drainage'
+          'display': 'Sink, including taps and drainage',
+          'options': [
+            {
+              'value': 'taps',
+              'display': 'Tap(s)'
+            },
+            {
+              'value': 'pipeworkLeak',
+              'display': 'Pipework leak'
+            },
+            {
+              'value': 'leakBlockage',
+              'display': 'Leak or blockage'
+            },
+            {
+              'value': 'damageSink',
+              'display': 'Damage to the sink'
+            }
+          ]
         },
         {
           'value': 'dampOrMould',
-          'display': 'Damp or mould'
+          'display': 'Damp or mould',
+          'options': [
+            {
+              'value': 'emergency',
+              'display': 'Damp or mould caused by a leak'
+            },
+            {
+              'value': 'dampOrMould',
+              'display': 'Damp or mould caused by something else'
+            }
+          ]
         },
         {
           'value': 'door',
-          'display': 'Damaged or stuck doors'
+          'display': 'Damaged or stuck doors',
+          'options': [
+            {
+              'value': 'internalDoorIssue',
+              'display': 'Internal door issue, including hinges, handle, sticking'
+            },
+            {
+              'value': 'lockOnDoor',
+              'display': 'Lock on the door'
+            },
+            {
+              'value': 'adjustingDoorAfterCarpetFitting',
+              'display': 'Adjusting a door after a carpet fitting'
+            }
+          ]
         },
         {
           'value': 'shower',
-          'display': 'Shower, including the tray and shower door'
+          'display': 'Shower, including the tray and shower door',
+          'options': [
+            {
+              'value': 'electricShowerUnit',
+              'display': 'Electric shower unit'
+            },
+            {
+              'value': 'showerTap',
+              'display': 'Tap shower'
+            },
+            {
+              'value': 'showerHose',
+              'display': 'Shower hose'
+            },
+            {
+              'value': 'showerHead',
+              'display': 'Shower head'
+            },
+            {
+              'value': 'showerTrayBroken',
+              'display': 'Shower tray broken'
+            },
+            {
+              'value': 'cubicleDoorBroken',
+              'display': 'Cubicle door broken\''
+            },
+            {
+              'value': 'showerDrainBlocked',
+              'display': 'Shower drain blocked'
+            }
+          ]
         },
         {
           'value': 'toilet',
-          'display': 'Toilet'
+          'display': 'Toilet',
+          'options': [
+            {
+              'value': 'notFlushing',
+              'display': 'Not flushing'
+            },
+            {
+              'value': 'overflowing',
+              'display': 'Overflowing'
+            },
+            {
+              'value': 'looseFromFloorOrWall',
+              'display': 'Coming loose from the floor or wall'
+            },
+            {
+              'value': 'cracked',
+              'display': 'Cracked'
+            },
+            {
+              'value': 'seat',
+              'display': 'Toilet seat'
+            }
+          ]
         },
         {
           'value': 'heating',
@@ -131,23 +407,101 @@ function intercept_repair_triage() {
       'options': [
         {
           'value': 'electrics',
-          'display': 'Electrics, including lights and switches'
+          'display': 'Electrics, including lights and switches',
+          'options': [
+            {
+              'value': 'lights',
+              'display': 'Lights'
+            },
+            {
+              'value': 'sockets',
+              'display': 'Sockets'
+            }
+          ]
         },
         {
           'value': 'walls',
-          'display': 'Walls, floor or ceiling, excluding damp'
+          'display': 'Walls, floor or ceiling, excluding damp',
+          'options': [
+            {
+              'value': 'wallTiles',
+              'display': 'Wall tiles'
+            },
+            {
+              'value': 'floorTiles',
+              'display': 'Floor tiles'
+            },
+            {
+              'value': 'lightFitting',
+              'display': 'Light fitting(s)'
+            },
+            {
+              'value': 'skirtingBoardArchitrave',
+              'display': 'Skirting boards or architraves'
+            },
+            {
+              'value': 'plasteringCeiling',
+              'display': 'Plastering on the ceiling'
+            },
+            {
+              'value': 'plasteringWalls',
+              'display': 'Plastering on the walls'
+            },
+            {
+              'value': 'woodenFloorboards',
+              'display': 'Wooden floorboards'
+            }
+          ]
         },
         {
           'value': 'damagedOrStuckWindows',
-          'display': 'Damaged or stuck windows'
+          'display': 'Damaged or stuck windows',
+          'options': [
+            {
+              'value': 'smashed',
+              'display': 'Smashed window(s)'
+            },
+            {
+              'value': 'stuckOpen',
+              'display': 'Window stuck open'
+            },
+            {
+              'value': 'stuckShut',
+              'display': 'Window stuck shut'
+            },
+            {
+              'value': 'condensation',
+              'display': 'Condensation'
+            }
+          ]
         },
         {
           'value': 'damagedOrStuckDoors',
-          'display': 'Damaged or stuck doors'
+          'display': 'Damaged or stuck doors',
+          'options': [
+            {
+              'value': 'internalDoorIssue',
+              'display': 'Internal door issue, including hinges, handle, sticking'
+            },
+            {
+              'value': 'notEligibleNonEmergency',
+              'display': 'Adjusting a door after a carpet fitting'
+            }
+          ]
         },
         {
           'value': 'dampOrMould',
-          'display': 'Damp or mould'
+          'display': 'Damp or mould',
+          'options': [
+            {
+              'value': 'emergency',
+              'display': 'Damp or mould caused by a leak'
+            },
+            {
+              'value': 'dampOrMould',
+              'display': 'Damp or mould caused by something else'
+            }
+          ]
         },
         {
           'value': 'heating',
@@ -161,27 +515,127 @@ function intercept_repair_triage() {
       'options': [
         {
           'value': 'electrics',
-          'display': 'Electrics, including lights and switches'
+          'display': 'Electrics, including lights and switches',
+          'options': [
+            {
+              'value': 'lights',
+              'display': 'Lights'
+            },
+            {
+              'value': 'sockets',
+              'display': 'Sockets'
+            }
+          ]
         },
         {
           'value': 'walls',
-          'display': 'Walls, floor or ceiling, excluding damp'
+          'display': 'Walls, floor or ceiling, excluding damp',
+          'options': [
+            {
+              'value': 'wallTiles',
+              'display': 'Wall tiles'
+            },
+            {
+              'value': 'floorTiles',
+              'display': 'Floor tiles'
+            },
+            {
+              'value': 'lightFitting',
+              'display': 'Light fitting(s)'
+            },
+            {
+              'value': 'skirtingBoardArchitrave',
+              'display': 'Skirting boards or architraves'
+            },
+            {
+              'value': 'plasteringCeiling',
+              'display': 'Plastering on the ceiling'
+            },
+            {
+              'value': 'plasteringWalls',
+              'display': 'Plastering on the walls'
+            },
+            {
+              'value': 'woodenFloorboards',
+              'display': 'Wooden floorboards'
+            }
+          ]
         },
         {
           'value': 'damagedOrStuckWindows',
-          'display': 'Damaged or stuck windows'
+          'display': 'Damaged or stuck windows',
+          'options': [
+            {
+              'value': 'smashed',
+              'display': 'Smashed window(s)'
+            },
+            {
+              'value': 'stuckOpen',
+              'display': 'Window stuck open'
+            },
+            {
+              'value': 'stuckShut',
+              'display': 'Window stuck shut'
+            },
+            {
+              'value': 'condensation',
+              'display': 'Condensation'
+            }
+          ]
         },
         {
           'value': 'damagedOrStuckDoors',
-          'display': 'Damaged or stuck doors'
+          'display': 'Damaged or stuck doors',
+          'options': [
+            {
+              'value': 'internalDoorIssue',
+              'display': 'Internal door issue, including hinges, handle, sticking'
+            },
+            {
+              'value': 'lockOnDoor',
+              'display': 'Lock on the door'
+            },
+            {
+              'value': 'notEligibleNonEmergency',
+              'display': 'Adjusting a door after a carpet fitting'
+            }
+          ]
         },
         {
           'value': 'dampOrMould',
-          'display': 'Damp or mould'
+          'display': 'Damp or mould',
+          'options': [
+            {
+              'value': 'emergency',
+              'display': 'Damp or mould caused by a leak'
+            },
+            {
+              'value': 'dampOrMould',
+              'display': 'Damp or mould caused by something else'
+            }
+          ]
         },
         {
           'value': 'stairs',
-          'display': 'Stairs (including handrail)'
+          'display': 'Stairs (including handrail)',
+          'options': [
+            {
+              'value': 'damagedSteps',
+              'display': 'Damaged stairs'
+            },
+            {
+              'value': 'damagedPalistrades',
+              'display': 'Damaged palistrades'
+            },
+            {
+              'value': 'handRail',
+              'display': 'Handrail'
+            },
+            {
+              'value': 'stairRailLoose',
+              'display': 'Stair rail come loose'
+            }
+          ]
         },
         {
           'value': 'heating',
@@ -195,7 +649,29 @@ function intercept_repair_triage() {
       'options': [
         {
           'value': 'damagedOrStuckDoors',
-          'display': 'Door, including shed and outhouse'
+          'display': 'Door, including shed and outhouse',
+          'options': [
+            {
+              'value': 'shedDoor',
+              'display': 'Shed door'
+            },
+            {
+              'value': 'outhouseCupboardDoor',
+              'display': 'Outhouse cupboard door'
+            },
+            {
+              'value': 'woodenBackDoor',
+              'display': 'Wooden back door'
+            },
+            {
+              'value': 'upvcBackDoor',
+              'display': 'UPVC back door'
+            },
+            {
+              'value': 'frenchDoors',
+              'display': 'French doors'
+            }
+          ]
         },
         {
           'value': 'securityLights',
@@ -203,15 +679,73 @@ function intercept_repair_triage() {
         },
         {
           'value': 'roof',
-          'display': 'Roof, including insulation and shed roof'
+          'display': 'Roof, including insulation and shed roof',
+          'options': [
+            {
+              'value': 'shedOuthouseRoof',
+              'display': 'Shed or outhouse roof'
+            },
+            {
+              'value': 'loftInsulation',
+              'display': 'Loft insulation'
+            },
+            {
+              'value': 'looseTiles',
+              'display': 'Loose tiles'
+            },
+            {
+              'value': 'flatRoofProblems',
+              'display': 'Problem with a flat roof'
+            }
+          ]
         },
         {
           'value': 'garage',
-          'display': 'Garage, including roof and door'
+          'display': 'Garage, including roof and door',
+          'options': [
+            {
+              'value': 'doorDamage',
+              'display': 'Door damage'
+            },
+            {
+              'value': 'lockDamage',
+              'display': 'Lock damage'
+            },
+            {
+              'value': 'brokenInto',
+              'display': 'Broken into'
+            },
+            {
+              'value': 'roofIssueOrLeak',
+              'display': 'Roof issue or leak'
+            }
+          ]
         },
         {
           'value': 'gatesAndPathways',
-          'display': 'Gates and pathways'
+          'display': 'Gates and pathways',
+          'options': [
+            {
+              'value': 'frontGate',
+              'display': 'Front gate'
+            },
+            {
+              'value': 'backGate',
+              'display': 'Back gate'
+            },
+            {
+              'value': 'driveway',
+              'display': 'Driveway'
+            },
+            {
+              'value': 'concretePath',
+              'display': 'Concrete path around the property'
+            },
+            {
+              'value': 'steps',
+              'display': 'Steps'
+            }
+          ]
         }
       ]
     },
