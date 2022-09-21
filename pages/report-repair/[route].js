@@ -146,7 +146,6 @@ function ReportRepair() {
     case 'summary' :
       return (
         <Summary
-          getNextStepFromCondition={flow.getNextStepFromCondition}
           goToStep={goToStep}
           submit={submit}
           values={values}

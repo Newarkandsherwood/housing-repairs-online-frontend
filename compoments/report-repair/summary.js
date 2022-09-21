@@ -1,17 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import SummaryList from '../summaryList';
 import Button from '../button';
 import {serviceName} from '../../helpers/constants';
 
-const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
+const Summary = ({values, submit, goToStep}) => {
   const title = 'Request summary'
-  let [repairProblemLink, setRepairProblemLink] = useState('')
-  let [repairProblemBestDescriptionLink, setRepairProblemBestDescriptionLink] = useState('')
-
-  useEffect(()=>{
-    setRepairProblemLink(getNextStepFromCondition(values.repairLocation.value));
-    setRepairProblemBestDescriptionLink(getNextStepFromCondition(values.repairProblem.value));
-  }, [values])
 
   const personalDetailsSummary = [
     {pageName:'Repair address', value: values.address?.display, link: 'postcode'},
@@ -19,8 +12,8 @@ const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
   ]
   const repairDetailsSummary = [
     { pageName:'Where is the problem?', value: values.repairLocation?.display, link:'repair-location'},
-    { pageName:'What is the problem?', value: values.repairProblem?.display, link: repairProblemLink},
-    { pageName:'What best describes the problem?', value: values['repairProblemBestDescription']?.display, link: repairProblemBestDescriptionLink},
+    { pageName:'What is the problem?', value: values.repairProblem?.display, link: 'repair-problems'},
+    { pageName:'What best describes the problem?', value: values['repairProblemBestDescription']?.display, link: 'repair-problem-best-description'},
     { pageName:'Description', value: values.description?.text, link:'repair-description'}
   ]
   const appointmentDetailsSummary = [
