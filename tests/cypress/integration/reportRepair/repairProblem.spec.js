@@ -270,7 +270,7 @@ describe('repairProblem', () => {
 
     it('should redirect them to the best description page & then to description page',  () => {
       checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problem-best-description', 'Kitchen', 'Cupboards, including damaged cupboard doors')
-      checkIfSelectionGoesToCorrectUrl('/report-repair/repair-description', 'Hanging Door');
+      checkIfSelectionGoesToCorrectUrl('/report-repair/repair-description', 'Hanging door');
     })
   });
 });

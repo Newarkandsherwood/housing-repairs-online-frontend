@@ -291,7 +291,7 @@ describe('repairProblemBestDescription', () => {
     context('Bath, including taps', () => {
       before(() => {
         navigateToLocation()
-        makeSelectionAndClickButton('Kitchen');
+        makeSelectionAndClickButton('Bathroom');
         makeSelectionAndClickButton('Bath, including taps');
       });
 
