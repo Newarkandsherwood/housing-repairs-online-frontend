@@ -14,8 +14,6 @@
     "baseUrl": "http://localhost:3000"
   },
   "env": {
-    "national_gas_emergency_service_telephone_number": "0800 111 999",
-    "national_gas_emergency_service_textphone_number": "0800 371 787",
     "council_website_homepage_url": "https://www.newark-sherwooddc.gov.uk"
   }
 }
