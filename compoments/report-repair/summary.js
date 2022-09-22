@@ -23,6 +23,12 @@ const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
     { pageName:'What best describes the problem?', value: values['repairProblemBestDescription']?.display, link: repairProblemBestDescriptionLink},
     { pageName:'Description', value: values.description?.text, link:'repair-description'}
   ]
+  if (process.env.releaseVersion == 'full'){
+    repairDetailsSummary.push(
+      { pageName:'Repair Image', value: values.description?.filename, link:'repair-picture'}
+    );
+  }
+
   const appointmentDetailsSummary = [
     { pageName:'Date', value: values.availability?.display, link:'repair-availability'},
     { pageName:'Confirmation contact details', value: values.contactDetails?.value, link: 'contact-details'},
