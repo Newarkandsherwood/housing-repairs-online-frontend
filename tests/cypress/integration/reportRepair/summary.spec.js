@@ -51,7 +51,6 @@ describe('summary', () => {
 
     cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
       cy.get('textarea').type(repairDescription);
-      cy.get('input').attachFile('good.jpg');
       cy.get('button').contains('Continue').click();
     });
 
