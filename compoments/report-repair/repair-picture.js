@@ -40,13 +40,6 @@ const RepairPicture = ({ handleChange, values }) => {
     saveFileAsImage(uploadedFile)
   }
 
-  const ContinueButtonRender = () => {
-    if (process.env.releaseVersion == 'mvp'){
-      return "";
-    }
-    else return <Button onClick={Continue} >Continue</Button>;
-  }  
-
   const Continue = () => {
     let imageError = undefined;
     setActiveError(true);
@@ -62,6 +55,7 @@ const RepairPicture = ({ handleChange, values }) => {
     if (!imageError) {
       return handleChange('description', {
         photo: selectedImage,
+        filename: selectedFile.name,
         fileExtension: fileExtension,
         base64img: base64img
       });
@@ -113,7 +107,7 @@ const RepairPicture = ({ handleChange, values }) => {
           </div>
         </div>
         <br />
-      <ContinueButtonRender></ContinueButtonRender>
+        <Button onClick={Continue} >Continue</Button>
       </form>
     </div>
   </div>
