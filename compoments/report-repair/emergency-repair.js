@@ -1,7 +1,6 @@
 import React from 'react';
 import ContactNumbers from '../contactNumbers';
 import {serviceName} from '../../helpers/constants';
-import { nationalGasEmergencyServiceTelephoneNumber, nationalGasEmergencyServiceTextphoneNumber } from '../../globals';
 import {OpeningHours} from '../openingHours';
 
 
@@ -30,8 +29,8 @@ const EmergencyRepair = () => {
       </p>
       <p>
         If you can smell gas, you must report it immediately to
-        the Gas Emergency Service <strong>{nationalGasEmergencyServiceTelephoneNumber}</strong> or via textphone (minicom) on
-        <strong> {nationalGasEmergencyServiceTextphoneNumber}</strong>
+        the Gas Emergency Service <strong>0800 111 999</strong> or via textphone (minicom) on
+        <strong> 0800 371 787</strong>
       </p>
     </div>
   </div>

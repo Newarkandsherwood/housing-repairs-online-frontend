@@ -5,7 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 import ContactNumbers from '../compoments/contactNumbers';
 import { serviceName } from '../helpers/constants';
-import { nationalGasEmergencyServiceTelephoneNumber, nationalGasEmergencyServiceTextphoneNumber, councilWebsiteHomePageUrl } from '../globals';
+import { councilWebsiteHomePageUrl } from '../globals';
 import {OpeningHours} from '../compoments/openingHours';
 
 export default function Home() {
@@ -67,8 +67,8 @@ export default function Home() {
           </Details>
           <WarningText testid="landing-page-gas-warning" className="">
           If you suspect you have a gas leak, you must report it immediately to
-          the Gas Emergency Service on {nationalGasEmergencyServiceTelephoneNumber} or via textphone (minicom)
-          on {nationalGasEmergencyServiceTextphoneNumber}
+          the Gas Emergency Service on 0800 111 999 or via textphone (minicom)
+          on 0800 371 787
           </WarningText>
           <WarningText testid="landing-page-emergency-warning" className="">
           For other emergency repairs, please see customer services{' '}

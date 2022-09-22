@@ -64,8 +64,6 @@ jobs:
           NEXT_PUBLIC_APP_ENV: test
           CYPRESS_RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
           # Pass in local authority details that will be checked in UI tests
-          NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER: ${{ secrets.NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER }}
-          NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER: ${{ secrets.NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER }}
           COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
 
   terraform:
@@ -148,8 +146,6 @@ jobs:
           NEXT_PUBLIC_APP_ENV: ${{ (github.event_name == 'pull_request' && 'staging') || ('production') }}
           RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
           ###### Local Authority Configurable Content - These values can be configured to be the specific to the local authority ######
-          NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER: ${{ secrets.NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER }}
-          NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER: ${{ secrets.NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER }}
           CUSTOMER_SERVICES_TELEPHONE_NUMBER: ${{ secrets.CUSTOMER_SERVICES_TELEPHONE_NUMBER }}
           OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER: ${{ secrets.OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER }}
           COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}

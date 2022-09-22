@@ -10,7 +10,7 @@ describe('App', () => {
   it('displays a smell gas warning on the landing page', () => {
     cy.get('[data-testid=landing-page-gas-warning]').should(
       'have.contain',
-      `If you suspect you have a gas leak, you must report it immediately to the Gas Emergency Service on ${Cypress.env('national_gas_emergency_service_telephone_number')} or via textphone (minicom) on ${Cypress.env('national_gas_emergency_service_textphone_number')}`
+      'If you suspect you have a gas leak, you must report it immediately to the Gas Emergency Service on 0800 111 999 or via textphone (minicom) on 0800 371 787'
     );
   });
 

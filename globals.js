@@ -1,5 +1,3 @@
-export const nationalGasEmergencyServiceTelephoneNumber = process.env.NATIONAL_GAS_EMERGENCY_SERVICE_TELEPHONE_NUMBER
-export const nationalGasEmergencyServiceTextphoneNumber = process.env.NATIONAL_GAS_EMERGENCY_SERVICE_TEXTPHONE_NUMBER
 export const customerServicesTelephoneNumber = process.env.CUSTOMER_SERVICES_TELEPHONE_NUMBER
 export const outOfHoursCustomerServicesTelephoneNumber = process.env.OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER
 export const councilWebsiteHomePageUrl = process.env.COUNCIL_WEBSITE_HOMEPAGE_URL
