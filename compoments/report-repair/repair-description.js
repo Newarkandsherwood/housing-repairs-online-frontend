@@ -1,20 +1,70 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import Button from '../button';
+import imageToBase64 from 'image-to-base64/browser';
 import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
-import CharacterCountMessage from '../character-count-message';
-import RepairPicture from '../../compoments/report-repair/repair-picture';
+
+const CharacterCount = ({errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit}) => {
+
+  const generateCharacterCountText = () => {
+    const characterCountDifference = textLimit - textAreaCount;
+    const absoluteCharacterCountDifference = `${Math.abs(characterCountDifference)}`;
+    const suffix = `${characterCountDifference < 0 ? 'too many' : 'remaining'}`;
+    const characterWord = `character${absoluteCharacterCountDifference == 1 ? '' : 's'}`;
+    return `You have ${absoluteCharacterCountDifference} ${characterWord} ${suffix}`
+  }
+
+  return (
+    <div className='govuk-character-count'>
+      <div className={errorText ? 'govuk-form-group--error' : 'govuk-form-group'}>
+        <label className="govuk-label govuk-label--m" htmlFor="description">
+            Description of problem
+        </label>
+        <span id={'description-error'}
+          className="govuk-error-message">
+          {errorText}
+        </span>
+        <textarea
+          className={`govuk-textarea ${errorText && 'govuk-textarea--error'}`}
+          id={repairDescriptionTextInputId}
+          name="description" type="text"
+          onChange={(e) => onChange(e)}
+          defaultValue={text}
+          rows="5"></textarea>
+        <div id="with-hint-info"
+          className={`${hasExceededTextLimit ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message`}
+          aria-live="polite">{generateCharacterCountText()}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+CharacterCount.propTypes = {
+  errorText: PropTypes.string.isRequired,
+  hasExceededTextLimit: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  repairDescriptionTextInputId: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  textAreaCount: PropTypes.number.isRequired,
+  textLimit:PropTypes.number.isRequired,
+}
 
 const RepairDescription = ({handleChange, values}) => {
-  const [error, setError] = useState(undefined);
+  const [error, setError] = useState({text: undefined, img: undefined});
   const [activeError, setActiveError] = useState(false);
+  const [selectedFile, setSelectedFile] = useState();
+  const [selectedImage, setSelectedImage] = useState(values.description?.photo);
+  const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
+  const [base64img, setBase64img] = useState(values.description?.base64img);
   const [text, setText] = useState(values.description?.text)
   const [textAreaCount, setTextAreaCount] = React.useState(0);
   const textLimit = 255
   const title = 'Describe your problem in more detail'
   const pageTitle = `${title} - ${serviceName}`;
   const repairDescriptionTextInputId = 'repair-description-text-input';
+  const repairDescriptionUploadPhotoInputId = 'repair-description-upload-a-photo-input';
 
   const TextChange = (e) => {
     setText(e.target.value)
@@ -22,35 +72,109 @@ const RepairDescription = ({handleChange, values}) => {
     setActiveError(false)
   }
 
-  const ImageUploadRender = () => {
-//    const env = process.env
-    if (process.env.releaseVersion == 'mvp'){
-      return <RepairPicture
-              handleChange={handleChange}
-              values={values}
-            />
-    }
-    else return "";
+  const saveFileAsImage = (file) => {
+    const image = URL.createObjectURL(file);
+    imageToBase64(image)
+      .then(
+        (response) => {
+          setBase64img(response);
+          setSelectedImage(image);
+          setFileExtension(file.name.split('.').pop());
+        }
+      )
+      .catch(
+        (error) => {
+          console.log(error);
+        }
+      )
+  }
+
+  const PhotoChange = (event) => {
+    const uploadedFile = event.target.files[0]
+    setActiveError(false)
+    setSelectedFile(uploadedFile)
+    saveFileAsImage(uploadedFile)
   }
 
   const Continue = () => {
     let textError = undefined;
+    let imageError = undefined;
     setActiveError(true);
+    if (selectedFile) {
+      if (selectedFile.type !== 'image/jpeg') {
+        imageError = 'The selected file must be a JPG';
+      }
+      let size = (selectedFile.size / 1024 / 1024).toFixed(2);
+      if (size > 10) {
+        imageError = `The selected file must be smaller than 10MB. Your file size is ${size}MB`;
+      }
+    }
     if (textAreaCount > textLimit) {
       textError = `Enter a description of the problem using ${textLimit} characters or less`;
     }
     if (!text) {
       textError = 'Enter a description of the problem';
     }
-    if (!textError) {
+    if (!textError && !imageError) {
       return handleChange('description', {
-        value: 'version-' + process.env.releaseVersion,
+        value: 'version-' + process.env.releaseVersion,        
+        photo: selectedImage,
         text: text,
+        fileExtension: fileExtension,
+        base64img: base64img
       });
     } else {
-      return setError(textError)
+      setSelectedImage(null);
+      setSelectedFile(null);
+      return setError({text: textError, img: imageError})
     }
   }
+
+  const getErrorSummaryTextAndLocation = () => {
+    const errorSummaryTextAndLocation = [];
+    error.text && errorSummaryTextAndLocation.push({text: error.text, location: `#${repairDescriptionTextInputId}`});
+    error.img && errorSummaryTextAndLocation.push({text: error.img, location: `#${repairDescriptionUploadPhotoInputId}`});
+    return errorSummaryTextAndLocation;
+  }
+
+  const ImageUploadRender = () => {
+    if (process.env.releaseVersion == 'mvp'){
+      return <div className={error.img ? 'govuk-form-group--error' : 'govuk-form-group'}>
+          <h3 className="govuk-heading-m">
+            Upload a photo (optional)
+          </h3>
+          <label className="govuk-label" htmlFor="upload-a-photo">
+            Upload a file
+          </label>
+          <span id="upload-a-photo-error" className="govuk-error-message">
+            {error.img}
+          </span>
+          {selectedImage ? (
+            <table>
+              <tbody>
+                <tr>
+                  <td align="center" valign="center">
+                    <img alt="not fount" width="200px" src={selectedImage} />
+                  </td>
+                  <td align="center" valign="center">
+                    <button
+                      className="govuk-button govuk-button--warning"
+                      onClick={()=>setSelectedImage(null)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          ) : (
+            <input className="govuk-file-upload govuk-file-upload--error"
+              id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
+              aria-describedby="upload-a-photo-error" onChange={PhotoChange}/>
+          )}
+        </div>      
+    }
+    else return "";
+  }  
 
   return <div className="govuk-grid-row" data-cy="repair-description">
     <header>
@@ -58,7 +182,7 @@ const RepairDescription = ({handleChange, values}) => {
     </header>
     <div className="govuk-grid-column-two-thirds">
       {
-        error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{text: error, location: `#${repairDescriptionTextInputId}`}]} pageTitle={pageTitle} />
+        (error.text || error.img) && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
       }
       <h1 className="govuk-heading-l">
         {title}
@@ -66,7 +190,7 @@ const RepairDescription = ({handleChange, values}) => {
       <form action="">
         <label className="govuk-label" htmlFor="description">
           <div>
-            <p className="govuk-body">Try to include:</p>
+            <p>Please describe:</p>
             <ul className="govuk-list govuk-list--bullet">
               <li>the size and location of the problem</li>
               <li>the source of the problem</li>
@@ -74,37 +198,24 @@ const RepairDescription = ({handleChange, values}) => {
               <li>how many items are damaged, for example 3 floor tiles</li>
             </ul>
             <div className="govuk-inset-text">
-              Only report <strong>one problem</strong> at a time. You can report another repair after this one.
+              Please report <strong>only one problem</strong> at a time. You will have
+              a chance to report another repair after this one.
             </div>
           </div>
         </label>
-        <div className='govuk-character-count'>
-          <div className={error ? 'govuk-form-group--error' : 'govuk-form-group'}>
-            <label className="govuk-label govuk-label--m" htmlFor="description">
-            Description of problem
-            </label>
-            <span id={'description-error'}
-              className="govuk-error-message">
-              {error}
-            </span>
-            <textarea
-              className={`govuk-textarea ${error && 'govuk-textarea--error'}`}
-              id={repairDescriptionTextInputId}
-              name="description" type="text"
-              onChange={TextChange}
-              defaultValue={text}
-              rows="5"
-            />
-            <CharacterCountMessage
-              textAreaCount={textAreaCount}
-              textLimit={textLimit}
-            />
-          </div>
-        </div>
+        <CharacterCount
+          errorText={error.text}
+          hasExceededTextLimit={textLimit - textAreaCount < 0}
+          onChange={TextChange}
+          repairDescriptionTextInputId={repairDescriptionTextInputId}
+          text={text}
+          textAreaCount={textAreaCount}
+          textLimit={textLimit}
+        />
       </form>
       <ImageUploadRender/>
       <br/>
-      <Button onClick={Continue}>Continue</Button>
+      <Button onClick={Continue} >Continue</Button>
     </div>
   </div>
 };
