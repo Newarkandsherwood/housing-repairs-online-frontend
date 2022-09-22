@@ -18,12 +18,13 @@ describe('OpeningHours', () => {
   });
   
   test('Opening Hours should display list of opening hours if full description environment variable is set', () => {
-    const list = "<li>TestDay: 12am - 12pm</li>"
+    const expectedHTML = "<li>Monday: 9am-5pm</li><li>Tuesday: 9am-5pm</li><li>Wednesday: 9am-5pm</li><li>Thursday: 9am-5pm</li><li>Friday: 9am-5pm</li>"
 
     act(() => {
       render(<OpeningHours />, container)
     });
-    expect(container.querySelector('[data-testid="opening-hours-full-list"]').innerHTML).toBe(list);
+    
+    expect(container.querySelector('[data-testid="opening-hours-full-list"]').innerHTML).toBe(expectedHTML);
   })
 
 })
