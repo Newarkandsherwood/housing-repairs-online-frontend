@@ -4,7 +4,7 @@
  */
 
 module.exports = {
-  setupFiles: ['<rootDir>/.jest/setEnvVars.js'],
+  // setupFiles: ['<rootDir>/.jest/setEnvVars.js'],
   transform: {
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
