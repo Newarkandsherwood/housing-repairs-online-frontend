@@ -1,10 +1,10 @@
 import {
   intercept_address_search,
   intercept_availability_search,
-  navigateToPageSelectRadioOptionAndContinue,
-  navigateToPageTypeInputTextAndContinue,
+  intercept_repair_triage,
   intercept_save_repair,
-  intercept_repair_triage
+  navigateToPageSelectRadioOptionAndContinue,
+  navigateToPageTypeInputTextAndContinue
 } from '../../support/helpers';
 
 const address = '1 Downing Street, London, SW1A 2AA';
