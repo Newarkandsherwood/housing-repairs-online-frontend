@@ -20,7 +20,7 @@ const moduleExports =  {
   },
 
   env: {
-    releaseVersion: 'mvp',
+    releaseVersion: 'full',// mvp or full
   },// in code, this is available as {process.env.releaseVersion}
   
   images: {
