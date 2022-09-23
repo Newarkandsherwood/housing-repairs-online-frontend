@@ -126,6 +126,10 @@ describe('repair availability', () => {
         cy.get('button').contains('Continue').click();
       });
 
+      cy.get('[data-cy=repair-picture]', {timeout: 10000}).then(() => {
+        cy.get('button').contains('Continue').click();
+      });      
+
       navigateToPageTypeInputTextAndContinue({
         page: 'contact-person',
         inputText: phoneNumber
