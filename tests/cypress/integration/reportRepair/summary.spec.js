@@ -1,11 +1,11 @@
 import {
-  intercept_address_search,
-  intercept_repair_triage,
-  intercept_availability_search,
-  navigateToPageSelectRadioOptionAndContinue,
-  navigateToPageTypeInputTextAndContinue,
+  continueOnPage,
   convertDateToDisplayDate,
-  continueOnPage
+  intercept_address_search,
+  intercept_availability_search,
+  intercept_repair_triage,
+  navigateToPageSelectRadioOptionAndContinue,
+  navigateToPageTypeInputTextAndContinue
 } from '../../support/helpers';
 
 describe('summary', () => {
