@@ -145,7 +145,7 @@ jobs:
           NEXT_PUBLIC_SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           NEXT_PUBLIC_APP_ENV: ${{ (github.event_name == 'pull_request' && 'staging') || ('production') }}
           RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
-          ###### Local Authority Configurable Content - These values can be configured to be the specific to the local authority ######
+          ###### Local Authority Configurable Content - These must be configured to display the values in the frontend ######
           CUSTOMER_SERVICES_TELEPHONE_NUMBER: ${{ secrets.CUSTOMER_SERVICES_TELEPHONE_NUMBER }}
           OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER: ${{ secrets.OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER }}
           COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
