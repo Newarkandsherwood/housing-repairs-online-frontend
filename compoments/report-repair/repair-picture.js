@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import Button from '../button';
 import ErrorSummary from '../errorSummary';
+import Button from '../button';
 import {serviceName} from '../../helpers/constants';
 import imageToBase64 from 'image-to-base64/browser';
 
@@ -9,9 +9,9 @@ const RepairPicture = ({ handleChange, values }) => {
   const [error, setError] = useState(undefined);
   const [activeError, setActiveError] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
-  const [selectedImage, setSelectedImage] = useState(values.description?.photo);
-  const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
-  const [base64img, setBase64img] = useState(values.description?.base64img);
+  const [selectedImage, setSelectedImage] = useState(values.image?.photo);
+  const [fileExtension, setFileExtension] = useState(values.image?.fileExtension);
+  const [base64img, setBase64img] = useState(values.image?.base64img);
   const title = process.env.releaseVersion == 'mvp'? 'Upload a photo (optional)': 'Upload an image of the problem (optional)';
   const pageTitle = `${title} - ${serviceName}`;
   const repairDescriptionUploadPhotoInputId = 'repair-description-upload-a-photo-input';
@@ -53,9 +53,9 @@ const RepairPicture = ({ handleChange, values }) => {
       }
     }
     if (!imageError) {
-      return handleChange('description', {
+      return handleChange('image', {
         photo: selectedImage,
-        filename: selectedFile.name,
+        filename: selectedFile ? selectedFile.name: '',
         fileExtension: fileExtension,
         base64img: base64img
       });
@@ -87,7 +87,7 @@ const RepairPicture = ({ handleChange, values }) => {
                 <tbody>
                   <tr>
                     <td align="center" valign="center">
-                      <img alt="not fount" width="200px" src={selectedImage} />
+                      <img alt="not found" width="200px" src={selectedImage} />
                     </td>
                     <td align="center" valign="center">
                       <button
@@ -107,8 +107,8 @@ const RepairPicture = ({ handleChange, values }) => {
           </div>
         </div>
         <br />
-        <Button onClick={Continue} >Continue</Button>
       </form>
+      <Button onClick={Continue}>Continue</Button>
     </div>
   </div>
 };

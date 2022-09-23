@@ -25,7 +25,7 @@ const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
   ]
   if (process.env.releaseVersion == 'full'){
     repairDetailsSummary.push(
-      { pageName:'Repair Image', value: values.description?.filename, link:'repair-picture'}
+      { pageName:'Repair Image', value: values.image?.filename, link:'repair-picture'}
     );
   }
 

@@ -42,11 +42,11 @@ const CharacterCount = ({errorText, hasExceededTextLimit, onChange, repairDescri
 }
 
 CharacterCount.propTypes = {
-  errorText: PropTypes.string.isRequired,
+  errorText: PropTypes.string,
   hasExceededTextLimit: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   repairDescriptionTextInputId: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   textAreaCount: PropTypes.number.isRequired,
   textLimit:PropTypes.number.isRequired,
 }
@@ -154,7 +154,7 @@ const RepairDescription = ({handleChange, values}) => {
               <tbody>
                 <tr>
                   <td align="center" valign="center">
-                    <img alt="not fount" width="200px" src={selectedImage} />
+                    <img alt="not found" width="200px" src={selectedImage} />
                   </td>
                   <td align="center" valign="center">
                     <button
