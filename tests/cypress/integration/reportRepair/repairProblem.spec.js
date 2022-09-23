@@ -1,7 +1,7 @@
 import {
-  navigateToLocation,
+  checkIfSelectionGoesToCorrectUrl,
   makeSelectionAndClickButton,
-  checkIfSelectionGoesToCorrectUrl
+  navigateToLocation
 } from '../../support/helpers';
 
 describe('repairProblem', () => {
