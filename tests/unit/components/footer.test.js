@@ -2,6 +2,7 @@ import Footer from '../../../compoments/footer';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
+import * as constants from '../../../globals';
 
 let container = null;
 
@@ -14,6 +15,9 @@ beforeEach(() => {
   container = document.createElement('div');
   document.body.appendChild(container);
 
+  // Mock constant(s) imported from globals file
+  constants.councilWebsiteHomePageUrl = 'https://www.newark-sherwooddc.gov.uk'
+
   act(() => {
     render(<Footer/>, container)
   });
@@ -24,6 +28,9 @@ afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
   container = null;
+
+  // Reset constant(s) imported from globals file
+  constants.councilWebsiteHomePageUrl = undefined
 });
 
 describe('Footer', () => {
