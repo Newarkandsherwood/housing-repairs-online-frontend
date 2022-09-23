@@ -138,8 +138,9 @@ function ReportRepair() {
     return repairTriageData.find(option => option.value === state.data['repairLocation'].value)
   }
 
-  const getRepairOptions = (selectedOptions) => {
-    return selectedOptions.map(option => {return {value: option.value, title: option.display}} )
+  const getUniqueOptionValue = (value, index) => {
+    const hasUniqueValueId = [emergencyValue, notEligibleNonEmergencyValue, unableToBookValue]
+    return hasUniqueValueId.includes(value) ? `${value}-${index}` : value
   }
 
   function getNextSteps(optionValue) {
@@ -231,7 +232,7 @@ function ReportRepair() {
           values={values}/>
       )
     case 'repair-location':
-      const options = getRepairOptions(repairTriageData)
+      const options = repairTriageData.map(option => {return {value: option.value, title: option.display}} )
       const nextSteps = repairTriageData.map(
         option => {return {
           condition: option.value,
@@ -250,16 +251,21 @@ function ReportRepair() {
         (<Loader />)
     case 'repair-problems':
       const selectedLocation = getRepairLocation();
+
       const problemOptions = selectedLocation.options.map(
-        option => {return {
-          value: option.value,
+        (option, index) => {return {
+          value: getUniqueOptionValue(option.value, index),
+          nextStepValue: option.value,
           title: option.display,
           options: option.options
         }}
       )
-      const problemNextSteps = problemOptions.map(option => {return {condition: option.value,
-        nextStep:option.options ? 'repair-problem-best-description': getNextSteps(option.value)
-      }} )
+      const problemNextSteps = problemOptions.map(
+        option => {return {
+          condition: option.value,
+          nextStep:option.options ? 'repair-problem-best-description': getNextSteps(option.nextStepValue)
+        }}
+      )
       flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, problemNextSteps);
 
       return (
@@ -272,11 +278,18 @@ function ReportRepair() {
     case 'repair-problem-best-description':
       const selectedLocationBestDescription = getRepairLocation();
       const selectedOption = selectedLocationBestDescription.options.find(option => option.value === state.data['repairProblem'].value);
-      const problemBestDescriptionOptions = getRepairOptions(selectedOption.options);
-      const problemBestDescriptionNextSteps = problemBestDescriptionOptions.map(option => {return {
-        condition: option.value,
-        nextStep: getNextSteps(option.value)
-      }}
+      const problemBestDescriptionOptions = selectedOption.options.map(
+        (option, index) => {return {
+          value: getUniqueOptionValue(option.value, index),
+          nextStepValue: option.value,
+          title: option.display
+        }}
+      );
+      const problemBestDescriptionNextSteps = problemBestDescriptionOptions.map(
+        option => {return {
+          condition: option.value,
+          nextStep: getNextSteps(option.nextStepValue)
+        }}
       )
       flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, problemBestDescriptionNextSteps);
 
