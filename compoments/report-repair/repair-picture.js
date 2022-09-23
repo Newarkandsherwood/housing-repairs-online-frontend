@@ -66,7 +66,7 @@ const RepairPicture = ({ handleChange, values }) => {
     }
   }
 
-  return <div className="govuk-grid-row" data-cy="repair-description">
+  return <div className="govuk-grid-row" data-cy="repair-picture">
     <header>
       <title>{pageTitle}</title>
     </header>
