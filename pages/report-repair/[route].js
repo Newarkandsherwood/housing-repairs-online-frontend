@@ -30,7 +30,6 @@ import { fetcher } from '../../helpers/fetcher';
 
 function ReportRepair() {
   const [state, setState] = useState({data:{}, step: 'priority-list'});
-  const [repairTriageData, setRepairTriageData] = useState(undefined);
   const router = useRouter()
 
   const currentPath = router.query.route
@@ -40,11 +39,9 @@ function ReportRepair() {
   const unableToBookValue = 'unableToBook';
 
   const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`
-  const shouldRequestTriageData = repairTriageData === undefined && currentPath === 'repair-location';
-  const { data: repairTriageResponse, error: repairTriageFetchError } = useSWR(shouldRequestTriageData ? repairTriageApiUrl : null, fetcher);
-  useEffect(() => {
-    !repairTriageData && setRepairTriageData(repairTriageResponse)
-  }, [repairTriageResponse, repairTriageData])
+
+  const shouldRequestTriageData = currentPath === 'repair-location' || currentPath === 'repair-problems' || currentPath === 'repair-problem-best-description';
+  const { data: repairTriageData, error: repairTriageFetchError } = useSWR(shouldRequestTriageData ? repairTriageApiUrl : null, fetcher, {dedupingInterval : 600000});
 
   const [prevSteps, setPrevSteps] = useState([]);
 
@@ -238,6 +235,10 @@ function ReportRepair() {
         :
         (<Loader />)
     case 'repair-problems':
+      if (repairTriageFetchError) return <Error
+        name="summary"
+        heading="An error occurred while looking for repair options"
+        body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
       const selectedLocation = getRepairLocation();
       const problemOptions = selectedLocation.options.map(
@@ -260,6 +261,10 @@ function ReportRepair() {
         />
       )
     case 'repair-problem-best-description':
+      if (repairTriageFetchError) return <Error
+        name="summary"
+        heading="An error occurred while looking for repair options"
+        body="Please try again later or call 01522 873333 to complete your repair request" />
       if (!repairTriageData) return <Loader />
       const selectedLocationBestDescription = getRepairLocation();
       const selectedOption = selectedLocationBestDescription.options.find(option => option.value === state.data['repairProblem'].value);
