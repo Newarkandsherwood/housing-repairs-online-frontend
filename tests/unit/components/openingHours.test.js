@@ -6,8 +6,8 @@ import * as constants from '../../../globals';
 
 describe('OpeningHours', () => {
   let container = null;
-  const fullOpeningHoursDescriptionJson = `{"Monday":"9am - 5pm", "Tuesday":"9am - 5pm", "Wednesday": "9am - 5pm", "Thursday": "9am - 5pm", "Friday": "9am - 5pm"}`
-  const openingHoursSimpleText = "8am and 4pm, Monday to Friday"
+  const openingHoursAsJsonString = `{"Monday":"9am - 5pm", "Tuesday":"9am - 5pm", "Wednesday": "9am - 5pm", "Thursday": "9am - 5pm", "Friday": "9am - 5pm"}`
+  const openingHoursAsText = "8am and 4pm, Monday to Friday"
 
   beforeEach(() => {
     jest.resetModules();
@@ -21,13 +21,12 @@ describe('OpeningHours', () => {
     container.remove();
     container = null;
 
-    constants.customer_services_opening_times_full_description = undefined
-    constants.customer_services_opening_times_simple_text = undefined
+    // Reset constant(s) imported from globals file
+    constants.customer_services_opening_hours_description = undefined
   });
   
-  test('Display list of opening hours when only full description environment variable is set', () => {
-    constants.customer_services_opening_times_full_description = fullOpeningHoursDescriptionJson
-    constants.customer_services_opening_times_simple_text = undefined
+  test('Display list of opening hours when opening hours environment variable can be parsed as valid JSON', () => {
+    constants.customer_services_opening_hours_description = openingHoursAsJsonString
 
     const expectedHTML = `<ul data-testid="opening-hours-list"><li>Monday: 9am - 5pm</li><li>Tuesday: 9am - 5pm</li><li>Wednesday: 9am - 5pm</li><li>Thursday: 9am - 5pm</li><li>Friday: 9am - 5pm</li></ul>`
 
@@ -39,11 +38,10 @@ describe('OpeningHours', () => {
     expect(container.querySelector('[data-testid="opening-hours-text"]')).toBe(null)
   })
 
-  test('Display opening hours as paragraph text when only simple text environment variable is set', () => {
-    constants.customer_services_opening_times_full_description = undefined
-    constants.customer_services_opening_times_simple_text = openingHoursSimpleText
+  test('Display opening hours as paragraph text when opening hours environment variable is a simple string i.e. not JSON', () => {
+    constants.customer_services_opening_hours_description = openingHoursAsText
 
-    const expectedHTML = `<p data-testid="opening-hours-text">${openingHoursSimpleText}</p>`
+    const expectedHTML = `<p data-testid="opening-hours-text">${openingHoursAsText}</p>`
 
     act(() => {
       render(<OpeningHours />, container)
@@ -53,25 +51,8 @@ describe('OpeningHours', () => {
     expect(container.querySelector('[data-testid="opening-hours-list"]')).toBe(null);
   })
 
-  test('Display list of opening hours if both opening hours environment variable are set and full description is a valid JSON', () => {
-    constants.customer_services_opening_times_full_description = fullOpeningHoursDescriptionJson
-    constants.customer_services_opening_times_simple_text = openingHoursSimpleText
-
-    const expectedHTML = `<ul data-testid="opening-hours-list"><li>Monday: 9am - 5pm</li><li>Tuesday: 9am - 5pm</li><li>Wednesday: 9am - 5pm</li><li>Thursday: 9am - 5pm</li><li>Friday: 9am - 5pm</li></ul>`
-
-    act(() => {
-      render(<OpeningHours />, container)
-    });
-    
-    expect(container.querySelector('[data-testid="opening-hours-list"]').outerHTML).toBe(expectedHTML);
-    expect(container.querySelector('[data-testid="opening-hours-text"]')).toBe(null);
-  })
-
-  test('Display nothing when neither opening hours environment variable is set', () => {
-    constants.customer_services_opening_times_full_description = undefined
-    constants.customer_services_opening_times_simple_text = undefined
-
-    console.log("from test: " + constants.customer_services_opening_times_full_description)
+  test('Display an empty paragraph if the opening hours environment variable is NOT set', () => {
+    constants.customer_services_opening_hours_description = undefined
 
     const expectedHTML = `<p data-testid="opening-hours-text"></p>`
 
@@ -83,49 +64,16 @@ describe('OpeningHours', () => {
     expect(container.querySelector('[data-testid="opening-hours-list"]')).toBe(null);
   })
 
-  test('Display full description opening hours value as paragraph text if value set is a number and no simple text value given', () => {
-    const testNumber = 2;
-    constants.customer_services_opening_times_full_description = testNumber
-    constants.customer_services_opening_times_simple_text = undefined
-
-    const expectedHTML = `<p data-testid="opening-hours-text">${testNumber}</p>`
+  test('Display an empty paragraph if the opening hours environment variable is an empty string', () => {
+    constants.customer_services_opening_hours_description = ""
+    
+    const expectedHTML = `<p data-testid="opening-hours-text"></p>`
 
     act(() => {
       render(<OpeningHours />, container)
     });
-
+    
     expect(container.querySelector('[data-testid="opening-hours-text"]').outerHTML).toBe(expectedHTML);
     expect(container.querySelector('[data-testid="opening-hours-list"]')).toBe(null);
   })
-
-  test('Display full description opening hours value as paragraph text if value set is a string and no simple text value given', () => {
-    const testString = "This is not a JSON";
-
-    constants.customer_services_opening_times_full_description = testString
-    constants.customer_services_opening_times_simple_text = undefined
-
-    const expectedHTML = `<p data-testid="opening-hours-text">${testString}</p>`
-
-    act(() => {
-      render(<OpeningHours />, container)
-    });
-
-    expect(container.querySelector('[data-testid="opening-hours-text"]').outerHTML).toBe(expectedHTML);
-    expect(container.querySelector('[data-testid="opening-hours-list"]')).toBe(null);
-  })
-
-  test('Display simple opening hours value as paragraph text if both are set but full description opening hours value is not JSON', () => {
-    constants.customer_services_opening_times_full_description = "This is not a JSON"
-    constants.customer_services_opening_times_simple_text = "I am a text"
-
-    const expectedHTML = `<p data-testid="opening-hours-text">I am a text</p>`
-
-    act(() => {
-      render(<OpeningHours />, container)
-    });
-
-    expect(container.querySelector('[data-testid="opening-hours-text"]').outerHTML).toBe(expectedHTML);
-    expect(container.querySelector('[data-testid="opening-hours-list"]')).toBe(null);
-  })
-
 })
