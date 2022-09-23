@@ -38,10 +38,19 @@ function ReportRepair() {
   const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
   const unableToBookValue = 'unableToBook';
 
-  const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`
-
   const shouldRequestTriageData = currentPath === 'repair-location' || currentPath === 'repair-problems' || currentPath === 'repair-problem-best-description';
-  const { data: repairTriageData, error: repairTriageFetchError } = useSWR(shouldRequestTriageData ? repairTriageApiUrl : null, fetcher, {dedupingInterval : 600000});
+
+  function useRepairTriageData() {
+    const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`
+
+    const { data, error } = useSWR(shouldRequestTriageData ? repairTriageApiUrl : null, fetcher, {dedupingInterval : 600000});
+
+    return {
+      repairTriageData: data,
+      isLoading: !error && ! data,
+      isError: error
+    }
+  }
 
   const [prevSteps, setPrevSteps] = useState([]);
 
@@ -71,6 +80,16 @@ function ReportRepair() {
   const [formError, setFormError] = useState();
   const [requestId, setRequestId] = useState();
 
+
+  const { repairTriageData, isLoading, isError } = useRepairTriageData()
+
+  if (shouldRequestTriageData) {
+    if (isLoading) return <Loader/>
+    if (isError) return <Error
+      name="summary"
+      heading="An error occurred while looking for repair options"
+      body="Please try again later or call 01522 873333 to complete your repair request"/>
+  }
   const cleanPayload = (payload) => {
     delete payload.availability.appointmentSlotKey
   }
@@ -212,11 +231,6 @@ function ReportRepair() {
           values={values}/>
       )
     case 'repair-location':
-      if (repairTriageFetchError) return <Error
-        name="summary"
-        heading="An error occurred while looking for repair options"
-        body="Please try again later or call 01522 873333 to complete your repair request" />
-      if (!repairTriageData) return <Loader />
       const options = getRepairOptions(repairTriageData)
       const nextSteps = repairTriageData.map(
         option => {return {
@@ -235,11 +249,6 @@ function ReportRepair() {
         :
         (<Loader />)
     case 'repair-problems':
-      if (repairTriageFetchError) return <Error
-        name="summary"
-        heading="An error occurred while looking for repair options"
-        body="Please try again later or call 01522 873333 to complete your repair request" />
-      if (!repairTriageData) return <Loader />
       const selectedLocation = getRepairLocation();
       const problemOptions = selectedLocation.options.map(
         option => {return {
@@ -261,11 +270,6 @@ function ReportRepair() {
         />
       )
     case 'repair-problem-best-description':
-      if (repairTriageFetchError) return <Error
-        name="summary"
-        heading="An error occurred while looking for repair options"
-        body="Please try again later or call 01522 873333 to complete your repair request" />
-      if (!repairTriageData) return <Loader />
       const selectedLocationBestDescription = getRepairLocation();
       const selectedOption = selectedLocationBestDescription.options.find(option => option.value === state.data['repairProblem'].value);
       const problemBestDescriptionOptions = getRepairOptions(selectedOption.options);
