@@ -43,6 +43,19 @@ cd api/ && nvm use && yarn start
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Testing:
+  - [Jest](https://jestjs.io/docs/getting-started) is used for unit testing:
+    ```bash
+    yarn test
+    ```
+  - [Cypress](https://docs.cypress.io/) is used for integration testing:
+    ```bash
+    yarn test:integration
+    ```
+    to run Cypress tests in headless mode: 
+    ```bash
+    yarn test:headless:integration
+    ```
 ## Windows setup:
 ### Important:
 
@@ -80,7 +93,7 @@ yarn install
 ```
 (run as admin in the `main` directory and then again in the `api` directory)
 
-You can now continue with the instructions above
+You can now continue with the instructions above.
 ## Look and feel
 The app can be deployed using original 
 [Gov.uk design system](https://design-system.service.gov.uk/get-started/)
@@ -106,15 +119,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 # General note dump
 
-- Testing:
-  - [Jest](https://jestjs.io/docs/getting-started) is used for unit testing:
-    ```bash
-    yarn test
-    ```
-  - [Cypress](https://docs.cypress.io/) is used for integration testing:
-    ```bash
-    yarn test:integration
-    ```
 - Local dev
   https://github.com/Azure/static-web-apps-cli
 - M1 Macs setup:
