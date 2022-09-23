@@ -12,76 +12,6 @@ module.exports = async function (context, req) {
 
   try {
     results = await repairTriageGateway(req.query.emergencyValue, req.query.notEligibleNonEmergencyValue, req.query.unableToBookValue);
-    // results = [
-    //   {
-    //     'value': 'kitchen',
-    //     'display': 'Kitchen',
-    //     'options': [
-    //       {
-    //         'value': 'cupboards',
-    //         'display': 'Cupboards, including damaged cupboard doors',
-    //         'options': [
-    //           {
-    //             'value': 'doorHangingOff',
-    //             'display': 'Hanging Door'
-    //           },
-    //           {
-    //             'value': 'doorMissing',
-    //             'display': 'Missing door'
-    //           }
-    //         ]
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     'value': 'bathroom',
-    //     'display': 'Bathroom',
-    //     'options': [
-    //       {
-    //         'value': 'bath',
-    //         'display': 'Bath, including taps',
-    //         'options': [
-    //           {
-    //             'value': 'bathTaps',
-    //             'display': 'Bath taps'
-    //           },
-    //           {
-    //             'value': 'sealAroundBath',
-    //             'display': 'Seal around bath'
-    //           }
-    //         ]
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     'value': 'bedroom',
-    //     'display': 'Bedroom',
-    //     'options': [
-    //       {
-    //         'value': 'damagedOrStuckDoors',
-    //         'display': 'Damaged or stuck doors',
-    //         'options': [
-    //           {
-    //             'value': 'internalDoorIssue',
-    //             'display': 'Internal door issue, including hinges, handle, sticking'
-    //           },
-    //           {
-    //             'value': 'notEligibleNonEmergency',
-    //             'display': 'Adjusting a door after a carpet fitting'
-    //           },
-    //           {
-    //             'value': 'emergency',
-    //             'display': 'Door is on fire'
-    //           },
-    //           {
-    //             'value': 'unableToBook',
-    //             'display': 'Don\'t like door colour'
-    //           }
-    //         ]
-    //       }
-    //     ]
-    //   }
-    // ]
   } catch (e) {
     Sentry.captureException(e);
     await Sentry.flush(2000);
@@ -96,3 +26,4 @@ module.exports = async function (context, req) {
     body: results,
   };
 };
+
