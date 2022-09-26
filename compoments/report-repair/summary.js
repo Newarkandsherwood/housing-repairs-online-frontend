@@ -26,7 +26,7 @@ const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
   ]
   if (isFullReleaseVersion()) {
     repairDetailsSummary.push(
-      { pageName:'Repair Image', value: values.image?.filename, link:'repair-picture'}
+      { pageName:'Repair Image', value: values.image?.filename, link:'repair-image-upload'}
     );
   }
 

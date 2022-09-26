@@ -52,7 +52,7 @@ function completeJourney(contactPhone = false) {
     cy.get('button').contains('Continue').click();
   });
 
-  cy.get('[data-cy=repair-picture]', {timeout: 10000}).then(() => {
+  cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
     cy.get('button').contains('Continue').click();
   });
 

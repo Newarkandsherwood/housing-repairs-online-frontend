@@ -24,7 +24,7 @@ import Confirmation from '../../compoments/report-repair/confirmation';
 import Error from '../../compoments/error';
 import NotEligibleNonEmergency from '../../compoments/report-repair/not-eligible-non-emergency';
 import UnableToBook from '../../compoments/report-repair/unable-to-book';
-import RepairPicture from '../../compoments/report-repair/repair-picture';
+import RepairImageUpload from '../../compoments/report-repair/repair-image-upload';
 
 function ReportRepair() {
   const [state, setState] = useState({data:{}, step: 'priority-list'});
@@ -578,9 +578,9 @@ function ReportRepair() {
           values={values}
         />
       )
-    case 'repair-picture':
+    case 'repair-image-upload':
       return (
-        <RepairPicture
+        <RepairImageUpload
           handleChange={handleChange}
           values={values}
         />
@@ -655,7 +655,7 @@ export async function getStaticPaths() {
     {params: { route: 'gates-and-pathways-problems'}},
     {params: { route: 'repair-shower-problems'} },
     {params: { route: 'repair-description'} },
-    {params: { route: 'repair-picture'} },
+    {params: { route: 'repair-image-upload'} },
     {params: { route: 'repair-availability'} },
     {params: { route: 'smell-gas'} }
   ]

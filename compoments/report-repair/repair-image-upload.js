@@ -67,7 +67,7 @@ const RepairImageUpload = ({ handleChange, values }) => {
     }
   }
 
-  return <div className="govuk-grid-row" data-cy="repair-picture">
+  return <div className="govuk-grid-row" data-cy="repair-image-upload">
     <header>
       <title>{pageTitle}</title>
     </header>
