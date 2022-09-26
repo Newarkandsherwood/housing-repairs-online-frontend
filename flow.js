@@ -175,10 +175,10 @@ class Flow {
       'repair-description-leak-source': {prevStep: 'repair-description-leak-inside', nextStep: 'repair-description'},
       'repair-leak-description-electrics-emergency': {prevStep: 'repair-description-leak-electrics'},
       'repair-description': {prevStep: true, nextStep:[
-        {condition: 'version-full', nextStep: 'repair-picture'},
+        {condition: 'version-full', nextStep: 'repair-image-upload'},
         {condition: 'version-mvp', nextStep: 'contact-person'}
       ]},
-      'repair-picture': {prevStep: 'repair-description', nextStep:'contact-person'},
+      'repair-image-upload': {prevStep: 'repair-description', nextStep:'contact-person'},
       'contact-person': {prevStep: 'repair-description', nextStep:'contact-details'},
       'contact-details': {prevStep: 'contact-person', nextStep: 'repair-availability'},
       'repair-availability': {prevStep: 'contact-details', nextStep: 'summary'},
