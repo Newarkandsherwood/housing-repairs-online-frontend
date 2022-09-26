@@ -1,4 +1,4 @@
 export const customerServicesTelephoneNumber = process.env.CUSTOMER_SERVICES_TELEPHONE_NUMBER
 export const outOfHoursCustomerServicesTelephoneNumber = process.env.OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER
 export const councilWebsiteHomePageUrl = process.env.COUNCIL_WEBSITE_HOMEPAGE_URL
-export const customer_services_opening_hours_description = process.env.CUSTOMER_SERVICES_OPENING_HOURS_DESCRIPTION
+export const customerServicesOpeningHoursDescription = process.env.CUSTOMER_SERVICES_OPENING_HOURS_DESCRIPTION

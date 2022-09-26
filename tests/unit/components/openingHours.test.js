@@ -22,11 +22,11 @@ describe('OpeningHours', () => {
     container = null;
 
     // Reset constant(s) imported from globals file
-    constants.customer_services_opening_hours_description = undefined
+    constants.customerServicesOpeningHoursDescription = undefined
   });
   
   test('Display list of opening hours when opening hours environment variable can be parsed as valid JSON', () => {
-    constants.customer_services_opening_hours_description = openingHoursAsJsonString
+    constants.customerServicesOpeningHoursDescription = openingHoursAsJsonString
 
     const expectedHTML = `<ul data-testid="opening-hours-list"><li>Monday: 9am - 5pm</li><li>Tuesday: 9am - 5pm</li><li>Wednesday: 9am - 5pm</li><li>Thursday: 9am - 5pm</li><li>Friday: 9am - 5pm</li></ul>`
 
@@ -39,7 +39,7 @@ describe('OpeningHours', () => {
   })
 
   test('Display opening hours as paragraph text when opening hours environment variable is a simple string i.e. not JSON', () => {
-    constants.customer_services_opening_hours_description = openingHoursAsText
+    constants.customerServicesOpeningHoursDescription = openingHoursAsText
 
     const expectedHTML = `<p data-testid="opening-hours-text">${openingHoursAsText}</p>`
 
@@ -52,7 +52,7 @@ describe('OpeningHours', () => {
   })
 
   test('Display an empty paragraph if the opening hours environment variable is NOT set', () => {
-    constants.customer_services_opening_hours_description = undefined
+    constants.customerServicesOpeningHoursDescription = undefined
 
     const expectedHTML = `<p data-testid="opening-hours-text"></p>`
 
@@ -65,7 +65,7 @@ describe('OpeningHours', () => {
   })
 
   test('Display an empty paragraph if the opening hours environment variable is an empty string', () => {
-    constants.customer_services_opening_hours_description = ""
+    constants.customerServicesOpeningHoursDescription = ""
     
     const expectedHTML = `<p data-testid="opening-hours-text"></p>`
 

@@ -1,12 +1,12 @@
 import {
-  customer_services_opening_hours_description
+  customerServicesOpeningHoursDescription
 } from '../globals';
 import React from 'react';
 
 export const OpeningHours = () => {
-    if( customer_services_opening_hours_description) {
+    if( customerServicesOpeningHoursDescription) {
       try {
-        const openingTimes = JSON.parse(customer_services_opening_hours_description)
+        const openingTimes = JSON.parse(customerServicesOpeningHoursDescription)
         const openingHoursList = Object.entries(openingTimes).map(([day, time]) => {
             return (
               <li key={day}>{`${day}: ${time}`}</li>
@@ -18,11 +18,11 @@ export const OpeningHours = () => {
             </ul>
           )
       } catch (e) {
-          return <p data-testid="opening-hours-text">{customer_services_opening_hours_description}</p>;
+          return <p data-testid="opening-hours-text">{customerServicesOpeningHoursDescription}</p>;
       }
     } else {
       return (
-        <p data-testid="opening-hours-text">{customer_services_opening_hours_description}</p>
+        <p data-testid="opening-hours-text">{customerServicesOpeningHoursDescription}</p>
       )
     }
 };
