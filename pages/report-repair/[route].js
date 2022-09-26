@@ -96,8 +96,12 @@ function ReportRepair() {
   const [formError, setFormError] = useState();
   const [requestId, setRequestId] = useState();
 
-
   const { repairTriageData, isLoading, isError } = useRepairTriageData()
+
+  const prevStep = (e) => {
+    e?.preventDefault();
+    flow.prevStep(state)
+  }
 
   if (shouldRequestTriageData) {
     return (
@@ -150,10 +154,6 @@ function ReportRepair() {
           body="Please call 01522 873333 to complete your repair request" />
       )
     })
-  }
-  const prevStep = (e) => {
-    e?.preventDefault();
-    flow.prevStep(state)
   }
   const values = state.data;
 
