@@ -1,6 +1,6 @@
-describe('repair picture', () => {
+describe('repair image upload', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/report-repair/repair-picture');
+    cy.visit('http://localhost:3000/report-repair/repair-image-upload');
   });
 
   it('displays the question', () => {

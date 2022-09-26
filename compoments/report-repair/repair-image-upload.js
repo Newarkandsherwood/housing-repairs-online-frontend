@@ -6,7 +6,7 @@ import {serviceName} from '../../helpers/constants';
 import imageToBase64 from 'image-to-base64/browser';
 import {isMvpReleaseVersion} from '../../helpers/features';
 
-const RepairPicture = ({ handleChange, values }) => {
+const RepairImageUpload = ({ handleChange, values }) => {
   const [error, setError] = useState(undefined);
   const [activeError, setActiveError] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
@@ -114,9 +114,9 @@ const RepairPicture = ({ handleChange, values }) => {
   </div>
 };
 
-RepairPicture.propTypes = {
+RepairImageUpload.propTypes = {
   values: PropTypes.object,
   handleChange: PropTypes.func,
 }
 
-export default RepairPicture;
+export default RepairImageUpload;
