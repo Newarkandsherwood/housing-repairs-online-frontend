@@ -28,6 +28,7 @@ import UnableToBook from '../../compoments/report-repair/unable-to-book';
 import Loader from '../../compoments/loader';
 import useSWR from 'swr'
 import { fetcher } from '../../helpers/fetcher';
+import ContactUs from '../../compoments/report-repair/contact-us';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
@@ -54,10 +55,12 @@ function ReportRepair() {
   const emergencyValue = 'emergency';
   const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
   const unableToBookValue = 'unableToBook';
+  const contactUsValue = 'contactUs';
+
   const shouldRequestTriageData = currentPath === 'repair-location' || currentPath === 'repair-problems' || currentPath === 'repair-problem-best-description';
 
   function useRepairTriageData() {
-    const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}`
+    const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}&contactUsValue=${contactUsValue}`
 
     const { data, error } = useSWR(shouldRequestTriageData ? repairTriageApiUrl : null, fetcher, {dedupingInterval : 600000});
 
@@ -172,6 +175,8 @@ function ReportRepair() {
       return 'emergency-repair';
     case notEligibleNonEmergencyValue:
       return 'not-eligible-non-emergency';
+    case contactUsValue:
+      return 'contact-us';
     default:
       return 'repair-description';
     }
@@ -340,6 +345,14 @@ function ReportRepair() {
           fromDate={router.query.fromDate}
         />
       )
+    case 'contact-us':
+      return (
+        <ContactUs
+          handleChange={handleChange}
+          values={values}
+          fromDate={router.query.fromDate}
+        />
+      )
     default:
       return <div>Not found</div>;
     }
@@ -374,7 +387,8 @@ export async function getStaticPaths() {
     {params: { route: 'smell-gas'} },
     {params: { route: 'repair-description'} },
     {params: { route: 'repair-availability'} },
-    {params: { route: 'smell-gas'} }
+    {params: { route: 'smell-gas'} },
+    {params: { route: 'contact-us'} }
   ]
 
   return { paths, fallback: false };
