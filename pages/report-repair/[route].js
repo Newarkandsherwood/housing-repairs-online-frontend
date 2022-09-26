@@ -104,17 +104,15 @@ function ReportRepair() {
   }
 
   if (shouldRequestTriageData) {
-    return (
+    if (isLoading) return (<Loader/>)
+    if (isError) return (
       <ReportRepairWrapper showBackLink={showBack} prevStep={prevStep}>
-        {isLoading && <Loader/>}
-        {isError && <Error
+        <Error
           name="summary"
           heading="An error occurred while looking for repair options"
           body="Please try again later or call 01522 873333 to complete your repair request"
         />
-        }
-      </ReportRepairWrapper>
-    )
+      </ReportRepairWrapper>)
   }
 
   const cleanPayload = (payload) => {
