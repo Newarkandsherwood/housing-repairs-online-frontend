@@ -176,7 +176,7 @@ class Flow {
       'repair-leak-description-electrics-emergency': {prevStep: 'repair-description-leak-electrics'},
       'repair-description': {prevStep: true, nextStep:[
         {condition: 'version-full', nextStep: 'repair-picture'},
-        {condition: 'version-mvp', nextStep: 'contact-person'}        
+        {condition: 'version-mvp', nextStep: 'contact-person'}
       ]},
       'repair-picture': {prevStep: 'repair-description', nextStep:'contact-person'},
       'contact-person': {prevStep: 'repair-description', nextStep:'contact-details'},

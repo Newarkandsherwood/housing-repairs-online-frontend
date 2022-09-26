@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Button from '../button';
 import imageToBase64 from 'image-to-base64/browser';
-import {serviceName} from '../../helpers/constants';
+import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 
-const CharacterCount = ({errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit}) => {
+const CharacterCount = ({ errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit }) => {
 
   const generateCharacterCountText = () => {
     const characterCountDifference = textLimit - textAreaCount;
@@ -19,7 +19,7 @@ const CharacterCount = ({errorText, hasExceededTextLimit, onChange, repairDescri
     <div className='govuk-character-count'>
       <div className={errorText ? 'govuk-form-group--error' : 'govuk-form-group'}>
         <label className="govuk-label govuk-label--m" htmlFor="description">
-            Description of problem
+          Description of problem
         </label>
         <span id={'description-error'}
           className="govuk-error-message">
@@ -48,11 +48,11 @@ CharacterCount.propTypes = {
   repairDescriptionTextInputId: PropTypes.string.isRequired,
   text: PropTypes.string,
   textAreaCount: PropTypes.number.isRequired,
-  textLimit:PropTypes.number.isRequired,
+  textLimit: PropTypes.number.isRequired,
 }
 
-const RepairDescription = ({handleChange, values}) => {
-  const [error, setError] = useState({text: undefined, img: undefined});
+const RepairDescription = ({ handleChange, values }) => {
+  const [error, setError] = useState({ text: undefined, img: undefined });
   const [activeError, setActiveError] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
   const [selectedImage, setSelectedImage] = useState(values.description?.photo);
@@ -117,7 +117,7 @@ const RepairDescription = ({handleChange, values}) => {
     }
     if (!textError && !imageError) {
       return handleChange('description', {
-        value: 'version-' + process.env.releaseVersion,        
+        value: 'version-' + process.env.releaseVersion,
         photo: selectedImage,
         text: text,
         fileExtension: fileExtension,
@@ -126,55 +126,55 @@ const RepairDescription = ({handleChange, values}) => {
     } else {
       setSelectedImage(null);
       setSelectedFile(null);
-      return setError({text: textError, img: imageError})
+      return setError({ text: textError, img: imageError })
     }
   }
 
   const getErrorSummaryTextAndLocation = () => {
     const errorSummaryTextAndLocation = [];
-    error.text && errorSummaryTextAndLocation.push({text: error.text, location: `#${repairDescriptionTextInputId}`});
-    error.img && errorSummaryTextAndLocation.push({text: error.img, location: `#${repairDescriptionUploadPhotoInputId}`});
+    error.text && errorSummaryTextAndLocation.push({ text: error.text, location: `#${repairDescriptionTextInputId}` });
+    error.img && errorSummaryTextAndLocation.push({ text: error.img, location: `#${repairDescriptionUploadPhotoInputId}` });
     return errorSummaryTextAndLocation;
   }
 
   const ImageUploadRender = () => {
-    if (process.env.releaseVersion == 'mvp'){
+    if (process.env.releaseVersion == 'mvp') {
       return <div className={error.img ? 'govuk-form-group--error' : 'govuk-form-group'}>
-          <h3 className="govuk-heading-m">
-            Upload a photo (optional)
-          </h3>
-          <label className="govuk-label" htmlFor="upload-a-photo">
-            Upload a file
-          </label>
-          <span id="upload-a-photo-error" className="govuk-error-message">
-            {error.img}
-          </span>
-          {selectedImage ? (
-            <table>
-              <tbody>
-                <tr>
-                  <td align="center" valign="center">
-                    <img alt="not found" width="200px" src={selectedImage} />
-                  </td>
-                  <td align="center" valign="center">
-                    <button
-                      className="govuk-button govuk-button--warning"
-                      onClick={()=>setSelectedImage(null)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          ) : (
-            <input className="govuk-file-upload govuk-file-upload--error"
-              id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
-              aria-describedby="upload-a-photo-error" onChange={PhotoChange}/>
-          )}
-        </div>      
+        <h3 className="govuk-heading-m">
+          Upload a photo (optional)
+        </h3>
+        <label className="govuk-label" htmlFor="upload-a-photo">
+          Upload a file
+        </label>
+        <span id="upload-a-photo-error" className="govuk-error-message">
+          {error.img}
+        </span>
+        {selectedImage ? (
+          <table>
+            <tbody>
+              <tr>
+                <td align="center" valign="center">
+                  <img alt="not found" width="200px" src={selectedImage} />
+                </td>
+                <td align="center" valign="center">
+                  <button
+                    className="govuk-button govuk-button--warning"
+                    onClick={() => setSelectedImage(null)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        ) : (
+          <input className="govuk-file-upload govuk-file-upload--error"
+            id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
+            aria-describedby="upload-a-photo-error" onChange={PhotoChange} />
+        )}
+      </div>
     }
     else return "";
-  }  
+  }
 
   return <div className="govuk-grid-row" data-cy="repair-description">
     <header>
@@ -213,8 +213,8 @@ const RepairDescription = ({handleChange, values}) => {
           textLimit={textLimit}
         />
       </form>
-      <ImageUploadRender/>
-      <br/>
+      <ImageUploadRender />
+      <br />
       <Button onClick={Continue} >Continue</Button>
     </div>
   </div>
