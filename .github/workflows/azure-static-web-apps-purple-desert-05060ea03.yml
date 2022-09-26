@@ -63,8 +63,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NEXT_PUBLIC_APP_ENV: test
           CYPRESS_RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
-          # Pass in local authority details that will be checked in UI tests
+          # Local authority details to build the app for cypress
           COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
+          # Local authority details to use within cypress test files (i.e start environment variable(s) with CYPRESS_)
+          CYPRESS_COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
 
   terraform:
     name: 'Terraform'

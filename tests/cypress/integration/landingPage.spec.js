@@ -1,6 +1,6 @@
 describe('App', () => {
   beforeEach(() => {
-    cy.visit('/');
+    cy.visit('http://localhost:3000/');
   });
 
   it('displays service title', () => {
@@ -22,7 +22,7 @@ describe('App', () => {
     cy.get('[data-testid=landing-page-emergency-warning] a').should(
       'have.attr',
       'href',
-      `${Cypress.env('council_website_homepage_url')}/contactus/`
+      `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}/contactus/`
     );
   });
 
@@ -61,7 +61,7 @@ describe('App', () => {
       .should(
         'have.attr',
         'href',
-        `${Cypress.env('council_website_homepage_url')}/privacynotice/`
+        `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}/privacynotice/`
       );
   });
 });
