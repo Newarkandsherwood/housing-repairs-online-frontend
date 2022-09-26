@@ -27,6 +27,14 @@ Copy the `example.env` file and set the environment variables in the `.env` file
   cp example.env .env
   ```
 
+Copy the `cypress.example.env.json` file and set the environment variables in the `cypress.env.json` file to be local authority details relevant for cypress testing:
+  
+  See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information
+
+  ```bash
+  cp cypress.example.env.json cypress.env.json
+  ```
+
 Globally install azure function tools:
 
   ```bash

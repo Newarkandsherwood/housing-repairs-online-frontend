@@ -9,11 +9,5 @@
   "chromeWebSecurity": false,
   "projectId": "xqvxh7",
   "video": true,
-  "videoUploadOnPasses": false,
-  "e2e": {
-    "baseUrl": "http://localhost:3000"
-  },
-  "env": {
-    "council_website_homepage_url": "https://www.newark-sherwooddc.gov.uk"
-  }
+  "videoUploadOnPasses": false
 }
