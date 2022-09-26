@@ -25,7 +25,7 @@ describe('OpeningHours', () => {
     constants.customerServicesOpeningHoursDescription = undefined
   });
   
-  test('Display list of opening hours when opening hours environment variable can be parsed as valid JSON', () => {
+  test('Display a list of opening hours when the opening hours environment variable can be parsed as valid JSON', () => {
     constants.customerServicesOpeningHoursDescription = openingHoursAsJsonString
 
     const expectedHTML = `<ul data-testid="opening-hours-list"><li>Monday: 9am - 5pm</li><li>Tuesday: 9am - 5pm</li><li>Wednesday: 9am - 5pm</li><li>Thursday: 9am - 5pm</li><li>Friday: 9am - 5pm</li></ul>`
@@ -38,7 +38,7 @@ describe('OpeningHours', () => {
     expect(container.querySelector('[data-testid="opening-hours-text"]')).toBe(null)
   })
 
-  test('Display opening hours as paragraph text when opening hours environment variable is a simple string i.e. not JSON', () => {
+  test('Display opening hours as a sentence when the opening hours environment variable is a simple string i.e. not JSON', () => {
     constants.customerServicesOpeningHoursDescription = openingHoursAsText
 
     const expectedHTML = `<p data-testid="opening-hours-text">${openingHoursAsText}</p>`
