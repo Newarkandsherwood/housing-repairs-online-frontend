@@ -4,6 +4,7 @@ import Button from '../button';
 import imageToBase64 from 'image-to-base64/browser';
 import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
+import { isMvpReleaseVersion, isFullReleaseVersion } from '../../helpers/features';
 
 const CharacterCount = ({ errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit }) => {
 
@@ -116,8 +117,14 @@ const RepairDescription = ({ handleChange, values }) => {
       textError = 'Enter a description of the problem';
     }
     if (!textError && !imageError) {
+      var releaseVersion = '';
+      if (isMvpReleaseVersion()) {
+        releaseVersion = 'version-mvp'
+      } else if (isFullReleaseVersion()) {
+        releaseVersion = 'version-full'
+      }
       return handleChange('description', {
-        value: 'version-' + process.env.releaseVersion,
+        value: releaseVersion,
         photo: selectedImage,
         text: text,
         fileExtension: fileExtension,
@@ -138,7 +145,7 @@ const RepairDescription = ({ handleChange, values }) => {
   }
 
   const ImageUploadRender = () => {
-    if (process.env.releaseVersion == 'mvp') {
+    if (isMvpReleaseVersion()) {
       return <div className={error.img ? 'govuk-form-group--error' : 'govuk-form-group'}>
         <h3 className="govuk-heading-m">
           Upload a photo (optional)

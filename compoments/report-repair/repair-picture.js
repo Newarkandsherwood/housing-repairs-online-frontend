@@ -4,6 +4,7 @@ import ErrorSummary from '../errorSummary';
 import Button from '../button';
 import {serviceName} from '../../helpers/constants';
 import imageToBase64 from 'image-to-base64/browser';
+import {isMvpReleaseVersion} from '../../helpers/features';
 
 const RepairPicture = ({ handleChange, values }) => {
   const [error, setError] = useState(undefined);
@@ -12,7 +13,7 @@ const RepairPicture = ({ handleChange, values }) => {
   const [selectedImage, setSelectedImage] = useState(values.image?.photo);
   const [fileExtension, setFileExtension] = useState(values.image?.fileExtension);
   const [base64img, setBase64img] = useState(values.image?.base64img);
-  const title = process.env.releaseVersion == 'mvp'? 'Upload a photo (optional)': 'Upload an image of the problem (optional)';
+  const title = isMvpReleaseVersion() ? 'Upload a photo (optional)': 'Upload an image of the problem (optional)';
   const pageTitle = `${title} - ${serviceName}`;
   const repairDescriptionUploadPhotoInputId = 'repair-description-upload-a-photo-input';
 
