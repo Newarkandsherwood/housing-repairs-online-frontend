@@ -40,17 +40,20 @@ describe('repairProblemBestDescription', () => {
       navigateToBestDescriptionPage()
     });
 
+    const options = [
+      'Damp or mould caused by a leak',
+      'Damp or mould caused by something else'
+    ]
+
     it('displays the repair issue question', () => {
       cy.contains('What best describes the problem?');
     });
 
-    it('displays all the options & something else', () => {
-      const options = [
-        'Damp or mould caused by a leak',
-        'Damp or mould caused by something else'
-      ]
-      options.forEach((option) => {cy.contains(option)})
-    });
+    options.forEach((option) => {
+      it(`Displays '${option}' option`, () => {
+        cy.contains(option)
+      })
+    })
 
     it('should show validation message',  () => {
       cy.get('button').click().then(()=>{
