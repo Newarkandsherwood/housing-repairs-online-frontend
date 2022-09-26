@@ -1,4 +1,5 @@
 import {useRouter} from 'next/router';
+import PropTypes from 'prop-types';
 import Address from '../../compoments/report-repair/address';
 import Communal from '../../compoments/report-repair/communal';
 import EmergencyRepair from '../../compoments/report-repair/emergency-repair';
@@ -28,6 +29,22 @@ import Loader from '../../compoments/loader';
 import useSWR from 'swr'
 import { fetcher } from '../../helpers/fetcher';
 
+const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
+  return (
+    <>
+      {showBackLink && <BackLink href="#" onClick={prevStep}>Back</BackLink>}
+      <main className="govuk-main-wrapper" id='main-content'>
+        {children}
+      </main>
+    </>
+  )
+}
+
+ReportRepairWrapper.propTypes = {
+  prevStep: PropTypes.func.isRequired,
+  showBackLink: PropTypes.bool.isRequired
+};
+
 function ReportRepair() {
   const [state, setState] = useState({data:{}, step: 'priority-list'});
   const router = useRouter()
@@ -37,7 +54,6 @@ function ReportRepair() {
   const emergencyValue = 'emergency';
   const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
   const unableToBookValue = 'unableToBook';
-
   const shouldRequestTriageData = currentPath === 'repair-location' || currentPath === 'repair-problems' || currentPath === 'repair-problem-best-description';
 
   function useRepairTriageData() {
@@ -84,12 +100,19 @@ function ReportRepair() {
   const { repairTriageData, isLoading, isError } = useRepairTriageData()
 
   if (shouldRequestTriageData) {
-    if (isLoading) return <Loader/>
-    if (isError) return <Error
-      name="summary"
-      heading="An error occurred while looking for repair options"
-      body="Please try again later or call 01522 873333 to complete your repair request"/>
+    return (
+      <ReportRepairWrapper showBackLink={showBack} prevStep={prevStep}>
+        {isLoading && <Loader/>}
+        {isError && <Error
+          name="summary"
+          heading="An error occurred while looking for repair options"
+          body="Please try again later or call 01522 873333 to complete your repair request"
+        />
+        }
+      </ReportRepairWrapper>
+    )
   }
+
   const cleanPayload = (payload) => {
     delete payload.availability.appointmentSlotKey
   }
@@ -323,15 +346,11 @@ function ReportRepair() {
       return <div>Not found</div>;
     }
   }
-
   return (
-    <>
-      {showBack && <BackLink href="#" onClick={prevStep}>Back</BackLink>}
-      <main className="govuk-main-wrapper" id='main-content'>
-        {formError}
-        {component()}
-      </main>
-    </>
+    <ReportRepairWrapper showBackLink={showBack} prevStep={prevStep}>
+      {formError}
+      {component()}
+    </ReportRepairWrapper>
   )
 }
 
