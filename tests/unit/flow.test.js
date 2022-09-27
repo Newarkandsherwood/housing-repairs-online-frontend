@@ -121,7 +121,7 @@ describe('Flow', () => {
 
     describe('multiple previous step', ()=>{
       beforeEach(()=> {
-        prevStepsDummy = ['kitchen', 'repair-kitchen-cupboard-problems'];
+        prevStepsDummy = ['kitchen', 'repair-problems'];
 
         flow = new Flow(setStateSpy, historySpy, pathDummy, prevStepsDummy, setPrevStepsSpy);
       })
@@ -137,7 +137,7 @@ describe('Flow', () => {
         }
         flow.prevStep(state);
         expect(setStateSpy).toBeCalled();
-        expect(historySpy.push).toHaveBeenCalledWith('repair-kitchen-cupboard-problems');
+        expect(historySpy.push).toHaveBeenCalledWith('repair-problems');
       });
       test('redirects repair-kitchen-cupboard-problems when repairProblemBestDescription value is doorHangingOff', ()=>{
         const state = {
@@ -151,7 +151,7 @@ describe('Flow', () => {
         }
         flow.prevStep(state);
         expect(setStateSpy).toBeCalled();
-        expect(historySpy.push).toHaveBeenCalledWith('repair-kitchen-cupboard-problems');
+        expect(historySpy.push).toHaveBeenCalledWith('repair-problems');
       });
     })
   });
@@ -223,26 +223,33 @@ describe('Flow', () => {
     })
 
     describe('can generate next step from condition', ()=>{
-      test('walls/floors/ceiling', ()=>{
-        let result = flow.getNextStepFromCondition('wallsFloorsCeiling');
-        expect(result).toBe('wall-floor-ceiling-problems');
+      test('static route - emergency/2', ()=>{
+        let result = flow.getNextStepFromCondition('emergency/2');
+        expect(result).toBe('emergency-repair');
       });
-      test('kitchen', ()=>{
+      test('dynamic route - kitchen', ()=>{
+        const repairNextSteps = [
+          {condition: 'kitchen', nextStep: 'repair-problems'},
+        ]
+        flow = new Flow(setStateSpy, historySpy, pathDummy, prevStepsDummy, setPrevStepsSpy, repairNextSteps);
         let result = flow.getNextStepFromCondition('kitchen');
-        expect(result).toBe('repair-kitchen-problems');
+        expect(result).toBe('repair-problems');
       });
     });
 
     describe('when a repairProblemBestDescription is selected', () => {
       describe('when the repairProblemBestDescription is updated', () => {
         test('then a repairProblemBestDescription is deselected and a repairProblemBestDescription does not exists', () =>{
+          const repairNextSteps = [{condition: 'smashed', nextStep: 'repair-description'}, {condition: 'internalDoorIssue', nextStep: 'repair-description'}]
+          flow = new Flow(setStateSpy, historySpy, pathDummy, prevStepsDummy, setPrevStepsSpy, repairNextSteps);
+
           const state = {
-            step: 'kitchen-door-problems',
+            step: 'repair-problem-best-description',
             data: {
               'repairProblem': {value: 'heatingOrHotWater', display: 'Heating or hot water'},
               'repairProblemBestDescription': {value: 'smashed', display: 'Smashed window(s)'}
             },
-            prevStep: 'repair-kitchen-problems',
+            prevStep: 'repair-problems',
           }
           flow.handleChange('repairProblemBestDescription', {value: 'internalDoorIssue', display: 'Internal door issue, including hinges, handle, sticking'}, state);
           expect(setStateSpy).toHaveBeenCalledWith({
@@ -251,17 +258,19 @@ describe('Flow', () => {
               'repairProblem': {value: 'heatingOrHotWater', display: 'Heating or hot water'},
               'repairProblemBestDescription': {value: 'internalDoorIssue', display: 'Internal door issue, including hinges, handle, sticking'}
             },
-            prevStep: 'kitchen-door-problems'})
+            prevStep: 'repair-problem-best-description'})
         })
       })
       test('then a repairProblemBestDescription is deselected and a repairProblemBestDescription does not exists', () =>{
+        const repairNextSteps = [{condition: 'worktop', nextStep: 'repair-description'}, {condition: 'damagedOrStuckDoors', nextStep: 'repair-description'}]
+        flow = new Flow(setStateSpy, historySpy, pathDummy, prevStepsDummy, setPrevStepsSpy, repairNextSteps);
         const state = {
-          step: 'repair-kitchen-problems',
+          step: 'repair-problem-best-description',
           data: {
             'repairProblem': 'windows',
             'repairProblemBestDescription': 'stuckOpen'
           },
-          prevStep: 'repair-kitchen-problems',
+          prevStep: 'repair-problems',
         }
         flow.handleChange('repairProblem', {display: 'Damaged worktop', value: 'worktop'}, state);
         expect(setStateSpy).toHaveBeenCalledWith({
@@ -269,7 +278,7 @@ describe('Flow', () => {
           data: {
             'repairProblem': {display: 'Damaged worktop', value: 'worktop'}
           },
-          prevStep: 'repair-kitchen-problems'})
+          prevStep: 'repair-problem-best-description'})
       })
     })
   });

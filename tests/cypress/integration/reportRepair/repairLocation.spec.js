@@ -1,4 +1,4 @@
-import {navigateToLocation} from '../../support/helpers';
+import {checkIfSelectionGoesToCorrectUrl, makeSelectionAndClickButton, navigateToLocation} from '../../support/helpers';
 
 describe('repairLocation', () => {
   before(() => {
@@ -45,16 +45,14 @@ describe('repairLocation', () => {
     })
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
-        cy.contains('Kitchen').click();
-        cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-kitchen-problems');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Kitchen')
       });
     });
     context('by checking the radio button', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
         cy.get('[value="kitchen"]').check();
         cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-kitchen-problems');
+        cy.url().should('include', '/report-repair/repair-problems');
       });
     });
   });
@@ -65,16 +63,14 @@ describe('repairLocation', () => {
     })
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
-        cy.contains('Bathroom').click();
-        cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-bathroom-problems');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Bathroom')
       });
     });
     context('by checking the radio button', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
         cy.get('[value="bathroom"]').check();
         cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-bathroom-problems');
+        cy.url().should('include', '/report-repair/repair-problems');
       });
     });
   });
@@ -85,16 +81,14 @@ describe('repairLocation', () => {
     })
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
-        cy.contains('Bedroom').click();
-        cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-bedroom-problems');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Bedroom')
       });
     });
     context('by checking the radio button', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
         cy.get('[value="bedroom"]').check();
         cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-bedroom-problems');
+        cy.url().should('include', '/report-repair/repair-problems');
       });
     });
   });
@@ -105,16 +99,32 @@ describe('repairLocation', () => {
     })
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
-        cy.contains('Living Areas').click();
-        cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-living-areas-problems');
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Living Areas')
       });
     });
     context('by checking the radio button', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
         cy.get('[value="livingAreas"]').check();
         cy.get('button').click()
-        cy.url().should('include', '/report-repair/repair-living-areas-problems');
+        cy.url().should('include', '/report-repair/repair-problems');
+      });
+    });
+  });
+
+  context('When a user selects: Outside', ()=>{
+    beforeEach(()=>{
+      navigateToLocation();
+    })
+    context('by clicking the label', ()=>{
+      it('should redirect them to outside repair type page',  () => {
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Outside')
+      });
+    });
+    context('by checking the radio button', ()=>{
+      it('should redirect them to outside repair type page',  () => {
+        cy.get('[value="outside"]').check();
+        cy.get('button').click()
+        cy.url().should('include', '/report-repair/repair-problems');
       });
     });
   });
@@ -125,8 +135,7 @@ describe('repairLocation', () => {
     })
 
     it('should be selected when they navigate back to the page',  () => {
-      cy.contains('Kitchen').click();
-      cy.get('button').click();
+      makeSelectionAndClickButton('Kitchen')
       cy.get('[data-cy=repair-problem]', {timeout: 10000}).then(() => {
         cy.contains('Back').click({force: true});
       });

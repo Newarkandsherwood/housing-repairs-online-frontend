@@ -1,4 +1,5 @@
 import dummyAppointments from '../../fixtures/availableAppointments.json';
+import mockRepairTriageOptions from '../../fixtures/repairTriageOptions.json';
 import moment from 'moment';
 
 function intercept_address_search(
@@ -21,6 +22,16 @@ function intercept_address_search(
     statusCode: 201,
     body: response
   }).as('address');
+}
+
+function intercept_repair_triage() {
+  const api_url = 'http://localhost:3000/api';
+  const response = mockRepairTriageOptions
+
+  cy.intercept('GET', `${api_url}/repairTriage?*`, {
+    statusCode: 201,
+    body: response
+  }).as('repairTriage');
 }
 
 function intercept_availability_search(appointments = dummyAppointments) {
@@ -72,6 +83,7 @@ const convertDateToDisplayDate = (date) => {
 
 const navigateToLocation = () => {
   intercept_address_search();
+  intercept_repair_triage();
   cy.visit('http://localhost:3000/report-repair/');
 
   navigateToPageSelectRadioOptionAndContinue({
@@ -93,6 +105,17 @@ const navigateToLocation = () => {
   });
 }
 
+function makeSelectionAndClickButton(buttonLabel) {
+  cy.contains(buttonLabel).click();
+  cy.get('button').click();
+}
+
+function checkIfSelectionGoesToCorrectUrl(goToUrl, firstSelection, secondSelection = null) {
+  makeSelectionAndClickButton(firstSelection);
+  secondSelection && makeSelectionAndClickButton(secondSelection);
+  cy.url().should('include', goToUrl);
+}
+
 export {
   intercept_address_search,
   intercept_availability_search,
@@ -101,5 +124,8 @@ export {
   convertDateToDisplayDate,
   intercept_save_repair,
   continueOnPage,
-  navigateToLocation
+  navigateToLocation,
+  makeSelectionAndClickButton,
+  checkIfSelectionGoesToCorrectUrl,
+  intercept_repair_triage
 }

@@ -1,4 +1,5 @@
 import {
+  intercept_repair_triage,
   intercept_address_search,
   intercept_availability_search,
   navigateToPageSelectRadioOptionAndContinue,
@@ -93,6 +94,7 @@ describe('repair availability', () => {
     before(() => {
       intercept_availability_search();
       intercept_address_search();
+      intercept_repair_triage();
       cy.visit('http://localhost:3000/report-repair/');
 
       navigateToPageSelectRadioOptionAndContinue({
