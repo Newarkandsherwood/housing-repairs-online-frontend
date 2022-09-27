@@ -45,6 +45,26 @@ describe('App', () => {
         });
     });
 
+    it('displays customer service telephone number', () => {
+      cy.get('[data-testid=landing-page-emergency-prompt] summary')
+        .click()
+        .then(() => {
+          cy.get('[data-testid=landing-page-emergency-info]').should(
+            'contain.text', `Emergency In Hours Repairs - Telephone: ${Cypress.env('CUSTOMER_SERVICES_TELEPHONE_NUMBER')}`
+          );
+        });
+    });
+
+    it('displays out of hours customer service telephone number', () => {
+      cy.get('[data-testid=landing-page-emergency-prompt] summary')
+        .click()
+        .then(() => {
+          cy.get('[data-testid=landing-page-emergency-info]').should(
+            'contain.text',`Emergency Out of Hours Repairs - Telephone: ${Cypress.env('OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER')}`
+          );
+        });
+    });
+
     it('displays opening hours when clicked', () => {
       const openingHours = Cypress.env('CUSTOMER_SERVICES_OPENING_HOURS_DESCRIPTION')
 
