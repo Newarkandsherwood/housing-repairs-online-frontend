@@ -1,4 +1,5 @@
 const path = require('path')
+require('dotenv').config();
 
 const { withSentryConfig } = require('@sentry/nextjs');
 
@@ -20,7 +21,7 @@ const moduleExports =  {
   },
 
   env: {
-    releaseVersion: 'full', // feature flag - mvp or full
+    RELEASE_VERSION: process.env.RELEASE_VERSION
   },
   
   images: {
