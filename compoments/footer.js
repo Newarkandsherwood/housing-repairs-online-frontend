@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {councilWebsiteHomePageUrl} from '../globals'
+import {councilWebsiteHomePageUrl, privacyNoticeWebPagePath, accessibilityStatementWebPagePath} from '../globals'
 
 const FooterListItem = ({text, location, index}) => {
   return (
@@ -21,8 +21,8 @@ FooterListItem.propTypes = {
 const Footer = () => {
 
   const links = [
-    {text: 'Accessibility Statement', location: '#'},
-    {text: 'Privacy', location: `${councilWebsiteHomePageUrl}/privacynotice/`}
+    {text: 'Accessibility Statement', location: `${councilWebsiteHomePageUrl}/${accessibilityStatementWebPagePath}`},
+    {text: 'Privacy', location: `${councilWebsiteHomePageUrl}/${privacyNoticeWebPagePath}`}
   ]
 
   return (

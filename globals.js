@@ -2,3 +2,6 @@ export const customerServicesTelephoneNumber = process.env.CUSTOMER_SERVICES_TEL
 export const outOfHoursCustomerServicesTelephoneNumber = process.env.OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER
 export const councilWebsiteHomePageUrl = process.env.COUNCIL_WEBSITE_HOMEPAGE_URL
 export const customerServicesOpeningHoursDescription = process.env.CUSTOMER_SERVICES_OPENING_HOURS_DESCRIPTION
+export const privacyNoticeWebPagePath = process.env.PRIVACY_NOTICE_WEB_PAGE_PATH
+export const accessibilityStatementWebPagePath = process.env.ACCESSIBILITY_STATEMENT_WEB_PAGE_PATH
+export const contactUsPagePath = process.env.CONTACT_US_PAGE_PATH

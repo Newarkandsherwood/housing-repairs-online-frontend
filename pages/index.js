@@ -5,7 +5,7 @@ import React from 'react';
 import Link from 'next/link';
 import ContactNumbers from '../compoments/contactNumbers';
 import { serviceName } from '../helpers/constants';
-import { councilWebsiteHomePageUrl } from '../globals';
+import { councilWebsiteHomePageUrl, contactUsPagePath } from '../globals';
 import {OpeningHours} from '../compoments/openingHours';
 
 export default function Home() {
@@ -41,7 +41,7 @@ export default function Home() {
           To request a repair for a <strong>communal area</strong>, please see
           customer services contact{' '}
             <TextLink
-              href={`${councilWebsiteHomePageUrl}/contactus/`}
+              href={`${councilWebsiteHomePageUrl}/${contactUsPagePath}`}
               target={'_blank'}
             >
             details page
@@ -73,7 +73,7 @@ export default function Home() {
           <WarningText testid="landing-page-emergency-warning" className="">
           For other emergency repairs, please see customer services{' '}
             <TextLink
-              href={`${councilWebsiteHomePageUrl}/contactus/`}
+              href={`${councilWebsiteHomePageUrl}/${contactUsPagePath}`}
               target={'_blank'}
             >
             contact details page
