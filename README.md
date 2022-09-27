@@ -21,6 +21,13 @@ Globally install azure function tools:
 ```bash
  npm install -g azure-functions-core-tools@3 --unsafe-perm true
  ```
+
+Copy the `example.env` file in the root directory and set the RELEASE_VERSION value to `'mvp'` for the  mvp application or any other value for full application:
+
+```bash
+cp example.env .env
+```
+
 In one terminal run the next development server:
 
 ```bash
@@ -34,10 +41,10 @@ Copy the `example.env` file and set the values to point to the repairs API:
 cd api/ && cp example.env .env
 ```
 
-Start the development function
+Start the development function (still in the api directory)
 
 ```bash
-cd api/ && nvm use && yarn start
+cd nvm use && yarn start
 ```
 > if the function doesn't start try switching your node version to 14.0.0 
 
@@ -56,6 +63,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
     ```bash
     yarn test:headless:integration
     ```
+    to run MVP tests in headless mode:
+    ```bash
+    yarn test:headless:integration:mvp
+    ``` 
 ## Windows setup:
 ### Important:
 
