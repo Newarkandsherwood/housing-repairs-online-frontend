@@ -19,10 +19,11 @@ describe('App', () => {
       'have.contain',
       'For other emergency repairs, please see customer services contact details page.'
     );
-    cy.get('[data-testid=landing-page-emergency-warning] a').should(
-      'have.attr',
-      'href',
-      `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}/contactus/`
+    cy.get('[data-testid=landing-page-emergency-warning] a')
+      .should(
+        'have.attr',
+        'href',
+        `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}/${Cypress.env('CONTACT_US_PAGE_PATH')}`
     );
   });
 
@@ -52,7 +53,13 @@ describe('App', () => {
   });
 
   it('has an accessibility link', () => {
-    cy.get('a').contains('Accessibility Statement').should('have.attr', 'href');
+    cy.get('a')
+      .contains('Accessibility Statement')
+      .should(
+        'have.attr', 
+        'href', 
+        `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}/${Cypress.env('ACCESSIBILITY_STATEMENT_WEB_PAGE_PATH')}`
+      );
   });
 
   it('has an privacy link', () => {
@@ -61,7 +68,7 @@ describe('App', () => {
       .should(
         'have.attr',
         'href',
-        `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}/privacynotice/`
+        `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}/${Cypress.env('PRIVACY_NOTICE_WEB_PAGE_PATH')}`
       );
   });
 });
