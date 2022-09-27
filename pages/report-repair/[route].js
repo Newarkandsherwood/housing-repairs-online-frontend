@@ -163,7 +163,7 @@ function ReportRepair() {
   }
 
   const getUniqueOptionValue = (value, index) => {
-    const hasUniqueValueId = [emergencyValue, notEligibleNonEmergencyValue, unableToBookValue]
+    const hasUniqueValueId = [emergencyValue, notEligibleNonEmergencyValue, unableToBookValue, contactUsValue]
     return hasUniqueValueId.includes(value) ? `${value}-${index}` : value
   }
 
