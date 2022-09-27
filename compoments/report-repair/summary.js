@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import SummaryList from '../summaryList';
 import Button from '../button';
 import {serviceName} from '../../helpers/constants';
-import {isFullReleaseVersion}  from '../../helpers/features';
+import {isMvpReleaseVersion}  from '../../helpers/features';
 
 const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
   const title = 'Request summary'
@@ -24,7 +24,7 @@ const Summary = ({values, getNextStepFromCondition, submit, goToStep}) => {
     { pageName:'What best describes the problem?', value: values['repairProblemBestDescription']?.display, link: repairProblemBestDescriptionLink},
     { pageName:'Description', value: values.description?.text, link:'repair-description'}
   ]
-  if (isFullReleaseVersion()) {
+  if (!isMvpReleaseVersion()) {
     repairDetailsSummary.push(
       { pageName:'Repair Image', value: values.image?.filename, link:'repair-image-upload'}
     );

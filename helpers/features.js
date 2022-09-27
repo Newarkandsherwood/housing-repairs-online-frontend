@@ -1,7 +1,6 @@
-export function isFullReleaseVersion() {
-    return process.env.releaseVersion == 'full'
+export function isMvpReleaseVersion() {
+    return process.env.RELEASE_VERSION === 'mvp';
 }
 
-export function isMvpReleaseVersion() {
-    return process.env.releaseVersion == 'mvp'
-}
+
+ 

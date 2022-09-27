@@ -4,7 +4,7 @@ import Button from '../button';
 import imageToBase64 from 'image-to-base64/browser';
 import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
-import { isMvpReleaseVersion, isFullReleaseVersion } from '../../helpers/features';
+import { isMvpReleaseVersion } from '../../helpers/features';
 
 const CharacterCount = ({ errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit }) => {
 
@@ -120,7 +120,7 @@ const RepairDescription = ({ handleChange, values }) => {
       var releaseVersion = '';
       if (isMvpReleaseVersion()) {
         releaseVersion = 'version-mvp'
-      } else if (isFullReleaseVersion()) {
+      } else {
         releaseVersion = 'version-full'
       }
       return handleChange('description', {
