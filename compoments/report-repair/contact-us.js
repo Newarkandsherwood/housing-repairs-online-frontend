@@ -1,5 +1,7 @@
 import React from 'react';
 import {serviceName} from '../../helpers/constants';
+import {OpeningHours} from '../openingHours';
+import {customerServicesTelephoneNumber} from '../../globals'
 
 const ContactUs = () => {
   const title = 'You need to contact us to report this repair'
@@ -11,11 +13,12 @@ const ContactUs = () => {
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>{title}</h1>
         <div className="govuk-inset-text">
-          Contact us via telephone 01636 650 000
+          Contact us via telephone {customerServicesTelephoneNumber}
         </div>
         <p>
-          Our call centre is open between 9am and 5pm, Monday to Friday
+          Our call centre is open between:
         </p>
+        <OpeningHours />
       </div>
     </div>
   );
