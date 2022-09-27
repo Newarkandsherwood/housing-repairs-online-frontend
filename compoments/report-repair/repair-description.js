@@ -117,14 +117,7 @@ const RepairDescription = ({ handleChange, values }) => {
       textError = 'Enter a description of the problem';
     }
     if (!textError && !imageError) {
-      var releaseVersion = '';
-      if (isMvpReleaseVersion()) {
-        releaseVersion = 'version-mvp'
-      } else {
-        releaseVersion = 'version-full'
-      }
       return handleChange('description', {
-        value: releaseVersion,
         photo: selectedImage,
         text: text,
         fileExtension: fileExtension,
