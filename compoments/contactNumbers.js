@@ -8,7 +8,7 @@ export default function ContactNumbers({ }) {
         Emergency Out of Hours Repairs - Telephone: <strong>{outOfHoursCustomerServicesTelephoneNumber}</strong>
       </p>
       <p>
-        Emergency In Hours Repairs - Telephone:  <strong>{customerServicesTelephoneNumber}</strong>
+        Emergency In Hours Repairs - Telephone: <strong>{customerServicesTelephoneNumber}</strong>
       </p>
     </>
   )
