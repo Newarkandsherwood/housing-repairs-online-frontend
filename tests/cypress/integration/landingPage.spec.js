@@ -44,6 +44,45 @@ describe('App', () => {
           );
         });
     });
+
+    it('displays opening hours when clicked', () => {
+      const openingHours = Cypress.env('CUSTOMER_SERVICES_OPENING_HOURS_DESCRIPTION')
+
+      cy.get('[data-testid=landing-page-emergency-prompt] summary')
+        .click()
+        .then(() => {
+          // Check opening hour details are displayed as a list
+          if (typeof openingHours === "object" ) {
+            const listItems = [];
+
+            Object.entries(openingHours).map(([key, value]) => {
+              listItems.push(`${key}: ${value}`)
+            })
+
+          cy.get('[data-testid=opening-hours-list] > li').each((item, index) => {
+            cy.wrap(item)
+              .should(
+                'contain.text',
+                listItems[index]
+              );
+          })
+
+          cy.get('[data-testid=opening-hours-text]')
+            .should('not.exist');
+          
+          } else {
+            // Or check opening hour details are displayed as a sentence
+            cy.get('[data-testid=opening-hours-text]')
+              .should(
+                'contain.text',
+                openingHours
+              );
+
+            cy.get('[data-testid=opening-hours-list]')
+              .should('not.exist');
+          }
+        });
+    });
   });
 
   it('displays a start button', () => {
