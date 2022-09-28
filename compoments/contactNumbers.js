@@ -4,10 +4,10 @@ import {customerServicesTelephoneNumber, outOfHoursCustomerServicesTelephoneNumb
 export default function ContactNumbers({ }) {
   return (
     <>
-      <p>
+      <p data-testid="out-of-hours-contact-number">
         Emergency Out of Hours Repairs - Telephone: <strong>{outOfHoursCustomerServicesTelephoneNumber}</strong>
       </p>
-      <p>
+      <p data-testid="customer-services-contact-number">
         Emergency In Hours Repairs - Telephone: <strong>{customerServicesTelephoneNumber}</strong>
       </p>
     </>
