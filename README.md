@@ -21,7 +21,7 @@ Copy the `example.sentryclirc` file and set the token environment variable in th
 Copy the `example.env` file and set the environment variables in the `.env` file:
   Set the RELEASE_VERSION value to `'mvp'` for the mvp application or any other value for full application.
   Set the environment variables to be local authority details relevant for local development.
-  See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information
+  See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information.
 
   ```bash
   cp example.env .env
@@ -29,7 +29,7 @@ Copy the `example.env` file and set the environment variables in the `.env` file
 
 Copy the `cypress.example.env.json` file and set the environment variables in the `cypress.env.json` file to be local authority details relevant for cypress testing:
   
-  See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information
+  See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information.
 
   ```bash
   cp cypress.example.env.json cypress.env.json
@@ -65,26 +65,35 @@ cd nvm use && yarn start
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Testing:
-  - [Jest](https://jestjs.io/docs/getting-started) is used for unit testing:
-    ```bash
-    yarn test
-    ```
-  - [Cypress](https://docs.cypress.io/) is used for integration testing:
-    ```bash
-    yarn test:integration
-    ```
-    to run Cypress tests in headless mode: 
+## Testing
+
+- [Jest](https://jestjs.io/docs/getting-started) is used for unit testing:
+
+  ```bash
+  yarn test
+  ```
+  
+- [Cypress](https://docs.cypress.io/) is used for integration testing:
+  
+  ```bash
+  yarn test:integration
+  ```
+
+  - to run Cypress tests in headless mode:
+
     ```bash
     yarn test:headless:integration
     ```
-    to run MVP tests in headless mode:
+
+  - to run MVP tests in headless mode:
+
     ```bash
     yarn test:headless:integration:mvp
-    ``` 
-## Windows setup:
+    ```
 
-### Important:
+## Windows setup
+
+### Important
 
 Install commands must be run as admin (in bash preferably to keep the below command syntax)
 
@@ -153,19 +162,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ## General note dump
 
 --------------------
-
-- Testing:
-  - [Jest](https://jestjs.io/docs/getting-started) is used for unit testing:
-
-    ```bash
-    yarn test
-    ```
-  
-  - [Cypress](https://docs.cypress.io/) is used for integration testing:
-  
-    ```bash
-    yarn test:integration
-    ```
 
 - Local dev
   https://github.com/Azure/static-web-apps-cli

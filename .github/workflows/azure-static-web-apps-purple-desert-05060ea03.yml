@@ -62,6 +62,7 @@ jobs:
           # auto generated GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NEXT_PUBLIC_APP_ENV: test
+          # Set release version for cypress tests
           CYPRESS_RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
           # Local authority details to build the app for cypress
           COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
