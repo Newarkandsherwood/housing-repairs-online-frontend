@@ -4,7 +4,7 @@ import {
 import React from 'react';
 
 export const OpeningHours = () => {
-    if( customerServicesOpeningHoursDescription) {
+    if(customerServicesOpeningHoursDescription) {
       try {
         const openingTimes = JSON.parse(customerServicesOpeningHoursDescription)
         const openingHoursList = Object.entries(openingTimes).map(([day, time]) => {
