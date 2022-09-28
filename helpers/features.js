@@ -1,6 +1,3 @@
 export function isMvpReleaseVersion() {
-    return process.env.RELEASE_VERSION === 'mvp';
+  return process.env.RELEASE_VERSION === 'mvp';
 }
-
-
- 
