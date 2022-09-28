@@ -22,7 +22,7 @@ Globally install azure function tools:
  npm install -g azure-functions-core-tools@3 --unsafe-perm true
  ```
 
-Copy the `example.env` file in the root directory and set the RELEASE_VERSION value to `'mvp'` for the  mvp application or any other value for full application:
+Copy the `example.env` file in the root directory and set the RELEASE_VERSION value to `'mvp'` for the mvp application or any other value for full application:
 
 ```bash
 cp example.env .env
