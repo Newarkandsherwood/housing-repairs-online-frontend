@@ -29,7 +29,7 @@ class Flow {
       'repair-problems': { prevStep: 'repair-location', nextStep: repairTriageNextSteps},
       'repair-problem-best-description': { prevStep: 'repair-problems', nextStep: repairTriageNextSteps},
       'repair-description': {prevStep: true, nextStep: isMvpReleaseVersion()? 'contact-details' : 'repair-image-upload'},
-      'repair-image-upload': { prevStep: 'repair-description', nextStep: 'contact-details'},
+      'repair-image-upload': { prevStep: 'repair-description', nextStep: 'contact-person'},
       'contact-person': {prevStep: 'repair-description', nextStep:'contact-details'},
       'contact-details': {prevStep: 'contact-person', nextStep: 'repair-availability'},
       'repair-availability': {prevStep: 'contact-details', nextStep: 'summary'},
