@@ -1,6 +1,6 @@
 describe('repair description', () => {  
   context('conditional mvp tests', () => {
-    if (Cypress.env('appVersion') == 'mvp') {
+    if (Cypress.env('CYPRESS_RELEASE_VERSION') == 'mvp') {
       const repairDescriptionTextInputId = 'repair-description-text-input';
       beforeEach(() => {
         cy.visit('http://localhost:3000/report-repair/repair-description');

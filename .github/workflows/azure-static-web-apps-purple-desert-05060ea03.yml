@@ -62,7 +62,7 @@ jobs:
           # auto generated GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NEXT_PUBLIC_APP_ENV: test
-          RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
+          CYPRESS_RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
 
   terraform:
     name: 'Terraform'
