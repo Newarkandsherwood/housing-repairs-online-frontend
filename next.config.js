@@ -1,12 +1,12 @@
 require('dotenv').config()
 
 const path = require('path')
-require('dotenv').config();
 
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const moduleExports =  {
   env: {
+    RELEASE_VERSION: process.env.RELEASE_VERSION,
     CUSTOMER_SERVICES_TELEPHONE_NUMBER: process.env.CUSTOMER_SERVICES_TELEPHONE_NUMBER,
     OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER: process.env.OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER,
     COUNCIL_WEBSITE_HOMEPAGE_URL: process.env.COUNCIL_WEBSITE_HOMEPAGE_URL,
@@ -30,10 +30,6 @@ const moduleExports =  {
         permanent: true,
       },
     ]
-  },
-
-  env: {
-    RELEASE_VERSION: process.env.RELEASE_VERSION
   },
   
   images: {

@@ -115,7 +115,7 @@ function ReportRepair() {
         <Error
           name="summary"
           heading="An error occurred while looking for repair options"
-          body="Please try again later or call 01522 873333 to complete your repair request"
+          body={`Please try again later or call ${customerServicesTelephoneNumber} to complete your repair request`}
         />
       </ReportRepairWrapper>)
   }
