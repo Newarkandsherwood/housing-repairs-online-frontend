@@ -25,6 +25,7 @@ import Confirmation from '../../compoments/report-repair/confirmation';
 import Error from '../../compoments/error';
 import NotEligibleNonEmergency from '../../compoments/report-repair/not-eligible-non-emergency';
 import UnableToBook from '../../compoments/report-repair/unable-to-book';
+import RepairImageUpload from '../../compoments/report-repair/repair-image-upload';
 import Loader from '../../compoments/loader';
 import useSWR from 'swr'
 import { fetcher } from '../../helpers/fetcher';
@@ -337,6 +338,13 @@ function ReportRepair() {
           values={values}
         />
       )
+    case 'repair-image-upload':
+      return (
+        <RepairImageUpload
+          handleChange={handleChange}
+          values={values}
+        />
+      )
     case 'repair-availability':
       return (
         <RepairAvailability
@@ -386,6 +394,7 @@ export async function getStaticPaths() {
     {params: { route: 'repair-problem-best-description'} },
     {params: { route: 'smell-gas'} },
     {params: { route: 'repair-description'} },
+    {params: { route: 'repair-image-upload'} },
     {params: { route: 'repair-availability'} },
     {params: { route: 'smell-gas'} },
     {params: { route: 'contact-us'} }

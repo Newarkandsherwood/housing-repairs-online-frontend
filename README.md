@@ -21,6 +21,13 @@ Globally install azure function tools:
 ```bash
  npm install -g azure-functions-core-tools@3 --unsafe-perm true
  ```
+
+Copy the `example.env` file in the root directory and set the RELEASE_VERSION value to `'mvp'` for the mvp application or any other value for full application:
+
+```bash
+cp example.env .env
+```
+
 In one terminal run the next development server:
 
 ```bash
@@ -34,15 +41,32 @@ Copy the `example.env` file and set the values to point to the repairs API:
 cd api/ && cp example.env .env
 ```
 
-Start the development function
+Start the development function (still in the api directory)
 
 ```bash
-cd api/ && nvm use && yarn start
+cd nvm use && yarn start
 ```
 > if the function doesn't start try switching your node version to 14.0.0 
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Testing:
+  - [Jest](https://jestjs.io/docs/getting-started) is used for unit testing:
+    ```bash
+    yarn test
+    ```
+  - [Cypress](https://docs.cypress.io/) is used for integration testing:
+    ```bash
+    yarn test:integration
+    ```
+    to run Cypress tests in headless mode: 
+    ```bash
+    yarn test:headless:integration
+    ```
+    to run MVP tests in headless mode:
+    ```bash
+    yarn test:headless:integration:mvp
+    ``` 
 ## Windows setup:
 ### Important:
 
@@ -80,7 +104,7 @@ yarn install
 ```
 (run as admin in the `main` directory and then again in the `api` directory)
 
-You can now continue with the instructions above
+You can now continue with the instructions above.
 ## Look and feel
 The app can be deployed using original 
 [Gov.uk design system](https://design-system.service.gov.uk/get-started/)
@@ -106,15 +130,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 # General note dump
 
-- Testing:
-  - [Jest](https://jestjs.io/docs/getting-started) is used for unit testing:
-    ```bash
-    yarn test
-    ```
-  - [Cypress](https://docs.cypress.io/) is used for integration testing:
-    ```bash
-    yarn test:integration
-    ```
 - Local dev
   https://github.com/Azure/static-web-apps-cli
 - M1 Macs setup:

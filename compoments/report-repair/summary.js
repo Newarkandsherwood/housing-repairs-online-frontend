@@ -2,6 +2,7 @@ import React from 'react';
 import SummaryList from '../summaryList';
 import Button from '../button';
 import {serviceName} from '../../helpers/constants';
+import {isMvpReleaseVersion}  from '../../helpers/features';
 
 const Summary = ({values, submit, goToStep}) => {
   const title = 'Request summary'
@@ -16,11 +17,17 @@ const Summary = ({values, submit, goToStep}) => {
     { pageName:'What best describes the problem?', value: values['repairProblemBestDescription']?.display, link: 'repair-problem-best-description'},
     { pageName:'Description', value: values.description?.text, link:'repair-description'}
   ]
+  if (!isMvpReleaseVersion()) {
+    repairDetailsSummary.push(
+      { pageName:'Repair Image', value: values.image?.filename, link:'repair-image-upload'}
+    );
+  }
+
   const appointmentDetailsSummary = [
     { pageName:'Date', value: values.availability?.display, link:'repair-availability'},
     { pageName:'Confirmation contact details', value: values.contactDetails?.value, link: 'contact-details'},
   ]
-
+ 
   return(
     <>
       <header>

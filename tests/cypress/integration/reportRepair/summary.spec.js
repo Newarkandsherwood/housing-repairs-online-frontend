@@ -53,7 +53,10 @@ describe('summary', () => {
 
     cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
       cy.get('textarea').type(repairDescription);
-      cy.get('input').attachFile('good.jpg');
+      cy.get('button').contains('Continue').click();
+    });
+
+    cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
       cy.get('button').contains('Continue').click();
     });
 
@@ -130,6 +133,9 @@ describe('summary', () => {
       cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
         cy.get('button').contains('Continue').click();
       });
+      cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
+        cy.get('button').contains('Continue').click();
+      });
       cy.get('[data-cy=contact-person]', {timeout: 10000}).then(() => {
         cy.get('button').click();
       });
@@ -172,7 +178,7 @@ describe('summary', () => {
       })
 
       continueOnPage('repair-description');
-
+      continueOnPage('repair-image-upload');
       continueOnPage('contact-person');
       continueOnPage('contact-details');
       continueOnPage('repair-availability');
@@ -187,6 +193,7 @@ describe('summary', () => {
         page: 'repair-problem-best-description', option:'Wall tiles'
       })
       continueOnPage('repair-description');
+      continueOnPage('repair-image-upload');
       continueOnPage('contact-person');
       continueOnPage('contact-details');
       continueOnPage('repair-availability');
@@ -212,6 +219,9 @@ describe('summary', () => {
       cy.get('textarea').clear();
       cy.get('textarea').type(newText);
       cy.get('button').contains('Continue').click();
+      cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
+        cy.get('button').contains('Continue').click();
+      });            
       cy.get('[data-cy=contact-person]', {timeout: 10000}).then(() => {
         cy.get('button').click();
       });

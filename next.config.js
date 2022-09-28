@@ -1,4 +1,5 @@
 const path = require('path')
+require('dotenv').config();
 
 const { withSentryConfig } = require('@sentry/nextjs');
 
@@ -19,6 +20,10 @@ const moduleExports =  {
     ]
   },
 
+  env: {
+    RELEASE_VERSION: process.env.RELEASE_VERSION
+  },
+  
   images: {
     loader: 'default'
   },
