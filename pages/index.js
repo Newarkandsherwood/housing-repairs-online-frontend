@@ -30,7 +30,7 @@ export default function Home() {
           <p>
           If you <strong>own the property</strong>, please see our{' '}
             <TextLink
-              href="https://www.lincoln.gov.uk/council-housing/council-leaseholders/3"
+              href={`${councilWebsiteHomePageUrl}/${contactUsPagePath}`}
               target={'_blank'}
             >
             leaseholder contact details page{' '}

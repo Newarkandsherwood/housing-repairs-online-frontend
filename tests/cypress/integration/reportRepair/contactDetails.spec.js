@@ -115,7 +115,7 @@ describe('contactDetails', () => {
       });
 
       it('an error is not displayed', () => {
-        cy.get('input#contactDetails-email').type('housing-repairs+online@lincoln.gov.uk');
+        cy.get('input#contactDetails-email').type('housing-repairs+online@test.gov.uk');
         cy.get('button').click()
       });
     });
