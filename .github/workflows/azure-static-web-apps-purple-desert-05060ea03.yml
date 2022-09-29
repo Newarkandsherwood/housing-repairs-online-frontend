@@ -65,6 +65,7 @@ jobs:
           # Set release version for cypress tests
           CYPRESS_RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
           # Local authority details to build the app for cypress
+          LOCAL_COUNCIL_FULL_NAME: ${{ secrets.LOCAL_COUNCIL_FULL_NAME }}
           COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
           PRIVACY_NOTICE_WEB_PAGE_PATH: ${{ secrets.PRIVACY_NOTICE_WEB_PAGE_PATH }}
           ACCESSIBILITY_STATEMENT_WEB_PAGE_PATH: ${{ secrets.ACCESSIBILITY_STATEMENT_WEB_PAGE_PATH }}
@@ -73,6 +74,7 @@ jobs:
           CUSTOMER_SERVICES_TELEPHONE_NUMBER: ${{ secrets.CUSTOMER_SERVICES_TELEPHONE_NUMBER }}
           OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER: ${{ secrets.OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER }}
           # Local authority details to use within cypress test files (i.e start environment variable(s) with CYPRESS_)
+          CYPRESS_LOCAL_COUNCIL_FULL_NAME: ${{ secrets.LOCAL_COUNCIL_FULL_NAME }}
           CYPRESS_COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
           CYPRESS_PRIVACY_NOTICE_WEB_PAGE_PATH: ${{ secrets.PRIVACY_NOTICE_WEB_PAGE_PATH }}
           CYPRESS_ACCESSIBILITY_STATEMENT_WEB_PAGE_PATH: ${{ secrets.ACCESSIBILITY_STATEMENT_WEB_PAGE_PATH }}
@@ -161,6 +163,7 @@ jobs:
           NEXT_PUBLIC_APP_ENV: ${{ (github.event_name == 'pull_request' && 'staging') || ('production') }}
           RELEASE_VERSION: ${{ (github.event_name == 'pull_request' && 'full') || ('mvp') }}
           ###### Local Authority Configurable Content - These must be configured to display the values in the frontend ######
+          LOCAL_COUNCIL_FULL_NAME: ${{ secrets.LOCAL_COUNCIL_FULL_NAME }}
           CUSTOMER_SERVICES_TELEPHONE_NUMBER: ${{ secrets.CUSTOMER_SERVICES_TELEPHONE_NUMBER }}
           OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER: ${{ secrets.OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER }}
           COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
