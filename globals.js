@@ -1,3 +1,4 @@
+export const localCouncilFullName = process.env.LOCAL_COUNCIL_FULL_NAME
 export const customerServicesTelephoneNumber = process.env.CUSTOMER_SERVICES_TELEPHONE_NUMBER
 export const outOfHoursCustomerServicesTelephoneNumber = process.env.OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER
 export const councilWebsiteHomePageUrl = process.env.COUNCIL_WEBSITE_HOMEPAGE_URL
