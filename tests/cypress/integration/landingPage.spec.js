@@ -7,6 +7,22 @@ describe('App', () => {
     cy.contains('Housing Repairs');
   });
 
+  it("has a logo that links to the council's main website home page", () => {
+    cy.get('.govuk-header__logo a')
+      .should(
+        'have.attr',
+        'href',
+        `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}`
+      );
+
+    cy.get('.govuk-header__logo a')
+      .should(
+        'have.attr',
+        'aria-label',
+        `${Cypress.env('LOCAL_COUNCIL_FULL_NAME')} Home Page`
+      );
+  });
+
   it('displays a smell gas warning on the landing page', () => {
     cy.get('[data-testid=landing-page-gas-warning]').should(
       'have.contain',
