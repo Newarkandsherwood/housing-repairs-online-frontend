@@ -58,7 +58,7 @@ cd api/ && cp example.env .env
 Start the development function (still in the api directory)
 
 ```bash
-cd nvm use && yarn start
+nvm use && yarn start
 ```
 
 > if the function doesn't start try switching your node version to 14.0.0
