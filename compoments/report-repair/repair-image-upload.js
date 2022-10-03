@@ -41,11 +41,13 @@ const RepairImageUpload = ({ handleChange, values }) => {
     saveFileAsImage(uploadedFile)
   }
 
+  const allowedFileTypes = ['image/jpeg', 'image/png'];
+
   const Continue = () => {
     let imageError = undefined;
     setActiveError(true);
     if (selectedFile) {
-      if (selectedFile.type !== 'image/jpeg') {
+      if (!allowedFileTypes.includes(selectedFile.type)) {
         imageError = 'The selected file must be a JPG or PNG';
       }
       let size = (selectedFile.size / 1024 / 1024).toFixed(2);
