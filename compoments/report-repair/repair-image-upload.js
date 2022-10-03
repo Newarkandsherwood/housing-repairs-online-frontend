@@ -5,20 +5,7 @@ import Button from '../button';
 import {serviceName} from '../../helpers/constants';
 import imageToBase64 from 'image-to-base64/browser';
 import {isMvpReleaseVersion} from '../../helpers/features';
-
-export const validateImage = (file) => {
-  const allowedImageTypes = ['image/jpeg', 'image/png'];
-  const allowedImageSize = 10;
-  if (!allowedImageTypes.includes(file.type)) {
-    return 'The selected file must be a JPG or PNG';
-  }
-  (console.log('file.size', file.size))
-  let actualImageSize = (file.size / 1024 / 1024).toFixed(2);
-  if (actualImageSize > allowedImageSize) {
-    return `The selected file must be smaller than 10MB. Your file size is ${actualImageSize}MB`;
-  }
-  return undefined;
-}
+import { imageValidator } from '../../helpers/validators';
 
 const RepairImageUpload = ({ handleChange, values }) => {
   const [error, setError] = useState(undefined);
@@ -57,7 +44,7 @@ const RepairImageUpload = ({ handleChange, values }) => {
 
   const Continue = () => {
     setActiveError(true);
-    const imageError = validateImage(selectedFile);
+    const imageError = imageValidator(selectedFile);
     if (!imageError) {
       return handleChange('image', {
         photo: selectedImage,
