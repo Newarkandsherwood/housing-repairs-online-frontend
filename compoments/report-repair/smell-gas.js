@@ -1,8 +1,9 @@
 import React from 'react';
 import {serviceName} from '../../helpers/constants';
+import { isMvpReleaseVersion } from '../../helpers/features';
 
 const SmellGas = () => {
-  const title = 'What to do if you smell gas'
+  const title = isMvpReleaseVersion() ? 'If you smell gas': 'What to do if you smell gas';
   return <div className="govuk-grid-row">
     <header>
       <title>{title} - {serviceName}</title>
