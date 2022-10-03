@@ -5,7 +5,7 @@ import {
   navigateToPageSelectRadioOptionAndContinue,
   navigateToPageTypeInputTextAndContinue
 } from '../../support/helpers';
-
+const { _ } = Cypress
 
 describe('repair availability', () => {
   describe('with availability', () =>
@@ -70,6 +70,40 @@ describe('repair availability', () => {
         cy.contains('Select the date and time you are available for a repair appointment');
       });
     });
+
+    context('when given unordered availability', ()=>
+    {
+      before(() => {
+        intercept_availability_search([
+          {
+            'id': 'd290f1ee-6c54-4b01-90e6-d701748f0851',
+            'startTime': '2017-07-25T13:00:00',
+            'endTime': '2017-07-21T18:00:00'
+          },
+          {
+            'id': '8d1762b9-f6e7-43c5-86c2-778bacb602e2',
+            'startTime': '2017-07-22T13:00:00',
+            'endTime': '2017-07-22T18:00:00'
+          },
+          {
+            'id': 'b596d313-2b39-43ad-a76a-3b824eb56daf',
+            'startTime': '2017-07-22T10:00:00',
+            'endTime': '2017-07-22T13:00:00'
+          }
+        ]);
+        cy.visit('http://localhost:3000/report-repair/repair-availability');
+      });
+
+      it('displays availability in date order', () => {
+        cy.wait('@availability');
+        cy.get('[data-cy*=availability-slot]')
+          .then(x => _.map(x, 'value'))
+          .then(values => {
+            const sorted = _.sortBy(values);
+            expect(values).to.deep.equal(sorted)
+          })
+      });
+    })
   });
 
   describe('without availability', () => {
@@ -130,7 +164,7 @@ describe('repair availability', () => {
 
       cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
         cy.get('button').contains('Continue').click();
-      });      
+      });
 
       navigateToPageTypeInputTextAndContinue({
         page: 'contact-person',

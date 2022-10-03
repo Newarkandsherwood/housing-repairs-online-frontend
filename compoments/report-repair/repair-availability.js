@@ -55,7 +55,11 @@ const RepairAvailability = ({ handleChange, values, fromDate }) => {
     let startTimes = data.map(d => moment(d.startTime))
     nextAppointmentSearchFromDate = moment.max(startTimes).add(1, 'day').format('YYYY-MM-DD');
 
-    data.forEach((d) => {
+    const orderedData = data.sort((a,b) => {
+      return a.startTime > b.startTime ? 1: a.startTime < b.startTime ? -1 : 0
+    });
+
+    orderedData.forEach((d) => {
       const startDateTime = moment(d.startTime)
       const dateString = startDateTime.format('Do MMMM YYYY')
       const startTime = startDateTime.format('h:mma');
