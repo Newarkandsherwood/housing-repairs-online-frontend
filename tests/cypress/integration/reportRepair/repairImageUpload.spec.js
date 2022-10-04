@@ -9,7 +9,7 @@ describe('repair image upload', () => {
 
   context('When a user uploads an image with the wrong format', ()=>{
     it('an error is shown', () => {
-      cy.get('input').attachFile('wrong.png');
+      cy.get('input').attachFile('wrong.txt');
       cy.get('button').click()
       cy.contains('The selected file must be a JPG');
     });
@@ -25,7 +25,7 @@ describe('repair image upload', () => {
 
   context('When a user uploads an image, is shown a validation error, then they clear the image', ()=>{
     it('validation doesn\'t stop them from proceeding', () => {
-      cy.get('input').attachFile('wrong.png');
+      cy.get('input').attachFile('wrong.txt');
       cy.get('button').click();
       cy.get('button').contains('Continue', {timeout: 15000}).click()
       cy.contains('What is the problem you are reporting?');
