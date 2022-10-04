@@ -44,7 +44,7 @@ const RepairImageUpload = ({ handleChange, values }) => {
 
   const Continue = () => {
     setActiveError(true);
-    const imageError = imageValidator(selectedFile);
+    const imageError = selectedFile ? imageValidator(selectedFile) : undefined;
     if (!imageError) {
       return handleChange('image', {
         photo: selectedImage,
