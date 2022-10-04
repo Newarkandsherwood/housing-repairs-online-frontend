@@ -72,14 +72,14 @@ describe('repair description', () => {
 
       context('When a user uploads a good image', ()=>{
         it('the image is shown', () => {
-          cy.get('input').attachFile('good.jpg');
+          cy.get('input').attachFile('goodJpg.jpg');
           cy.get('img').should('be.visible');
           cy.get('button.govuk-button--warning').contains('Delete');
           cy.get('input').should('not.exist');
         });
 
         it('allows user to replace image ',  () => {
-          cy.get('input').attachFile('good.jpg');
+          cy.get('input').attachFile('goodJpg.jpg');
           cy.get('button.govuk-button--warning').contains('Delete').click();
           cy.get('input').should('exist');
         });
