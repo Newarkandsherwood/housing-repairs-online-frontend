@@ -7,7 +7,7 @@ import imageToBase64 from 'image-to-base64/browser';
 import {isMvpReleaseVersion} from '../../helpers/features';
 import { imageValidator } from '../../helpers/validators';
 
-const ImagePreview =({image, onDelete}) => {
+export const ImagePreview =({image, onDelete}) => {
   return (
     <table>
       <tbody>
