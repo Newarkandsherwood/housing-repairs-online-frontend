@@ -75,4 +75,21 @@ describe('App', () => {
         `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}/${Cypress.env('PRIVACY_NOTICE_WEB_PAGE_PATH')}`
       );
   });
+
+  it('displays change or cancel repair appointment on the landing page', () => {
+    cy.get('[data-testid=cancel-or-repair-appointment]').should(
+      'have.contain',
+      'Change or cancel a repair appointment, you cannot change or cancel communal repairs.'
+    );
+  });
+
+  it('has a search for repair appointment link', () => {
+    cy.get('a')
+      .contains('Search for a repair appointment to change or cancel')
+      .should(
+        'have.attr',
+        'href',
+        '/report-repair/lookup-appointment'
+      );
+  });
 });
