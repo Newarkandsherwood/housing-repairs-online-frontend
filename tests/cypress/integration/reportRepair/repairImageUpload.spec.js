@@ -41,7 +41,7 @@ describe('repair image upload', () => {
     });
 
     it('allows user to replace image ',  () => {
-      cy.get('input').attachFile('goodJpg.jpg');
+      cy.get('input').attachFile('goodPng.png');
       cy.get('button.govuk-button--warning').contains('Delete').click();
       cy.get('input').should('exist');
     });
