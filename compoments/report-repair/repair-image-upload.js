@@ -115,7 +115,8 @@ const RepairImageUpload = ({ handleChange, values }) => {
               <input
                 className="govuk-file-upload govuk-file-upload--error"
                 id={repairDescriptionUploadPhotoInputId}
-                name="upload-a-photo" type="file"
+                name="upload-a-photo"
+                type="file"
                 aria-describedby="upload-a-photo-error"
                 onChange={PhotoChange}
               />
