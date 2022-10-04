@@ -7,6 +7,33 @@ import imageToBase64 from 'image-to-base64/browser';
 import {isMvpReleaseVersion} from '../../helpers/features';
 import { imageValidator } from '../../helpers/validators';
 
+const ImagePreview =({image, onDelete}) => {
+  return (
+    <table>
+      <tbody>
+        <tr>
+          <td align="center" valign="center">
+            <img alt="not found" width="200px" src={image} />
+          </td>
+          <td align="center" valign="center">
+            <button
+              className="govuk-button govuk-button--warning"
+              onClick={() => onDelete()}
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  )
+}
+
+ImagePreview.propTypes = {
+  image: PropTypes.string,
+  onDelete: PropTypes.func,
+}
+
 const RepairImageUpload = ({ handleChange, values }) => {
   const [error, setError] = useState(undefined);
   const [activeError, setActiveError] = useState(false);
@@ -40,6 +67,10 @@ const RepairImageUpload = ({ handleChange, values }) => {
     setActiveError(false)
     setSelectedFile(uploadedFile)
     saveFileAsImage(uploadedFile)
+  }
+
+  const removePhoto = () => {
+    setSelectedImage(null)
   }
 
   const Continue = () => {
@@ -76,22 +107,10 @@ const RepairImageUpload = ({ handleChange, values }) => {
               {error}
             </span>
             {selectedImage ? (
-              <table>
-                <tbody>
-                  <tr>
-                    <td align="center" valign="center">
-                      <img alt="not found" width="200px" src={selectedImage} />
-                    </td>
-                    <td align="center" valign="center">
-                      <button
-                        className="govuk-button govuk-button--warning"
-                        onClick={() => setSelectedImage(null)}>
-                                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <ImagePreview
+                image={selectedImage}
+                onDelete={removePhoto}
+              />
             ) : (
               <input className="govuk-file-upload govuk-file-upload--error"
                 id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
