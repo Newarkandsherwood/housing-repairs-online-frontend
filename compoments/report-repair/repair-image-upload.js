@@ -112,9 +112,13 @@ const RepairImageUpload = ({ handleChange, values }) => {
                 onDelete={removePhoto}
               />
             ) : (
-              <input className="govuk-file-upload govuk-file-upload--error"
-                id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
-                aria-describedby="upload-a-photo-error" onChange={PhotoChange} />
+              <input
+                className="govuk-file-upload govuk-file-upload--error"
+                id={repairDescriptionUploadPhotoInputId}
+                name="upload-a-photo" type="file"
+                aria-describedby="upload-a-photo-error"
+                onChange={PhotoChange}
+              />
             )}
           </div>
         </div>
