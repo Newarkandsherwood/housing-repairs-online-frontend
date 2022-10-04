@@ -98,27 +98,6 @@ export default function Home() {
                   <OpeningHours />
                 </div>
               </Details>
-              <Link href="/report-repair/priority-list">
-                <a
-                  role="button"
-                  draggable="false"
-                  className="govuk-button govuk-button--start"
-                  data-module="govuk-button"
-                >
-                  Start now
-                  <svg
-                    className="govuk-button__start-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="17.5"
-                    height="19"
-                    viewBox="0 0 33 40"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-                  </svg>
-                </a>
-              </Link>
             </>}
 
           {!isMvpReleaseVersion() &&
@@ -145,38 +124,41 @@ export default function Home() {
               <p>
                 Report a repair for your council property including leasehold or communal areas
               </p>
-
-              <Link href="/report-repair/priority-list">
-                <a
-                  role="button"
-                  draggable="false"
-                  className="govuk-button govuk-button--start"
-                  data-module="govuk-button"
-                >
-                  Start now
-                  <svg
-                    className="govuk-button__start-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="17.5"
-                    height="19"
-                    viewBox="0 0 33 40"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-                  </svg>
-                </a>
-              </Link>
+            </>}
+          <Link href="/report-repair/priority-list">
+            <a
+              role="button"
+              draggable="false"
+              className="govuk-button govuk-button--start"
+              data-module="govuk-button"
+            >
+              Start now
+              <svg
+                className="govuk-button__start-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="17.5"
+                height="19"
+                viewBox="0 0 33 40"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+              </svg>
+            </a>
+          </Link>
+          {!isMvpReleaseVersion() &&
+            <>
               <h2 className={'govuk-heading-m'}>Change or cancel your repair appointment</h2>
               <p>
                 Change or cancel a repair appointment, you cannot change or cancel communal repairs.
               </p>
               <TextLink
-                href="/report-repair/lookup-appointment"               
+                href="/report-repair/lookup-appointment"
               >
                 Search for a repair appointment to change or cancel
               </TextLink>
-            </>}
+            </>
+          }
         </div>
       </div></main>
   )
