@@ -30,8 +30,8 @@ const ImagePreview =({image, onDelete}) => {
 }
 
 ImagePreview.propTypes = {
-  image: PropTypes.string,
-  onDelete: PropTypes.func,
+  image: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 const RepairImageUpload = ({ handleChange, values }) => {
