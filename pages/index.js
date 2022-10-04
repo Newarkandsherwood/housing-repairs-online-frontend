@@ -149,7 +149,7 @@ export default function Home() {
           {!isMvpReleaseVersion() &&
             <>
               <h2 className={'govuk-heading-m'}>Change or cancel your repair appointment</h2>
-              <p>
+              <p data-testid='cancel-or-repair-appointment'>
                 Change or cancel a repair appointment, you cannot change or cancel communal repairs.
               </p>
               <TextLink
