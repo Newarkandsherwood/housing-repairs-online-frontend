@@ -33,7 +33,7 @@ describe('App', () => {
   it('displays a emergency repair warning on the landing page', () => {
     cy.get('[data-testid=landing-page-emergency-warning]').should(
       'have.contain',
-      'For other emergency repairs, please see customer services contact details page.'
+      'For emergency repairs see our emergency repairs page.'
     );
     cy.get('[data-testid=landing-page-emergency-warning] a')
       .should(
@@ -43,82 +43,11 @@ describe('App', () => {
     );
   });
 
-  context('emergency prompt', () => {
-    it('displays text', () => {
-      cy.get('[data-testid=landing-page-emergency-prompt]').should(
-        'have.contain',
-        'What is an emergency?'
-      );
-    });
-
-    it('displays instructions when clicked', () => {
-      cy.get('[data-testid=landing-page-emergency-prompt] summary')
-        .click()
-        .then(() => {
-          cy.get('[data-testid=landing-page-emergency-info]').should(
-            'be.visible'
-          );
-        });
-    });
-
-    it('displays customer service telephone number', () => {
-      cy.get('[data-testid=landing-page-emergency-prompt] summary')
-        .click()
-        .then(() => {
-          cy.get('[data-testid=landing-page-emergency-info]').should(
-            'contain.text', `Emergency In Hours Repairs - Telephone: ${Cypress.env('CUSTOMER_SERVICES_TELEPHONE_NUMBER')}`
-          );
-        });
-    });
-
-    it('displays out of hours customer service telephone number', () => {
-      cy.get('[data-testid=landing-page-emergency-prompt] summary')
-        .click()
-        .then(() => {
-          cy.get('[data-testid=landing-page-emergency-info]').should(
-            'contain.text',`Emergency Out of Hours Repairs - Telephone: ${Cypress.env('OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER')}`
-          );
-        });
-    });
-
-    it('displays opening hours when clicked', () => {
-      const openingHours = Cypress.env('CUSTOMER_SERVICES_OPENING_HOURS_DESCRIPTION')
-
-      cy.get('[data-testid=landing-page-emergency-prompt] summary')
-        .click()
-        .then(() => {
-          // Check opening hour details are displayed as a list
-          if (typeof openingHours === "object" ) {
-            const listItems = [];
-
-            Object.entries(openingHours).map(([key, value]) => {
-              listItems.push(`${key}: ${value}`)
-            })
-
-          cy.get('[data-testid=opening-hours-list] > li').each((item, index) => {
-            cy.wrap(item)
-              .should(
-                'contain.text',
-                listItems[index]
-              );
-          })
-
-          cy.get('[data-testid=opening-hours-text]')
-            .should('not.exist');
-          
-          } else {
-            // Or check opening hour details are displayed as a sentence
-            cy.get('[data-testid=opening-hours-text]')
-              .should(
-                'contain.text',
-                openingHours
-              );
-
-            cy.get('[data-testid=opening-hours-list]')
-              .should('not.exist');
-          }
-        });
-    });
+  it('displays report a repair text on the landing page', () => {
+    cy.get('[data-testid=landing-page-report-repair-text]').should(
+      'have.contain',
+      'Report a repair for your council property including leasehold or communal areas'
+    );
   });
 
   it('displays a start button', () => {
@@ -131,8 +60,8 @@ describe('App', () => {
     cy.get('a')
       .contains('Accessibility Statement')
       .should(
-        'have.attr', 
-        'href', 
+        'have.attr',
+        'href',
         `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}/${Cypress.env('ACCESSIBILITY_STATEMENT_WEB_PAGE_PATH')}`
       );
   });

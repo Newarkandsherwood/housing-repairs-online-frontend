@@ -106,7 +106,7 @@ export default function Home() {
                 You can use this service to report a non-emergency repair for your council property including leasehold or communal areas. You should only report one problem at a time.
               </p>
               <h2 className={'govuk-heading-m'}>Emergency Repairs</h2>
-              <p>
+              <p data-testid='landing-page-emergency-warning'>
                 For emergency repairs see our{' '}
 
                 <TextLink
@@ -119,9 +119,9 @@ export default function Home() {
               </p>
 
               <h2 className={'govuk-heading-m'}>Gas Leaks</h2>
-              <p> If you suspect you have a gas leak, you must report it immediately to the Gas Emergency Service on <strong>0800 111 999</strong> or via textphone (minicom) on <strong>0800 371 787</strong> </p>
+              <p data-testid='landing-page-gas-warning'> If you suspect you have a gas leak, you must report it immediately to the Gas Emergency Service on <strong>0800 111 999</strong> or via textphone (minicom) on <strong>0800 371 787</strong> </p>
               <h2 className={'govuk-heading-m'}>Report a repair</h2>
-              <p>
+              <p data-testid='landing-page-report-repair-text'>
                 Report a repair for your council property including leasehold or communal areas
               </p>
             </>}
