@@ -5,6 +5,7 @@ import imageToBase64 from 'image-to-base64/browser';
 import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import { isMvpReleaseVersion } from '../../helpers/features';
+import { ImagePreview } from './repair-image-upload';
 
 const CharacterCount = ({ errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit }) => {
 
@@ -97,6 +98,10 @@ const RepairDescription = ({ handleChange, values }) => {
     saveFileAsImage(uploadedFile)
   }
 
+  const removePhoto = () => {
+    setSelectedImage(null)
+  }
+
   const Continue = () => {
     let textError = undefined;
     let imageError = undefined;
@@ -150,22 +155,10 @@ const RepairDescription = ({ handleChange, values }) => {
           {error.img}
         </span>
         {selectedImage ? (
-          <table>
-            <tbody>
-              <tr>
-                <td align="center" valign="center">
-                  <img alt="not found" width="200px" src={selectedImage} />
-                </td>
-                <td align="center" valign="center">
-                  <button
-                    className="govuk-button govuk-button--warning"
-                    onClick={() => setSelectedImage(null)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <ImagePreview
+            image={selectedImage}
+            onDelete={removePhoto}
+          />
         ) : (
           <input className="govuk-file-upload govuk-file-upload--error"
             id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
@@ -173,7 +166,7 @@ const RepairDescription = ({ handleChange, values }) => {
         )}
       </div>
     }
-    else return "";
+    else return '';
   }
 
   return <div className="govuk-grid-row" data-cy="repair-description">
