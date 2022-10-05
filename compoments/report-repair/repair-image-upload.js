@@ -59,7 +59,7 @@ const RepairImageUpload = ({ handleChange, values }) => {
         filename: selectedFile ? selectedFile.name: '',
         fileExtension: fileExtension,
         base64img: base64img,
-        text: values.description.text
+        text: values?.description?.text || undefined
       });
     } else {
       setSelectedImage(null);
