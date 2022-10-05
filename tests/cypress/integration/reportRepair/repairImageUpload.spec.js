@@ -47,6 +47,4 @@ describe('repair image upload', () => {
     });
   });
 
-  
-  
 });
