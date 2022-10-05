@@ -51,7 +51,6 @@ const imageValidator = (file) => {
   if (!allowedImageTypes.includes(file.type)) {
     return 'The selected file must be a JPG or PNG';
   }
-  (console.log('file.size', file.size))
   let actualImageSize = (file.size / 1024 / 1024).toFixed(2);
   if (actualImageSize > allowedImageSize) {
     return `The selected file must be smaller than 10MB. Your file size is ${actualImageSize}MB`;
