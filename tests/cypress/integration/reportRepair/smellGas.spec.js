@@ -1,9 +1,9 @@
-describe('smellGas full version', () => {
+describe('smellGas', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/report-repair/smell-gas');
   });
 
-  it('Displays full version page title', () => {
+  it('Displays page title', () => {
     cy.get('h1[class="govuk-heading-xl"]').contains('What to do if you smell gas');
   });
 
