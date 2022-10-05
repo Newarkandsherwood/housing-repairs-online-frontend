@@ -4,7 +4,7 @@ describe('App', () => {
   });
 
   it('displays service title', () => {
-    cy.contains('Housing Repairs');
+    cy.contains('Request a repair');
   });
 
   it("has a logo that links to the council's main website home page", () => {
@@ -23,14 +23,14 @@ describe('App', () => {
       );
   });
 
-  it('displays a smell gas warning on the landing page', () => {
+  it('displays a gas leak paragraoh on the landing page', () => {
     cy.get('[data-testid=landing-page-gas-warning]').should(
       'have.contain',
       'If you suspect you have a gas leak, you must report it immediately to the Gas Emergency Service on 0800 111 999 or via textphone (minicom) on 0800 371 787'
     );
   });
 
-  it('displays a emergency repair warning on the landing page', () => {
+  it('displays a emergency repair paragraph on the landing page with link', () => {
     cy.get('[data-testid=landing-page-emergency-warning]').should(
       'have.contain',
       'For emergency repairs see our emergency repairs page.'
