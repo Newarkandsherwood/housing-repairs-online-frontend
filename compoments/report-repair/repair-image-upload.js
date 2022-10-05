@@ -53,7 +53,6 @@ const RepairImageUpload = ({ handleChange, values }) => {
         imageError = `The selected file must be smaller than 10MB. Your file size is ${size}MB`;
       }
     }
-    console.log('selectedImage', selectedImage)
     if (!imageError) {
       return handleChange('description', {
         photo: selectedImage,
