@@ -19,7 +19,7 @@ const Summary = ({values, submit, goToStep}) => {
   ]
   if (!isMvpReleaseVersion()) {
     repairDetailsSummary.push(
-      { pageName:'Repair Image', value: values.image?.filename, link:'repair-image-upload'}
+      { pageName:'Repair Image', value: values.description?.filename, link:'repair-image-upload'}
     );
   }
 

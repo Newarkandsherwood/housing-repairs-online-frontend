@@ -10,9 +10,9 @@ const RepairImageUpload = ({ handleChange, values }) => {
   const [error, setError] = useState(undefined);
   const [activeError, setActiveError] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
-  const [selectedImage, setSelectedImage] = useState(values.image?.photo);
-  const [fileExtension, setFileExtension] = useState(values.image?.fileExtension);
-  const [base64img, setBase64img] = useState(values.image?.base64img);
+  const [selectedImage, setSelectedImage] = useState(values.description?.photo);
+  const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
+  const [base64img, setBase64img] = useState(values.description?.base64img);
   const title = isMvpReleaseVersion() ? 'Upload a photo (optional)': 'Upload an image of the problem (optional)';
   const pageTitle = `${title} - ${serviceName}`;
   const repairDescriptionUploadPhotoInputId = 'repair-description-upload-a-photo-input';
@@ -53,12 +53,14 @@ const RepairImageUpload = ({ handleChange, values }) => {
         imageError = `The selected file must be smaller than 10MB. Your file size is ${size}MB`;
       }
     }
+    console.log('selectedImage', selectedImage)
     if (!imageError) {
-      return handleChange('image', {
+      return handleChange('description', {
         photo: selectedImage,
         filename: selectedFile ? selectedFile.name: '',
         fileExtension: fileExtension,
-        base64img: base64img
+        base64img: base64img,
+        text: values.description.text
       });
     } else {
       setSelectedImage(null);
