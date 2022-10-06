@@ -1,3 +1,8 @@
+import {
+  checkIfSelectionGoesToCorrectUrl,
+  navigateToTenantOrLeaseholderPage
+} from '../../support/helpers';
+
 function loadTenantOrLeaseholderPage() {
   cy.visit('http://localhost:3000/report-repair/tenant-or-leaseholder');
   cy.get('[data-cy=tenantOrLeaseholder]', {timeout: 10000})
@@ -26,6 +31,21 @@ describe('tenant or leaseholder', () => {
             cy.get('button').click();
             cy.contains('Select yes if you pay your rent to the council');
           });
+        });
+      });
+    });
+
+    context('When a user selects an option', () => {
+      beforeEach(navigateToTenantOrLeaseholderPage);
+      context('When a user selects: Yes', () => {
+        it('should redirect them to the postcode page', () => {
+          checkIfSelectionGoesToCorrectUrl('/report-repair/postcode', 'Yes')
+        });
+      });
+
+      context('When a user selects: No', () => {
+        it('should redirect them to the postcode page', () => {
+          checkIfSelectionGoesToCorrectUrl('/report-repair/postcode', 'No')
         });
       });
     });
