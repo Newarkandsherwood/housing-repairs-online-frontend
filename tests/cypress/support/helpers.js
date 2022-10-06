@@ -94,10 +94,18 @@ const navigateToCommunalPage = () => {
   })
 }
 
-const navigateToPostcodePage = () => {
+const navigateToTenantOrLeaseholderPage = () => {
   navigateToCommunalPage();
   navigateToPageSelectRadioOptionAndContinue({
     page: 'communal', option:'No'
+  })
+  cy.get('[data-cy=tenantOrLeaseholder]', {timeout: 10000})
+}
+
+const navigateToPostcodePage = () => {
+  navigateToTenantOrLeaseholderPage();
+  navigateToPageSelectRadioOptionAndContinue({
+    page: 'tenantOrLeaseholder', option:'Yes'
   })
   cy.get('[data-cy=postcode]', {timeout: 10000})
 }
@@ -258,6 +266,7 @@ export {
   intercept_save_repair,
   continueOnPage,
   navigateToCommunalPage,
+  navigateToTenantOrLeaseholderPage,
   navigateToPostcodePage,
   navigateToAddressPage,
   navigateToLocationPage,

@@ -22,8 +22,9 @@ class Flow {
       'emergency-repair': {},
       'communal': {prevStep: isMvpReleaseVersion()? 'priority-list' : true, nextStep: [
         {condition: 'yes', nextStep: 'not-eligible-communal-repairs'},
-        {condition: 'no', nextStep: 'postcode'}
+        {condition: 'no', nextStep: isMvpReleaseVersion() ? 'postcode' : 'tenant-or-leaseholder'}
       ]},
+      'tenant-or-leaseholder' : {prevSteps: 'communal', nextStep: 'postcode'},
       'postcode': {prevStep: 'communal', nextStep: 'address'},
       'address': {prevStep: 'postcode', nextStep: 'repair-location'},
       'repair-location': { prevStep: 'address', nextStep: repairTriageNextSteps},

@@ -60,7 +60,7 @@ describe('communal', () => {
           makeSelectionAndClickButton('No');
         });
         it('should redirect them to postcode then address page respectively',  () => {
-          cy.url().should('include', '/report-repair/postcode');
+          cy.url().should('include', '/report-repair/tenant-or-leaseholder');
         });
       });
     });
