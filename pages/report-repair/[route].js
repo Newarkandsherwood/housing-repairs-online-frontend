@@ -373,6 +373,8 @@ function ReportRepair() {
     case 'tenant-or-leaseholder':
       return (
         <TenantOrLeaseholder
+          handleChange={handleChange}
+          values={values}
         />
       )
     default:
