@@ -12,8 +12,8 @@
     "cy:open": "cypress open --env CYPRESS_RELEASE_VERSION=full",
     "cy:openmvp": "cypress open --env CYPRESS_RELEASE_VERSION=mvp",
     "cy:run": "cypress run --env CYPRESS_RELEASE_VERSION=full",
-    "cy:runmvp": "cypress run --env CYPRESS_RELEASE_VERSION=mvp  --spec 'tests/cypress/integration/reportRepair/repairDescriptionMvp.spec.js'",
-    "test:integration": "start-server-and-test start http://localhost:3000 cy:open",
+    "cy:runmvp": "cypress run --env CYPRESS_RELEASE_VERSION=mvp  --spec 'tests/cypress/integration/reportRepair/*Mvp.spec.js'",
+    "test:integration": "start-server-and-test dev http://localhost:3000 cy:open",
     "test:integration:mvp": "start-server-and-test start http://localhost:3000 cy:openmvp",
     "test:headless:integration": "yarn build && start-server-and-test start http://localhost:3000 cy:run",
     "test:headless:integration:mvp": "yarn build && start-server-and-test start http://localhost:3000 cy:runmvp"
