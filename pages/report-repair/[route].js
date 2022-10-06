@@ -31,6 +31,7 @@ import useSWR from 'swr'
 import { fetcher } from '../../helpers/fetcher';
 import ContactUs from '../../compoments/report-repair/contact-us';
 import {customerServicesTelephoneNumber} from '../../globals'
+import TenantOrLeaseholder from '../../compoments/report-repair/tenant-or-leaseholder';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
@@ -369,6 +370,11 @@ function ReportRepair() {
           fromDate={router.query.fromDate}
         />
       )
+    case 'tenant-or-leaseholder':
+      return (
+        <TenantOrLeaseholder
+        />
+      )
     default:
       return <div>Not found</div>;
     }
@@ -405,7 +411,8 @@ export async function getStaticPaths() {
     {params: { route: 'repair-image-upload'} },
     {params: { route: 'repair-availability'} },
     {params: { route: 'smell-gas'} },
-    {params: { route: 'contact-us'} }
+    {params: { route: 'contact-us'} },
+    {params: { route: 'tenant-or-leaseholder'} }
   ]
 
   return { paths, fallback: false };
