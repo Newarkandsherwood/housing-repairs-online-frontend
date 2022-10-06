@@ -30,10 +30,12 @@ describe('ImagePreview', () => {
     expect(container.querySelector('img').getAttribute('src')).toBe(mockImageBlob);
   })
 
-  test('displays a delete button & calls the correct function on click', () => {
-    const deleteButton = container.querySelector('button');
-    expect(deleteButton.textContent).toBe('Delete');
-    Simulate.click(deleteButton)
+  test('displays a delete button', () => {
+    expect( container.querySelector('button').textContent).toBe('Delete');
+  })
+
+  test('clicking the delete button calls the correct function on click', () => {
+    Simulate.click(container.querySelector('button'))
     expect(mockDelete).toBeCalled()
   })
 })
