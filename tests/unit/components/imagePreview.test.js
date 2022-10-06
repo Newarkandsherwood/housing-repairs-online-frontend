@@ -1,7 +1,7 @@
 import React from 'react';
 import { act, Simulate } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { ImagePreview } from '../../../compoments/report-repair/repair-image-upload';
+import ImagePreview from '../../../compoments/image-preview';
 
 let container = null;
 

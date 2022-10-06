@@ -5,7 +5,7 @@ import imageToBase64 from 'image-to-base64/browser';
 import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import { isMvpReleaseVersion } from '../../helpers/features';
-import { ImagePreview } from './repair-image-upload';
+import ImagePreview from '../image-preview';
 
 const CharacterCount = ({ errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit }) => {
 
