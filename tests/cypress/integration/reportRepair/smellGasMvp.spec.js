@@ -1,7 +1,7 @@
 describe('smellGas mvp', () => {
   context('conditional mvp tests', () => {
     if (Cypress.env('CYPRESS_RELEASE_VERSION') == 'mvp') {
-      beforeEach(() => {
+      before(() => {
         cy.visit('http://localhost:3000/report-repair/smell-gas');
       });
 

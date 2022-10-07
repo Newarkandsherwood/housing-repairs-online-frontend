@@ -1,5 +1,5 @@
 describe('smellGas', () => {
-  beforeEach(() => {
+  before(() => {
     cy.visit('http://localhost:3000/report-repair/smell-gas');
   });
 

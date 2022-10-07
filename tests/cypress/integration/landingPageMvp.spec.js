@@ -1,6 +1,6 @@
 describe('App', () => {
   if (Cypress.env('CYPRESS_RELEASE_VERSION') == 'mvp') {
-    beforeEach(() => {
+    before(() => {
       cy.visit('http://localhost:3000/');
     });
 
