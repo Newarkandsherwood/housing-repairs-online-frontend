@@ -5,80 +5,21 @@ import {
   intercept_availability_search,
   intercept_repair_triage,
   navigateToPageSelectRadioOptionAndContinue,
-  navigateToPageTypeInputTextAndContinue
+  navigateToSummaryPage,
 } from '../../support/helpers';
 
 describe('summary', () => {
-  let timeSlot = ''
+  let timeSlotValueFunction;
   const address = '1 Downing Street, London, SW1A 2AA';
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '02085548333';
-  const email = 'harrypotter@hogwarts.com';
 
   beforeEach(() => {
     intercept_availability_search();
     intercept_address_search();
     intercept_repair_triage();
-    cy.visit('http://localhost:3000/report-repair/');
 
-    navigateToPageSelectRadioOptionAndContinue({
-      page: 'priority-list',
-      option:'Something else'
-    })
-
-    navigateToPageSelectRadioOptionAndContinue({
-      page: 'communal', option:'No'
-    })
-
-    navigateToPageTypeInputTextAndContinue({
-      page: 'postcode', inputText:'SW1A 2AA'
-    })
-
-    cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
-      cy.get('select').select(address)
-      cy.get('button').click();
-    });
-
-    navigateToPageSelectRadioOptionAndContinue({
-      page: 'repair-location', option:'Kitchen'
-    })
-
-    navigateToPageSelectRadioOptionAndContinue({
-      page: 'repair-problem', option:'Cupboards, including damaged cupboard doors'
-    })
-
-    navigateToPageSelectRadioOptionAndContinue({
-      page: 'repair-problem-best-description', option:'Hanging door'
-    })
-
-    cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
-      cy.get('textarea').type(repairDescription);
-      cy.get('button').contains('Continue').click();
-    });
-
-    cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
-      cy.get('button').contains('Continue').click();
-    });
-
-    navigateToPageTypeInputTextAndContinue({
-      page: 'contact-person',
-      inputText: phoneNumber
-    })
-
-    cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
-      cy.get('input#contactDetails-1').click().then(()=> {
-        cy.get('input#contactDetails-email').type(email);
-      })
-      cy.get('button').click();
-    });
-
-    cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
-      cy.get('[data-cy=availability-slot-0-0]').invoke('val').then(value =>{
-        timeSlot = value;
-      })
-      cy.get('[data-cy=availability-slot-0-0]').click();
-      cy.get('button').click();
-    });
+    timeSlotValueFunction = navigateToSummaryPage();
   });
 
   it('Displays all of the content', () => {
@@ -221,7 +162,7 @@ describe('summary', () => {
       cy.get('button').contains('Continue').click();
       cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
         cy.get('button').contains('Continue').click();
-      });            
+      });
       cy.get('[data-cy=contact-person]', {timeout: 10000}).then(() => {
         cy.get('button').click();
       });
@@ -236,7 +177,7 @@ describe('summary', () => {
   });
   context('Appointment Details', () => {
     it('allows you to change the date', () => {
-      cy.contains(convertDateToDisplayDate(timeSlot));
+      cy.contains(convertDateToDisplayDate(timeSlotValueFunction()));
       cy.get('a[href*="repair-availability"]').contains('Change').click()
       cy.location('href').should('eq', 'http://localhost:3000/report-repair/repair-availability');
       cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {

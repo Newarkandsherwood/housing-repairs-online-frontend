@@ -1,4 +1,9 @@
-import {checkIfSelectionGoesToCorrectUrl, intercept_address_search, makeSelectionAndClickButton} from "../../support/helpers";
+import {
+  checkIfSelectionGoesToCorrectUrl,
+  intercept_address_search,
+  makeSelectionAndClickButton,
+  navigateToCommunalPage
+} from '../../support/helpers';
 
 function loadCommunalPage() {
   cy.visit('http://localhost:3000/report-repair/communal');
@@ -42,10 +47,7 @@ describe('communal', () => {
     });
 
     context('When a user selects an option', () => {
-      beforeEach(() => {
-        cy.visit('http://localhost:3000/report-repair/');
-        makeSelectionAndClickButton('Something else');
-      });
+      beforeEach(navigateToCommunalPage);
       context('When a user selects: Yes', ()=>{
         it('should redirect them to not eligible non emergency page',  () => {
           checkIfSelectionGoesToCorrectUrl('/report-repair/not-eligible-communal-repairs', 'Yes')

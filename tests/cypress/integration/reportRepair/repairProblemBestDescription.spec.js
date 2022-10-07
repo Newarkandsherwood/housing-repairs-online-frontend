@@ -3,32 +3,8 @@ import {
   intercept_address_search,
   intercept_availability_search,
   intercept_repair_triage,
-  makeSelectionAndClickButton,
-  navigateToPageSelectRadioOptionAndContinue,
-  navigateToPageTypeInputTextAndContinue
+  navigateToBestDescriptionPage,
 } from '../../support/helpers';
-
-const navigateToBestDescriptionPage = () => {
-  cy.visit('http://localhost:3000/report-repair/');
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'priority-list',
-    option:'Something else'
-  })
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'communal', option:'No'
-  })
-  navigateToPageTypeInputTextAndContinue({
-    page: 'postcode', inputText:'SW1A 2AA'
-  })
-  const address = '1 Downing Street, London, SW1A 2AA';
-  cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
-    cy.get('select').select(address)
-    cy.get('button').click();
-  });
-  makeSelectionAndClickButton('Kitchen');
-  makeSelectionAndClickButton('Damp or mould');
-
-}
 
 describe('repairProblemBestDescription', () => {
 
