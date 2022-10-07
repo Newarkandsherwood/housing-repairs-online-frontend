@@ -202,7 +202,7 @@ describe('Flow', () => {
     });
 
     describe('when current step doesn\'t have a next step', ()=>{
-      test.only('next step and data are set appropriately', ()=>{
+      test('next step and data are set appropriately', ()=>{
         global.window = Object.create(window);
         Object.defineProperty(window, 'location', {
           value: {
