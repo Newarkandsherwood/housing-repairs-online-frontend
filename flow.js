@@ -19,7 +19,8 @@ class Flow {
         {condition: 'emergency/8', nextStep: 'emergency-repair'},
         {condition: 'non-emergency/9', nextStep: 'communal'}
       ]},
-      'communal': {prevStep: 'priority-list', nextStep: [
+      'emergency-repair': {},
+      'communal': {prevStep: isMvpReleaseVersion()? 'priority-list' : true, nextStep: [
         {condition: 'yes', nextStep: 'not-eligible-communal-repairs'},
         {condition: 'no', nextStep: 'postcode'}
       ]},

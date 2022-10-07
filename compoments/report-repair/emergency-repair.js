@@ -5,6 +5,7 @@ import { serviceName } from '../../helpers/constants';
 import TextLink from '../textLink';
 import { OpeningHours } from '../openingHours';
 import { isMvpReleaseVersion } from '../../helpers/features';
+import Link from 'next/link';
 
 const EmergencyRepairMvp = () => {
   const title = 'Your repair could be an emergency'
@@ -38,7 +39,7 @@ const EmergencyRepairMvp = () => {
   </div>
 };
 
-const EmergencyRepairFull = ({ prevStep }) => {
+const EmergencyRepairFull = ({ prevStep, goToStep }) => {
   const title = 'Your repair could be an emergency'
 
   return <div className="govuk-grid-row govuk-body-m">
@@ -68,16 +69,26 @@ const EmergencyRepairFull = ({ prevStep }) => {
           <p>If you call us between the hours of 4pm and 8am we will provide a 'make safe' only service.</p>
         </div>
       </label>
-      {prevStep === 'priority-list' &&
+      {(prevStep === 'priority-list' || prevStep === 'emergency-repair') &&
         <p className="govuk-body">
-          <TextLink href="communal">My problem is not an emergency</TextLink>
+          <Link href='communal'>
+            <a
+              className={'govuk-link'}
+              href='communal'
+              onClick={(e)=>{
+                e.preventDefault()
+                goToStep('communal', 'emergency-repair')
+              }}>
+                My problem is not an emergency
+            </a>
+          </Link>
         </p>}
     </div>
   </div>
 };
 
-const EmergencyRepair = ({ prevStep }) => {
-  return isMvpReleaseVersion() ? <EmergencyRepairMvp /> : <EmergencyRepairFull prevStep={prevStep} />
+const EmergencyRepair = ({ prevStep, goToStep }) => {
+  return isMvpReleaseVersion() ? <EmergencyRepairMvp /> : <EmergencyRepairFull prevStep={prevStep} goToStep={goToStep}  />
 };
 
 export default EmergencyRepair;
