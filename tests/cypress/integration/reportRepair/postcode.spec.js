@@ -1,5 +1,6 @@
 import {
-  intercept_address_search, makeSelectionAndClickButton
+  intercept_address_search,
+  navigateToPostcodePage
 } from '../../support/helpers';
 
 function loadPostcodePage() {
@@ -45,14 +46,7 @@ describe('postcode', () => {
     })
 
     context('Navigation', () => {
-      beforeEach(() => {
-        cy.visit('http://localhost:3000/report-repair/');
-        makeSelectionAndClickButton('Something else');
-        cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
-          makeSelectionAndClickButton('No');
-        });
-        cy.get('[data-cy=postcode]', {timeout: 10000})
-      });
+      beforeEach(navigateToPostcodePage);
 
       context('When a user type a valid postcode', () => {
         it('the user proceeds to the address selection', () => {

@@ -1,4 +1,7 @@
-import {intercept_address_search, makeSelectionAndClickButton} from '../../support/helpers';
+import {
+  intercept_address_search,
+  navigateToAddress
+} from '../../support/helpers';
 
 function setup_addresses_search(setup_addresses_API) {
   setup_addresses_API();
@@ -12,16 +15,6 @@ function setup_addresses_search(setup_addresses_API) {
 function setupAddressSearchAndNavigateToAddress() {
   navigateToAddress()
   setup_addresses_search(intercept_address_search);
-}
-
-function navigateToAddress() {
-  cy.visit('http://localhost:3000/');
-  cy.contains('Start now').click();
-  cy.contains('Something else').click();
-  cy.get('button').click();
-  cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
-    cy.contains('No').click();
-  });
 }
 
 describe('address', () => {
