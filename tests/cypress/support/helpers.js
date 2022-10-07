@@ -81,13 +81,18 @@ const convertDateToDisplayDate = (date) => {
   return `${dateString} between ${timeString}`
 }
 
-const navigateToCommunalPage = () => {
+function navigateToReportRepair() {
   cy.visit('http://localhost:3000/report-repair/');
+  cy.get('[data-cy=priority-list]', {timeout: 10000})
+}
+
+const navigateToCommunalPage = () => {
+  navigateToReportRepair();
   makeSelectionAndClickButton('Something else');
 }
 
 const navigateToPostcodePage = () => {
-  cy.visit('http://localhost:3000/report-repair/');
+  navigateToReportRepair();
   makeSelectionAndClickButton('Something else');
   cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
     makeSelectionAndClickButton('No');
@@ -96,8 +101,7 @@ const navigateToPostcodePage = () => {
 }
 
 const navigateToAddressPage = () => {
-  cy.visit('http://localhost:3000/');
-  cy.contains('Start now').click();
+  navigateToReportRepair();
   cy.contains('Something else').click();
   cy.get('button').click();
   cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
@@ -106,7 +110,7 @@ const navigateToAddressPage = () => {
 }
 
 const navigateToBestDescriptionPage = () => {
-  cy.visit('http://localhost:3000/report-repair/');
+  navigateToReportRepair();
   navigateToPageSelectRadioOptionAndContinue({
     page: 'priority-list',
     option:'Something else'
@@ -133,7 +137,7 @@ const navigateToRepairAvailabilityPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  cy.visit('http://localhost:3000/report-repair/');
+  navigateToReportRepair();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'priority-list',
@@ -190,7 +194,7 @@ const navigateToSummaryPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  cy.visit('http://localhost:3000/report-repair/');
+  navigateToReportRepair();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'priority-list',
@@ -260,7 +264,7 @@ const completeJourney = (contactType, contactValue) => {
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '07512345678';
 
-  cy.visit('http://localhost:3000/report-repair/');
+  navigateToReportRepair();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'priority-list',
@@ -348,7 +352,7 @@ const completeJourneyUsingEmail = (emailAddress) => {
 const navigateToLocationPage = () => {
   intercept_address_search();
   intercept_repair_triage();
-  cy.visit('http://localhost:3000/report-repair/');
+  navigateToReportRepair();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'priority-list',
