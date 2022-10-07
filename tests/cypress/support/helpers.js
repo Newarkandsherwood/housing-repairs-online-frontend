@@ -109,7 +109,7 @@ const navigateToAddressPage = () => {
   })
 }
 
-const navigateToBestDescriptionPage = () => {
+const navigateToRepairLocationPage = () => {
   navigateToAddressPage();
 
   const address = '1 Downing Street, London, SW1A 2AA';
@@ -117,23 +117,22 @@ const navigateToBestDescriptionPage = () => {
     cy.get('select').select(address)
     cy.get('button').click();
   });
+  cy.get('[data-cy=repair-location]', { timeout: 10000 })
+}
+
+const navigateToBestDescriptionPage = () => {
+  navigateToRepairLocationPage();
+
   makeSelectionAndClickButton('Kitchen');
   makeSelectionAndClickButton('Damp or mould');
-
 }
 
 const navigateToRepairAvailabilityPage = () => {
-  const address = '1 Downing Street, London, SW1A 2AA';
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToAddressPage();
-
-  cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
-    cy.get('select').select(address)
-    cy.get('button').click();
-  });
+  navigateToRepairLocationPage();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-location', option: 'Kitchen'
@@ -167,17 +166,11 @@ const navigateToRepairAvailabilityPage = () => {
 
 const navigateToSummaryPage = () => {
   let timeSlot = ''
-  const address = '1 Downing Street, London, SW1A 2AA';
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToAddressPage();
-
-  cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
-    cy.get('select').select(address)
-    cy.get('button').click();
-  });
+  navigateToRepairLocationPage();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-location', option: 'Kitchen'
@@ -225,16 +218,10 @@ const navigateToSummaryPage = () => {
 }
 
 const completeJourney = (contactType, contactValue) => {
-  const address = '1 Downing Street, London, SW1A 2AA';
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '07512345678';
 
-  navigateToAddressPage();
-
-  cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
-    cy.get('select').select(address)
-    cy.get('button').click();
-  });
+  navigateToRepairLocationPage();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-location', option: 'Kitchen'
@@ -305,13 +292,7 @@ const navigateToLocationPage = () => {
   intercept_address_search();
   intercept_repair_triage();
 
-  navigateToAddressPage();
-
-  cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
-    cy.get('select').select('1 Downing Street, London, SW1A 2AA')
-    cy.get('button').click();
-  });
-  cy.get('[data-cy=repair-location]', { timeout: 10000 })
+  navigateToRepairLocationPage();
 }
 
 function makeSelectionAndClickButton(buttonLabel) {
