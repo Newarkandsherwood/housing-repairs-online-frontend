@@ -255,7 +255,7 @@ const navigateToSummaryPage = () => {
   return () => timeSlot;
 }
 
-const completeJourney = (useContactPhone = false, contactValue) => {
+const completeJourney = (contactType, contactValue) => {
   const address = '1 Downing Street, London, SW1A 2AA';
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '07512345678';
@@ -308,14 +308,19 @@ const completeJourney = (useContactPhone = false, contactValue) => {
   })
 
   cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
-    if (useContactPhone) {
+    switch (contactType) {
+    case 'phone':
       cy.contains('Text message (recommended)').click().then(() => {
         cy.get('input#contactDetails-text').type(contactValue);
       })
-    } else {
+      break;
+    case 'email':
       cy.contains('Email').click().then(() => {
         cy.get('input#contactDetails-email').type(contactValue);
       })
+      break;
+    default:
+      throw new Error(`Unexpected value for 'contactType': ${contactType}`);
     }
     cy.get('button').click();
   });
@@ -330,6 +335,14 @@ const completeJourney = (useContactPhone = false, contactValue) => {
   });
 
   return () => { }
+}
+
+const completeJourneyUsingPhone = (phoneNumber) => {
+  completeJourney('phone', phoneNumber);
+}
+
+const completeJourneyUsingEmail = (emailAddress) => {
+  completeJourney('email', emailAddress);
 }
 
 const navigateToLocationPage = () => {
@@ -383,7 +396,8 @@ export {
   navigateToBestDescriptionPage,
   navigateToRepairAvailabilityPage,
   navigateToSummaryPage,
-  completeJourney,
+  completeJourneyUsingPhone,
+  completeJourneyUsingEmail,
   makeSelectionAndClickButton,
   checkIfSelectionGoesToCorrectUrl,
   intercept_repair_triage
