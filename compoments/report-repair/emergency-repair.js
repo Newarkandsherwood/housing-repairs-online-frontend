@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ContactNumbers from '../contactNumbers';
 import { customerServicesTelephoneNumber, outOfHoursCustomerServicesTelephoneNumber } from '../../globals'
 import { serviceName } from '../../helpers/constants';
@@ -39,7 +40,7 @@ const EmergencyRepairMvp = () => {
   </div>
 };
 
-const EmergencyRepairFull = ({ prevStep, goToStep }) => {
+const EmergencyRepairFull = ({ goToStep, prevStep }) => {
   const title = 'Your repair could be an emergency'
 
   return <div className="govuk-grid-row govuk-body-m">
@@ -87,8 +88,18 @@ const EmergencyRepairFull = ({ prevStep, goToStep }) => {
   </div>
 };
 
-const EmergencyRepair = ({ prevStep, goToStep }) => {
+EmergencyRepairFull.propTypes = {
+  goToStep: PropTypes.func.isRequired,
+  prevStep: PropTypes.string
+}
+
+const EmergencyRepair = ({ goToStep, prevStep }) => {
   return isMvpReleaseVersion() ? <EmergencyRepairMvp /> : <EmergencyRepairFull prevStep={prevStep} goToStep={goToStep}  />
 };
+
+EmergencyRepair.propTypes = {
+  goToStep: PropTypes.func.isRequired,
+  prevStep: PropTypes.string
+}
 
 export default EmergencyRepair;
