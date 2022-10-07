@@ -1,10 +1,8 @@
-import {checkIfSelectionGoesToCorrectUrl, makeSelectionAndClickButton, navigateToLocation} from '../../support/helpers';
+import {checkIfSelectionGoesToCorrectUrl, makeSelectionAndClickButton, navigateToLocationPage} from '../../support/helpers';
 
 describe('repairLocation', () => {
   context('Content', () => {
-    before(() => {
-      navigateToLocation();
-    });
+    before(navigateToLocationPage);
 
     it('displays the repair location question', () => {
       cy.contains('Where is the problem?');
@@ -34,9 +32,7 @@ describe('repairLocation', () => {
   });
 
   context('Validation', () => {
-    beforeEach(() => {
-      navigateToLocation();
-    });
+    beforeEach(navigateToLocationPage);
     context('When a user doesn\'t select anything', () => {
       it('should show validation message', () => {
         cy.get('button').click().then(() => {
@@ -47,9 +43,7 @@ describe('repairLocation', () => {
   });
 
   context('When a user selects: Kitchen', ()=>{
-    beforeEach(()=>{
-      navigateToLocation();
-    })
+    beforeEach(navigateToLocationPage);
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
         checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Kitchen')
@@ -65,9 +59,7 @@ describe('repairLocation', () => {
   });
 
   context('When a user selects: Bathroom', ()=>{
-    beforeEach(()=>{
-      navigateToLocation();
-    })
+    beforeEach(navigateToLocationPage);
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
         checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Bathroom')
@@ -83,9 +75,7 @@ describe('repairLocation', () => {
   });
 
   context('When a user selects: Bedroom', ()=>{
-    beforeEach(()=>{
-      navigateToLocation();
-    })
+    beforeEach(navigateToLocationPage);
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
         checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Bedroom')
@@ -101,9 +91,7 @@ describe('repairLocation', () => {
   });
 
   context('When a user selects: Living Areas', ()=>{
-    beforeEach(()=>{
-      navigateToLocation();
-    })
+    beforeEach(navigateToLocationPage);
     context('by clicking the label', ()=>{
       it('should redirect them to kitchen repair type page',  () => {
         checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Living Areas')
@@ -119,9 +107,7 @@ describe('repairLocation', () => {
   });
 
   context('When a user selects: Outside', ()=>{
-    beforeEach(()=>{
-      navigateToLocation();
-    })
+    beforeEach(navigateToLocationPage);
     context('by clicking the label', ()=>{
       it('should redirect them to outside repair type page',  () => {
         checkIfSelectionGoesToCorrectUrl('/report-repair/repair-problems', 'Outside')
@@ -137,9 +123,7 @@ describe('repairLocation', () => {
   });
 
   context('When a user selects an option', ()=>{
-    beforeEach(()=>{
-      navigateToLocation();
-    })
+    beforeEach(navigateToLocationPage);
 
     it('should be selected when they navigate back to the page',  () => {
       makeSelectionAndClickButton('Kitchen')

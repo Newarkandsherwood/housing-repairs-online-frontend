@@ -95,7 +95,7 @@ const navigateToPostcodePage = () => {
   cy.get('[data-cy=postcode]', {timeout: 10000})
 }
 
-const navigateToAddress = () => {
+const navigateToAddressPage = () => {
   cy.visit('http://localhost:3000/');
   cy.contains('Start now').click();
   cy.contains('Something else').click();
@@ -332,7 +332,7 @@ const completeJourney = (useContactPhone = false, contactValue) => {
   return () => { }
 }
 
-const navigateToLocation = () => {
+const navigateToLocationPage = () => {
   intercept_address_search();
   intercept_repair_triage();
   cy.visit('http://localhost:3000/report-repair/');
@@ -378,8 +378,8 @@ export {
   continueOnPage,
   navigateToCommunalPage,
   navigateToPostcodePage,
-  navigateToAddress,
-  navigateToLocation,
+  navigateToAddressPage,
+  navigateToLocationPage,
   navigateToBestDescriptionPage,
   navigateToRepairAvailabilityPage,
   navigateToSummaryPage,

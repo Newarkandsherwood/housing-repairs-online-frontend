@@ -1,6 +1,6 @@
 import {
   intercept_address_search,
-  navigateToAddress
+  navigateToAddressPage
 } from '../../support/helpers';
 
 function setup_addresses_search(setup_addresses_API) {
@@ -13,7 +13,7 @@ function setup_addresses_search(setup_addresses_API) {
 }
 
 function setupAddressSearchAndNavigateToAddress() {
-  navigateToAddress()
+  navigateToAddressPage();
   setup_addresses_search(intercept_address_search);
 }
 
@@ -56,7 +56,7 @@ describe('address', () => {
     });
 
     context('When API addresses contain \'nulls\' they are not displayed', () => {
-      beforeEach(navigateToAddress);
+      beforeEach(navigateToAddressPage);
       it('address line 1 is null', () => {
         setup_addresses_search(()=>intercept_address_search(1, 'SW1A 2AA', true))
         cy.get('select').contains(/^London, SW1A 2AA$/)
