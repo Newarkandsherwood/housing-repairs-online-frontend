@@ -1,25 +1,18 @@
 import {
   intercept_address_search,
+  navigateToAddressPage,
   navigateToPostcodePage
 } from '../../support/helpers';
 
 function setup_addresses_search(setup_addresses_API) {
   setup_addresses_API();
-  cy.get('button').click().then(()=>{
-    cy.get('input.govuk-input').type('SW1A 2AA');
-    cy.get('button').click();
-  });
-  cy.get('[data-cy=address]', { timeout: 10000 }).then(($loadedSection) => {});
-}
-
-function setupAddressSearchAndNavigateToAddress() {
-  navigateToPostcodePage();
-  setup_addresses_search(intercept_address_search);
+  navigateToAddressPage();
+  cy.get('[data-cy=address]', { timeout: 10000 })
 }
 
 describe('address', () => {
   context('Content', () => {
-    before(setupAddressSearchAndNavigateToAddress);
+    before(() => setup_addresses_search(intercept_address_search));
 
     it('displays the label', () => {
       cy.contains('Select an address');
@@ -38,7 +31,7 @@ describe('address', () => {
   context('Behaviour', () => {
     context('Validation', () => {
       context('When a user doesn\'t select anything', ()=>{
-        before(setupAddressSearchAndNavigateToAddress);
+        before(() => setup_addresses_search(intercept_address_search));
         it('an error should be shown',  () => {
           cy.get('button').click()
           cy.contains('Select the property address');
@@ -46,7 +39,7 @@ describe('address', () => {
       });
 
       context('When a user selects an option', ()=>{
-        beforeEach(setupAddressSearchAndNavigateToAddress);
+        beforeEach(() => setup_addresses_search(intercept_address_search));
         it('next page is shown', () => {
           cy.get('select').select('1 Downing Street, London, SW1A 2AA')
           cy.get('button').click()
