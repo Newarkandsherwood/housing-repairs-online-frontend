@@ -2,12 +2,14 @@ import {
   intercept_address_search, makeSelectionAndClickButton
 } from '../../support/helpers';
 
+function loadPostcodePage() {
+  cy.visit('http://localhost:3000/report-repair/postcode');
+  cy.get('[data-cy=postcode]', {timeout: 10000})
+}
+
 describe('postcode', () => {
   context('Content', () => {
-    before(() => {
-      cy.visit('http://localhost:3000/report-repair/postcode');
-      cy.get('[data-cy=postcode]', {timeout: 10000})
-    });
+    before(loadPostcodePage);
 
     it('displays the question', () => {
       cy.contains('What is the property postcode?');
@@ -25,10 +27,7 @@ describe('postcode', () => {
   context('Behaviour', () =>
   {
     context('Validation', () => {
-      beforeEach(() => {
-        cy.visit('http://localhost:3000/report-repair/postcode');
-        cy.get('[data-cy=postcode]', {timeout: 10000})
-      });
+      before(loadPostcodePage);
       context('When a user doesn\'t type anything', ()=>{
         it('an error should be shown',  () => {
           cy.get('button').click()

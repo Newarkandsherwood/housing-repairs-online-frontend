@@ -1,12 +1,14 @@
+function loadRepairDescriptionPage() {
+  cy.visit('http://localhost:3000/report-repair/repair-description');
+}
+
 describe('repair description', () => {
   context('conditional mvp tests', () => {
     if (Cypress.env('CYPRESS_RELEASE_VERSION') == 'mvp') {
       const repairDescriptionTextInputId = 'repair-description-text-input';
 
       context ('Content', () => {
-        before(() => {
-          cy.visit('http://localhost:3000/report-repair/repair-description');
-        });
+        before(loadRepairDescriptionPage);
 
         it('displays the question', () => {
           cy.contains('Describe your problem in more detail');
@@ -31,9 +33,7 @@ describe('repair description', () => {
 
       context('Behaviour', () => {
         context('Validation', () => {
-          beforeEach(() => {
-            cy.visit('http://localhost:3000/report-repair/repair-description');
-          });
+          beforeEach(loadRepairDescriptionPage);
           context('When a user doesn\'t type anything', ()=>{
             it('an error should be shown',  () => {
               cy.get('button').click()
