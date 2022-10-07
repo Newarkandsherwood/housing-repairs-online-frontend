@@ -1,14 +1,14 @@
 import {
   checkIfSelectionGoesToCorrectUrl,
   makeSelectionAndClickButton,
-  navigateToLocation
+  navigateToLocationPage
 } from '../../support/helpers';
 
 describe('repairProblem', () => {
 
   context('When all options are displayed and a user doesn\'t select anything', () => {
     before(() => {
-      navigateToLocation()
+      navigateToLocationPage();
       makeSelectionAndClickButton('Kitchen');
     });
 
@@ -42,9 +42,7 @@ describe('repairProblem', () => {
   });
 
   context('When a user selects a problem which is an early exit', ()=>{
-    beforeEach(()=>{
-      navigateToLocation();
-    })
+    beforeEach(navigateToLocationPage);
 
     it('should redirect them to the emergency page & clicking back there shows the correct option selected',  () => {
       checkIfSelectionGoesToCorrectUrl('/report-repair/emergency-repair', 'Hallway', 'Rug is on fire');
@@ -54,9 +52,7 @@ describe('repairProblem', () => {
   });
 
   context('When a user selects a location and problem which allows them to continue', ()=>{
-    beforeEach(()=>{
-      navigateToLocation();
-    })
+    beforeEach(navigateToLocationPage);
     it('should redirect them to description page',  () => {
       checkIfSelectionGoesToCorrectUrl('/report-repair/repair-description', 'Kitchen', 'Damaged worktop')
     })
