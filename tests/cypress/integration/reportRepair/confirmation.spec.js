@@ -1,5 +1,6 @@
 import {
-  completeJourney,
+  completeJourneyUsingEmail,
+  completeJourneyUsingPhone,
   intercept_address_search,
   intercept_availability_search,
   intercept_repair_triage,
@@ -16,7 +17,7 @@ describe('confirmation', () => {
     intercept_address_search();
     intercept_repair_triage();
     intercept_save_repair(repairID);
-    completeJourney(false, email);
+    completeJourneyUsingEmail(email);
   });
 
   it('Displays repair id', () => {
@@ -44,7 +45,7 @@ describe('confirmation', () => {
       intercept_address_search();
       intercept_repair_triage();
       intercept_save_repair(repairID);
-      completeJourney(true, phoneNumber);
+      completeJourneyUsingPhone(phoneNumber);
     });
 
     it('Displays where the confirmation was sent to', () => {
