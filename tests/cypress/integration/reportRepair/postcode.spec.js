@@ -15,7 +15,7 @@ describe('postcode', () => {
       cy.contains('What is the property postcode?');
     }); 
 
-    it('displays button with correct text', () => {
+    it('displays the button with correct text', () => {
       cy.get('button').contains('Continue');
     });
   });
@@ -31,7 +31,7 @@ describe('postcode', () => {
         });
       });
 
-      context('When a user types not a valid postcode', () => {
+      context('When a user types an invalid postcode', () => {
         it('an error should be shown', () => {
           cy.get('input').type('postcode');
           cy.get('button').click()
