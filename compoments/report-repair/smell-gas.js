@@ -20,7 +20,7 @@ const SmellGas = () => {
 
   else {
     const title = 'What to do if you smell gas';
-    return <div className="govuk-grid-row">
+    return <div className="govuk-grid-row" data-cy="smell-gas">
       <header>
         <title>{title} - {serviceName}</title>
       </header>

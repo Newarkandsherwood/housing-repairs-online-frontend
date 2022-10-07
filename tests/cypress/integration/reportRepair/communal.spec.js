@@ -2,6 +2,7 @@ import {checkIfSelectionGoesToCorrectUrl, intercept_address_search, makeSelectio
 
 function loadCommunalPage() {
   cy.visit('http://localhost:3000/report-repair/communal');
+  cy.get('[data-cy=communal]', {timeout: 10000})
 }
 
 describe('communal', () => {
