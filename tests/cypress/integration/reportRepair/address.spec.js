@@ -9,18 +9,24 @@ function setup_addresses_search(setup_addresses_API) {
   cy.get('[data-cy=address]', { timeout: 10000 }).then(($loadedSection) => {});
 }
 
+function setupAddressSearchAndNavigateToAddress() {
+  navigateToAddress()
+  setup_addresses_search(intercept_address_search);
+}
+
+function navigateToAddress() {
+  cy.visit('http://localhost:3000/');
+  cy.contains('Start now').click();
+  cy.contains('Something else').click();
+  cy.get('button').click();
+  cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
+    cy.contains('No').click();
+  });
+}
+
 describe('address', () => {
   context('Content', () => {
-    before(function () {
-      cy.visit('http://localhost:3000/');
-      cy.contains('Start now').click();
-      cy.contains('Something else').click();
-      cy.get('button').click();
-      cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
-        cy.contains('No').click();
-      });
-      setup_addresses_search(intercept_address_search);
-    });
+    before(setupAddressSearchAndNavigateToAddress);
 
     it('displays the label', () => {
       cy.contains('Select an address');
@@ -39,16 +45,7 @@ describe('address', () => {
   context('Behaviour', () => {
     context('Validation', () => {
       context('When a user doesn\'t select anything', ()=>{
-        before(function () {
-          cy.visit('http://localhost:3000/');
-          cy.contains('Start now').click();
-          cy.contains('Something else').click();
-          cy.get('button').click();
-          cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
-            cy.contains('No').click();
-          });
-          setup_addresses_search(intercept_address_search);
-        });
+        before(setupAddressSearchAndNavigateToAddress);
         it('an error should be shown',  () => {
           cy.get('button').click()
           cy.contains('Select the property address');
@@ -56,16 +53,7 @@ describe('address', () => {
       });
 
       context('When a user selects an option', ()=>{
-        beforeEach(function () {
-          cy.visit('http://localhost:3000/');
-          cy.contains('Start now').click();
-          cy.contains('Something else').click();
-          cy.get('button').click();
-          cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
-            cy.contains('No').click();
-          });
-          setup_addresses_search(intercept_address_search);
-        });
+        beforeEach(setupAddressSearchAndNavigateToAddress);
         it('next page is shown', () => {
           cy.get('select').select('1 Downing Street, London, SW1A 2AA')
           cy.get('button').click()
@@ -75,15 +63,7 @@ describe('address', () => {
     });
 
     context('When API addresses contain \'nulls\' they are not displayed', () => {
-      beforeEach(function () {
-        cy.visit('http://localhost:3000/');
-        cy.contains('Start now').click();
-        cy.contains('Something else').click();
-        cy.get('button').click();
-        cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
-          cy.contains('No').click();
-        });
-      });
+      beforeEach(navigateToAddress);
       it('address line 1 is null', () => {
         setup_addresses_search(()=>intercept_address_search(1, 'SW1A 2AA', true))
         cy.get('select').contains(/^London, SW1A 2AA$/)
@@ -95,4 +75,3 @@ describe('address', () => {
     })
   });
 });
-

@@ -1,10 +1,12 @@
 import {checkIfSelectionGoesToCorrectUrl, intercept_address_search, makeSelectionAndClickButton} from "../../support/helpers";
 
+function loadCommunalPage() {
+  cy.visit('http://localhost:3000/report-repair/communal');
+}
+
 describe('communal', () => {
   context('Content', () => {
-    before(() => {
-      cy.visit('http://localhost:3000/report-repair/communal');
-    });
+    before(loadCommunalPage);
 
     it('displays the question', () => {
       cy.contains('Is the problem in a communal area?');
@@ -27,9 +29,7 @@ describe('communal', () => {
   context('Behaviour', () => {
     context('Validation', () => {
       context('When a user doesn\'t select any option', () => {
-        before(() => {
-          cy.visit('http://localhost:3000/report-repair/communal');
-        });
+        before(loadCommunalPage);
         it('an error should be shown', () => {
           cy.wait(150);
           cy.get('button').click({force: true}).then(() => {
