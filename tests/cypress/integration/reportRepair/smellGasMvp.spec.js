@@ -3,6 +3,7 @@ describe('smellGas mvp', () => {
     if (Cypress.env('CYPRESS_RELEASE_VERSION') == 'mvp') {
       before(() => {
         cy.visit('http://localhost:3000/report-repair/smell-gas');
+        cy.get('[data-cy=smell-gas]', {timeout: 10000})
       });
 
       it('Displays mvp title', () => {

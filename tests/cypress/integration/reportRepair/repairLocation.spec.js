@@ -36,7 +36,6 @@ describe('repairLocation', () => {
   context('Validation', () => {
     beforeEach(() => {
       navigateToLocation();
-      cy.get('[data-cy=repair-location]', { timeout: 10000 })
     });
     context('When a user doesn\'t select anything', () => {
       it('should show validation message', () => {

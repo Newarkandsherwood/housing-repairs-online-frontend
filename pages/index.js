@@ -13,7 +13,7 @@ export default function Home() {
   const title = 'Request a repair';
   return (
     <main className="govuk-main-wrapper" id='main-content'>
-      <div className="govuk-grid-row govuk-body-m">
+      <div className="govuk-grid-row govuk-body-m" data-cy="landing-page">
         <header>
           <title>
             {title} - {serviceName}

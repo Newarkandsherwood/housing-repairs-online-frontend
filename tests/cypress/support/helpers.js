@@ -103,6 +103,7 @@ const navigateToLocation = () => {
     cy.get('select').select('1 Downing Street, London, SW1A 2AA')
     cy.get('button').click();
   });
+  cy.get('[data-cy=repair-location]', { timeout: 10000 })
 }
 
 function makeSelectionAndClickButton(buttonLabel) {
