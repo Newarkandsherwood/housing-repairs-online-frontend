@@ -1,4 +1,4 @@
-import { isMvpReleaseVersion } from "./helpers/features";
+import { isMvpReleaseVersion } from './helpers/features';
 
 class Flow {
   constructor(setState, history, path, prevSteps, setPrevSteps, repairTriageNextSteps = undefined) {
