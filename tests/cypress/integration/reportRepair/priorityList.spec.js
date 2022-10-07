@@ -2,7 +2,7 @@ import { checkIfSelectionGoesToCorrectUrl, makeSelectionAndClickButton } from ".
 
 describe('priorityList', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/report-repair/');
+    cy.visit('http://localhost:3000/report-repair/priority-list');
   });
 
   it('displays the question title', () => {

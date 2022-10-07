@@ -1,5 +1,5 @@
 describe('App', () => {
-  beforeEach(() => {
+  before(() => {
     cy.visit('http://localhost:3000/');
   });
 
@@ -40,7 +40,7 @@ describe('App', () => {
         'have.attr',
         'href',
         `${Cypress.env('COUNCIL_WEBSITE_HOMEPAGE_URL')}/${Cypress.env('CONTACT_US_PAGE_PATH')}`
-    );
+      );
   });
 
   it('displays report a repair text on the landing page', () => {
