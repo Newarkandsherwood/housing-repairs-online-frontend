@@ -102,11 +102,16 @@ const navigateToPostcodePage = () => {
   cy.get('[data-cy=postcode]', {timeout: 10000})
 }
 
-const navigateToBestDescriptionPage = () => {
+const navigateToAddressPage = () => {
   navigateToPostcodePage();
   navigateToPageTypeInputTextAndContinue({
     page: 'postcode', inputText:'SW1A 2AA'
   })
+}
+
+const navigateToBestDescriptionPage = () => {
+  navigateToAddressPage();
+
   const address = '1 Downing Street, London, SW1A 2AA';
   cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
     cy.get('select').select(address)
@@ -123,11 +128,7 @@ const navigateToRepairAvailabilityPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToPostcodePage();
-
-  navigateToPageTypeInputTextAndContinue({
-    page: 'postcode', inputText: 'SW1A 2AA'
-  })
+  navigateToAddressPage();
 
   cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
     cy.get('select').select(address)
@@ -171,11 +172,7 @@ const navigateToSummaryPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToPostcodePage();
-
-  navigateToPageTypeInputTextAndContinue({
-    page: 'postcode', inputText: 'SW1A 2AA'
-  })
+  navigateToAddressPage();
 
   cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
     cy.get('select').select(address)
@@ -232,11 +229,7 @@ const completeJourney = (contactType, contactValue) => {
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '07512345678';
 
-  navigateToPostcodePage();
-
-  navigateToPageTypeInputTextAndContinue({
-    page: 'postcode', inputText: 'SW1A 2AA'
-  })
+  navigateToAddressPage();
 
   cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
     cy.get('select').select(address)
@@ -312,11 +305,7 @@ const navigateToLocationPage = () => {
   intercept_address_search();
   intercept_repair_triage();
 
-  navigateToPostcodePage();
-
-  navigateToPageTypeInputTextAndContinue({
-    page: 'postcode', inputText:'SW1A 2AA'
-  })
+  navigateToAddressPage();
 
   cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
     cy.get('select').select('1 Downing Street, London, SW1A 2AA')
@@ -346,6 +335,7 @@ export {
   continueOnPage,
   navigateToCommunalPage,
   navigateToPostcodePage,
+  navigateToAddressPage,
   navigateToLocationPage,
   navigateToBestDescriptionPage,
   navigateToRepairAvailabilityPage,
