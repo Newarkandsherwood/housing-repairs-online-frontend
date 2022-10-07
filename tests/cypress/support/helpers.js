@@ -96,24 +96,14 @@ const navigateToCommunalPage = () => {
 
 const navigateToPostcodePage = () => {
   navigateToCommunalPage();
-  cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
-    makeSelectionAndClickButton('No');
-  });
-  cy.get('[data-cy=postcode]', {timeout: 10000})
-}
-
-const navigateToAddressPage = () => {
-  navigateToCommunalPage();
-  cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
-    cy.contains('No').click();
-  });
-}
-
-const navigateToBestDescriptionPage = () => {
-  navigateToCommunalPage();
   navigateToPageSelectRadioOptionAndContinue({
     page: 'communal', option:'No'
   })
+  cy.get('[data-cy=postcode]', {timeout: 10000})
+}
+
+const navigateToBestDescriptionPage = () => {
+  navigateToPostcodePage();
   navigateToPageTypeInputTextAndContinue({
     page: 'postcode', inputText:'SW1A 2AA'
   })
@@ -133,11 +123,7 @@ const navigateToRepairAvailabilityPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToCommunalPage();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'communal', option: 'No'
-  })
+  navigateToPostcodePage();
 
   navigateToPageTypeInputTextAndContinue({
     page: 'postcode', inputText: 'SW1A 2AA'
@@ -185,11 +171,7 @@ const navigateToSummaryPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToCommunalPage();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'communal', option: 'No'
-  })
+  navigateToPostcodePage();
 
   navigateToPageTypeInputTextAndContinue({
     page: 'postcode', inputText: 'SW1A 2AA'
@@ -250,11 +232,7 @@ const completeJourney = (contactType, contactValue) => {
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '07512345678';
 
-  navigateToCommunalPage();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'communal', option: 'No'
-  })
+  navigateToPostcodePage();
 
   navigateToPageTypeInputTextAndContinue({
     page: 'postcode', inputText: 'SW1A 2AA'
@@ -334,11 +312,7 @@ const navigateToLocationPage = () => {
   intercept_address_search();
   intercept_repair_triage();
 
-  navigateToCommunalPage();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'communal', option:'No'
-  })
+  navigateToPostcodePage();
 
   navigateToPageTypeInputTextAndContinue({
     page: 'postcode', inputText:'SW1A 2AA'
@@ -372,7 +346,6 @@ export {
   continueOnPage,
   navigateToCommunalPage,
   navigateToPostcodePage,
-  navigateToAddressPage,
   navigateToLocationPage,
   navigateToBestDescriptionPage,
   navigateToRepairAvailabilityPage,
