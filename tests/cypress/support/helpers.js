@@ -120,10 +120,17 @@ const navigateToRepairLocationPage = () => {
   cy.get('[data-cy=repair-location]', { timeout: 10000 })
 }
 
-const navigateToBestDescriptionPage = () => {
+const navigateToRepairProblemPage = () => {
   navigateToRepairLocationPage();
 
-  makeSelectionAndClickButton('Kitchen');
+  navigateToPageSelectRadioOptionAndContinue({
+    page: 'repair-location', option: 'Kitchen'
+  })
+}
+
+const navigateToBestDescriptionPage = () => {
+  navigateToRepairProblemPage();
+
   makeSelectionAndClickButton('Damp or mould');
 }
 
@@ -132,11 +139,7 @@ const navigateToRepairAvailabilityPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToRepairLocationPage();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'repair-location', option: 'Kitchen'
-  })
+  navigateToRepairProblemPage();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-problem', option: 'Damaged worktop'
@@ -170,11 +173,7 @@ const navigateToSummaryPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToRepairLocationPage();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'repair-location', option: 'Kitchen'
-  })
+  navigateToRepairProblemPage();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-problem',
@@ -221,11 +220,7 @@ const completeJourney = (contactType, contactValue) => {
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '07512345678';
 
-  navigateToRepairLocationPage();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'repair-location', option: 'Kitchen'
-  })
+  navigateToRepairProblemPage();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-problem',
