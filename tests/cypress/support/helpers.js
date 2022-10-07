@@ -88,12 +88,14 @@ function navigateToReportRepair() {
 
 const navigateToCommunalPage = () => {
   navigateToReportRepair();
-  makeSelectionAndClickButton('Something else');
+  navigateToPageSelectRadioOptionAndContinue({
+    page: 'priority-list',
+    option:'Something else'
+  })
 }
 
 const navigateToPostcodePage = () => {
-  navigateToReportRepair();
-  makeSelectionAndClickButton('Something else');
+  navigateToCommunalPage();
   cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
     makeSelectionAndClickButton('No');
   });
@@ -101,20 +103,14 @@ const navigateToPostcodePage = () => {
 }
 
 const navigateToAddressPage = () => {
-  navigateToReportRepair();
-  cy.contains('Something else').click();
-  cy.get('button').click();
+  navigateToCommunalPage();
   cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
     cy.contains('No').click();
   });
 }
 
 const navigateToBestDescriptionPage = () => {
-  navigateToReportRepair();
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'priority-list',
-    option:'Something else'
-  })
+  navigateToCommunalPage();
   navigateToPageSelectRadioOptionAndContinue({
     page: 'communal', option:'No'
   })
@@ -137,12 +133,7 @@ const navigateToRepairAvailabilityPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToReportRepair();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'priority-list',
-    option: 'Something else'
-  })
+  navigateToCommunalPage();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'communal', option: 'No'
@@ -194,12 +185,7 @@ const navigateToSummaryPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToReportRepair();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'priority-list',
-    option: 'Something else'
-  })
+  navigateToCommunalPage();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'communal', option: 'No'
@@ -264,12 +250,7 @@ const completeJourney = (contactType, contactValue) => {
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '07512345678';
 
-  navigateToReportRepair();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'priority-list',
-    option: 'Something else'
-  })
+  navigateToCommunalPage();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'communal', option: 'No'
@@ -352,12 +333,8 @@ const completeJourneyUsingEmail = (emailAddress) => {
 const navigateToLocationPage = () => {
   intercept_address_search();
   intercept_repair_triage();
-  navigateToReportRepair();
 
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'priority-list',
-    option:'Something else'
-  })
+  navigateToCommunalPage();
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'communal', option:'No'
