@@ -30,3 +30,9 @@ resource "azurerm_static_site" "hrostaticwebapp" {
   sku_tier            = var.sku_tier
   sku_size            = var.sku_size
 }
+
+resource "azurerm_static_site_custom_domain" "hrostaticwebapp" {
+  static_site_id  = azurerm_static_site.hrostaticwebapp.id
+  domain_name     = var.custom_domain_name
+  validation_type = "cname-delegation"
+}

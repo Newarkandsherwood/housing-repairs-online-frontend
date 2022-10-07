@@ -109,7 +109,11 @@ function ReportRepair() {
   }
 
   if (shouldRequestTriageData) {
-    if (isLoading) return (<Loader/>)
+    if (isLoading) return (
+      <ReportRepairWrapper showBackLink={showBack} prevStep={prevStep}>
+        <Loader/>
+      </ReportRepairWrapper>
+    )
     if (isError) return (
       <ReportRepairWrapper showBackLink={showBack} prevStep={prevStep}>
         <Error

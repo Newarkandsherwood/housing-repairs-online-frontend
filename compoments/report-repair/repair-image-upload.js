@@ -5,14 +5,16 @@ import Button from '../button';
 import {serviceName} from '../../helpers/constants';
 import imageToBase64 from 'image-to-base64/browser';
 import {isMvpReleaseVersion} from '../../helpers/features';
+import { imageValidator } from '../../helpers/validators';
+import ImagePreview from '../image-preview';
 
 const RepairImageUpload = ({ handleChange, values }) => {
   const [error, setError] = useState(undefined);
   const [activeError, setActiveError] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
-  const [selectedImage, setSelectedImage] = useState(values.image?.photo);
-  const [fileExtension, setFileExtension] = useState(values.image?.fileExtension);
-  const [base64img, setBase64img] = useState(values.image?.base64img);
+  const [selectedImage, setSelectedImage] = useState(values.description?.photo);
+  const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
+  const [base64img, setBase64img] = useState(values.description?.base64img);
   const title = isMvpReleaseVersion() ? 'Upload a photo (optional)': 'Upload an image of the problem (optional)';
   const pageTitle = `${title} - ${serviceName}`;
   const repairDescriptionUploadPhotoInputId = 'repair-description-upload-a-photo-input';
@@ -41,24 +43,20 @@ const RepairImageUpload = ({ handleChange, values }) => {
     saveFileAsImage(uploadedFile)
   }
 
+  const removePhoto = () => {
+    setSelectedImage(null)
+  }
+
   const Continue = () => {
-    let imageError = undefined;
     setActiveError(true);
-    if (selectedFile) {
-      if (selectedFile.type !== 'image/jpeg') {
-        imageError = 'The selected file must be a JPG';
-      }
-      let size = (selectedFile.size / 1024 / 1024).toFixed(2);
-      if (size > 10) {
-        imageError = `The selected file must be smaller than 10MB. Your file size is ${size}MB`;
-      }
-    }
+    const imageError = selectedFile ? imageValidator(selectedFile) : undefined;
     if (!imageError) {
-      return handleChange('image', {
+      return handleChange('description', {
         photo: selectedImage,
         filename: selectedFile ? selectedFile.name: '',
         fileExtension: fileExtension,
-        base64img: base64img
+        base64img: base64img,
+        text: values?.description?.text || undefined
       });
     } else {
       setSelectedImage(null);
@@ -84,26 +82,19 @@ const RepairImageUpload = ({ handleChange, values }) => {
               {error}
             </span>
             {selectedImage ? (
-              <table>
-                <tbody>
-                  <tr>
-                    <td align="center" valign="center">
-                      <img alt="not found" width="200px" src={selectedImage} />
-                    </td>
-                    <td align="center" valign="center">
-                      <button
-                        className="govuk-button govuk-button--warning"
-                        onClick={() => setSelectedImage(null)}>
-                                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <ImagePreview
+                image={selectedImage}
+                onDelete={removePhoto}
+              />
             ) : (
-              <input className="govuk-file-upload govuk-file-upload--error"
-                id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
-                aria-describedby="upload-a-photo-error" onChange={PhotoChange} />
+              <input
+                className="govuk-file-upload govuk-file-upload--error"
+                id={repairDescriptionUploadPhotoInputId}
+                name="upload-a-photo"
+                type="file"
+                aria-describedby="upload-a-photo-error"
+                onChange={PhotoChange}
+              />
             )}
           </div>
         </div>
