@@ -136,6 +136,14 @@ const navigateToRepairBestDescriptionPage = (repairProblemOption) => {
   })
 }
 
+const navigateToDescriptionPage = (repairProblemOption, repairProblemBestDescriptionOption) => {
+  navigateToRepairBestDescriptionPage(repairProblemOption);
+
+  navigateToPageSelectRadioOptionAndContinue({
+    page: 'repair-problem-best-description', option: repairProblemBestDescriptionOption
+  });
+}
+
 const navigateToRepairAvailabilityPage = () => {
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '02085548333';
@@ -171,11 +179,7 @@ const navigateToSummaryPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToBestDescriptionPage('Cupboards, including damaged cupboard doors')
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'repair-problem-best-description', option: 'Hanging door'
-  })
+  navigateToDescriptionPage('Cupboards, including damaged cupboard doors', 'Hanging door')
 
   cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
     cy.get('textarea').type(repairDescription);
@@ -213,11 +217,7 @@ const completeJourney = (contactType, contactValue) => {
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '07512345678';
 
-  navigateToBestDescriptionPage('Cupboards, including damaged cupboard doors')
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'repair-problem-best-description', option: 'Hanging door'
-  })
+  navigateToDescriptionPage('Cupboards, including damaged cupboard doors', 'Hanging door')
 
   cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
     cy.get('textarea').type(repairDescription);
