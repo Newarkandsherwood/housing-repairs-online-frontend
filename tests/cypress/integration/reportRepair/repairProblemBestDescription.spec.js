@@ -3,7 +3,7 @@ import {
   intercept_address_search,
   intercept_availability_search,
   intercept_repair_triage,
-  navigateToBestDescriptionPage,
+  navigateToRepairBestDescriptionPage,
 } from '../../support/helpers';
 
 describe('repairProblemBestDescription', () => {
@@ -13,7 +13,7 @@ describe('repairProblemBestDescription', () => {
       intercept_availability_search();
       intercept_address_search();
       intercept_repair_triage();
-      navigateToBestDescriptionPage()
+      navigateToRepairBestDescriptionPage('Damp or mould')
     });
 
     const options = [
@@ -43,7 +43,7 @@ describe('repairProblemBestDescription', () => {
       intercept_availability_search();
       intercept_address_search();
       intercept_repair_triage();
-      navigateToBestDescriptionPage();
+      navigateToRepairBestDescriptionPage('Damp or mould');
     })
 
     it('should redirect them to the emergency page & clicking back there shows the correct option selected',  () => {
@@ -58,7 +58,7 @@ describe('repairProblemBestDescription', () => {
       intercept_availability_search();
       intercept_address_search();
       intercept_repair_triage();
-      navigateToBestDescriptionPage();
+      navigateToRepairBestDescriptionPage('Damp or mould');
     })
     it('should redirect them to description page',  () => {
       checkIfSelectionGoesToCorrectUrl('/report-repair/repair-description', 'Damp or mould caused by something else');
