@@ -158,15 +158,19 @@ const navigateToImageUploadPage = (repairProblemOption, repairProblemBestDescrip
   });
 }
 
-const navigateToRepairAvailabilityPage = () => {
-  const phoneNumber = '02085548333';
-  const email = 'harrypotter@hogwarts.com';
-
-  navigateToImageUploadPage('Damaged worktop', undefined);
+const navigateToContactDetails = (repairProblemOption, repairProblemBestDescriptionOption, repairDescription) => {
+  navigateToImageUploadPage(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
 
   cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
     cy.get('button').contains('Continue').click();
   });
+}
+
+const navigateToRepairAvailabilityPage = () => {
+  const phoneNumber = '02085548333';
+  const email = 'harrypotter@hogwarts.com';
+
+  navigateToContactDetails('Damaged worktop');
 
   navigateToPageTypeInputTextAndContinue({
     page: 'contact-person',
@@ -186,11 +190,7 @@ const navigateToSummaryPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToImageUploadPage('Cupboards, including damaged cupboard doors', 'Hanging door')
-
-  cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
-    cy.get('button').contains('Continue').click();
-  });
+  navigateToContactDetails('Cupboards, including damaged cupboard doors', 'Hanging door')
 
   navigateToPageTypeInputTextAndContinue({
     page: 'contact-person',
@@ -218,11 +218,7 @@ const navigateToSummaryPage = () => {
 const completeJourney = (contactType, contactValue) => {
   const phoneNumber = '07512345678';
 
-  navigateToImageUploadPage('Cupboards, including damaged cupboard doors', 'Hanging door')
-
-  cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
-    cy.get('button').contains('Continue').click();
-  });
+  navigateToContactDetails('Cupboards, including damaged cupboard doors', 'Hanging door')
 
   navigateToPageTypeInputTextAndContinue({
     page: 'contact-person',
