@@ -124,7 +124,7 @@ describe('repair availability', () => {
       intercept_address_search();
       intercept_repair_triage();
 
-      navigateToRepairAvailabilityPage();
+      navigateToRepairAvailabilityPage('Damaged worktop');
     });
 
     it('api is called without repair issue', () => {
