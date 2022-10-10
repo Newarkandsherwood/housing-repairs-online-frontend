@@ -2,8 +2,7 @@ import {
   intercept_repair_triage,
   intercept_address_search,
   intercept_availability_search,
-  navigateToPageSelectRadioOptionAndContinue,
-  navigateToPageTypeInputTextAndContinue
+  navigateToRepairAvailabilityPage
 } from '../../support/helpers';
 const { _ } = Cypress
 
@@ -120,63 +119,12 @@ describe('repair availability', () => {
   });
 
   describe('for SOR with only location and problem', () => {
-    const address = '1 Downing Street, London, SW1A 2AA';
-    const repairDescription = 'Eius postea venit saepius arcessitus.'
-    const phoneNumber = '02085548333';
-    const email = 'harrypotter@hogwarts.com';
-
     before(() => {
       intercept_availability_search();
       intercept_address_search();
       intercept_repair_triage();
-      cy.visit('http://localhost:3000/report-repair/');
 
-      navigateToPageSelectRadioOptionAndContinue({
-        page: 'priority-list',
-        option:'Something else'
-      })
-
-      navigateToPageSelectRadioOptionAndContinue({
-        page: 'communal', option:'No'
-      })
-
-      navigateToPageTypeInputTextAndContinue({
-        page: 'postcode', inputText:'SW1A 2AA'
-      })
-
-      cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
-        cy.get('select').select(address)
-        cy.get('button').click();
-      });
-
-      navigateToPageSelectRadioOptionAndContinue({
-        page: 'repair-location', option:'Kitchen'
-      })
-
-      navigateToPageSelectRadioOptionAndContinue({
-        page: 'repair-problem', option:'Damaged worktop'
-      })
-
-      cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
-        cy.get('textarea').type(repairDescription);
-        cy.get('button').contains('Continue').click();
-      });
-
-      cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
-        cy.get('button').contains('Continue').click();
-      });
-
-      navigateToPageTypeInputTextAndContinue({
-        page: 'contact-person',
-        inputText: phoneNumber
-      })
-
-      cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
-        cy.get('input#contactDetails-1').click().then(()=> {
-          cy.get('input#contactDetails-email').type(email);
-        })
-        cy.get('button').click();
-      });
+      navigateToRepairAvailabilityPage();
     });
 
     it('api is called without repair issue', () => {

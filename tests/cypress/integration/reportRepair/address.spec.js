@@ -1,4 +1,7 @@
-import {intercept_address_search, makeSelectionAndClickButton} from '../../support/helpers';
+import {
+  intercept_address_search,
+  navigateToAddressPage
+} from '../../support/helpers';
 
 function setup_addresses_search(setup_addresses_API) {
   setup_addresses_API();
@@ -10,18 +13,8 @@ function setup_addresses_search(setup_addresses_API) {
 }
 
 function setupAddressSearchAndNavigateToAddress() {
-  navigateToAddress()
+  navigateToAddressPage();
   setup_addresses_search(intercept_address_search);
-}
-
-function navigateToAddress() {
-  cy.visit('http://localhost:3000/');
-  cy.contains('Start now').click();
-  cy.contains('Something else').click();
-  cy.get('button').click();
-  cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
-    cy.contains('No').click();
-  });
 }
 
 describe('address', () => {
@@ -63,7 +56,7 @@ describe('address', () => {
     });
 
     context('When API addresses contain \'nulls\' they are not displayed', () => {
-      beforeEach(navigateToAddress);
+      beforeEach(navigateToAddressPage);
       it('address line 1 is null', () => {
         setup_addresses_search(()=>intercept_address_search(1, 'SW1A 2AA', true))
         cy.get('select').contains(/^London, SW1A 2AA$/)

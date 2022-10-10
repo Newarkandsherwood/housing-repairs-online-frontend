@@ -1,5 +1,6 @@
 import {
-  intercept_address_search, makeSelectionAndClickButton
+  intercept_address_search,
+  navigateToPostcodePage
 } from '../../support/helpers';
 
 function loadPostcodePage() {
@@ -13,13 +14,9 @@ describe('postcode', () => {
 
     it('displays the question', () => {
       cy.contains('What is the property postcode?');
-    });
+    }); 
 
-    it('displays input label', () => {
-      cy.contains('Postcode');
-    });
-
-    it('displays button with correct text', () => {
+    it('displays the button with correct text', () => {
       cy.get('button').contains('Continue');
     });
   });
@@ -35,7 +32,7 @@ describe('postcode', () => {
         });
       });
 
-      context('When a user types not a valid postcode', () => {
+      context('When a user types an invalid postcode', () => {
         it('an error should be shown', () => {
           cy.get('input').type('postcode');
           cy.get('button').click()
@@ -45,14 +42,7 @@ describe('postcode', () => {
     })
 
     context('Navigation', () => {
-      beforeEach(() => {
-        cy.visit('http://localhost:3000/report-repair/');
-        makeSelectionAndClickButton('Something else');
-        cy.get('[data-cy=communal]', {timeout: 10000}).then(($loadedSection) => {
-          makeSelectionAndClickButton('No');
-        });
-        cy.get('[data-cy=postcode]', {timeout: 10000})
-      });
+      beforeEach(navigateToPostcodePage);
 
       context('When a user type a valid postcode', () => {
         it('the user proceeds to the address selection', () => {

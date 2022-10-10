@@ -3,9 +3,11 @@ import TextInput from '../textInput';
 import React from 'react';
 import {postCodeValidator} from '../../helpers/validators';
 import {serviceName} from '../../helpers/constants';
+import { isMvpReleaseVersion } from '../../helpers/features';
 
 const Postcode = ({handleChange, values}) => {
   const title = 'What is the property postcode?'
+  const caption = 'Postcode'
   const Continue = val => {
     handleChange('postcode', val);
   }
@@ -24,7 +26,7 @@ const Postcode = ({handleChange, values}) => {
           isValid:postCodeValidator.isValid,
         }}
         type="text"
-        label="Postcode"
+        label={isMvpReleaseVersion() ? caption: ''}
         title={title}
         buttonText={'Continue'}
         emptyInputErrorMessage={'Enter the property postcode'}
