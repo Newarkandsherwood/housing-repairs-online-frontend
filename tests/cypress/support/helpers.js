@@ -128,10 +128,12 @@ const navigateToRepairProblemPage = () => {
   })
 }
 
-const navigateToBestDescriptionPage = () => {
+const navigateToRepairBestDescriptionPage = (repairProblemOption) => {
   navigateToRepairProblemPage();
 
-  makeSelectionAndClickButton('Damp or mould');
+  navigateToPageSelectRadioOptionAndContinue({
+    page: 'repair-problem', option: repairProblemOption
+  })
 }
 
 const navigateToRepairAvailabilityPage = () => {
@@ -139,11 +141,7 @@ const navigateToRepairAvailabilityPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToRepairProblemPage();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'repair-problem', option: 'Damaged worktop'
-  })
+  navigateToRepairBestDescriptionPage('Damaged worktop')
 
   cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
     cy.get('textarea').type(repairDescription);
@@ -173,12 +171,7 @@ const navigateToSummaryPage = () => {
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToRepairProblemPage();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'repair-problem',
-    option: 'Cupboards, including damaged cupboard doors'
-  })
+  navigateToBestDescriptionPage('Cupboards, including damaged cupboard doors')
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-problem-best-description', option: 'Hanging door'
@@ -220,12 +213,7 @@ const completeJourney = (contactType, contactValue) => {
   const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '07512345678';
 
-  navigateToRepairProblemPage();
-
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'repair-problem',
-    option: 'Cupboards, including damaged cupboard doors'
-  })
+  navigateToBestDescriptionPage('Cupboards, including damaged cupboard doors')
 
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-problem-best-description', option: 'Hanging door'
@@ -313,7 +301,7 @@ export {
   navigateToPostcodePage,
   navigateToAddressPage,
   navigateToLocationPage,
-  navigateToBestDescriptionPage,
+  navigateToRepairBestDescriptionPage,
   navigateToRepairAvailabilityPage,
   navigateToSummaryPage,
   completeJourneyUsingPhone,
