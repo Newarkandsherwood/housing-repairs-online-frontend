@@ -144,17 +144,25 @@ const navigateToDescriptionPage = (repairProblemOption, repairProblemBestDescrip
   });
 }
 
+const navigateToImageUploadPage = (repairProblemOption, repairProblemBestDescriptionOption = undefined, repairDescription) => {
+  console.log('repairProblemBestDescriptionOption', repairProblemBestDescriptionOption)
+  if (repairProblemBestDescriptionOption !== undefined) {
+    navigateToDescriptionPage(repairProblemOption, repairProblemBestDescriptionOption)
+  } else {
+    navigateToRepairBestDescriptionPage(repairProblemOption)
+  }
+
+  cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
+    cy.get('textarea').type(repairDescription || 'Eius postea venit saepius arcessitus.');
+    cy.get('button').contains('Continue').click();
+  });
+}
+
 const navigateToRepairAvailabilityPage = () => {
-  const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToRepairBestDescriptionPage('Damaged worktop')
-
-  cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
-    cy.get('textarea').type(repairDescription);
-    cy.get('button').contains('Continue').click();
-  });
+  navigateToImageUploadPage('Damaged worktop', undefined);
 
   cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
     cy.get('button').contains('Continue').click();
@@ -175,16 +183,10 @@ const navigateToRepairAvailabilityPage = () => {
 
 const navigateToSummaryPage = () => {
   let timeSlot = ''
-  const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToDescriptionPage('Cupboards, including damaged cupboard doors', 'Hanging door')
-
-  cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
-    cy.get('textarea').type(repairDescription);
-    cy.get('button').contains('Continue').click();
-  });
+  navigateToImageUploadPage('Cupboards, including damaged cupboard doors', 'Hanging door')
 
   cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
     cy.get('button').contains('Continue').click();
@@ -214,15 +216,9 @@ const navigateToSummaryPage = () => {
 }
 
 const completeJourney = (contactType, contactValue) => {
-  const repairDescription = 'Eius postea venit saepius arcessitus.'
   const phoneNumber = '07512345678';
 
-  navigateToDescriptionPage('Cupboards, including damaged cupboard doors', 'Hanging door')
-
-  cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
-    cy.get('textarea').type(repairDescription);
-    cy.get('button').contains('Continue').click();
-  });
+  navigateToImageUploadPage('Cupboards, including damaged cupboard doors', 'Hanging door')
 
   cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
     cy.get('button').contains('Continue').click();
