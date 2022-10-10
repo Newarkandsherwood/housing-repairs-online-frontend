@@ -198,10 +198,10 @@ const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBest
   });
 }
 
-const navigateToSummaryPage = () => {
+const navigateToSummaryPage = (contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
   let timeSlot = ''
 
-  navigateToRepairAvailabilityPage('Cupboards, including damaged cupboard doors', 'Hanging door')
+  navigateToRepairAvailabilityPage('Cupboards, including damaged cupboard doors', 'Hanging door', contactType, contactValue)
 
   cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
     cy.get('[data-cy=availability-slot-0-0]').invoke('val').then(value => {
@@ -216,18 +216,11 @@ const navigateToSummaryPage = () => {
 
 const completeJourney = (contactType, contactValue) => {
 
-  navigateToRepairAvailabilityPage('Cupboards, including damaged cupboard doors', 'Hanging door', contactType, contactValue)
-
-  cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
-    cy.get('[data-cy=availability-slot-0-0]').click();
-    cy.get('button').click();
-  });
+  navigateToSummaryPage(contactType, contactValue)
 
   cy.get('[data-cy=summary]', {timeout: 10000}).then(() => {
     cy.get('button').click();
   });
-
-  return () => { }
 }
 
 const completeJourneyUsingPhone = (phoneNumber) => {
