@@ -123,7 +123,7 @@ jobs:
           terraform apply -auto-approve -var="storage_account_name=${{secrets.STORAGE_ACCOUNT_NAME}}" -var="resource_group_name=${{secrets.RESOURCE_GROUP_NAME}}" -var="container_name=${{secrets.CONTAINER_NAME}}" -var="key=${{secrets.STORAGE_ACCOUNT_KEY}}" -var="resource_group_location=${{secrets.RESOURCE_GROUP_LOCATION}}" -var="static_site_name=${{secrets.STATIC_SITE_NAME}}" -var="custom_domain_name=${{secrets.CUSTOM_DOMAIN_NAME}}"
 
   build_and_deploy_job:
-    needs: [test, cypress-run, terraform]
+    needs: [terraform]
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
