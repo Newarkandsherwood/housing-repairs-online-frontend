@@ -233,7 +233,10 @@ function ReportRepair() {
       )
     case 'emergency-repair':
       return (
-        <EmergencyRepair/>
+        <EmergencyRepair
+          goToStep={goToStep}
+          prevStep={state.prevStep}
+        />
       )
     case 'not-eligible':
       return (
