@@ -175,46 +175,9 @@ const navigateToContactPerson = (repairProblemOption, repairProblemBestDescripti
   })
 }
 
-const navigateToRepairAvailabilityPage = () => {
-  const email = 'harrypotter@hogwarts.com';
+const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBestDescriptionOption, contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
 
-  navigateToContactPerson('Damaged worktop');
-
-  cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
-    cy.get('input#contactDetails-1').click().then(() => {
-      cy.get('input#contactDetails-email').type(email);
-    })
-    cy.get('button').click();
-  });
-}
-
-const navigateToSummaryPage = () => {
-  let timeSlot = ''
-  const email = 'harrypotter@hogwarts.com';
-
-  navigateToContactPerson('Cupboards, including damaged cupboard doors', 'Hanging door')
-
-  cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
-    cy.get('input#contactDetails-1').click().then(() => {
-      cy.get('input#contactDetails-email').type(email);
-    })
-    cy.get('button').click();
-  });
-
-  cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
-    cy.get('[data-cy=availability-slot-0-0]').invoke('val').then(value => {
-      timeSlot = value;
-    })
-    cy.get('[data-cy=availability-slot-0-0]').click();
-    cy.get('button').click();
-  });
-
-  return () => timeSlot;
-}
-
-const completeJourney = (contactType, contactValue) => {
-
-  navigateToContactPerson('Cupboards, including damaged cupboard doors', 'Hanging door')
+  navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
 
   cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
     switch (contactType) {
@@ -233,6 +196,27 @@ const completeJourney = (contactType, contactValue) => {
     }
     cy.get('button').click();
   });
+}
+
+const navigateToSummaryPage = () => {
+  let timeSlot = ''
+
+  navigateToRepairAvailabilityPage('Cupboards, including damaged cupboard doors', 'Hanging door')
+
+  cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
+    cy.get('[data-cy=availability-slot-0-0]').invoke('val').then(value => {
+      timeSlot = value;
+    })
+    cy.get('[data-cy=availability-slot-0-0]').click();
+    cy.get('button').click();
+  });
+
+  return () => timeSlot;
+}
+
+const completeJourney = (contactType, contactValue) => {
+
+  navigateToRepairAvailabilityPage('Cupboards, including damaged cupboard doors', 'Hanging door', contactType, contactValue)
 
   cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
     cy.get('[data-cy=availability-slot-0-0]').click();
