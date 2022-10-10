@@ -166,16 +166,19 @@ const navigateToContactDetails = (repairProblemOption, repairProblemBestDescript
   });
 }
 
-const navigateToRepairAvailabilityPage = () => {
-  const phoneNumber = '02085548333';
-  const email = 'harrypotter@hogwarts.com';
-
-  navigateToContactDetails('Damaged worktop');
+const navigateToContactPerson = (repairProblemOption, repairProblemBestDescriptionOption, repairDescription) => {
+  navigateToContactDetails(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
 
   navigateToPageTypeInputTextAndContinue({
     page: 'contact-person',
-    inputText: phoneNumber
+    inputText: '02085548333'
   })
+}
+
+const navigateToRepairAvailabilityPage = () => {
+  const email = 'harrypotter@hogwarts.com';
+
+  navigateToContactPerson('Damaged worktop');
 
   cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
     cy.get('input#contactDetails-1').click().then(() => {
@@ -187,15 +190,9 @@ const navigateToRepairAvailabilityPage = () => {
 
 const navigateToSummaryPage = () => {
   let timeSlot = ''
-  const phoneNumber = '02085548333';
   const email = 'harrypotter@hogwarts.com';
 
-  navigateToContactDetails('Cupboards, including damaged cupboard doors', 'Hanging door')
-
-  navigateToPageTypeInputTextAndContinue({
-    page: 'contact-person',
-    inputText: phoneNumber
-  })
+  navigateToContactPerson('Cupboards, including damaged cupboard doors', 'Hanging door')
 
   cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
     cy.get('input#contactDetails-1').click().then(() => {
@@ -216,14 +213,8 @@ const navigateToSummaryPage = () => {
 }
 
 const completeJourney = (contactType, contactValue) => {
-  const phoneNumber = '07512345678';
 
-  navigateToContactDetails('Cupboards, including damaged cupboard doors', 'Hanging door')
-
-  navigateToPageTypeInputTextAndContinue({
-    page: 'contact-person',
-    inputText: phoneNumber
-  })
+  navigateToContactPerson('Cupboards, including damaged cupboard doors', 'Hanging door')
 
   cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
     switch (contactType) {
