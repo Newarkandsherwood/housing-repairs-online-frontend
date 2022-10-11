@@ -6,7 +6,7 @@ const goToRepairEmergency = () => {
 }
 
 describe('emergency repair', () => {
-  context('xxxxxxx', () => {
+  context('emergency repair', () => {
     before(goToRepairEmergency)
     it('displays the title', () => {
       cy.contains('Your repair could be an emergency');
