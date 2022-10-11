@@ -7,7 +7,6 @@ import {
 function setup_addresses_search(setup_addresses_API) {
   setup_addresses_API();
   navigateToAddressPage();
-  cy.get('[data-cy=address]', { timeout: 10000 })
 }
 
 describe('address', () => {
