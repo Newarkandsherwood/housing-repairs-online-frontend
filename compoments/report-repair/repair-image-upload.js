@@ -7,6 +7,7 @@ import imageToBase64 from 'image-to-base64/browser';
 import {isMvpReleaseVersion} from '../../helpers/features';
 import { imageValidator } from '../../helpers/validators';
 import ImagePreview from '../image-preview';
+import ComponentHeader from '../ComponentHeader';
 
 const RepairImageUpload = ({ handleChange, values }) => {
   const [error, setError] = useState(undefined);
@@ -66,9 +67,7 @@ const RepairImageUpload = ({ handleChange, values }) => {
   }
 
   return <div className="govuk-grid-row" data-cy="repair-image-upload">
-    <header>
-      <title>{pageTitle}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className="govuk-grid-column-two-thirds">
       {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{ text: error, location: '#repair-description-upload-a-photo-input' }]} pageTitle={pageTitle} />}
       <form action="">

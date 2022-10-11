@@ -2,19 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ContactNumbers from '../contactNumbers';
 import { customerServicesTelephoneNumber, outOfHoursCustomerServicesTelephoneNumber } from '../../globals'
-import { serviceName } from '../../helpers/constants';
 import TextLink from '../textLink';
 import { OpeningHours } from '../openingHours';
 import { isMvpReleaseVersion } from '../../helpers/features';
 import Link from 'next/link';
+import ComponentHeader from '../ComponentHeader';
 
 const EmergencyRepairMvp = () => {
   const title = 'Your repair could be an emergency'
 
   return <div className="govuk-grid-row govuk-body-m">
-    <header>
-      <title>{title} - {serviceName}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className="govuk-grid-column-two-thirds">
       <h1 className='govuk-heading-xl'>{title}</h1>
       <h3 className='govuk-heading-m'>Emergencies</h3>
@@ -44,9 +42,7 @@ const EmergencyRepairFull = ({ goToStep, prevStep }) => {
   const title = 'Your repair could be an emergency'
 
   return <div className="govuk-grid-row govuk-body-m">
-    <header>
-      <title>{title} - {serviceName}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className="govuk-grid-column-two-thirds">
       <h1 className='govuk-heading-xl'>{title}</h1>
       <div className='govuk-inset-text'>

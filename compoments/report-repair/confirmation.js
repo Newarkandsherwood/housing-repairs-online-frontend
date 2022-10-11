@@ -1,16 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import TextLink from '../textLink';
-import {serviceName} from '../../helpers/constants';
+import ComponentHeader from '../ComponentHeader';
 
 
 const Confirmation = ({ requestId, confirmation }) => {
   const title = 'Repair request complete'
   return (
     <div className="govuk-grid-row" data-cy="confirmation">
-      <header>
-        <title>{title} - {serviceName}</title>
-      </header>
+      <ComponentHeader title={title} />
       <div className="govuk-grid-column-two-thirds">
         <div className="govuk-panel govuk-panel--confirmation">
           <h1 className="govuk-panel__title">{title}</h1>
