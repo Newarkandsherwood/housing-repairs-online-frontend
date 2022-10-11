@@ -107,6 +107,7 @@ const navigateToAddressPage = () => {
   navigateToPageTypeInputTextAndContinue({
     page: 'postcode', inputText:'SW1A 2AA'
   })
+  cy.get('[data-cy=address]', { timeout: 10000 })
 }
 
 const navigateToRepairLocationPage = () => {
