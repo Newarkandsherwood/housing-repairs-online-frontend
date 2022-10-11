@@ -1,5 +1,6 @@
 import Details from '../details';
 import React from 'react';
+import PropTypes from 'prop-types';
 import ContactNumbers from '../contactNumbers';
 import {customerServicesTelephoneNumber} from '../../globals';
 import {OpeningHours} from '../openingHours';
@@ -48,7 +49,7 @@ const NotEligibleMvp = () => {
   );
 };
 
-const NotEligibleFull = () => {
+const NotEligibleFull = ({goToStep}) => {
   const title = 'The council may not be responsible for repairs at this property'
   return (
     <div className="govuk-grid-row govuk-body-m">
@@ -56,21 +57,40 @@ const NotEligibleFull = () => {
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>{title}</h1>
         <h2 className="govuk-heading-m govuk-!-margin-bottom-2">Postcode</h2>
-        <p className="govuk-body"> NWG 222
-          <a href="../postcode" className="govuk-link--no-visited-state"> Change<span className="govuk-visually-hidden"> postcode </span></a>
+        <p className="govuk-body">NWG 222
+          <Link href='communal'>
+            <a
+              className={'govuk-link'}
+              href='postcode'
+              onClick={(e)=>{
+                e.preventDefault()
+                goToStep('postcode', 'not-eligible')
+              }}>
+                Change
+            </a>
+          </Link>
         </p>
         <h3 className="govuk-heading-m">If you think the council is responsible for this property</h3>
         <p>Contact us via telephone {customerServicesTelephoneNumber}</p>
-        <p>Our call centre is open between 9am and 5pm, Monday to Friday </p>
+        <p>Our call centre is open between</p>
+        <OpeningHours />
       </div>
     </div>
   );
 };
 
-const NotEligible = () => {
+NotEligibleFull.propTypes = {
+  goToStep: PropTypes.func.isRequired
+}
+
+const NotEligible = ({goToStep}) => {
   return (
-    isMvpReleaseVersion() ? <NotEligibleMvp /> : <NotEligibleFull />
+    isMvpReleaseVersion() ? <NotEligibleMvp /> : <NotEligibleFull goToStep={goToStep} />
   );
 };
+
+NotEligible.propTypes = {
+  goToStep: PropTypes.func.isRequired
+}
 
 export default NotEligible;

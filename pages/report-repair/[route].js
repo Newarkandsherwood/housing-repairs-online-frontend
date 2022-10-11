@@ -244,7 +244,9 @@ function ReportRepair() {
       )
     case 'not-eligible':
       return (
-        <NotEligible/>
+        <NotEligible
+          goToStep={goToStep}
+        />
       )
     case 'not-eligible-non-emergency':
       return (
