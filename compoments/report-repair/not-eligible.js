@@ -58,7 +58,7 @@ const NotEligibleFull = ({goToStep}) => {
         <h1 className='govuk-heading-xl'>{title}</h1>
         <h2 className="govuk-heading-m govuk-!-margin-bottom-2">Postcode</h2>
         <p className="govuk-body">NWG 222
-          <Link href='communal'>
+          <Link href='postcode'>
             <a
               className={'govuk-link'}
               href='postcode'
