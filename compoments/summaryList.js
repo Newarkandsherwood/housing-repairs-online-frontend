@@ -1,5 +1,5 @@
 import React from 'react';
-import {LinkPreservingValues} from '../linkPreservingValues';
+import LinkPreservingValues from '../linkPreservingValues';
 
 export default function SummaryList ({summary, goToStep}) {
 

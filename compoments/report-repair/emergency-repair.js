@@ -6,7 +6,7 @@ import { serviceName } from '../../helpers/constants';
 import TextLink from '../textLink';
 import { OpeningHours } from '../openingHours';
 import { isMvpReleaseVersion } from '../../helpers/features';
-import {LinkPreservingValues} from '../linkPreservingValues';
+import LinkPreservingValues from '../linkPreservingValues';
 
 const EmergencyRepairMvp = () => {
   const title = 'Your repair could be an emergency'

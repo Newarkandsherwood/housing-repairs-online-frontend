@@ -10,7 +10,7 @@ import Error from '../error';
 import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
-import {LinkPreservingValues} from '../linkPreservingValues';
+import LinkPreservingValues from '../linkPreservingValues';
 
 const Address = ({handleChange, values}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
