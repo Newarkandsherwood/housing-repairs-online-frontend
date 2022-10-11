@@ -38,5 +38,6 @@ variable "sku_size" {
 }
 
 variable "custom_domain_name" {
-  type = string
+  type    = string
+  default = ""
 }
