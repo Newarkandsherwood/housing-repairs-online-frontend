@@ -10,6 +10,7 @@ import Error from '../error';
 import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
+import {LinkPreservingValues} from '../linkPreservingValues';
 
 const Address = ({handleChange, values}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
@@ -89,7 +90,12 @@ const Address = ({handleChange, values}) => {
           </Select>
         </div>
         <p class="govuk-body">
-          <TextLink href="not-eligible">I can&apos;t find my address on this list</TextLink>
+          <LinkPreservingValues
+            currentLocation ='address'
+            goToLocation='not-eligible'
+            goToStep={goToStep}
+            text='I can&apos;t find my address on this list'
+          />
         </p>
         <br/>
         <br/>

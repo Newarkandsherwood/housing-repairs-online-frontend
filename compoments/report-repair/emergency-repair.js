@@ -6,7 +6,7 @@ import { serviceName } from '../../helpers/constants';
 import TextLink from '../textLink';
 import { OpeningHours } from '../openingHours';
 import { isMvpReleaseVersion } from '../../helpers/features';
-import Link from 'next/link';
+import {LinkPreservingValues} from '../linkPreservingValues';
 
 const EmergencyRepairMvp = () => {
   const title = 'Your repair could be an emergency'
@@ -72,17 +72,12 @@ const EmergencyRepairFull = ({ goToStep, prevStep }) => {
       </label>
       {(prevStep === 'priority-list' || prevStep === 'emergency-repair') &&
         <p className="govuk-body">
-          <Link href='communal'>
-            <a
-              className={'govuk-link'}
-              href='communal'
-              onClick={(e)=>{
-                e.preventDefault()
-                goToStep('communal', 'emergency-repair')
-              }}>
-                My problem is not an emergency
-            </a>
-          </Link>
+          <LinkPreservingValues
+            currentLocation ='emergency-repair'
+            goToLocation='communal'
+            goToStep={goToStep}
+            text='My problem is not an emergency'
+          />
         </p>}
     </div>
   </div>
