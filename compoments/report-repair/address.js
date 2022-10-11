@@ -99,12 +99,7 @@ const Address = ({handleChange, values}) => {
   </div>
 };
 
-Address.defaultProps = {
-  addresses: []
-};
-
 Address.propTypes = {
-  addresses: PropTypes.array,
   values: PropTypes.object,
   handleChange: PropTypes.func,
 }
