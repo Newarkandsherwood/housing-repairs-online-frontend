@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import TextInput from '../textInput';
 import React from 'react';
 import {postCodeValidator} from '../../helpers/validators';
-import {serviceName} from '../../helpers/constants';
 import { isMvpReleaseVersion } from '../../helpers/features';
+import ComponentHeader from '../ComponentHeader';
 
 const Postcode = ({handleChange, values}) => {
   const title = 'What is the property postcode?'
@@ -13,9 +13,7 @@ const Postcode = ({handleChange, values}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="postcode">
-    <header>
-      <title>{title} - {serviceName}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className='govuk-grid-column-two-thirds'>
       <TextInput
         value={values.postcode}

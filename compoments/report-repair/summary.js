@@ -1,8 +1,8 @@
 import React from 'react';
 import SummaryList from '../summaryList';
 import Button from '../button';
-import {serviceName} from '../../helpers/constants';
 import {isMvpReleaseVersion}  from '../../helpers/features';
+import ComponentHeader from '../ComponentHeader';
 
 const Summary = ({values, submit, goToStep}) => {
   const title = 'Request summary'
@@ -27,12 +27,10 @@ const Summary = ({values, submit, goToStep}) => {
     { pageName:'Date', value: values.availability?.display, link:'repair-availability'},
     { pageName:'Confirmation contact details', value: values.contactDetails?.value, link: 'contact-details'},
   ]
- 
+
   return(
     <>
-      <header>
-        <title>{title} - {serviceName}</title>
-      </header>
+      <ComponentHeader title={title} />
       { (
         <div data-cy="summary">
           <div className="govuk-grid-row govuk-body-m">

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import RadioFieldSet from '../radioFieldSet';
 import React from 'react';
-import {serviceName} from '../../helpers/constants';
+import ComponentHeader from '../ComponentHeader';
 
 const PriorityList = ({handleChange, values}) => {
   const name =  'priority-list';
@@ -24,9 +24,7 @@ const PriorityList = ({handleChange, values}) => {
   }
 
   return (<div className="govuk-grid-row" data-cy="priority-list">
-    <header>
-      <title>{title} - {serviceName}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className="govuk-grid-column-two-thirds">
       <RadioFieldSet
         name={name}

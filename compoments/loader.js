@@ -1,12 +1,10 @@
 import React from 'react';
-import { serviceName } from '../helpers/constants';
+import ComponentHeader from './ComponentHeader';
 
 export default function Loader({}) {
   return (
     <>
-      <header>
-        <title>Loading - {serviceName}</title>
-      </header>
+      <ComponentHeader title='Loading' />
       <div className="loader"></div>
       <h4 className="govuk-!-text-align-centre">
         Loading

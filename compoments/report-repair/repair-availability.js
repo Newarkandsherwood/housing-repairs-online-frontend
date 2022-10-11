@@ -11,6 +11,7 @@ import Error from '../error';
 import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
+import ComponentHeader from '../ComponentHeader';
 
 const RepairAvailability = ({ handleChange, values, fromDate }) => {
   const [error, setError] = useState();
@@ -96,9 +97,7 @@ const RepairAvailability = ({ handleChange, values, fromDate }) => {
   }
 
   return <div className="govuk-grid-row" data-cy="repair-availability">
-    <header>
-      <title>{pageTitle}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className='govuk-grid-column-two-thirds'>
       {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{ text: error, location: `#${fieldName}-0-0` }]} pageTitle={pageTitle} />}
       <form>
