@@ -227,7 +227,6 @@ function ReportRepair() {
           values={values}
           goToStep={goToStep}
         />
-
       )
     case 'communal':
       return (
