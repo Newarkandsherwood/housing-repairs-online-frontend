@@ -32,6 +32,7 @@ resource "azurerm_static_site" "hrostaticwebapp" {
 }
 
 resource "azurerm_static_site_custom_domain" "hrostaticwebapp" {
+  count           = var.custom_domain_name == "" ? 0 : 1
   static_site_id  = azurerm_static_site.hrostaticwebapp.id
   domain_name     = var.custom_domain_name
   validation_type = "cname-delegation"
