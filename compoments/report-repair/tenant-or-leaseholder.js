@@ -1,6 +1,7 @@
 import React from 'react';
 import {serviceName} from '../../helpers/constants';
 import RadioFieldSet from '../radioFieldSet';
+import PropTypes from 'prop-types';
 
 const TenantOrLeaseholder = ({handleChange, values}) => {
   const name = 'isTenant';
@@ -29,6 +30,11 @@ const TenantOrLeaseholder = ({handleChange, values}) => {
       />
     </div>
   </div>)
+}
+
+TenantOrLeaseholder.propTypes = {
+  values: PropTypes.object,
+  handleChange: PropTypes.func,
 }
 
 export default TenantOrLeaseholder;
