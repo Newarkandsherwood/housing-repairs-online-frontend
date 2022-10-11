@@ -146,7 +146,6 @@ const navigateToDescriptionPage = (repairProblemOption, repairProblemBestDescrip
 }
 
 const navigateToImageUploadPage = (repairProblemOption, repairProblemBestDescriptionOption = undefined, repairDescription) => {
-  console.log('repairProblemBestDescriptionOption', repairProblemBestDescriptionOption)
   if (repairProblemBestDescriptionOption !== undefined) {
     navigateToDescriptionPage(repairProblemOption, repairProblemBestDescriptionOption)
   } else {
