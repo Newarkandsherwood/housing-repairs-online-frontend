@@ -258,7 +258,7 @@ function checkIfSelectionGoesToCorrectUrl(goToUrl, firstSelection, secondSelecti
 }
 
 function isMvpReleaseVersion() {
-  return Cypress.env('CYPRESS_RELEASE_VERSION') == 'mvp';
+  return Cypress.env('RELEASE_VERSION') == 'mvp';
 }
 
 export {
