@@ -3,7 +3,7 @@ import TextInput from '../textInput';
 import React from 'react';
 import {postCodeValidator} from '../../helpers/validators';
 import { isMvpReleaseVersion } from '../../helpers/features';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const Postcode = ({handleChange, values}) => {
   const title = 'What is the property postcode?'

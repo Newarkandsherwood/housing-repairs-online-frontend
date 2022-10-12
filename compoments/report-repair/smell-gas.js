@@ -1,6 +1,6 @@
 import React from 'react';
 import { isMvpReleaseVersion } from '../../helpers/features';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const SmellGas = () => {
   if (isMvpReleaseVersion()) {

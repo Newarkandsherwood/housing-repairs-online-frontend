@@ -2,7 +2,7 @@ import React from 'react';
 import SummaryList from '../summaryList';
 import Button from '../button';
 import {isMvpReleaseVersion}  from '../../helpers/features';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const Summary = ({values, submit, goToStep}) => {
   const title = 'Request summary'

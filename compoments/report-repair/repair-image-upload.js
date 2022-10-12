@@ -7,7 +7,7 @@ import imageToBase64 from 'image-to-base64/browser';
 import {isMvpReleaseVersion} from '../../helpers/features';
 import { imageValidator } from '../../helpers/validators';
 import ImagePreview from '../image-preview';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const RepairImageUpload = ({ handleChange, values }) => {
   const [error, setError] = useState(undefined);
