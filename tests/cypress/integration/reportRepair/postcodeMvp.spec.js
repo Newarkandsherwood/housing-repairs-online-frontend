@@ -1,5 +1,7 @@
 import {
-  intercept_address_search, makeSelectionAndClickButton
+  intercept_address_search,
+  isMvpReleaseVersion,
+  makeSelectionAndClickButton
 } from '../../support/helpers';
 
 function loadPostcodePage() {
@@ -9,7 +11,7 @@ function loadPostcodePage() {
 
 describe('postcode', () => {
   context('Conditional mvp tests', () => {
-    if (Cypress.env('CYPRESS_RELEASE_VERSION') == 'mvp') {
+    if (isMvpReleaseVersion()) {
       context('Content', () => {
         before(loadPostcodePage);
 

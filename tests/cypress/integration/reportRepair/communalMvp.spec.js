@@ -1,11 +1,12 @@
 import {
   intercept_address_search,
+  isMvpReleaseVersion,
   makeSelectionAndClickButton,
   navigateToCommunalPage
 } from '../../support/helpers';
 
 describe('communal (MVP)', () => {
-  if (Cypress.env('CYPRESS_RELEASE_VERSION') === 'mvp') {
+  if (isMvpReleaseVersion()) {
     context('Behaviour', () => {
       context('When a user selects an option', () => {
         beforeEach(navigateToCommunalPage);

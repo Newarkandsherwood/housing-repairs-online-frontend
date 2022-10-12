@@ -257,6 +257,10 @@ function checkIfSelectionGoesToCorrectUrl(goToUrl, firstSelection, secondSelecti
   cy.url().should('include', goToUrl);
 }
 
+function isMvpReleaseVersion() {
+  return Cypress.env('CYPRESS_RELEASE_VERSION') == 'mvp';
+}
+
 export {
   intercept_address_search,
   intercept_availability_search,
@@ -277,5 +281,6 @@ export {
   completeJourneyUsingEmail,
   makeSelectionAndClickButton,
   checkIfSelectionGoesToCorrectUrl,
-  intercept_repair_triage
+  intercept_repair_triage,
+  isMvpReleaseVersion
 }

@@ -1,5 +1,7 @@
+import {isMvpReleaseVersion} from '../support/helpers';
+
 describe('App', () => {
-  if (Cypress.env('CYPRESS_RELEASE_VERSION') == 'mvp') {
+  if (isMvpReleaseVersion()) {
     before(() => {
       cy.visit('http://localhost:3000/');
       cy.get('[data-cy=landing-page]', {timeout: 10000})
