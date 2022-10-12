@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Details from '../details';
 import RadioFieldSet from '../radioFieldSet';
 import React from 'react';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 
 const Communal = ({handleChange, values}) => {

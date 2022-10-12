@@ -6,7 +6,7 @@ import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import { isMvpReleaseVersion } from '../../helpers/features';
 import ImagePreview from '../image-preview';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const CharacterCount = ({ errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit }) => {
 

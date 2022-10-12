@@ -1,7 +1,7 @@
 import React from 'react';
 import {OpeningHours} from '../openingHours';
 import {customerServicesTelephoneNumber} from '../../globals'
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const ContactUs = () => {
   const title = 'You need to contact us to report this repair'

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import TextLink from '../textLink';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 
 const Confirmation = ({ requestId, confirmation }) => {

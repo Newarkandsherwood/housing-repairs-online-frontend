@@ -1,5 +1,5 @@
 import React from 'react';
-import ComponentHeader from './ComponentHeader';
+import ComponentHeader from './componentHeader';
 
 export default function Error({ name, heading, body }) {
   window.scrollTo({ top: 0, behavior: 'smooth' });

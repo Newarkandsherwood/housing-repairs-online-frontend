@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import RadioFieldSet from '../radioFieldSet';
 import React from 'react';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const PriorityList = ({handleChange, values}) => {
   const name =  'priority-list';

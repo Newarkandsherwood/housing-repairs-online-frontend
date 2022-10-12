@@ -9,7 +9,7 @@ import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
 import {customerServicesTelephoneNumber} from '../../globals'
 import {OpeningHours} from '../openingHours';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const ContactDetails = ({handleChange, values}) => {
   const title = 'How should we confirm the appointment?'

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RadioFieldSet from '../radioFieldSet';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const RepairProblemBestDescription = ({handleChange, values, options}) => {
   const name =  'repairProblemBestDescription';

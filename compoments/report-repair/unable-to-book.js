@@ -1,6 +1,6 @@
 import React from 'react';
 import {customerServicesTelephoneNumber} from '../../globals'
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const UnableToBook = () => {
   const title = 'Your repair could not be booked'
