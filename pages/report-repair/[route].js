@@ -245,6 +245,7 @@ function ReportRepair() {
       return (
         <NotEligible
           goToStep={goToStep}
+          postcode={values.postcode}
         />
       )
     case 'not-eligible-non-emergency':

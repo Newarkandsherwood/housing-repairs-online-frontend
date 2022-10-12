@@ -6,6 +6,7 @@ import {customerServicesTelephoneNumber} from '../../globals';
 import {OpeningHours} from '../openingHours';
 import ComponentHeader from '../componentHeader';
 import { isMvpReleaseVersion } from '../../helpers/features';
+import Link from 'next/link';
 
 const NotEligibleMvp = () => {
   const title = 'The council may not be responsible for repairs at this property'
@@ -49,7 +50,7 @@ const NotEligibleMvp = () => {
   );
 };
 
-const NotEligibleFull = ({goToStep}) => {
+const NotEligibleFull = ({goToStep, postcode}) => {
   const title = 'The council may not be responsible for repairs at this property'
   return (
     <div className="govuk-grid-row govuk-body-m">
@@ -80,17 +81,19 @@ const NotEligibleFull = ({goToStep}) => {
 };
 
 NotEligibleFull.propTypes = {
-  goToStep: PropTypes.func.isRequired
+  goToStep: PropTypes.func.isRequired,
+  postcode: PropTypes.string.isRequired
 }
 
-const NotEligible = ({goToStep}) => {
+const NotEligible = ({goToStep, postcode}) => {
   return (
-    isMvpReleaseVersion() ? <NotEligibleMvp /> : <NotEligibleFull goToStep={goToStep} />
+    isMvpReleaseVersion() ? <NotEligibleMvp /> : <NotEligibleFull goToStep={goToStep} postcode={postcode} />
   );
 };
 
 NotEligible.propTypes = {
-  goToStep: PropTypes.func.isRequired
+  goToStep: PropTypes.func.isRequired,
+  postcode: PropTypes.string.isRequired
 }
 
 export default NotEligible;
