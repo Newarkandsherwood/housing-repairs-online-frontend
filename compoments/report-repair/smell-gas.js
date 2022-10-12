@@ -5,7 +5,7 @@ import { isMvpReleaseVersion } from '../../helpers/features';
 const SmellGas = () => {
   if (isMvpReleaseVersion()) {
     const title = 'If you smell gas'
-    return <div className="govuk-grid-row">
+    return <div className="govuk-grid-row" data-cy="smell-gas">
       <header>
         <title>{title} - {serviceName}</title>
       </header>
