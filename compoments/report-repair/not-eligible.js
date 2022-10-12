@@ -2,7 +2,7 @@ import Details from '../details';
 import React from 'react';
 import PropTypes from 'prop-types';
 import ContactNumbers from '../contactNumbers';
-import {customerServicesTelephoneNumber} from '../../globals';
+import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber} from '../../globals';
 import {OpeningHours} from '../openingHours';
 import ComponentHeader from '../componentHeader';
 import { isMvpReleaseVersion } from '../../helpers/features';
@@ -73,8 +73,7 @@ const NotEligibleFull = ({goToStep, postcode}) => {
         </p>
         <h3 className="govuk-heading-m">If you think the council is responsible for this property</h3>
         <p>Contact us via telephone {customerServicesTelephoneNumber}</p>
-        <p>Our call centre is open between</p>
-        <OpeningHours />
+        <p>Our call centre is open between {customerServicesOpeningHoursDescription}</p>
       </div>
     </div>
   );
