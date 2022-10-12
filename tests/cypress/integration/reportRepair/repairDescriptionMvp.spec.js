@@ -1,3 +1,5 @@
+import {isMvpReleaseVersion} from '../../support/helpers';
+
 function loadRepairDescriptionPage() {
   cy.visit('http://localhost:3000/report-repair/repair-description');
   cy.get('[data-cy=repair-description]', {timeout: 10000})
@@ -5,7 +7,7 @@ function loadRepairDescriptionPage() {
 
 describe('repair description', () => {
   context('conditional mvp tests', () => {
-    if (Cypress.env('CYPRESS_RELEASE_VERSION') == 'mvp') {
+    if (isMvpReleaseVersion()) {
       const repairDescriptionTextInputId = 'repair-description-text-input';
 
       context ('Content', () => {
