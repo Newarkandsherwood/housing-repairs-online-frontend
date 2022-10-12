@@ -6,7 +6,7 @@ import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber
 import {OpeningHours} from '../openingHours';
 import ComponentHeader from '../componentHeader';
 import { isMvpReleaseVersion } from '../../helpers/features';
-import Link from 'next/link';
+import PostcodeChange from '../postcodeChange';
 
 const NotEligibleMvp = () => {
   const title = 'The council may not be responsible for repairs at this property'
@@ -58,19 +58,7 @@ const NotEligibleFull = ({goToStep, postcode}) => {
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>{title}</h1>
         <h2 className="govuk-heading-m govuk-!-margin-bottom-2">Postcode</h2>
-        <p className="govuk-body">NWG 222
-          <Link href='postcode'>
-            <a
-              className={'govuk-link'}
-              href='postcode'
-              onClick={(e)=>{
-                e.preventDefault()
-                goToStep('postcode', 'not-eligible')
-              }}>
-                Change
-            </a>
-          </Link>
-        </p>
+        <PostcodeChange goToStep={goToStep} postcode={postcode} />
         <h3 className="govuk-heading-m">If you think the council is responsible for this property</h3>
         <p>Contact us via telephone {customerServicesTelephoneNumber}</p>
         <p>Our call centre is open between {customerServicesOpeningHoursDescription}</p>
