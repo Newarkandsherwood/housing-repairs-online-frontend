@@ -10,7 +10,7 @@ const LinkPreservingValues = ({currentLocation, goToLocation, goToStep, text}) =
         href={goToLocation}
         onClick={(e)=>{
           e.preventDefault()
-          goToStep({goToLocation}, {currentLocation})
+          goToStep(goToLocation, currentLocation)
         }}
       >
         {text}
