@@ -21,7 +21,7 @@ const NotEligible = ({goToStep, postcode}) => {
   );
 };
 
-NotEligibleFull.propTypes = {
+NotEligible.propTypes = {
   goToStep: PropTypes.func.isRequired,
   postcode: PropTypes.string.isRequired
 }
