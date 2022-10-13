@@ -87,7 +87,7 @@ const Address = ({handleChange, values}) => {
             ))}
           </Select>
         </div>
-        <p class="govuk-body">
+        <p className='govuk-body'>
           <TextLink href="not-eligible">I can&apos;t find my address on this list</TextLink>
         </p>
         <br/>
@@ -98,12 +98,7 @@ const Address = ({handleChange, values}) => {
   </div>
 };
 
-Address.defaultProps = {
-  addresses: []
-};
-
 Address.propTypes = {
-  addresses: PropTypes.array,
   values: PropTypes.object,
   handleChange: PropTypes.func,
 }
