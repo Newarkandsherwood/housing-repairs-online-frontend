@@ -20,6 +20,7 @@ class Flow {
         {condition: 'non-emergency/9', nextStep: 'communal'}
       ]},
       'emergency-repair': {},
+      'not-eligible': {},
       'communal': {prevStep: isMvpReleaseVersion()? 'priority-list' : true, nextStep: [
         {condition: 'yes', nextStep: 'not-eligible-communal-repairs'},
         {condition: 'no', nextStep: isMvpReleaseVersion() ? 'postcode' : 'tenant-or-leaseholder'}
