@@ -204,14 +204,13 @@ jobs:
           inlineScript: |
             az staticwebapp appsettings set --name hrostaticwebapp --setting-names "REPAIRS_API_BASE_URL_STAGING=${{ secrets.REPAIRS_API_BASE_URL_STAGING }} REPAIRS_API_IDENTIFIER_STAGING=${{ secrets.REPAIRS_API_IDENTIFIER_STAGING }}"
 
-     - name: Azure CLI script to set appsettings for production
+      - name: Azure CLI script to set appsettings for production
         uses: azure/CLI@v1
         if: github.event_name == 'push'
         with:
           azcliversion: 2.30.0
           inlineScript: |
             az staticwebapp appsettings set --name hrostaticwebapp --setting-names "REPAIRS_API_BASE_URL=${{ secrets.REPAIRS_API_BASE_URL }} REPAIRS_API_IDENTIFIER=${{ secrets.REPAIRS_API_IDENTIFIER }}"
-
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
