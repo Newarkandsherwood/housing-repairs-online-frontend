@@ -16,7 +16,7 @@ const PostcodeChange = ({postcode, goToStep}) => {
             goToStep('postcode', 'not-eligible')
           }}
         >
-          {text}
+          Change
         </a>
       </Link>
     </p>
