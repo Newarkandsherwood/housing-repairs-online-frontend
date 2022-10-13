@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import Select from '../select';
-import TextLink from '../textLink';
 import Button from '../button';
 import useSWR from 'swr'
 import {fetcher} from '../../helpers/fetcher';
