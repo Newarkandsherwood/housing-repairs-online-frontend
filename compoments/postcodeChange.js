@@ -9,7 +9,7 @@ const PostcodeChange = ({postcode, goToStep}) => {
       {' '}
       <Link href='postcode'>
         <a
-          className={'govuk-link'}
+          className='govuk-link'
           href='postcode'
           onClick={(e)=>{
             e.preventDefault()
