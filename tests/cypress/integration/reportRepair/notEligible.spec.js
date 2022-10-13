@@ -7,7 +7,8 @@ describe('NotEligible', () => {
     navigateToPostcodePage();
     cy.get('input').type(postcode);
     cy.get('button').click();
-    cy.get('.govuk-link', { timeout: 10000 }).click();
+    cy.get('[data-cy=address]', { timeout: 10000 })
+    cy.get('.govuk-link').click();
   });
 
   it('Displays page title', () => {
