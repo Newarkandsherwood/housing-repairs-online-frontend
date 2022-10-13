@@ -1,8 +1,10 @@
 import Details from '../details';
 import React from 'react';
 import ContactNumbers from '../contactNumbers';
+import {serviceName} from '../../helpers/constants';
 import {customerServicesTelephoneNumber} from '../../globals';
 import {OpeningHours} from '../openingHours';
+
 
 const NotEligible = () => {
   const title = 'The council may not be responsible for repairs at this property'
