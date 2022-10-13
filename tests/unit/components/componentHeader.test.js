@@ -1,7 +1,7 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, unmountComponentAtNode } from 'react-dom';
-import ComponentHeader from '../../../compoments/ComponentHeader';
+import ComponentHeader from '../../../compoments/componentHeader';
 import { serviceName } from '../../../helpers/constants';
 
 let container = null;
