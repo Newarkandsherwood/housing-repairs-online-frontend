@@ -7,7 +7,7 @@ describe('NotEligible', () => {
     navigateToPostcodePage();
     cy.get('input').type(postcode);
     cy.get('button').click();
-    cy.get('.govuk-link').click();
+    cy.get('.govuk-link', { timeout: 10000 }).click();
   });
 
   it('Displays page title', () => {
