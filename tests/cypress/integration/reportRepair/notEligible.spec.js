@@ -1,11 +1,12 @@
-import { navigateToAddressPage } from '../../support/helpers';
+import { intercept_address_search, navigateToAddressPage } from '../../support/helpers';
 
 describe('NotEligible', () => {
   const postcode = 'SW1A 2AA';
 
   before(() => {
+    intercept_address_search();
     navigateToAddressPage();
-    cy.get('.govuk-link').click();
+    cy.contains('I can\'t find my address').click();
   });
 
   it('Displays page title', () => {
