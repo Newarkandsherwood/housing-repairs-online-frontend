@@ -6,7 +6,7 @@ import TextLink from '../textLink';
 import { OpeningHours } from '../openingHours';
 import { isMvpReleaseVersion } from '../../helpers/features';
 import Link from 'next/link';
-import ComponentHeader from '../ComponentHeader';
+import ComponentHeader from '../componentHeader';
 
 const EmergencyRepairMvp = () => {
   const title = 'Your repair could be an emergency'

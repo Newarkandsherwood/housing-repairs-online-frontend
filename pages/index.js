@@ -7,7 +7,7 @@ import ContactNumbers from '../compoments/contactNumbers';
 import { councilWebsiteHomePageUrl, contactUsPagePath } from '../globals';
 import { OpeningHours } from '../compoments/openingHours';
 import { isMvpReleaseVersion } from '../helpers/features';
-import ComponentHeader from '../compoments/ComponentHeader';
+import ComponentHeader from '../compoments/componentHeader';
 
 export default function Home() {
   const title = 'Request a repair';
