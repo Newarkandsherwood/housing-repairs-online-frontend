@@ -224,7 +224,10 @@ function ReportRepair() {
       return (
         <Address
           handleChange={handleChange}
-          values={values}/>
+          values={values}
+          goToStep={goToStep}
+        />
+
       )
     case 'communal':
       return (

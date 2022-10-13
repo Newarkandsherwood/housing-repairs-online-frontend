@@ -11,7 +11,7 @@ import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
 import LinkPreservingValues from '../linkPreservingValues';
 
-const Address = ({handleChange, values}) => {
+const Address = ({handleChange, values, goToStep}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
 
   const { data, error } = useSWR(`/api/address?postcode=${values.postcode}`, fetcher)
@@ -112,6 +112,7 @@ Address.propTypes = {
   addresses: PropTypes.array,
   values: PropTypes.object,
   handleChange: PropTypes.func,
+  goToStep: PropTypes.func.isRequired
 }
 
 export default Address;
