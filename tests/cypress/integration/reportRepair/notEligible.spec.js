@@ -1,13 +1,10 @@
-import { navigateToPostcodePage } from '../../support/helpers';
+import { navigateToAddressPage } from '../../support/helpers';
 
 describe('NotEligible', () => {
   const postcode = 'SW1A 2AA';
 
   before(() => {
-    navigateToPostcodePage();
-    cy.get('input').type(postcode);
-    cy.get('button').click();
-    cy.get('[data-cy=address]', { timeout: 10000 })
+    navigateToAddressPage();
     cy.get('.govuk-link').click();
   });
 
