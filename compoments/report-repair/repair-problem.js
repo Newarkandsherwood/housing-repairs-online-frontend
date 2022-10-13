@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RadioFieldSet from '../radioFieldSet';
-import {serviceName} from '../../helpers/constants';
+import ComponentHeader from '../componentHeader';
 
 const RepairProblem = ({handleChange, values, options}) => {
   const name =  'repairProblem';
@@ -12,9 +12,7 @@ const RepairProblem = ({handleChange, values, options}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="repair-problem">
-    <header>
-      <title>{title} - {serviceName}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className="govuk-grid-column-two-thirds">
       <RadioFieldSet
         name={name}

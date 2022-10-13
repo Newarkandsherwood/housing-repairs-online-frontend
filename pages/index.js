@@ -4,21 +4,17 @@ import TextLink from '../compoments/textLink';
 import React from 'react';
 import Link from 'next/link';
 import ContactNumbers from '../compoments/contactNumbers';
-import { serviceName } from '../helpers/constants';
 import { councilWebsiteHomePageUrl, contactUsPagePath } from '../globals';
 import { OpeningHours } from '../compoments/openingHours';
 import { isMvpReleaseVersion } from '../helpers/features';
+import ComponentHeader from '../compoments/componentHeader';
 
 export default function Home() {
   const title = 'Request a repair';
   return (
     <main className="govuk-main-wrapper" id='main-content'>
       <div className="govuk-grid-row govuk-body-m" data-cy="landing-page">
-        <header>
-          <title>
-            {title} - {serviceName}
-          </title>
-        </header>
+        <ComponentHeader title={title} />
         <div className="govuk-grid-column-two-thirds">
           <h1 className={'govuk-heading-xl'}>{title}</h1>
           {isMvpReleaseVersion() &&

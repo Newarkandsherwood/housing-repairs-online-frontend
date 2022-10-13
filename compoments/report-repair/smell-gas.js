@@ -1,14 +1,12 @@
 import React from 'react';
-import {serviceName} from '../../helpers/constants';
 import { isMvpReleaseVersion } from '../../helpers/features';
+import ComponentHeader from '../componentHeader';
 
 const SmellGas = () => {
   if (isMvpReleaseVersion()) {
     const title = 'If you smell gas'
     return <div className="govuk-grid-row" data-cy="smell-gas">
-      <header>
-        <title>{title} - {serviceName}</title>
-      </header>
+      <ComponentHeader title={title} />
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>{title}</h1>
         <p className="govuk-body-m">
@@ -21,9 +19,7 @@ const SmellGas = () => {
   else {
     const title = 'What to do if you smell gas';
     return <div className="govuk-grid-row" data-cy="smell-gas">
-      <header>
-        <title>{title} - {serviceName}</title>
-      </header>
+      <ComponentHeader title={title} />
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>{title}</h1>
         <div className="govuk-inset-text">

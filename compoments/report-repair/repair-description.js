@@ -6,6 +6,7 @@ import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import { isMvpReleaseVersion } from '../../helpers/features';
 import ImagePreview from '../image-preview';
+import ComponentHeader from '../componentHeader';
 
 const CharacterCount = ({ errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit }) => {
 
@@ -170,9 +171,7 @@ const RepairDescription = ({ handleChange, values }) => {
   }
 
   return <div className="govuk-grid-row" data-cy="repair-description">
-    <header>
-      <title>{pageTitle}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className="govuk-grid-column-two-thirds">
       {
         (error.text || error.img) && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />

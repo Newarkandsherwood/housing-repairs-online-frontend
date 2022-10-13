@@ -7,9 +7,9 @@ import {
 } from '../../helpers/validators';
 import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
-import {serviceName} from '../../helpers/constants';
 import {customerServicesTelephoneNumber} from '../../globals'
 import {OpeningHours} from '../openingHours';
+import ComponentHeader from '../componentHeader';
 
 const ContactDetails = ({handleChange, values}) => {
   const title = 'How should we confirm the appointment?'
@@ -59,9 +59,7 @@ const ContactDetails = ({handleChange, values}) => {
   );
 
   return <div className="govuk-grid-row" data-cy="contact-details">
-    <header>
-      <title>{title} - {serviceName}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className='govuk-grid-column-two-thirds'>
       <RadioFieldSet name={name}
         title={title}

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import TextInput from '../textInput';
 import React from 'react';
 import {phoneOnKeyPress, phoneValidator} from '../../helpers/validators';
-import {serviceName} from '../../helpers/constants';
+import ComponentHeader from '../componentHeader';
 
 
 const ContactPerson = ({handleChange, values}) => {
@@ -12,9 +12,7 @@ const ContactPerson = ({handleChange, values}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="contact-person">
-    <header>
-      <title>{title} - {serviceName}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className='govuk-grid-column-two-thirds'>
       <TextInput
         autoComplete='tel'

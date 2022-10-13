@@ -1,16 +1,12 @@
 import React from 'react';
-import { serviceName } from '../helpers/constants';
+import ComponentHeader from './componentHeader';
 
 export default function Error({ name, heading, body }) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
     <>
-      <header>
-        <title>
-          {heading} - {serviceName}
-        </title>
-      </header>
+      <ComponentHeader title={heading} />
       <div
         className={`govuk-error-${name}`}
         aria-labelledby={`error-${name}-title`}

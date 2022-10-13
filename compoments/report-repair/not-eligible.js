@@ -1,18 +1,16 @@
 import Details from '../details';
 import React from 'react';
 import ContactNumbers from '../contactNumbers';
-import {serviceName} from '../../helpers/constants';
 import {customerServicesTelephoneNumber} from '../../globals';
 import {OpeningHours} from '../openingHours';
+import ComponentHeader from '../componentHeader';
 
 
 const NotEligible = () => {
   const title = 'The council may not be responsible for repairs at this property'
   return (
     <div className="govuk-grid-row govuk-body-m">
-      <header>
-        <title>{title} - {serviceName}</title>
-      </header>
+      <ComponentHeader title={title} />
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>{title}</h1>
         <h3 className='govuk-heading-m'>Emergencies</h3>

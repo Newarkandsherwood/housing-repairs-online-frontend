@@ -10,6 +10,7 @@ import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
 import LinkPreservingValues from '../linkPreservingValues';
+import ComponentHeader from '../componentHeader';
 
 const Address = ({handleChange, values, goToStep}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
@@ -55,9 +56,7 @@ const Address = ({handleChange, values, goToStep}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="address">
-    <header>
-      <title>{title} - {serviceName}</title>
-    </header>
+    <ComponentHeader title={title} />
     <div className="govuk-grid-column-two-thirds">
       {state.error.msg && <ErrorSummary active={state.activeError} errorSummaryTextAndLocation={[{text:state.error.msg, location: '#address'}]} pageTitle={pageTitle} />}
       <h1 className="govuk-heading-l">{title}</h1>
@@ -88,7 +87,7 @@ const Address = ({handleChange, values, goToStep}) => {
             ))}
           </Select>
         </div>
-        <p class="govuk-body">
+        <p className='govuk-body'>
           <LinkPreservingValues
             currentLocation ='address'
             goToLocation='not-eligible'
@@ -104,12 +103,7 @@ const Address = ({handleChange, values, goToStep}) => {
   </div>
 };
 
-Address.defaultProps = {
-  addresses: []
-};
-
 Address.propTypes = {
-  addresses: PropTypes.array,
   values: PropTypes.object,
   handleChange: PropTypes.func,
   goToStep: PropTypes.func.isRequired
