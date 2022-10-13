@@ -1,6 +1,6 @@
 describe('App', () => {
   before(() => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('');
     cy.get('[data-cy=landing-page]', {timeout: 10000})
   });
 

@@ -2,7 +2,7 @@ import { checkIfSelectionGoesToCorrectUrl, makeSelectionAndClickButton } from ".
 
 describe('priorityList', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/report-repair/priority-list');
+    cy.visit('report-repair/priority-list');
     cy.get('[data-cy=priority-list]', {timeout: 10000})
   });
 
@@ -93,9 +93,9 @@ describe('priorityList', () => {
     it('should redirect the user to the home page',  () => {
       makeSelectionAndClickButton('I can smell gas in or near the property')
       cy.contains('Back').click();
-      cy.url().should('eq', 'http://localhost:3000/report-repair/priority-list');
+      cy.location('pathname').should('eq', '/report-repair/priority-list');
       cy.contains('Back').click();
-      cy.url().should('eq', 'http://localhost:3000/');
+      cy.location('pathname').should('eq', '/');
     })
   })
 

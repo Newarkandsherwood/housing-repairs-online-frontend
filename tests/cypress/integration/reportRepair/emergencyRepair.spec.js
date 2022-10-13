@@ -1,7 +1,7 @@
 import { makeSelectionAndClickButton} from '../../support/helpers';
 
 const goToRepairEmergency = () => {
-  cy.visit('http://localhost:3000/report-repair/priority-list');
+  cy.visit('report-repair/priority-list');
   makeSelectionAndClickButton('I have no heating in the property')
 }
 
@@ -26,7 +26,7 @@ describe('emergency repair', () => {
     });
 
     it('does not display the "My problem is not an emergency" link if the user is coming from a different page', () => {
-      cy.visit('http://localhost:3000/report-repair/emergency-repair');
+      cy.visit('report-repair/emergency-repair');
       cy.contains('My problem is not an emergency').should('not.exist');
     });
   })

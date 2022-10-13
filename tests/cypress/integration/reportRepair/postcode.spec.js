@@ -4,7 +4,7 @@ import {
 } from '../../support/helpers';
 
 function loadPostcodePage() {
-  cy.visit('http://localhost:3000/report-repair/postcode');
+  cy.visit('report-repair/postcode');
   cy.get('[data-cy=postcode]', {timeout: 10000})
 }
 
@@ -14,7 +14,7 @@ describe('postcode', () => {
 
     it('displays the question', () => {
       cy.contains('What is the property postcode?');
-    }); 
+    });
 
     it('displays the button with correct text', () => {
       cy.get('button').contains('Continue');

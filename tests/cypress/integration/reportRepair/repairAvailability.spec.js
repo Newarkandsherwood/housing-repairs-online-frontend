@@ -11,7 +11,7 @@ describe('repair availability', () => {
   {
     before(() => {
       intercept_availability_search();
-      cy.visit('http://localhost:3000/report-repair/repair-availability');
+      cy.visit('report-repair/repair-availability');
     });
 
     it('api is called without from date ', () => {
@@ -90,7 +90,7 @@ describe('repair availability', () => {
             'endTime': '2017-07-22T13:00:00'
           }
         ]);
-        cy.visit('http://localhost:3000/report-repair/repair-availability');
+        cy.visit('report-repair/repair-availability');
       });
 
       it('displays availability in date order', () => {
@@ -108,7 +108,7 @@ describe('repair availability', () => {
   describe('without availability', () => {
     before(() => {
       intercept_availability_search([]);
-      cy.visit('http://localhost:3000/report-repair/repair-availability');
+      cy.visit('report-repair/repair-availability');
     })
 
     it('displays unable to book page', () => {

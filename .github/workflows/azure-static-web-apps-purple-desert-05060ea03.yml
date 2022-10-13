@@ -57,6 +57,7 @@ jobs:
           record: false
           parallel: false
           spec: ${{ matrix.release-version == 'mvp' && 'tests/cypress/integration/reportRepair/*Mvp.spec.js' }}
+          config: baseUrl=http://localhost:3000
 
         env:
           # pass the Dashboard record key as an environment variable

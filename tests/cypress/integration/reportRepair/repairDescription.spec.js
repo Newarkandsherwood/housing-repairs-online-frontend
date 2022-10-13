@@ -1,5 +1,5 @@
 function loadRepairDescriptionPage() {
-  cy.visit('http://localhost:3000/report-repair/repair-description');
+  cy.visit('report-repair/repair-description');
   cy.get('[data-cy=repair-description]', {timeout: 10000})
 }
 

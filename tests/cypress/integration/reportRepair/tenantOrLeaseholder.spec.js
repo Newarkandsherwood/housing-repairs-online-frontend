@@ -4,7 +4,7 @@ import {
 } from '../../support/helpers';
 
 function loadTenantOrLeaseholderPage() {
-  cy.visit('http://localhost:3000/report-repair/tenant-or-leaseholder');
+  cy.visit('report-repair/tenant-or-leaseholder');
   cy.get('[data-cy=tenantOrLeaseholder]', {timeout: 10000})
 }
 

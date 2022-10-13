@@ -130,7 +130,7 @@ describe('repairLocation', () => {
       cy.get('[data-cy=repair-problem]', {timeout: 10000}).then(() => {
         cy.contains('Back').click({force: true});
       });
-      cy.url().should('eq', 'http://localhost:3000/report-repair/repair-location');
+      cy.location('pathname').should('eq', '/report-repair/repair-location');
       cy.get('[value="kitchen"]').should('be.checked')
     });
   });
