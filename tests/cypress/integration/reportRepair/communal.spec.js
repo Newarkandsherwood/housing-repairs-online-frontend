@@ -6,7 +6,7 @@ import {
 } from '../../support/helpers';
 
 function loadCommunalPage() {
-  cy.visit('http://localhost:3000/report-repair/communal');
+  cy.visit('report-repair/communal');
   cy.get('[data-cy=communal]', {timeout: 10000})
 }
 

@@ -1,6 +1,6 @@
 describe('contactDetails', () => {
   before(() => {
-    cy.visit('http://localhost:3000/report-repair/contact-details');
+    cy.visit('report-repair/contact-details');
   });
 
   it('displays the question', () => {
@@ -122,7 +122,7 @@ describe('contactDetails', () => {
 
     context('When a user types in an invalid email with the right format', ()=>{
       beforeEach(()=> {
-        cy.visit('http://localhost:3000/report-repair/contact-details');
+        cy.visit('report-repair/contact-details');
         cy.contains('Email').click();
       });
 

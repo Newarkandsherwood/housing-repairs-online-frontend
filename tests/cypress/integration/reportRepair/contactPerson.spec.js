@@ -1,6 +1,6 @@
 describe('contactPerson', () => {
   before(() => {
-    cy.visit('http://localhost:3000/report-repair/contact-person');
+    cy.visit('report-repair/contact-person');
   });
 
   it('displays the question', () => {

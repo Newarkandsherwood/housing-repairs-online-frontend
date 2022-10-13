@@ -54,7 +54,7 @@ describe('summary', () => {
       let newAddress = '2 Downing Street, London, SW1A 2AA'
       cy.get('a[href*="postcode"]').contains('Change').click()
 
-      cy.location('href').should('eq', 'http://localhost:3000/report-repair/postcode')
+      cy.location('pathname').should('eq', '/report-repair/postcode');
       cy.get('button').click();
 
       cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
@@ -92,7 +92,7 @@ describe('summary', () => {
       let newNumber = '02087748222';
       cy.get('a[href*="contact-person"]').contains('Change').click();
 
-      cy.location('href').should('eq', 'http://localhost:3000/report-repair/contact-person');
+      cy.location('pathname').should('eq', '/report-repair/contact-person');
       cy.get('input').clear();
       cy.get('input').type(newNumber);
       cy.get('button').click();
@@ -128,7 +128,7 @@ describe('summary', () => {
       cy.contains('Floor tiles')
 
       cy.get('a[href*="repair-problem-best-description"]').contains('Change').click();
-      cy.location('href').should('eq', 'http://localhost:3000/report-repair/repair-problem-best-description');
+      cy.location('pathname').should('eq', '/report-repair/repair-problem-best-description');
 
       navigateToPageSelectRadioOptionAndContinue({
         page: 'repair-problem-best-description', option:'Wall tiles'
@@ -144,19 +144,19 @@ describe('summary', () => {
 
     it('allows you to navigate to change the repair location page ', () => {
       cy.get('a[href*="repair-location"]').contains('Change').click();
-      cy.location('href').should('eq', 'http://localhost:3000/report-repair/repair-location');
+      cy.location('pathname').should('eq', '/report-repair/repair-location');
     });
 
     it('allows you to navigate to change what is the problem page', () => {
       cy.get('a[href*="repair-problems"]').contains('Change').click();
-      cy.location('href').should('eq', 'http://localhost:3000/report-repair/repair-problems');
+      cy.location('pathname').should('eq', '/report-repair/repair-problems');
     });
 
     it('allows you to change the description text', () => {
       let newText = 'loremmmm ipsummm'
       cy.contains(newText).should('not.exist')
       cy.get('a[href*="repair-description"]').contains('Change').click();
-      cy.location('href').should('eq', 'http://localhost:3000/report-repair/repair-description');
+      cy.location('pathname').should('eq', '/report-repair/repair-description');
       cy.get('textarea').clear();
       cy.get('textarea').type(newText);
       cy.get('button').contains('Continue').click();
@@ -179,7 +179,7 @@ describe('summary', () => {
     it('allows you to change the date', () => {
       cy.contains(convertDateToDisplayDate(timeSlotValueFunction()));
       cy.get('a[href*="repair-availability"]').contains('Change').click()
-      cy.location('href').should('eq', 'http://localhost:3000/report-repair/repair-availability');
+      cy.location('pathname').should('eq', '/report-repair/repair-availability');
       cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
         cy.get('[data-cy=availability-slot-1-0]').invoke('val').then(value =>{
           cy.get('[data-cy=availability-slot-1-0]').click();
@@ -194,7 +194,7 @@ describe('summary', () => {
       let newEmail = 'dumbledoor@hogwarts.com'
       cy.contains(newEmail).should('not.exist');
       cy.get('a[href*="contact-details"]').contains('Change').click();
-      cy.location('href').should('eq', 'http://localhost:3000/report-repair/contact-details');
+      cy.location('pathname').should('eq', '/report-repair/contact-details');
       cy.get('input#contactDetails-1').click().then(()=> {
         cy.get('input#contactDetails-email').clear();
         cy.get('input#contactDetails-email').type(newEmail);

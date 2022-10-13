@@ -4,7 +4,7 @@ describe('smellGas mvp', () => {
   context('conditional mvp tests', () => {
     if (isMvpReleaseVersion()) {
       before(() => {
-        cy.visit('http://localhost:3000/report-repair/smell-gas');
+        cy.visit('report-repair/smell-gas');
         cy.get('[data-cy=smell-gas]', {timeout: 10000})
       });
 

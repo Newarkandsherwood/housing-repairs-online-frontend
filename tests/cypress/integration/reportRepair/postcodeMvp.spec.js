@@ -5,7 +5,7 @@ import {
 } from '../../support/helpers';
 
 function loadPostcodePage() {
-  cy.visit('http://localhost:3000/report-repair/postcode');
+  cy.visit('report-repair/postcode');
   cy.get('[data-cy=postcode]', { timeout: 10000 })
 }
 
@@ -49,7 +49,7 @@ describe('postcode', () => {
 
         context('Navigation', () => {
           beforeEach(() => {
-            cy.visit('http://localhost:3000/report-repair/');
+            cy.visit('report-repair');
             makeSelectionAndClickButton('Something else');
             cy.get('[data-cy=communal]', { timeout: 10000 }).then(($loadedSection) => {
               makeSelectionAndClickButton('No');
