@@ -2,13 +2,14 @@ import dummyAppointments from '../../fixtures/availableAppointments.json';
 import mockRepairTriageOptions from '../../fixtures/repairTriageOptions.json';
 import moment from 'moment';
 
+const api_url = 'api';
+
 function intercept_address_search(
   numberOfResults = 2,
   postcode='SW1A 2AA',
   nullAddressLine1 = false,
   nullAddressLine2 = false
 ) {
-  const api_url = 'api';
   const response = [];
 
   for (let i = 0; i < numberOfResults; i++) {
@@ -25,7 +26,6 @@ function intercept_address_search(
 }
 
 function intercept_repair_triage() {
-  const api_url = 'api';
   const response = mockRepairTriageOptions
 
   cy.intercept('GET', `${api_url}/repairTriage?*`, {
@@ -35,8 +35,6 @@ function intercept_repair_triage() {
 }
 
 function intercept_availability_search(appointments = dummyAppointments) {
-  const api_url = 'api';
-
   cy.intercept('GET', `${api_url}/availability*`, {
     statusCode: 201,
     body: appointments
@@ -44,8 +42,6 @@ function intercept_availability_search(appointments = dummyAppointments) {
 }
 
 function intercept_save_repair(repairId) {
-  const api_url = 'api';
-
   cy.intercept('POST', `${api_url}/repair`, {
     statusCode: 201,
     body: repairId
