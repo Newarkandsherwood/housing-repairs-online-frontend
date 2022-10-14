@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link'
+import LinkPreservingValues from './linkPreservingValues';
 
 export default function SummaryList ({summary, goToStep}) {
 
@@ -13,12 +13,12 @@ export default function SummaryList ({summary, goToStep}) {
           {o.value}
         </dd>
         <dd className="govuk-summary-list__actions">
-          <Link href={o.link}>
-            <a className={'govuk-link'} href={o.link} onClick={(e)=>{
-              e.preventDefault()
-              goToStep(o.link, 'summary')
-            }}>Change</a>
-          </Link>
+          <LinkPreservingValues
+            currentLocation ='summary'
+            goToLocation={o.link}
+            goToStep={goToStep}
+            text='Change'
+          />
           <span className="govuk-visually-hidden">{o.pageName}</span>
         </dd>
       </div>

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import Select from '../select';
-import TextLink from '../textLink';
 import Button from '../button';
 import useSWR from 'swr'
 import {fetcher} from '../../helpers/fetcher';
@@ -10,9 +9,10 @@ import Error from '../error';
 import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
+import LinkPreservingValues from '../linkPreservingValues';
 import ComponentHeader from '../componentHeader';
 
-const Address = ({handleChange, values}) => {
+const Address = ({handleChange, values, goToStep}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
 
   const { data, error } = useSWR(`/api/address?postcode=${values.postcode}`, fetcher)
@@ -88,7 +88,12 @@ const Address = ({handleChange, values}) => {
           </Select>
         </div>
         <p className='govuk-body'>
-          <TextLink href="not-eligible">I can&apos;t find my address on this list</TextLink>
+          <LinkPreservingValues
+            currentLocation ='address'
+            goToLocation='not-eligible'
+            goToStep={goToStep}
+            text='I can&apos;t find my address on this list'
+          />
         </p>
         <br/>
         <br/>
@@ -101,6 +106,7 @@ const Address = ({handleChange, values}) => {
 Address.propTypes = {
   values: PropTypes.object,
   handleChange: PropTypes.func,
+  goToStep: PropTypes.func.isRequired
 }
 
 export default Address;
