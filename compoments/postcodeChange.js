@@ -1,24 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
+import LinkPreservingValues from './linkPreservingValues';
 
 const PostcodeChange = ({postcode, goToStep}) => {
   return (
     <p className="govuk-body">
       {postcode}
       {' '}
-      <Link href='postcode'>
-        <a
-          className='govuk-link'
-          href='postcode'
-          onClick={(e)=>{
-            e.preventDefault()
-            goToStep('postcode', 'not-eligible')
-          }}
-        >
-          Change
-        </a>
-      </Link>
+      <LinkPreservingValues
+        currentLocation='not-eligible'
+        goToLocation='postcode'
+        goToStep={goToStep}
+        text='Change'
+      />
     </p>
   )
 }
