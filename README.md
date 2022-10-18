@@ -49,11 +49,13 @@ In one terminal run the next development server:
 
 In another terminal run the function server:
 
-Copy the `example.env` file and set the values to point to the repairs API:
+Copy the `example.env` file 
 
 ```bash
 cd api/ && cp example.env .env
 ```
+
+>Set the values in api/.env to point to the desired repairs API. For local development, 'REPAIRS_API_BASE_URL_STAGING' and 'REPAIRS_API_IDENTIFIER_STAGING' must be set.
 
 Start the development function (still in the api directory)
 
