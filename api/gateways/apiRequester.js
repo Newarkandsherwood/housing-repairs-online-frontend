@@ -3,8 +3,8 @@ require('dotenv').config()
 module.exports = axios => {
   return {
     makeGetRequest: ({uri, params ={}}) =>{
-      var identifier = process.env.NODE_ENV === 'production' ? process.env.REPAIRS_API_IDENTIFIER : REPAIRS_API_IDENTIFIER_STAGING
-      var baseUrl = process.env.NODE_ENV === 'production' ? process.env.REPAIRS_API_BASE_URL: REPAIRS_API_BASE_URL_PRODUCTION;
+      var identifier = process.env.NODE_ENV === 'production' ? process.env.REPAIRS_API_IDENTIFIER : process.env.REPAIRS_API_IDENTIFIER_STAGING
+      var baseUrl = process.env.NODE_ENV === 'production' ? process.env.REPAIRS_API_BASE_URL: process.env.REPAIRS_API_BASE_URL_STAGING;
       const axiosInstance = axios.create({
         baseURL: baseUrl
       })
@@ -19,8 +19,8 @@ module.exports = axios => {
     },
 
     makePostRequest: ({uri, body ={}}) =>{
-      var identifier = process.env.NODE_ENV === 'production' ? process.env.REPAIRS_API_IDENTIFIER : REPAIRS_API_IDENTIFIER_STAGING
-      var baseUrl = process.env.NODE_ENV === 'production' ? process.env.REPAIRS_API_BASE_URL: REPAIRS_API_BASE_URL_PRODUCTION;
+      var identifier = process.env.NODE_ENV === 'production' ? process.env.REPAIRS_API_IDENTIFIER : process.env.REPAIRS_API_IDENTIFIER_STAGING
+      var baseUrl = process.env.NODE_ENV === 'production' ? process.env.REPAIRS_API_BASE_URL: process.env.REPAIRS_API_BASE_URL_STAGING;
       const axiosInstance = axios.create({
         baseURL: baseUrl
       })
