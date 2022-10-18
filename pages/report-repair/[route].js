@@ -134,6 +134,7 @@ function ReportRepair() {
     fetch('/api/repair', {
       method: 'POST',
       body: JSON.stringify({
+        repairType: getRepairType(),
         postcode: values.postcode,
         address: values.address,
         location: values.repairLocation,
@@ -164,6 +165,17 @@ function ReportRepair() {
     })
   }
   const values = state.data;
+
+  const getRepairType = () => {
+    var result = 'tenant';
+    if(state.data['communal'].value === 'yes'){
+      result = 'communal'
+    } else{
+      if(state.data['isTenant'].value === 'no'){
+        result = 'leasehold'
+    }
+    return result;
+  }
 
   const getRepairLocation = () => {
     return repairTriageData.find(option => option.value === state.data['repairLocation'].value)
