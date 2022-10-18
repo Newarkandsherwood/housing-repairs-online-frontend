@@ -143,22 +143,6 @@ jobs:
           echo "token=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .sentryclirc
           cp .sentryclirc api/.sentryclirc
 
-      - name: Add mask to obscure secrets in debug logs
-        run: |
-          echo "::add-mask::${{ secrets.REPAIRS_API_BASE_URL }}"
-          echo "::add-mask::${{ secrets.REPAIRS_API_BASE_URL_STAGING }}"
-          echo "::add-mask::${{ secrets.REPAIRS_API_IDENTIFIER }}"
-          echo "::add-mask::${{ secrets.REPAIRS_API_IDENTIFIER_STAGING }}"
-          echo "::add-mask::${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}"
-          echo "::add-mask::${{ secrets.GITHUB_TOKEN }}"
-          echo "::add-mask::${{ secrets.SENTRY_ORG }}"
-          echo "::add-mask::${{ secrets.SENTRY_DSN }}"
-          echo "::add-mask::${{ secrets.SENTRY_AUTH_TOKEN }}"
-          echo "::add-mask::${{ secrets.ARM_CLIENT_ID }}"
-          echo "::add-mask::${{ secrets.AZURE_AD_CLIENT_SECRET }}"
-          echo "::add-mask::${{ secrets.AZURE_SUBSCRIPTION_ID }}"
-          echo "::add-mask::${{ secrets.AZURE_AD_TENANT_ID }}"
-
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -190,27 +174,6 @@ jobs:
           ACCESSIBILITY_STATEMENT_WEB_PAGE_PATH: ${{ secrets.ACCESSIBILITY_STATEMENT_WEB_PAGE_PATH }}
           CONTACT_US_PAGE_PATH: ${{ secrets.CONTACT_US_PAGE_PATH }}
           ###### End of Local Authority Configurable Content ######
-
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_AD_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_AD_TENANT_ID }}"}'
-
-      - name: Azure CLI script to set appsettings for staging
-        uses: azure/CLI@v1
-        if: github.event_name == 'pull_request'
-        with:
-          azcliversion: 2.30.0
-          inlineScript: |
-            az staticwebapp appsettings set --name hrostaticwebapp --setting-names "REPAIRS_API_BASE_URL_STAGING=${{ secrets.REPAIRS_API_BASE_URL_STAGING }} REPAIRS_API_IDENTIFIER_STAGING=${{ secrets.REPAIRS_API_IDENTIFIER_STAGING }}"
-
-      - name: Azure CLI script to set appsettings for production
-        uses: azure/CLI@v1
-        if: github.event_name == 'push'
-        with:
-          azcliversion: 2.30.0
-          inlineScript: |
-            az staticwebapp appsettings set --name hrostaticwebapp --setting-names "REPAIRS_API_BASE_URL=${{ secrets.REPAIRS_API_BASE_URL }} REPAIRS_API_IDENTIFIER=${{ secrets.REPAIRS_API_IDENTIFIER }}"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
