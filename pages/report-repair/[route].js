@@ -90,7 +90,7 @@ function ReportRepair() {
   }, [router]);
 
   const handleChange = (input, value) => {
-    flow.handleChange(input,value,state)
+    flow.handleChange(input,value,state);
   };
 
   const goToStep = (step, prevStep) => {
@@ -167,12 +167,13 @@ function ReportRepair() {
   const values = state.data;
 
   const getRepairType = () => {
-    var result = 'tenant';
-    if(state.data['communal'].value === 'yes'){
-      result = 'communal'
+    var result = 'Tenant';
+    if(state.data['communal'] === 'yes'){
+      result = 'Communal'
     } else{
-      if(state.data['isTenant'].value === 'no'){
-        result = 'leasehold'
+      if(state.data['isTenant'] === 'no' || undefined){
+        result = 'Leasehold'
+      }
     }
     return result;
   }

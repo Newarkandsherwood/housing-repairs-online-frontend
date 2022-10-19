@@ -1,10 +1,10 @@
 
 module.exports = makePostRequest => {
-  return async body => {
+  return async (body) => {
     let result;
-
+    let repairURI = '/repair/Repair' + body.repairType;
     result = await makePostRequest({
-      uri: '/repair',
+      uri: repairURI,
       body
     }).then(response => {
       return response.data;
