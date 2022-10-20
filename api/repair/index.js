@@ -8,9 +8,8 @@ module.exports = async function (context, req) {
 
   let status;
   let result;
-
   try {
-    result = await saveRepairGateway(req.body);
+    result = await saveRepairGateway(req.body, req.query.repairType);
     status = 200;
   } catch (e) {
     Sentry.captureException(e);
