@@ -132,7 +132,7 @@ function ReportRepair() {
 
   const submit = (values) => {
     cleanPayload(values)
-    fetch('/api/repair?repairType=' + getRepairType(state.data), {
+    fetch(`/api/repair?repairType=${getRepairType(state.data)}`, {
       method: 'POST',
       body: JSON.stringify({
         postcode: values.postcode,

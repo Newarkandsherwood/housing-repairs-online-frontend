@@ -29,7 +29,7 @@ describe('SearchProperties', () => {
 
     expect(mockGetRequest).toHaveBeenCalledWith(
       {
-        uri:  '/Appointments/Available' + repairType + 'Appointments',
+        uri:  `/Appointments/Available${repairType}Appointments`,
         params: {
           fromDate: fromDate,
           repairIssue: repairIssue,

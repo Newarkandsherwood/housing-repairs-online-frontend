@@ -25,7 +25,7 @@ describe('SaveRepairGateway', () => {
     expect(mockPostRequest).toHaveBeenCalledWith(
       {
         uri:  '/repair/TenantRepair',
-        body: {          
+        body: {
           repairIssue: repairIssue,
           repairLocation: repairLocation,
           repairProblem: repairProblem,
