@@ -11,7 +11,7 @@ module.exports = async function (context, req) {
   let results;
 
   try {
-    results = await repairTriageGateway(req.query.emergencyValue, req.query.notEligibleNonEmergencyValue, req.query.unableToBookValue, req.query.contactUsValue);
+    results = await repairTriageGateway(req.query.repairType, req.query.emergencyValue, req.query.notEligibleNonEmergencyValue, req.query.unableToBookValue, req.query.contactUsValue);
   } catch (e) {
     Sentry.captureException(e);
     await Sentry.flush(2000);

@@ -11,6 +11,7 @@ module.exports = async function (context, req) {
 
   try {
     results = await availableAppointmentsGateway({
+      repairType: req.query.repairType,
       repairLocation: req.query.repairLocation,
       repairProblem: req.query.repairProblem,
       repairIssue: req.query.repairIssue,
