@@ -1,9 +1,10 @@
 module.exports = makeGetRequest => {
-  return async ({repairLocation, repairProblem, repairIssue, locationId, fromDate}) => {
+  return async ({repairType, repairLocation, repairProblem, repairIssue, locationId, fromDate}) => {
     let result;
-
-    result = await makeGetRequest({
-      uri: '/Appointments/AvailableAppointments',
+    
+    let apptURI = '/Appointments/Available' + repairType + 'Appointments';
+    result = await makeGetRequest({      
+      uri: apptURI,
       params: {
         repairLocation: repairLocation,
         repairProblem: repairProblem,

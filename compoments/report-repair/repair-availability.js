@@ -12,6 +12,7 @@ import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
+import { getRepairType } from '../../helpers/repairType';
 
 const RepairAvailability = ({ handleChange, values, fromDate }) => {
   const [error, setError] = useState();
@@ -19,6 +20,7 @@ const RepairAvailability = ({ handleChange, values, fromDate }) => {
   const [activeError, setActiveError] = useState(false);
   const baseURL = '/api/availability';
   const params = {
+    repairType: getRepairType(values),
     repairLocation: values.repairLocation?.value,
     repairProblem: values.repairProblem?.value,
     locationId: values.address?.locationId,
