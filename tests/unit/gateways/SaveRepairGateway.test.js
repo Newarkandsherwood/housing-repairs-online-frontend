@@ -4,6 +4,7 @@ describe('SaveRepairGateway', () => {
   const repairIssue = 'Missing door'
   const locationId = '100023336956'
   const dummyID = 'ABCD1234';
+  const repairType = 'Tenant';
 
   let mockPostRequest;
   let SaveRepairGateway;
@@ -15,6 +16,7 @@ describe('SaveRepairGateway', () => {
 
   test('api gets called appropriately', async () => {
     const result = await SaveRepairGateway({
+      repairType,
       repairLocation,
       repairProblem,
       repairIssue,
@@ -23,8 +25,9 @@ describe('SaveRepairGateway', () => {
 
     expect(mockPostRequest).toHaveBeenCalledWith(
       {
-        uri:  '/repair',
+        uri:  '/repair/RepairTenant',
         body: {
+          repairType: repairType,
           repairIssue: repairIssue,
           repairLocation: repairLocation,
           repairProblem: repairProblem,
