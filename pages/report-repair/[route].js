@@ -90,7 +90,7 @@ function ReportRepair() {
   }, [router]);
 
   const handleChange = (input, value) => {
-    flow.handleChange(input,value,state);
+    flow.handleChange(input,value,state)
   };
 
   const goToStep = (step, prevStep) => {
@@ -133,7 +133,7 @@ function ReportRepair() {
     cleanPayload(values)
     fetch('/api/repair?repairType=' + getRepairType(), {
       method: 'POST',
-      body: JSON.stringify({        
+      body: JSON.stringify({
         postcode: values.postcode,
         address: values.address,
         location: values.repairLocation,
