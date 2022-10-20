@@ -42,7 +42,7 @@ function intercept_availability_search(appointments = dummyAppointments) {
 }
 
 function intercept_save_repair(repairId) {
-  cy.intercept('POST', `${api_url}/repair`, {
+  cy.intercept('POST', `${api_url}/repair*`, {
     statusCode: 201,
     body: repairId
   }).as('saveRepair');

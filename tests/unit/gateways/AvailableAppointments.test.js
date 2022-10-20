@@ -6,6 +6,8 @@ describe('SearchProperties', () => {
   const repairIssue = 'Missing door'
   const locationId = '100023336956'
   const dummyData = dummyData;
+  const repairType = 'Tenant';
+  const fromDate = '2022-01-01';
 
   let mockGetRequest;
   let AvailableAppointmentsGateway;
@@ -17,16 +19,19 @@ describe('SearchProperties', () => {
 
   test('api gets called appropriately', async () => {
     const result = await AvailableAppointmentsGateway({
+      repairType,
       repairLocation,
       repairProblem,
       repairIssue,
-      locationId
+      locationId,
+      fromDate
     });
 
     expect(mockGetRequest).toHaveBeenCalledWith(
       {
-        uri:  '/Appointments/AvailableAppointments',
+        uri:  `/Appointments/Available${repairType}Appointments`,
         params: {
+          fromDate: fromDate,
           repairIssue: repairIssue,
           repairLocation: repairLocation,
           repairProblem: repairProblem,

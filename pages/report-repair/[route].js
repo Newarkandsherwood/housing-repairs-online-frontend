@@ -32,6 +32,7 @@ import { fetcher } from '../../helpers/fetcher';
 import ContactUs from '../../compoments/report-repair/contact-us';
 import {customerServicesTelephoneNumber} from '../../globals'
 import TenantOrLeaseholder from '../../compoments/report-repair/tenant-or-leaseholder';
+import { getRepairType } from '../../helpers/repairType';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
@@ -63,7 +64,7 @@ function ReportRepair() {
   const shouldRequestTriageData = currentPath === 'repair-location' || currentPath === 'repair-problems' || currentPath === 'repair-problem-best-description';
 
   function useRepairTriageData() {
-    const repairTriageApiUrl = `/api/repairTriage?emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}&contactUsValue=${contactUsValue}`
+    const repairTriageApiUrl = `/api/repairTriage?repairType=${getRepairType(state.data)}&emergencyValue=${emergencyValue}&notEligibleNonEmergencyValue=${notEligibleNonEmergencyValue}&unableToBookValue=${unableToBookValue}&contactUsValue=${contactUsValue}`
 
     const { data, error } = useSWR(shouldRequestTriageData ? repairTriageApiUrl : null, fetcher, {dedupingInterval : 600000});
 
@@ -131,7 +132,7 @@ function ReportRepair() {
 
   const submit = (values) => {
     cleanPayload(values)
-    fetch('/api/repair', {
+    fetch(`/api/repair?repairType=${getRepairType(state.data)}`, {
       method: 'POST',
       body: JSON.stringify({
         postcode: values.postcode,

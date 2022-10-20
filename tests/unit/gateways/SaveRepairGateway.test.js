@@ -4,6 +4,7 @@ describe('SaveRepairGateway', () => {
   const repairIssue = 'Missing door'
   const locationId = '100023336956'
   const dummyID = 'ABCD1234';
+  const repairType = 'Tenant';
 
   let mockPostRequest;
   let SaveRepairGateway;
@@ -19,11 +20,11 @@ describe('SaveRepairGateway', () => {
       repairProblem,
       repairIssue,
       locationId
-    });
+    }, 'Tenant');
 
     expect(mockPostRequest).toHaveBeenCalledWith(
       {
-        uri:  '/repair',
+        uri:  '/repair/TenantRepair',
         body: {
           repairIssue: repairIssue,
           repairLocation: repairLocation,
