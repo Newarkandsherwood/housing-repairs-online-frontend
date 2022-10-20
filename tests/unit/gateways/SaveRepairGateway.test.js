@@ -16,18 +16,16 @@ describe('SaveRepairGateway', () => {
 
   test('api gets called appropriately', async () => {
     const result = await SaveRepairGateway({
-      repairType,
       repairLocation,
       repairProblem,
       repairIssue,
       locationId
-    });
+    }, 'Tenant');
 
     expect(mockPostRequest).toHaveBeenCalledWith(
       {
-        uri:  '/repair/RepairTenant',
-        body: {
-          repairType: repairType,
+        uri:  '/repair/TenantRepair',
+        body: {          
           repairIssue: repairIssue,
           repairLocation: repairLocation,
           repairProblem: repairProblem,
