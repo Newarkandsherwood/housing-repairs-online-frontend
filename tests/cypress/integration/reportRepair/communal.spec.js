@@ -49,8 +49,8 @@ describe('communal', () => {
     context('When a user selects an option', () => {
       beforeEach(navigateToCommunalPage);
       context('When a user selects: Yes', ()=>{
-        it('should redirect them to not eligible non emergency page',  () => {
-          checkIfSelectionGoesToCorrectUrl('/report-repair/not-eligible-communal-repairs', 'Yes')
+        it('should redirect them to postcode page',  () => {
+          checkIfSelectionGoesToCorrectUrl('/report-repair/postcode', 'Yes')
         });
       });
 

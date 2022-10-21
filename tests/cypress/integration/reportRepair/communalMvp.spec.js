@@ -1,4 +1,5 @@
 import {
+  checkIfSelectionGoesToCorrectUrl,
   intercept_address_search,
   isMvpReleaseVersion,
   makeSelectionAndClickButton,
@@ -10,6 +11,11 @@ describe('communal (MVP)', () => {
     context('Behaviour', () => {
       context('When a user selects an option', () => {
         beforeEach(navigateToCommunalPage);
+        context('When a user selects: Yes', ()=>{
+          it('should redirect them to not eligible non emergency page',  () => {
+            checkIfSelectionGoesToCorrectUrl('/report-repair/not-eligible-communal-repairs', 'Yes')
+          });
+        });
         context('When a user selects: No', ()=>{
           beforeEach(() => {
             intercept_address_search();
