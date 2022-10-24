@@ -63,6 +63,7 @@ const ContactDetails = ({handleChange, values}) => {
     <div className='govuk-grid-column-two-thirds'>
       <RadioFieldSet name={name}
         title={title}
+        hintText='This will contain a reference number which you will need if you want to call us for an update'
         options={options}
         onSubmit={Continue}
         checked={values[name]?.type}
