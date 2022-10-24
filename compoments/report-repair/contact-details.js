@@ -7,8 +7,7 @@ import {
 } from '../../helpers/validators';
 import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
-import {customerServicesTelephoneNumber} from '../../globals'
-import {OpeningHours} from '../openingHours';
+import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
 
 const ContactDetails = ({handleChange, values}) => {
@@ -52,8 +51,8 @@ const ContactDetails = ({handleChange, values}) => {
   const beforeButton =  (
     <Details summary="I do not have a mobile number or an email" testid="no-applicable-contact-options-prompt">
       <div data-testid='no-applicable-contact-options-info'>
-        Please call {customerServicesTelephoneNumber} to report your repair during the office hours below:
-        <OpeningHours />
+        <p>Contact us via telephone {customerServicesTelephoneNumber}</p>
+        <p>Our call centre is open between {customerServicesOpeningHoursDescription}</p>
       </div>
     </Details>
   );
