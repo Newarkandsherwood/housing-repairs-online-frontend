@@ -50,7 +50,7 @@ const ContactDetails = ({handleChange, values}) => {
   ];
 
   const beforeButton =  (
-    <Details summary="I have neither a mobile number nor an email address" testid="no-applicable-contact-options-prompt">
+    <Details summary="I do not have a mobile number or an email" testid="no-applicable-contact-options-prompt">
       <div data-testid='no-applicable-contact-options-info'>
         Please call {customerServicesTelephoneNumber} to report your repair during the office hours below:
         <OpeningHours />
