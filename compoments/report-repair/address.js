@@ -14,8 +14,8 @@ import ComponentHeader from '../componentHeader';
 
 const Address = ({handleChange, values, goToStep}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
-
-  const { data, error } = useSWR(`/api/address?postcode=${values.postcode}`, fetcher)
+  
+  const { data, error } = useSWR(`/api/address?postcode=${values.postcode}&isCommunal=${values.communal}`, fetcher)
 
   const title = 'Select an address';
   const pageTitle = `${title} - ${serviceName}`;
