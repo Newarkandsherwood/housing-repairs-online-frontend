@@ -86,7 +86,7 @@ describe('summary', () => {
       cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
         cy.get('button').click();
       });
-      cy.contains('2 Downing Street, London, SW1A 2AA')
+      cy.contains(newAddress.toUpperCase())
     });
     it('allows you to change appointment contact number', () => {
       let newNumber = '02087748222';
