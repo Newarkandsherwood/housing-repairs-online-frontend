@@ -27,7 +27,7 @@ describe('summary', () => {
     cy.contains('Personal details');
 
     cy.contains('Repair address');
-    cy.contains(address);
+    cy.contains(address.toUpperCase());
     cy.get('a[href*="postcode"]').contains('Change')
 
     cy.contains('Contact details');
