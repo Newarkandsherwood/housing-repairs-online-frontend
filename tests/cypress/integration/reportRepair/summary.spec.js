@@ -30,7 +30,7 @@ describe('summary', () => {
     cy.contains(address);
     cy.get('a[href*="postcode"]').contains('Change')
 
-    cy.contains('Appointment contact number');
+    cy.contains('Contact details');
     cy.contains(phoneNumber);
     cy.get('a[href*="contact-person"]').contains('Change')
 
