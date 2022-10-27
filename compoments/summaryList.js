@@ -36,6 +36,7 @@ export default function SummaryList ({goToStep, summary}) {
 
   return(<dl className="govuk-summary-list">
     {summary.map((o, i) => (
+      o.value &&
       <SummaryListItem
         key={i}
         goToStep={goToStep}
