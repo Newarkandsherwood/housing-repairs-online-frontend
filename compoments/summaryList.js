@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LinkPreservingValues from './linkPreservingValues';
 
-const SummaryListItem = ({goToStep, key, location, name, value}) => {
+const SummaryListItem = ({capitaliseValue, goToStep, key, location, name, value}) => {
   return (
     <div className="govuk-summary-list__row" key={key}>
       <dt className="govuk-summary-list__key">
         {name}
       </dt>
       <dd className="govuk-summary-list__value">
-        {value}
+        {capitaliseValue ? value.toUpperCase() : value}
       </dd>
       <dd className="govuk-summary-list__actions">
         <LinkPreservingValues
@@ -25,6 +25,7 @@ const SummaryListItem = ({goToStep, key, location, name, value}) => {
 }
 
 SummaryListItem.propTypes = {
+  capitaliseValue: PropTypes.bool.isRequired,
   goToStep: PropTypes.func.isRequired,
   key: PropTypes.number.isRequired,
   location: PropTypes.string.isRequired,
@@ -38,11 +39,12 @@ export default function SummaryList ({goToStep, summary}) {
     {summary.map((o, i) => (
       o.value &&
       <SummaryListItem
-        key={i}
+        capitaliseValue={o.pageName === 'Repair address'}
         goToStep={goToStep}
+        key={i}
+        location={o.link}
         name={o.pageName}
         value={o.value}
-        location={o.link}
       />
     ))}
   </dl>)
