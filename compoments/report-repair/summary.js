@@ -9,7 +9,7 @@ const Summary = ({values, submit, goToStep}) => {
 
   const personalDetailsSummary = [
     {pageName:'Repair address', value: values.address?.display, link: 'postcode'},
-    {pageName:'Appointment contact number', value: values.contactPersonNumber, link: 'contact-person'},
+    {pageName:'Contact details', value: values.contactPersonNumber, link: 'contact-person'},
   ]
   const repairDetailsSummary = [
     { pageName:'Where is the problem?', value: values.repairLocation?.display, link:'repair-location'},
