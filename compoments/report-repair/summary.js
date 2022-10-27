@@ -48,7 +48,7 @@ const Summary = ({values, submit, goToStep}) => {
             preventDoubleClick={true}
             onClick={()=>{
               submit(values);
-            }}>Continue</Button>
+            }}>Request repair</Button>
         </div>
       )}
     </>
