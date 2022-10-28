@@ -189,6 +189,9 @@ const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBest
       cy.contains('Text message (recommended)').click().then(() => {
         cy.get('input#contactDetails-text').type(contactValue);
       })
+      cy.get('button').click();
+      cy.contains('Yes').click();
+      continueOnPage('contact-number-confirmation');
       break;
     case 'email':
       cy.contains('Email').click().then(() => {
