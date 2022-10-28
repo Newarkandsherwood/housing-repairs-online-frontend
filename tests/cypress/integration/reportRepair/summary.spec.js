@@ -27,10 +27,10 @@ describe('summary', () => {
     cy.contains('Personal details');
 
     cy.contains('Repair address');
-    cy.contains(address);
+    cy.contains(address.toUpperCase());
     cy.get('a[href*="postcode"]').contains('Change')
 
-    cy.contains('Appointment contact number');
+    cy.contains('Contact details');
     cy.contains(phoneNumber);
     cy.get('a[href*="contact-person"]').contains('Change')
 
@@ -86,7 +86,7 @@ describe('summary', () => {
       cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
         cy.get('button').click();
       });
-      cy.contains('2 Downing Street, London, SW1A 2AA')
+      cy.contains(newAddress.toUpperCase())
     });
     it('allows you to change appointment contact number', () => {
       let newNumber = '02087748222';

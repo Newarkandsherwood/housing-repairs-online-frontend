@@ -15,8 +15,8 @@ import NotEligible from '../../compoments/report-repair/not-eligible';
 
 const Address = ({handleChange, values, goToStep}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
-
-  const { data, error } = useSWR(`/api/address?postcode=${values.postcode}`, fetcher)
+  
+  const { data, error } = useSWR(`/api/address?postcode=${values.postcode}&isCommunal=${values.communal}`, fetcher)
 
   const title = 'What is the property address?';
   const addressPrompt = 'Select the address';

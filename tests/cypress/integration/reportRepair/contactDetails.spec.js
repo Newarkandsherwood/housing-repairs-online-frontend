@@ -18,11 +18,11 @@ describe('contactDetails', () => {
 
   context('No application options', () => {
     it('displays no applicable options text', () => {
-      cy.contains('I have neither a mobile number nor an email address');
+      cy.contains('I do not have a mobile number or an email');
     });
 
     it('displays no applicable options instructions when clicked', () => {
-      cy.contains('I have neither a mobile number nor an email address')
+      cy.contains('I do not have a mobile number or an email')
         .click()
         .then(() => {
           cy.get('[data-testid=no-applicable-contact-options-info]')

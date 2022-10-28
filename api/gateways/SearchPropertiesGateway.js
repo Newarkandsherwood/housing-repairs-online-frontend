@@ -1,9 +1,9 @@
 
 module.exports = makeGetRequest => {
-  return async postcode => {
+  return async (postcode, isCommunal) => {
     var result;
     result = await makeGetRequest({
-      uri: `/addresses?postcode=${postcode}`
+      uri: isCommunal === "no" ?`/Addresses/TenantAddresses?postcode=${postcode}` : `/Addresses/CommunalAddresses?postcode=${postcode}`
     }).then(response => {
       return response.data;
     });
