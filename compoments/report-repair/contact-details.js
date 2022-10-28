@@ -9,10 +9,16 @@ import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
 import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
+import { getRepairType } from '../../helpers/repairType';
 
 const ContactDetails = ({handleChange, values}) => {
-  const title = 'How should we confirm the appointment?'
+
+  const repairType = getRepairType(values);
   const name = 'contactDetails'
+  let title = 'How should we confirm the appointment?'
+  if(repairType === 'Communal'){
+    title = 'How should we confirm the repair request?'
+  }    
   const Continue = val => {
     handleChange(name, {
       type: val.selected,

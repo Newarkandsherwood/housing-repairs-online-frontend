@@ -4,6 +4,7 @@ describe('contactDetails', () => {
   });
 
   it('displays the question', () => {
+    // TODO - in communal, this should read 'How should we confirm the repair request?'
     cy.contains('How should we confirm the appointment?');
   });
 
