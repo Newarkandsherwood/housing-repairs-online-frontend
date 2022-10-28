@@ -67,11 +67,11 @@ const Address = ({handleChange, values, goToStep}) => {
     <div className="govuk-grid-column-two-thirds">
       {state.error.msg && <ErrorSummary active={state.activeError} errorSummaryTextAndLocation={[{text:state.error.msg, location: '#address'}]} pageTitle={pageTitle} />}
       <h1 className="govuk-heading-l">{title}</h1>
-      <h2 class="govuk-heading-m govuk-!-margin-bottom-2"> Postcode </h2>
-      <p class="govuk-body"> 
-        <PostcodeChange goToStep={goToStep} postcode={values.postcode} />       
+      <h2> Postcode </h2>
+      <p className="govuk-body">
+        <PostcodeChange goToStep={goToStep} postcode={values.postcode} />      
       </p>
-      <h2 class="govuk-heading-m govuk-!-margin-bottom-2"> {addressPrompt} </h2>
+      <h2> {addressPrompt} </h2>
       <form action="">
         <div className={state.error.msg ? 'govuk-form-group govuk-form-group--error' : 'govuk-form-group'}>
           <span id={'address-error'}

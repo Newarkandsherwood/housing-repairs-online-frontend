@@ -30,15 +30,13 @@ describe('address', () => {
       cy.contains('Change');
     });
 
-    
-
     it('contains a my address is not listed link', () => {
       cy.contains('My address is not listed').click();
       cy.url().should('include', '/report-repair/not-eligible');
     });
   });
 
-  context('Content no Addresses returned', () => {
+  context('Content with no Addresses returned', () => {
     const postcode = 'SW1A 2AA';
     before(() => setup_addresses_search(() => intercept_address_search(0, postcode, true), 0));
 
