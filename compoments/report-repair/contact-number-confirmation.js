@@ -1,9 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  mobilePhoneNumberValidator,
-  phoneOnKeyPress
-} from '../../helpers/validators';
 import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
 import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber} from '../../globals'
@@ -16,19 +12,17 @@ const ContactNumberConfirmation = ({handleChange, values}) => {
   const Continue = val => {
     handleChange('contactDetails', {
       type: 'text',
-      value: val.input
+      value: val.selected === 'no' ?  val.input : values.contactDetails?.value
     });
   }
 
-  console.log('values', values)
-
   const options =  [
     {
-      value: 'text',
+      value: 'yes',
       title: 'Yes',
     },
     {
-      value: 'text',
+      value: 'no',
       title: 'No',
       conditional: conditionalPhoneNumber
     }
