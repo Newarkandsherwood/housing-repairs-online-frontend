@@ -8,6 +8,7 @@ import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
 import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
+import { conditionalPhoneNumber } from './contact-details';
 
 const ContactNumberConfirmation = ({handleChange, values}) => {
   const title = `Can we call ${values.contactDetails?.value} if we need to get in touch?`
@@ -29,15 +30,7 @@ const ContactNumberConfirmation = ({handleChange, values}) => {
     {
       value: 'text',
       title: 'No',
-      conditional: {
-        autoComplete: 'tel',
-        label: 'UK mobile number',
-        type: 'tel',
-        validator: mobilePhoneNumberValidator,
-        onKeyPress: phoneOnKeyPress,
-        emptyInputErrorMessage: 'Enter a UK mobile number',
-        invalidInputErrorMessage: 'Enter a valid UK mobile number',
-      }
+      conditional: conditionalPhoneNumber
     }
   ];
 
