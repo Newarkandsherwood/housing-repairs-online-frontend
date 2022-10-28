@@ -45,7 +45,7 @@ const ContactNumberConfirmation = ({handleChange, values}) => {
     </Details>
   );
 
-  return <div className="govuk-grid-row" data-cy="contact-details">
+  return <div className="govuk-grid-row" data-cy="contact-number-confirmation">
     <ComponentHeader title={title} />
     <div className='govuk-grid-column-two-thirds'>
       <RadioFieldSet name={name}
