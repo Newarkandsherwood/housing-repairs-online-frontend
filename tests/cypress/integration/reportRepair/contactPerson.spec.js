@@ -8,7 +8,7 @@ describe('contactPerson', () => {
   });
 
   it('displays input label', () => {
-    cy.contains('Please enter a UK landline or mobile phone number');
+    cy.contains('Enter a UK landline or mobile phone number');
   });
 
   it('displays button with correct text', () => {
