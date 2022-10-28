@@ -10,6 +10,16 @@ import Details from '../details';
 import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
 
+export const conditionalPhoneNumber = {
+  autoComplete: 'tel',
+  label: 'UK mobile number',
+  type: 'tel',
+  validator: mobilePhoneNumberValidator,
+  onKeyPress: phoneOnKeyPress,
+  emptyInputErrorMessage: 'Enter a UK mobile number',
+  invalidInputErrorMessage: 'Enter a valid UK mobile number',
+}
+
 const ContactDetails = ({handleChange, values}) => {
   const title = 'How should we confirm the appointment?'
   const name = 'contactDetails'
@@ -24,15 +34,7 @@ const ContactDetails = ({handleChange, values}) => {
     {
       value: 'text',
       title: 'Text message (recommended)',
-      conditional: {
-        autoComplete: 'tel',
-        label: 'UK mobile number',
-        type: 'tel',
-        validator: mobilePhoneNumberValidator,
-        onKeyPress: phoneOnKeyPress,
-        emptyInputErrorMessage: 'Enter a UK mobile number',
-        invalidInputErrorMessage: 'Enter a valid UK mobile number',
-      }
+      conditional: conditionalPhoneNumber
     },
     {
       value: 'email',
