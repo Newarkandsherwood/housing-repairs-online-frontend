@@ -91,7 +91,6 @@ class Flow {
           if(condition === undefined) {
             condition = nextFlowStep.find(o => o.condition === value.type)
           }
-          console.log('condition', condition)
         }else{
           condition = nextFlowStep.find(o => o.condition === value);
         }
