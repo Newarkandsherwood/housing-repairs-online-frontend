@@ -34,7 +34,11 @@ class Flow {
       'repair-description': {prevStep: true, nextStep: isMvpReleaseVersion()? 'contact-person' : 'repair-image-upload'},
       'repair-image-upload': { prevStep: 'repair-description', nextStep: 'contact-person'},
       'contact-person': {prevStep: 'repair-description', nextStep:'contact-details'},
-      'contact-details': {prevStep: 'contact-person', nextStep: 'repair-availability'},
+      'contact-details': {prevStep: 'contact-person', nextStep: [
+        {condition: 'text', nextStep: 'contact-number-confirmation'},
+        {condition: 'email', nextStep: 'repair-availability'}
+      ]},
+      'contact-number-confirmation': {prevStep: 'contact-details', nextStep:'repair-availability'},
       'repair-availability': {prevStep: 'contact-details', nextStep: 'summary'},
       'summary': {prevStep: 'repair-availability', nextStep: ''},//need to investigate this as there are numerous prev steps, but it might just work
     }
@@ -84,6 +88,10 @@ class Flow {
         let condition
         if(typeof value === 'object'){
           condition = nextFlowStep.find(o => o.condition === value.value)
+          if(condition === undefined) {
+            condition = nextFlowStep.find(o => o.condition === value.type)
+          }
+          console.log('condition', condition)
         }else{
           condition = nextFlowStep.find(o => o.condition === value);
         }
