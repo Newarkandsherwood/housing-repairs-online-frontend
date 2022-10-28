@@ -70,7 +70,7 @@ const ContactNumberConfirmation = ({handleChange, values}) => {
         buttonText={'Continue'}
         conditionalValue={{[values[name]?.type]: values[name]?.value}}
         beforeButton={beforeButton}
-        errorText={'Select how you would like for us to send your appointment confirmation'}
+        errorText={'Select yes if we can call you on this number'}
       ></RadioFieldSet>
     </div>
   </div>
