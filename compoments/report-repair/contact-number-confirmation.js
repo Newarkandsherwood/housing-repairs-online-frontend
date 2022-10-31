@@ -7,7 +7,7 @@ import ComponentHeader from '../componentHeader';
 import { conditionalPhoneNumber } from './contact-details';
 
 const ContactNumberConfirmation = ({handleChange, values}) => {
-  const title = `Can we call ${values.contactDetails?.value} if we need to get in touch?`
+  const title = `Can we call ${values.contactPersonNumber} if we need to get in touch?`
   const name = 'ContactNumberConfirmation'
   const Continue = val => {
     handleChange('contactPersonNumber', val.input);
