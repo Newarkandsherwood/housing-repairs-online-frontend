@@ -114,6 +114,14 @@ const navigateToAddressPage = () => {
   cy.get('[data-cy=address]', { timeout: 10000 })
 }
 
+const navigateToNotEligiblePageWhenPostcodeNotFound = () => {
+  navigateToPostcodePage();
+  navigateToPageTypeInputTextAndContinue({
+    page: 'postcode', inputText:'SW1A 2AA'
+  })
+  cy.get('[data-cy=not-eligible]', { timeout: 10000 })
+}
+
 const navigateToRepairLocationPage = () => {
   navigateToAddressPage();
 
@@ -269,6 +277,7 @@ export {
   navigateToTenantOrLeaseholderPage,
   navigateToPostcodePage,
   navigateToAddressPage,
+  navigateToNotEligiblePageWhenPostcodeNotFound,
   navigateToLocationPage,
   navigateToRepairBestDescriptionPage,
   navigateToRepairAvailabilityPage,

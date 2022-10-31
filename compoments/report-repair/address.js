@@ -10,14 +10,16 @@ import {serviceName} from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
 import LinkPreservingValues from '../linkPreservingValues';
-import ComponentHeader from '../componentHeader';
+import PostcodeChange from '../postcodeChange';
+import NotEligible from '../../compoments/report-repair/not-eligible';
 
 const Address = ({handleChange, values, goToStep}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
   
   const { data, error } = useSWR(`/api/address?postcode=${values.postcode}&isCommunal=${values.communal}`, fetcher)
 
-  const title = 'Select an address';
+  const title = 'What is the property address?';
+  const addressPrompt = 'Select the address';
   const pageTitle = `${title} - ${serviceName}`;
 
   if (error) return <Error
@@ -31,6 +33,12 @@ const Address = ({handleChange, values, goToStep}) => {
     a.display = [a.addressLine1, a.addressLine2, a.postCode].filter(x=>x).join(', ')
     return a
   })
+
+  if (addresses?.length < 1) {
+    return <NotEligible
+      goToStep={goToStep}
+      postcode={values.postcode} />
+  }
 
   const found_addresses = `${addresses?.length} ${addresses?.length === 1 ? 'address': 'addresses'} found`
 
@@ -56,15 +64,16 @@ const Address = ({handleChange, values, goToStep}) => {
   }
 
   return <div className="govuk-grid-row" data-cy="address">
-    <ComponentHeader title={title} />
     <div className="govuk-grid-column-two-thirds">
       {state.error.msg && <ErrorSummary active={state.activeError} errorSummaryTextAndLocation={[{text:state.error.msg, location: '#address'}]} pageTitle={pageTitle} />}
       <h1 className="govuk-heading-l">{title}</h1>
+      <h2> Postcode </h2>
+      <p className="govuk-body">
+        <PostcodeChange goToStep={goToStep} postcode={values.postcode} />      
+      </p>
+      <h2> {addressPrompt} </h2>
       <form action="">
         <div className={state.error.msg ? 'govuk-form-group govuk-form-group--error' : 'govuk-form-group'}>
-          <label className="govuk-label" htmlFor="select-address-dropdown">
-            {title}
-          </label>
           <span id={'address-error'}
             className="govuk-error-message">
             {state.error.msg}
@@ -92,7 +101,7 @@ const Address = ({handleChange, values, goToStep}) => {
             currentLocation ='address'
             goToLocation='not-eligible'
             goToStep={goToStep}
-            text='I can&apos;t find my address on this list'
+            text='My address is not listed'
           />
         </p>
         <br/>

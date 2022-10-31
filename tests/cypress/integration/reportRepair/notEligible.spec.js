@@ -6,7 +6,7 @@ describe('NotEligible', () => {
   before(() => {
     intercept_address_search();
     navigateToAddressPage();
-    cy.contains('I can\'t find my address').click();
+    cy.contains('My address is not listed').click();
   });
 
   it('Displays page title', () => {
