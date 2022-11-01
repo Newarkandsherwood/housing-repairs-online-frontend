@@ -9,7 +9,7 @@ import {
 
 const repairID = '1234ABC'
 const initialPhoneNumber= '02085548333'
-const updatedPhoneNumber = '07975777666'
+const updatedPhoneNumber = '07712345678'
 
 const setup = () => {
   intercept_availability_search();
