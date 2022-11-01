@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const LabelledTextareaWithCharacterCount = ({
+  name,
+  labelText,
   errorText,
   hasExceededTextLimit,
   onChange,
-  repairDescriptionTextInputId,
+  textInputId,
   text,
   textAreaCount,
   textLimit
@@ -23,17 +25,17 @@ const LabelledTextareaWithCharacterCount = ({
     <div className='govuk-character-count'>
       <div
         className={errorText ? 'govuk-form-group--error' : 'govuk-form-group'}>
-        <label className="govuk-label govuk-label--m" htmlFor="description">
-          Description of problem
+        <label className="govuk-label govuk-label--m" htmlFor={name}>
+          {labelText}
         </label>
-        <span id={'description-error'}
+        <span id={`${name}-error`}
           className="govuk-error-message">
           {errorText}
         </span>
         <textarea
           className={`govuk-textarea ${errorText && 'govuk-textarea--error'}`}
-          id={repairDescriptionTextInputId}
-          name="description"
+          id={textInputId}
+          name={name}
           type="text"
           onChange={(e) => onChange(e)}
           defaultValue={text}
@@ -48,10 +50,12 @@ const LabelledTextareaWithCharacterCount = ({
 }
 
 LabelledTextareaWithCharacterCount.propTypes = {
+  name: PropTypes.string.isRequired,
+  labelText: PropTypes.string.isRequired,
   errorText: PropTypes.string,
   hasExceededTextLimit: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
-  repairDescriptionTextInputId: PropTypes.string.isRequired,
+  textInputId: PropTypes.string.isRequired,
   text: PropTypes.string,
   textAreaCount: PropTypes.number.isRequired,
   textLimit: PropTypes.number.isRequired,
