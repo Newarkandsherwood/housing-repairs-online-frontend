@@ -10,7 +10,7 @@ const ContactNumberConfirmation = ({handleChange, values}) => {
   const title = `Can we call ${values.contactPersonNumber} if we need to get in touch?`
   const name = 'ContactNumberConfirmation'
   const Continue = val => {
-    handleChange('contactPersonNumber', val.input);
+    handleChange('contactPersonNumber', val.input? val.input : values.contactPersonNumber);
   }
 
   const options =  [
