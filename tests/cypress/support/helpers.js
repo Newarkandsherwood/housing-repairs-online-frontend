@@ -179,6 +179,14 @@ const navigateToContactPerson = (repairProblemOption, repairProblemBestDescripti
   })
 }
 
+const navigateToContactNumberCofirmationPage = (repairProblemOption, repairProblemBestDescriptionOption, contactValue) => {
+  navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
+  cy.contains('Text message (recommended)').click().then(() => {
+    cy.get('input#contactDetails-text').type(contactValue);
+  })
+  cy.get('button').click();
+}
+
 const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBestDescriptionOption, contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
 
   navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
@@ -266,6 +274,7 @@ export {
   intercept_save_repair,
   continueOnPage,
   navigateToCommunalPage,
+  navigateToContactNumberCofirmationPage,
   navigateToTenantOrLeaseholderPage,
   navigateToPostcodePage,
   navigateToAddressPage,
