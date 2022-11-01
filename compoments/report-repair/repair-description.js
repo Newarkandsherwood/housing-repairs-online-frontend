@@ -151,10 +151,12 @@ const RepairDescription = ({ handleChange, values }) => {
           </div>
         </label>
         <LabelledTextareaWithCharacterCount
+          name={'description'}
+          labelText={'Description of problem'}
           errorText={error.text}
           hasExceededTextLimit={textLimit - textAreaCount < 0}
           onChange={TextChange}
-          repairDescriptionTextInputId={repairDescriptionTextInputId}
+          textInputId={repairDescriptionTextInputId}
           text={text}
           textAreaCount={textAreaCount}
           textLimit={textLimit}
