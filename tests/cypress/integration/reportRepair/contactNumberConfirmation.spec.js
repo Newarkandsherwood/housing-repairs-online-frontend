@@ -21,7 +21,7 @@ const setup = () => {
 
 describe('contactNumberConfirmation', () => {
 
-  context('Elements', ()=> {
+  context('Displays all elements', ()=> {
     before(() => {
       setup();
     });
@@ -30,6 +30,11 @@ describe('contactNumberConfirmation', () => {
     });
     it('Displays the hint', () => {
       cy.contains('We may need to call you for more information');
+    });
+    it('Displays the summary box', () => {
+      cy.contains('I do not have a number you can call').click()
+      cy.contains('Contact us via telephone on 0800 561 0010')
+      cy.contains('Our call centre is open between Monday to Friday, 9am to 5pm')
     });
   });
 
