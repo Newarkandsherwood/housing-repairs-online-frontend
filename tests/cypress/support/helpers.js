@@ -179,7 +179,7 @@ const navigateToContactPerson = (repairProblemOption, repairProblemBestDescripti
   })
 }
 
-const navigateToContactNumberCofirmationPage = (repairProblemOption, repairProblemBestDescriptionOption, contactValue) => {
+const navigateToContactNumberConfirmationPage = (repairProblemOption, repairProblemBestDescriptionOption, contactValue) => {
   navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
   cy.contains('Text message (recommended)').click().then(() => {
     cy.get('input#contactDetails-text').type(contactValue);
@@ -274,7 +274,7 @@ export {
   intercept_save_repair,
   continueOnPage,
   navigateToCommunalPage,
-  navigateToContactNumberCofirmationPage,
+  navigateToContactNumberConfirmationPage,
   navigateToTenantOrLeaseholderPage,
   navigateToPostcodePage,
   navigateToAddressPage,
