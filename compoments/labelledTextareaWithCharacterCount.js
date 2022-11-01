@@ -25,7 +25,7 @@ const LabelledTextareaWithCharacterCount = ({
     <div className='govuk-character-count'>
       <div
         className={errorText ? 'govuk-form-group--error' : 'govuk-form-group'}>
-        <label className="govuk-label govuk-label--m" htmlFor={name}>
+        <label id={`${name}-label`} className="govuk-label govuk-label--m" htmlFor={name}>
           {labelText}
         </label>
         <span id={`${name}-error`}
