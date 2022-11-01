@@ -12,7 +12,6 @@ const initialPhoneNumber= '02085548333'
 const updatedPhoneNumber = '07712345678'
 
 const setup = () => {
-  intercept_availability_search();
   intercept_address_search();
   intercept_repair_triage();
   intercept_save_repair(repairID);
@@ -42,6 +41,7 @@ describe('contactNumberConfirmation', () => {
     before(() => {
       setup();
       navigateToPageSelectRadioOptionAndContinue({page: 'contact-number-confirmation', option: 'Yes'})
+      intercept_availability_search();
       navigateToPageSelectRadioOptionAndContinue({page: 'repair-availability', option: '10:00am to 1:00pm'})
     });
     it('Displays initial phone number on the summary page', () => {
@@ -62,9 +62,10 @@ describe('contactNumberConfirmation', () => {
       const inputBox = cy.get('input#ContactNumberConfirmation-no');
       inputBox.should('be.visible');
       inputBox.type(updatedPhoneNumber);
-      cy.get('button').click()
     });
     it('Displays the updated phone number on the summary page', () => {
+      intercept_availability_search();
+      cy.get('button').click()
       navigateToPageSelectRadioOptionAndContinue({page: 'repair-availability', option: '10:00am to 1:00pm'})
       cy.contains(updatedPhoneNumber);
     });
