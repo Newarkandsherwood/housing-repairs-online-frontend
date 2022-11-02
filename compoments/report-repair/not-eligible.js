@@ -14,7 +14,7 @@ const NotEligible = ({goToStep, postcode}) => {
         <h2 className="govuk-heading-m govuk-!-margin-bottom-2">Postcode</h2>
         <PostcodeChange goToStep={goToStep} postcode={postcode} />
         <h3 className="govuk-heading-m">If you think the council is responsible for this property</h3>
-        <p>Contact us via telephone {customerServicesTelephoneNumber}</p>
+        <p>Contact us via telephone on {customerServicesTelephoneNumber}</p>
         <p>Our call centre is open between {customerServicesOpeningHoursDescription}</p>
       </div>
     </div>
