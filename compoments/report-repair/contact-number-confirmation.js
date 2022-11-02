@@ -13,7 +13,7 @@ const ContactNumberConfirmation = ({handleChange, values}) => {
     handleChange('contactPersonNumber', val.input? val.input : values.contactPersonNumber);
   }
 
-  const options =  [
+  const options = [
     {
       value: 'yes',
       title: 'Yes',
