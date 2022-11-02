@@ -1,3 +1,5 @@
+import { mobilePhoneNumberValidator } from '../helpers/validators';
+
 export const conditionalPhoneNumber = {
   autoComplete: 'tel',
   label: 'UK mobile number',
