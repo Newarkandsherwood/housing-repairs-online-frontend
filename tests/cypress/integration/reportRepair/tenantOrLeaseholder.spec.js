@@ -1,6 +1,6 @@
 import {
   checkIfSelectionGoesToCorrectUrl,
-  navigateToTenantOrLeaseholderPage
+  navigateToBeyondCommunalPage
 } from '../../support/helpers';
 
 function loadTenantOrLeaseholderPage() {
@@ -36,7 +36,7 @@ describe('tenant or leaseholder', () => {
     });
 
     context('When a user selects an option', () => {
-      beforeEach(navigateToTenantOrLeaseholderPage);
+      beforeEach(navigateToBeyondCommunalPage);
       context('When a user selects: Yes', () => {
         it('should redirect them to the postcode page', () => {
           checkIfSelectionGoesToCorrectUrl('/report-repair/postcode', 'Yes')

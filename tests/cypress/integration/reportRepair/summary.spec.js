@@ -10,6 +10,31 @@ import {
 } from '../../support/helpers';
 
 describe('summary', () => {
+  describe('communal summary', {
+    env: {
+      REPAIR_TYPE: "communal",
+    },
+  }, () => {
+    let timeSlotValueFunction;
+    const address = '1 Downing Street, London, SW1A 2AA';
+    const repairDescription = 'Eius postea venit saepius arcessitus.'
+    const phoneNumber = '02085548333';
+
+    beforeEach(() => {
+      intercept_availability_search();
+      intercept_address_search();
+      intercept_repair_triage();
+
+      timeSlotValueFunction = navigateToSummaryPage();
+    });
+      it('Displays Repair details', () => {
+        cy.contains('Repair details')
+    });
+    it('Does not display what best describes the problem', () => {
+      cy.contains('What best describes the problem?').should('not.exist');
+    });
+  });
+    
   describe('tenant summary', () => {
     let timeSlotValueFunction;
     const address = '1 Downing Street, London, SW1A 2AA';
@@ -212,26 +237,5 @@ describe('summary', () => {
     });
   });
   
-  describe('communal summary', {
-    env: {
-      REPAIR_TYPE: "communal",
-    },
-  }, () => {
-    let timeSlotValueFunction;
-    const address = '1 Downing Street, London, SW1A 2AA';
-    const repairDescription = 'Eius postea venit saepius arcessitus.'
-    const phoneNumber = '02085548333';
-
-    beforeEach(() => {
-      intercept_availability_search();
-      intercept_address_search();
-      intercept_repair_triage();
-
-      timeSlotValueFunction = navigateToSummaryPage();
-    });
-
-    it('Does not display what best describes the problem', () => {
-      cy.contains('What best describes the problem?').should('not.exist');
-    });
-  });
+  
 });

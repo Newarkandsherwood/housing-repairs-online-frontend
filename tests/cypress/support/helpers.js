@@ -90,7 +90,7 @@ const navigateToCommunalPage = () => {
   })
 }
 
-const navigateToTenantOrLeaseholderPage = () => {
+const navigateToBeyondCommunalPage = () => {
   navigateToCommunalPage();
   let isCommunalOption = isCommunalRepair() ? 'Yes': 'No'
   
@@ -103,7 +103,7 @@ const navigateToTenantOrLeaseholderPage = () => {
 }
 
 const navigateToPostcodePage = () => {
-  navigateToTenantOrLeaseholderPage();
+  navigateToBeyondCommunalPage();
   if(!isCommunalRepair()) {
     navigateToPageSelectRadioOptionAndContinue({
     page: 'tenantOrLeaseholder', option:'Yes'
@@ -272,11 +272,11 @@ function isMvpReleaseVersion() {
 }
 
 function isCommunalRepair() {
-  return Cypress.env('REPAIR_TYPE') == 'communal';
+  return Cypress.env('REPAIR_TYPE') === 'communal';
 }
 
 function isLeaseholdRepair() {
-  return Cypress.env('REPAIR_TYPE') == 'leasehold';
+  return Cypress.env('REPAIR_TYPE') === 'leasehold';
 }
 
 export {
@@ -288,7 +288,7 @@ export {
   intercept_save_repair,
   continueOnPage,
   navigateToCommunalPage,
-  navigateToTenantOrLeaseholderPage,
+  navigateToBeyondCommunalPage,
   navigateToPostcodePage,
   navigateToAddressPage,
   navigateToNotEligiblePageWhenPostcodeNotFound,
