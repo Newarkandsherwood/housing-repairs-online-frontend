@@ -9,16 +9,7 @@ import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
 import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
-
-export const conditionalPhoneNumber = {
-  autoComplete: 'tel',
-  label: 'UK mobile number',
-  type: 'tel',
-  validator: mobilePhoneNumberValidator,
-  onKeyPress: phoneOnKeyPress,
-  emptyInputErrorMessage: 'Enter a UK mobile number',
-  invalidInputErrorMessage: 'Enter a valid UK mobile number',
-}
+import { conditionalPhoneNumber } from '../conditionalPhoneNumber';
 
 const ContactDetails = ({handleChange, values}) => {
   const title = 'How should we confirm the appointment?'

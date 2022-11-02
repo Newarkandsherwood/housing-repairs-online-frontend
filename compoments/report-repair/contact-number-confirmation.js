@@ -4,7 +4,7 @@ import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
 import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
-import { conditionalPhoneNumber } from './contact-details';
+import { conditionalPhoneNumber } from '../conditionalPhoneNumber';
 
 const ContactNumberConfirmation = ({handleChange, values}) => {
   const title = `Can we call ${values.contactPersonNumber} if we need to get in touch?`
