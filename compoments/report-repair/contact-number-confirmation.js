@@ -28,15 +28,7 @@ const ContactNumberConfirmation = ({handleChange, values}) => {
   const beforeButton =  (
     <Details summary="I do not have a number you can call">
       <div>
-        <p>Contact us via telephone on {customerServicesTelephoneNumber} or via&nbsp;
-          <a
-            href="https://vcc-eu10b.8x8.com/CHAT/common/html/embedded-chat.html?uuid=script_681088648600ffe0e448698.84490390&amp;tenant=bmV3YXJrc2hlcndvb2RkaXMwMQ&amp;domain=https%3A%2F%2Fwww.newark-sherwooddc.gov.uk&amp;channel=NSDC%20Chat&amp;referrer=https%3A%2F%2Fwww.newark-sherwooddc.gov.uk%2Fleaseholderservices%2F&amp;popup=true&amp;popuporigin=button&amp;startedbychatapi=false&amp;waitbusinitialize=true&amp;syncrequired=false"
-            target="_blank"
-            className="govuk-link--no-visited-state" rel="noreferrer"
-          >
-          webchat
-          </a>
-        </p>
+        <p>Contact us via telephone on {customerServicesTelephoneNumber}</p>
         <p>Our call centre is open between {customerServicesOpeningHoursDescription}</p>
       </div>
     </Details>
