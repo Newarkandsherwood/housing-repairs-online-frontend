@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  mobilePhoneNumberValidator,
   emailValidator,
-  phoneOnKeyPress
 } from '../../helpers/validators';
 import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
