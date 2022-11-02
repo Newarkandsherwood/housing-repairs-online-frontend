@@ -30,11 +30,11 @@ describe('summary', () => {
       it('Displays Repair details', () => {
         cy.contains('Repair details')
     });
-    it('Does not display what best describes the problem', () => {
+    it.skip('Does not display what best describes the problem', () => {
       cy.contains('What best describes the problem?').should('not.exist');
     });
   });
-    
+
   describe('tenant summary', () => {
     let timeSlotValueFunction;
     const address = '1 Downing Street, London, SW1A 2AA';
@@ -235,7 +235,5 @@ describe('summary', () => {
         cy.contains(newEmail);
       });
     });
-  });
-  
-  
+  });  
 });
