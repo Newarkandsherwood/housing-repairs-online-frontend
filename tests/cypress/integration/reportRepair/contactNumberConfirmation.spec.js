@@ -33,7 +33,7 @@ describe('contactNumberConfirmation', () => {
     it('Displays the summary box', () => {
       cy.contains('I do not have a number you can call').click()
       cy.contains(`Contact us via telephone on ${Cypress.env('OUT_OF_HOURS_CUSTOMER_SERVICES_TELEPHONE_NUMBER')}`)
-      cy.contains('Our call centre is open between Monday to Friday, 9am to 5pm')
+      cy.contains(`Our call centre is open between ${Cypress.env('CUSTOMER_SERVICES_OPENING_HOURS_DESCRIPTION')}`)
     });
   });
 
