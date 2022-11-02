@@ -11,7 +11,7 @@ const ContactUs = () => {
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>{title}</h1>
         <div className="govuk-inset-text">
-          Contact us via telephone {customerServicesTelephoneNumber}
+          Contact us via telephone on {customerServicesTelephoneNumber}
         </div>
         <p>
           Our call centre is open between:
