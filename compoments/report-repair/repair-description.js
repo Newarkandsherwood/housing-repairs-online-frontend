@@ -7,43 +7,43 @@ import ComponentHeader from '../componentHeader';
 import LabelledTextareaWithCharacterCount from '../labelledTextareaWithCharacterCount'
 
 const RepairDescription = ({ handleChange, values }) => {
-  const [error, setError] = useState({ text: undefined });
+  const [error, setError] = useState({ descriptionText: undefined });
   const [activeError, setActiveError] = useState(false);
-  const [text, setText] = useState(values.description?.text)
-  const [textAreaCount, setTextAreaCount] = React.useState(0);
-  const textLimit = 255
+  const [descriptionText, setDescriptionText] = useState(values.description?.text)
+  const [descriptionTextAreaCount, setDescriptionTextAreaCount] = React.useState(0);
+  const descriptionTextLimit = 255
   const title = 'Describe your problem in more detail'
   const pageTitle = `${title} - ${serviceName}`;
   const repairDescriptionTextInputId = 'repair-description-text-input';
 
-  const TextChange = (e) => {
-    setText(e.target.value)
-    setTextAreaCount(e.target.value.length);
+  const DescriptionTextChange = (e) => {
+    setDescriptionText(e.target.value)
+    setDescriptionTextAreaCount(e.target.value.length);
     setActiveError(false)
   }
 
   const Continue = () => {
-    let textError = undefined;
+    let descriptionTextError = undefined;
     setActiveError(true);
 
-    if (textAreaCount > textLimit) {
-      textError = `Enter a description of the problem using ${textLimit} characters or less`;
+    if (descriptionTextAreaCount > descriptionTextLimit) {
+      descriptionTextError = `Enter a description of the problem using ${descriptionTextLimit} characters or less`;
     }
-    if (!text) {
-      textError = 'Enter a description of the problem';
+    if (!descriptionText) {
+      descriptionTextError = 'Enter a description of the problem';
     }
-    if (!textError) {
+    if (!descriptionTextError) {
       return handleChange('description', {
-        text: text,
+        text: descriptionText,
       });
     } else {
-      return setError({ text: textError })
+      return setError({ descriptionText: descriptionTextError })
     }
   }
 
   const getErrorSummaryTextAndLocation = () => {
     const errorSummaryTextAndLocation = [];
-    error.text && errorSummaryTextAndLocation.push({ text: error.text, location: `#${repairDescriptionTextInputId}` });
+    error.descriptionText && errorSummaryTextAndLocation.push({ text: error.descriptionText, location: `#${repairDescriptionTextInputId}` });
     return errorSummaryTextAndLocation;
   }
 
@@ -51,7 +51,7 @@ const RepairDescription = ({ handleChange, values }) => {
     <ComponentHeader title={title} />
     <div className="govuk-grid-column-two-thirds">
       {
-        (error.text) && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
+        (error.descriptionText) && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
       }
       <h1 className="govuk-heading-l">
         {title}
@@ -75,13 +75,13 @@ const RepairDescription = ({ handleChange, values }) => {
         <LabelledTextareaWithCharacterCount
           name={'description'}
           labelText={'Description of problem'}
-          errorText={error.text}
-          hasExceededTextLimit={textLimit - textAreaCount < 0}
-          onChange={TextChange}
+          errorText={error.descriptionText}
+          hasExceededTextLimit={descriptionTextLimit - descriptionTextAreaCount < 0}
+          onChange={DescriptionTextChange}
           textInputId={repairDescriptionTextInputId}
-          text={text}
-          textAreaCount={textAreaCount}
-          textLimit={textLimit}
+          text={descriptionText}
+          textAreaCount={descriptionTextAreaCount}
+          textLimit={descriptionTextLimit}
         />
       </form>
       <br />
