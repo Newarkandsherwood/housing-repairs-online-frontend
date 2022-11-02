@@ -88,7 +88,6 @@ class Flow {
         let condition
         if(typeof value === 'object'){
           condition = nextFlowStep.find(o => o.condition === value.value || o.condition === value.type)
-          console.log('condition 1', condition)
         }else{
           condition = nextFlowStep.find(o => o.condition === value);
         }
