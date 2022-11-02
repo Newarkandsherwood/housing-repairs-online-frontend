@@ -41,10 +41,10 @@ describe('contactNumberConfirmation', () => {
     before(() => {
       setup();
       navigateToPageSelectRadioOptionAndContinue({page: 'contact-number-confirmation', option: 'Yes'})
-      intercept_availability_search();
-      navigateToPageSelectRadioOptionAndContinue({page: 'repair-availability', option: '10:00am to 1:00pm'})
     });
     it('Displays initial phone number on the summary page', () => {
+      intercept_availability_search();
+      navigateToPageSelectRadioOptionAndContinue({page: 'repair-availability', option: '10:00am to 1:00pm'})
       cy.contains(initialPhoneNumber);
     });
   });
