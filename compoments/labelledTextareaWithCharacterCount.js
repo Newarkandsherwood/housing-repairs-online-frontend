@@ -10,7 +10,9 @@ const LabelledTextareaWithCharacterCount = ({
   textInputId,
   text,
   textAreaCount,
-  textLimit
+  textLimit,
+  hintText,
+  rows,
 }) => {
 
   const generateCharacterCountText = () => {
@@ -28,6 +30,7 @@ const LabelledTextareaWithCharacterCount = ({
         <label id={`${name}-label`} className="govuk-label govuk-label--m" htmlFor={name}>
           {labelText}
         </label>
+        {hintText && <div id={`hint-text-${name}`} className='govuk-hint'>{hintText}</div>}
         <span id={`${name}-error`}
           className="govuk-error-message">
           {errorText}
@@ -39,7 +42,7 @@ const LabelledTextareaWithCharacterCount = ({
           type="text"
           onChange={(e) => onChange(e)}
           defaultValue={text}
-          rows="5"></textarea>
+          rows={rows}></textarea>
         <div id="with-hint-info"
           className={`${hasExceededTextLimit ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message`}
           aria-live="polite">{generateCharacterCountText()}
@@ -59,6 +62,8 @@ LabelledTextareaWithCharacterCount.propTypes = {
   text: PropTypes.string,
   textAreaCount: PropTypes.number.isRequired,
   textLimit: PropTypes.number.isRequired,
+  hintText: PropTypes.string,
+  rows: PropTypes.number.isRequired,
 }
 
 export default LabelledTextareaWithCharacterCount

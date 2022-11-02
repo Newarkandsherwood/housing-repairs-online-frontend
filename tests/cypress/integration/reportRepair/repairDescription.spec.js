@@ -20,8 +20,8 @@ describe('repair description', () => {
     });
 
     it('displays "report one repair" disclaimer', () => {
-      cy.contains('Please report only one problem at a time. You will have a ' +
-        'chance to report another repair after this one.');
+      cy.contains('Only report one problem at a time. You can ' +
+        'report another repair after this one.');
     });
 
     it('displays button with correct text', () => {
