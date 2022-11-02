@@ -1,4 +1,4 @@
-import { mobilePhoneNumberValidator } from '../helpers/validators';
+import { mobilePhoneNumberValidator, phoneOnKeyPress } from '../helpers/validators';
 
 export const conditionalPhoneNumber = {
   autoComplete: 'tel',
