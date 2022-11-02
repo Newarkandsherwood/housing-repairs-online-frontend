@@ -32,7 +32,8 @@ class Flow {
       'repair-problems': { prevStep: 'repair-location', nextStep: repairTriageNextSteps},
       'repair-problem-best-description': { prevStep: 'repair-problems', nextStep: repairTriageNextSteps},
       'repair-description': {prevStep: true, nextStep: isMvpReleaseVersion()? 'contact-person' : 'repair-image-upload'},
-      'repair-image-upload': { prevStep: 'repair-description', nextStep: 'contact-person'},
+      'repair-description-communal': {prevStep: true, nextStep: 'repair-image-upload'},
+      'repair-image-upload': { prevStep: true, nextStep: 'contact-person'},
       'contact-person': {prevStep: 'repair-description', nextStep:'contact-details'},
       'contact-details': {prevStep: 'contact-person', nextStep: [
         {condition: 'text', nextStep: 'contact-number-confirmation'},
@@ -93,7 +94,7 @@ class Flow {
         }
         nextFlowStep = condition ? condition.nextStep : state.step;
       }
-      if(nextFlowStep == 'repair-description' && repairProblemChanged){
+      if((nextFlowStep == 'repair-description' || nextFlowStep == 'repair-description-communal') && repairProblemChanged){
         delete state.data['repairProblemBestDescription']
       }
       return this.nextStep(nextFlowStep, state);

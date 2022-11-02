@@ -187,7 +187,7 @@ function ReportRepair() {
     case contactUsValue:
       return 'contact-us';
     default:
-      return 'repair-description';
+      return values.communal == 'yes' ? 'repair-description-communal' : 'repair-description';
     }
   }
 
@@ -361,6 +361,14 @@ function ReportRepair() {
           values={values}
         />
       )
+    case 'repair-description-communal':
+      return (
+        <RepairDescription
+          handleChange={handleChange}
+          values={values}
+          showCommunal={true}
+        />
+      )
     case 'repair-image-upload':
       return (
         <RepairImageUpload
@@ -425,6 +433,7 @@ export async function getStaticPaths() {
     {params: { route: 'repair-problem-best-description'} },
     {params: { route: 'smell-gas'} },
     {params: { route: 'repair-description'} },
+    {params: { route: 'repair-description-communal'} },
     {params: { route: 'repair-image-upload'} },
     {params: { route: 'repair-availability'} },
     {params: { route: 'smell-gas'} },
