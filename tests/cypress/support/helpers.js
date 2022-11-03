@@ -300,7 +300,6 @@ export {
   navigateToCommunalPage,
   navigateToPageAfterCommunalPage,
   navigateToContactNumberConfirmationPage,
-  navigateToTenantOrLeaseholderPage,
   navigateToPostcodePage,
   navigateToAddressPage,
   navigateToNotEligiblePageWhenPostcodeNotFound,
