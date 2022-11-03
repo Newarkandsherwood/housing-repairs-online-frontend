@@ -90,7 +90,7 @@ const navigateToCommunalPage = () => {
   })
 }
 
-const navigateToBeyondCommunalPage = () => {
+const navigateToPageAfterCommunalPage = () => {
   navigateToCommunalPage();
   let isCommunalOption = isCommunalRepair() ? 'Yes': 'No'
   
@@ -103,7 +103,7 @@ const navigateToBeyondCommunalPage = () => {
 }
 
 const navigateToPostcodePage = () => {
-  navigateToBeyondCommunalPage();
+  navigateToPageAfterCommunalPage();
   if(!isCommunalRepair()) {
     navigateToPageSelectRadioOptionAndContinue({
     page: 'tenantOrLeaseholder', option:'Yes'
@@ -288,7 +288,7 @@ export {
   intercept_save_repair,
   continueOnPage,
   navigateToCommunalPage,
-  navigateToBeyondCommunalPage,
+  navigateToPageAfterCommunalPage,
   navigateToPostcodePage,
   navigateToAddressPage,
   navigateToNotEligiblePageWhenPostcodeNotFound,
