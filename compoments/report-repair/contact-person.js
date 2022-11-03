@@ -24,7 +24,7 @@ const ContactPerson = ({handleChange, values}) => {
           isValid: phoneValidator.isValid,
         }}
         type="tel"
-        hint="Please enter a UK landline or mobile phone number"
+        hint="Enter a UK landline or mobile phone number"
         title={title}
         buttonText={'Continue'}
         onKeyPress={phoneOnKeyPress}
