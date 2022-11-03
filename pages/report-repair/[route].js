@@ -33,6 +33,7 @@ import ContactUs from '../../compoments/report-repair/contact-us';
 import {customerServicesTelephoneNumber} from '../../globals'
 import TenantOrLeaseholder from '../../compoments/report-repair/tenant-or-leaseholder';
 import { getRepairType } from '../../helpers/repairType';
+import ContactNumberConfirmation from '../../compoments/report-repair/contact-number-confirmation';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
@@ -221,6 +222,13 @@ function ReportRepair() {
           values={values}
         />
       )
+    case 'contact-number-confirmation':
+      return (
+        <ContactNumberConfirmation
+          handleChange={handleChange}
+          values={values}
+        />
+      )
     case 'address':
       return (
         <Address
@@ -405,6 +413,7 @@ export async function getStaticPaths() {
     {params: { route: 'emergency-repair'} },
     {params: { route: 'contact-person'} },
     {params: { route: 'contact-details'} },
+    {params: { route: 'contact-number-confirmation'} },
     {params: { route: 'not-eligible'} },
     {params: { route: 'not-eligible-non-emergency'} },
     {params: { route: 'not-eligible-communal-repairs'} },

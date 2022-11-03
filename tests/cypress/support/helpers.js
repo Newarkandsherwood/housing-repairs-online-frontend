@@ -193,6 +193,14 @@ const navigateToContactPerson = (repairProblemOption, repairProblemBestDescripti
   })
 }
 
+const navigateToContactNumberConfirmationPage = (repairProblemOption, repairProblemBestDescriptionOption, contactValue) => {
+  navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
+  cy.contains('Text message (recommended)').click().then(() => {
+    cy.get('input#contactDetails-text').type(contactValue);
+  })
+  cy.get('button').click();
+}
+
 const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBestDescriptionOption, contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
 
   navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
@@ -203,16 +211,18 @@ const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBest
       cy.contains('Text message (recommended)').click().then(() => {
         cy.get('input#contactDetails-text').type(contactValue);
       })
+      cy.get('button').click();
+      navigateToPageSelectRadioOptionAndContinue({page: 'contact-number-confirmation', option: 'Yes'})
       break;
     case 'email':
       cy.contains('Email').click().then(() => {
         cy.get('input#contactDetails-email').type(contactValue);
       })
+      cy.get('button').click();
       break;
     default:
       throw new Error(`Unexpected value for 'contactType': ${contactType}`);
     }
-    cy.get('button').click();
   });
 }
 
@@ -289,6 +299,8 @@ export {
   continueOnPage,
   navigateToCommunalPage,
   navigateToPageAfterCommunalPage,
+  navigateToContactNumberConfirmationPage,
+  navigateToTenantOrLeaseholderPage,
   navigateToPostcodePage,
   navigateToAddressPage,
   navigateToNotEligiblePageWhenPostcodeNotFound,
