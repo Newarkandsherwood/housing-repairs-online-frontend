@@ -90,19 +90,25 @@ const navigateToCommunalPage = () => {
   })
 }
 
-const navigateToTenantOrLeaseholderPage = () => {
+const navigateToPageAfterCommunalPage = () => {
   navigateToCommunalPage();
+  let isCommunalOption = isCommunalRepair() ? 'Yes': 'No'
+  
   navigateToPageSelectRadioOptionAndContinue({
-    page: 'communal', option:'No'
+    page: 'communal', option: isCommunalOption
   })
-  cy.get('[data-cy=tenantOrLeaseholder]', {timeout: 10000})
+  if(!isCommunalRepair()) {
+    cy.get('[data-cy=tenantOrLeaseholder]', {timeout: 10000})
+  }
 }
 
 const navigateToPostcodePage = () => {
-  navigateToTenantOrLeaseholderPage();
-  navigateToPageSelectRadioOptionAndContinue({
+  navigateToPageAfterCommunalPage();
+  if(!isCommunalRepair()) {
+    navigateToPageSelectRadioOptionAndContinue({
     page: 'tenantOrLeaseholder', option:'Yes'
-  })
+    })
+  }
   cy.get('[data-cy=postcode]', {timeout: 10000})
 }
 
@@ -275,6 +281,14 @@ function isMvpReleaseVersion() {
   return Cypress.env('RELEASE_VERSION') == 'mvp';
 }
 
+function isCommunalRepair() {
+  return Cypress.env('REPAIR_TYPE') === 'communal';
+}
+
+function isLeaseholdRepair() {
+  return Cypress.env('REPAIR_TYPE') === 'leasehold';
+}
+
 export {
   intercept_address_search,
   intercept_availability_search,
@@ -284,8 +298,8 @@ export {
   intercept_save_repair,
   continueOnPage,
   navigateToCommunalPage,
+  navigateToPageAfterCommunalPage,
   navigateToContactNumberConfirmationPage,
-  navigateToTenantOrLeaseholderPage,
   navigateToPostcodePage,
   navigateToAddressPage,
   navigateToNotEligiblePageWhenPostcodeNotFound,
