@@ -6,7 +6,7 @@ describe('NotEligible', () => {
   before(() => {
     intercept_address_search();
     navigateToAddressPage();
-    cy.contains('I can\'t find my address').click();
+    cy.contains('My address is not listed').click();
   });
 
   it('Displays page title', () => {
@@ -23,7 +23,7 @@ describe('NotEligible', () => {
   });
 
   it('Displays the contact phone number', () => {
-    cy.contains('Contact us via telephone 0800 561 0010');
+    cy.contains('Contact us via telephone on 0800 561 0010');
   });
 
   it('Displays the opening times', () => {

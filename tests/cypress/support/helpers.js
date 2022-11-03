@@ -90,19 +90,25 @@ const navigateToCommunalPage = () => {
   })
 }
 
-const navigateToTenantOrLeaseholderPage = () => {
+const navigateToPageAfterCommunalPage = () => {
   navigateToCommunalPage();
+  let isCommunalOption = isCommunalRepair() ? 'Yes': 'No'
+  
   navigateToPageSelectRadioOptionAndContinue({
-    page: 'communal', option:'No'
+    page: 'communal', option: isCommunalOption
   })
-  cy.get('[data-cy=tenantOrLeaseholder]', {timeout: 10000})
+  if(!isCommunalRepair()) {
+    cy.get('[data-cy=tenantOrLeaseholder]', {timeout: 10000})
+  }
 }
 
 const navigateToPostcodePage = () => {
-  navigateToTenantOrLeaseholderPage();
-  navigateToPageSelectRadioOptionAndContinue({
+  navigateToPageAfterCommunalPage();
+  if(!isCommunalRepair()) {
+    navigateToPageSelectRadioOptionAndContinue({
     page: 'tenantOrLeaseholder', option:'Yes'
-  })
+    })
+  }
   cy.get('[data-cy=postcode]', {timeout: 10000})
 }
 
@@ -112,6 +118,14 @@ const navigateToAddressPage = () => {
     page: 'postcode', inputText:'SW1A 2AA'
   })
   cy.get('[data-cy=address]', { timeout: 10000 })
+}
+
+const navigateToNotEligiblePageWhenPostcodeNotFound = () => {
+  navigateToPostcodePage();
+  navigateToPageTypeInputTextAndContinue({
+    page: 'postcode', inputText:'SW1A 2AA'
+  })
+  cy.get('[data-cy=not-eligible]', { timeout: 10000 })
 }
 
 const navigateToRepairLocationPage = () => {
@@ -179,6 +193,14 @@ const navigateToContactPerson = (repairProblemOption, repairProblemBestDescripti
   })
 }
 
+const navigateToContactNumberConfirmationPage = (repairProblemOption, repairProblemBestDescriptionOption, contactValue) => {
+  navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
+  cy.contains('Text message (recommended)').click().then(() => {
+    cy.get('input#contactDetails-text').type(contactValue);
+  })
+  cy.get('button').click();
+}
+
 const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBestDescriptionOption, contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
 
   navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
@@ -189,16 +211,18 @@ const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBest
       cy.contains('Text message (recommended)').click().then(() => {
         cy.get('input#contactDetails-text').type(contactValue);
       })
+      cy.get('button').click();
+      navigateToPageSelectRadioOptionAndContinue({page: 'contact-number-confirmation', option: 'Yes'})
       break;
     case 'email':
       cy.contains('Email').click().then(() => {
         cy.get('input#contactDetails-email').type(contactValue);
       })
+      cy.get('button').click();
       break;
     default:
       throw new Error(`Unexpected value for 'contactType': ${contactType}`);
     }
-    cy.get('button').click();
   });
 }
 
@@ -257,6 +281,14 @@ function isMvpReleaseVersion() {
   return Cypress.env('RELEASE_VERSION') == 'mvp';
 }
 
+function isCommunalRepair() {
+  return Cypress.env('REPAIR_TYPE') === 'communal';
+}
+
+function isLeaseholdRepair() {
+  return Cypress.env('REPAIR_TYPE') === 'leasehold';
+}
+
 export {
   intercept_address_search,
   intercept_availability_search,
@@ -266,9 +298,11 @@ export {
   intercept_save_repair,
   continueOnPage,
   navigateToCommunalPage,
-  navigateToTenantOrLeaseholderPage,
+  navigateToPageAfterCommunalPage,
+  navigateToContactNumberConfirmationPage,
   navigateToPostcodePage,
   navigateToAddressPage,
+  navigateToNotEligiblePageWhenPostcodeNotFound,
   navigateToLocationPage,
   navigateToRepairBestDescriptionPage,
   navigateToRepairAvailabilityPage,
