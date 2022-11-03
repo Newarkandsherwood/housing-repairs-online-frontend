@@ -27,11 +27,17 @@ describe('summary', () => {
 
       timeSlotValueFunction = navigateToSummaryPage();
     });
-      it('Displays Repair details', () => {
+    
+    it('Displays Repair details', () => {
         cy.contains('Repair details')
     });
-    it.skip('Does not display what best describes the problem', () => {
+    
+    it('Does not display what best describes the problem', () => {
       cy.contains('What best describes the problem?').should('not.exist');
+    });
+
+    it('Does not display appointment details', () => {
+      cy.contains('Appointment details').should('not.exist');
     });
   });
 
