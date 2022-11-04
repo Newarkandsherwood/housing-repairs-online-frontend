@@ -5,14 +5,16 @@ import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import ComponentHeader from '../componentHeader';
 import LabelledTextareaWithCharacterCount from '../labelledTextareaWithCharacterCount';
+import {isCommunalRepairType} from '../../helpers/repairType';
 
-const RepairDescription = ({ handleChange, values, showCommunal= false }) => {
+const RepairDescription = ({ handleChange, values }) => {
   const [error, setError] = useState({ descriptionText: undefined, locationText: undefined });
   const [activeError, setActiveError] = useState(false);
   const [descriptionText, setDescriptionText] = useState(values.description?.text)
   const [locationText, setLocationText] = useState(values.description?.location)
   const [descriptionTextAreaCount, setDescriptionTextAreaCount] = React.useState(0);
   const [locationTextAreaCount, setLocationTextAreaCount] = React.useState(0);
+  const showCommunal = isCommunalRepairType(values);
   const descriptionTextLimit = showCommunal ? 200 : 255;
   const locationTextLimit = 50
   const title = 'Describe your problem in more detail'

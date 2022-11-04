@@ -359,7 +359,6 @@ function ReportRepair() {
         <RepairDescription
           handleChange={handleChange}
           values={values}
-          showCommunal={values.communal == 'yes'}
         />
       )
     case 'repair-image-upload':
