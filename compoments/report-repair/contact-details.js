@@ -7,15 +7,15 @@ import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
 import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
-import { getRepairType } from '../../helpers/repairType';
+import { isCommunalRepairType } from '../../helpers/repairType';
 import { conditionalPhoneNumber } from '../conditionalPhoneNumber';
 
 const ContactDetails = ({handleChange, values}) => {
 
-  const repairType = getRepairType(values);
+  const isCommunal = isCommunalRepairType(values);
   const name = 'contactDetails'
   let title = 'How should we confirm the appointment?'
-  if(repairType === 'Communal'){
+  if(isCommunal){
     title = 'How should we confirm the repair request?'
   }    
   const Continue = val => {
