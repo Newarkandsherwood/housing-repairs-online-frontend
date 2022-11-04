@@ -1,13 +1,12 @@
 import React from 'react';
 import SummaryList from '../summaryList';
 import Button from '../button';
-import {isMvpReleaseVersion}  from '../../helpers/features';
-import { getRepairType } from '../../helpers/repairType';
+import { isCommunalRepairType } from '../../helpers/repairType';
 import ComponentHeader from '../componentHeader';
 
 const Summary = ({values, submit, goToStep}) => {
   const title = 'Request summary'
-  const repairType = getRepairType(values);
+  const isCommunal = isCommunalRepairType(values);
 
   const personalDetailsSummary = [
     {pageName:'Repair address', value: values.address?.display, link: 'postcode'},
@@ -18,12 +17,12 @@ const Summary = ({values, submit, goToStep}) => {
     { pageName:'What is the problem?', value: values.repairProblem?.display, link: 'repair-problems'},
     { pageName:'Description', value: values.description?.text, link:'repair-description'}
   ]
-  if (!isMvpReleaseVersion() && repairType != 'Communal') {
+  if (!isCommunal) {
     repairDetailsSummary.push(
       { pageName:'Repair Image', value: values.description?.filename, link:'repair-image-upload'}
     );
 
-    if (repairType != 'Communal') {
+    if (!isCommunal) {
       repairDetailsSummary.push(
       { pageName:'What best describes the problem?', value: values['repairProblemBestDescription']?.display, link: 'repair-problem-best-description'},
       )};
@@ -35,7 +34,7 @@ const Summary = ({values, submit, goToStep}) => {
   ]
 
   const AppointmentDetailsRender = () => {
-    if (repairType != 'Communal') {
+    if (!isCommunal) {
       return <>
           <h2 className="govuk-heading-m">Appointment details</h2>
             <SummaryList goToStep={goToStep} summary={appointmentDetailsSummary}/>
