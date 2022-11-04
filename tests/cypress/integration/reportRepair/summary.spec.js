@@ -5,8 +5,7 @@ import {
   intercept_availability_search,
   intercept_repair_triage,
   navigateToPageSelectRadioOptionAndContinue,
-  navigateToSummaryPage,
-  navigateToCommunalSummaryPage,
+  navigateToSummaryPage
 } from '../../support/helpers';
 
 describe('summary', () => {
@@ -27,11 +26,27 @@ describe('summary', () => {
 
       timeSlotValueFunction = navigateToSummaryPage();
     });
-      it('Displays Repair details', () => {
+    
+    it('Displays Correct Communal Content', () => {
         cy.contains('Repair details')
+        cy.contains('Where is the problem?')
+        cy.contains('Kitchen')
+        cy.get('a[href*="repair-location"]').contains('Change')
+        cy.contains('What is the problem?')
+        cy.contains('Cupboards, including damaged cupboard doors')
+        cy.get('a[href*="repair-problems"]').contains('Change')
+        cy.contains('What best describes the problem?')
+        cy.contains('Hanging door')
+        cy.get('a[href*="repair-problem-best-description"]').contains('Change')
+        cy.contains('Description')
+        cy.contains(repairDescription)
+        cy.get('a[href*="repair-description"]').contains('Change')     
+        cy.contains('Repair Image')  
+        cy.get('a[href*="repair-image-upload"]').contains('Change')        
     });
-    it.skip('Does not display what best describes the problem', () => {
-      cy.contains('What best describes the problem?').should('not.exist');
+        
+    it('Does not display appointment details', () => {
+      cy.contains('Appointment details').should('not.exist');
     });
   });
 
@@ -73,7 +88,9 @@ describe('summary', () => {
       cy.get('a[href*="repair-problem-best-description"]').contains('Change')
       cy.contains('Description')
       cy.contains(repairDescription)
-      cy.get('a[href*="repair-description"]').contains('Change');
+      cy.get('a[href*="repair-description"]').contains('Change')
+      cy.contains('Repair Image')
+      cy.get('a[href*="repair-image-upload"]').contains('Change')
     });
 
     context('Personal Details', () => {
