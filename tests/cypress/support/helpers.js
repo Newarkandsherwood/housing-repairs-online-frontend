@@ -93,7 +93,7 @@ const navigateToCommunalPage = () => {
 const navigateToPageAfterCommunalPage = () => {
   navigateToCommunalPage();
   let isCommunalOption = isCommunalRepair() ? 'Yes': 'No'
-  
+
   navigateToPageSelectRadioOptionAndContinue({
     page: 'communal', option: isCommunalOption
   })
@@ -106,7 +106,7 @@ const navigateToPostcodePage = () => {
   navigateToPageAfterCommunalPage();
   if(!isCommunalRepair()) {
     navigateToPageSelectRadioOptionAndContinue({
-    page: 'tenantOrLeaseholder', option:'Yes'
+      page: 'tenantOrLeaseholder', option:'Yes'
     })
   }
   cy.get('[data-cy=postcode]', {timeout: 10000})
@@ -161,6 +161,7 @@ const navigateToDescriptionPage = (repairProblemOption, repairProblemBestDescrip
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-problem-best-description', option: repairProblemBestDescriptionOption
   });
+  cy.get('[data-cy=repair-description]', {timeout: 10000});
 }
 
 const navigateToImageUploadPage = (repairProblemOption, repairProblemBestDescriptionOption = undefined, repairDescription) => {
@@ -171,7 +172,7 @@ const navigateToImageUploadPage = (repairProblemOption, repairProblemBestDescrip
   }
 
   cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
-    cy.get('textarea').type(repairDescription || 'Eius postea venit saepius arcessitus.');
+    cy.get('textarea').each($el => cy.wrap($el).type(repairDescription || 'Eius postea venit saepius arcessitus.'));
     cy.get('button').contains('Continue').click();
   });
 }
@@ -306,6 +307,7 @@ export {
   navigateToNotEligiblePageWhenPostcodeNotFound,
   navigateToLocationPage,
   navigateToRepairBestDescriptionPage,
+  navigateToDescriptionPage,
   navigateToRepairAvailabilityPage,
   navigateToSummaryPage,
   navigateToContactPerson,

@@ -1,9 +1,18 @@
-function loadRepairDescriptionPage() {
-  cy.visit('report-repair/repair-description-communal');
-  cy.get('[data-cy=repair-description]', {timeout: 10000})
+import {
+  intercept_address_search, intercept_repair_triage,
+  navigateToDescriptionPage
+} from '../../support/helpers';
+
+function navigateToRepairDescriptionPageUsingIntercepts() {
+  intercept_address_search();
+  intercept_repair_triage();
+  navigateToDescriptionPage('Cupboards, including damaged cupboard doors', 'Hanging door');
 }
 
-describe('repair description communal', () => {
+describe('repair description communal', {
+  env: {
+    REPAIR_TYPE: 'communal',
+  }}, () => {
   const repairDescriptionTextInputId = 'repair-description-text-input';
   const repairDescriptionLimit = 200;
   const repairDescriptionLocationTextInputId = 'repair-description-location-text-input';
@@ -14,7 +23,7 @@ describe('repair description communal', () => {
   }
 
   context ('Content', () => {
-    before(loadRepairDescriptionPage);
+    before(navigateToRepairDescriptionPageUsingIntercepts);
     it('displays the title', () => {
       cy.contains('Describe your problem in more detail');
     });
@@ -38,7 +47,7 @@ describe('repair description communal', () => {
 
   context('Behaviour', () => {
     context('Validation', () => {
-      beforeEach(loadRepairDescriptionPage);
+      beforeEach(navigateToRepairDescriptionPageUsingIntercepts);
 
       context('When a user doesn\'t type anything', () => {
         context('errors should be shown', () => {
