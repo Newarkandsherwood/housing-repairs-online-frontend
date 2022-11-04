@@ -180,6 +180,7 @@ const navigateToContactDetails = (repairProblemOption, repairProblemBestDescript
   navigateToImageUploadPage(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
 
   cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
+    cy.get('input').attachFile('goodJpg.jpg');
     cy.get('button').contains('Continue').click();
   });
 }

@@ -15,19 +15,11 @@ const Summary = ({values, submit, goToStep}) => {
   const repairDetailsSummary = [
     { pageName:'Where is the problem?', value: values.repairLocation?.display, link:'repair-location'},
     { pageName:'What is the problem?', value: values.repairProblem?.display, link: 'repair-problems'},
-    { pageName:'Description', value: values.description?.text, link:'repair-description'}
+    { pageName:'What best describes the problem?', value: values['repairProblemBestDescription']?.display, link: 'repair-problem-best-description'},
+    { pageName:'Description', value: values.description?.text, link:'repair-description'},
+    { pageName:'Repair Image', value: values.description?.filename, link:'repair-image-upload'},
   ]
-  if (!isCommunal) {
-    repairDetailsSummary.push(
-      { pageName:'Repair Image', value: values.description?.filename, link:'repair-image-upload'}
-    );
-
-    if (!isCommunal) {
-      repairDetailsSummary.push(
-      { pageName:'What best describes the problem?', value: values['repairProblemBestDescription']?.display, link: 'repair-problem-best-description'},
-      )};
-  }
-
+  
   const appointmentDetailsSummary = [
     { pageName:'Date', value: values.availability?.display, link:'repair-availability'},
     { pageName:'Confirmation contact details', value: values.contactDetails?.value, link: 'contact-details'},
