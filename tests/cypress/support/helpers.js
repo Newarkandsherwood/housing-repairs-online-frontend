@@ -308,6 +308,7 @@ export {
   navigateToRepairBestDescriptionPage,
   navigateToRepairAvailabilityPage,
   navigateToSummaryPage,
+  navigateToContactPerson,
   completeJourneyUsingPhone,
   completeJourneyUsingEmail,
   makeSelectionAndClickButton,
