@@ -2,11 +2,11 @@ import {
   intercept_address_search,
   intercept_availability_search,
   intercept_repair_triage,
-  navigateToContactPerson
+  navigateToContactDetails,
 } from '../../support/helpers';
 
 describe('Contact details', () => {
-  
+
   describe('communal contact details', {
     env: {
       REPAIR_TYPE: "communal",
@@ -15,8 +15,8 @@ describe('Contact details', () => {
     before(() => {
       intercept_availability_search();
       intercept_address_search();
-      intercept_repair_triage();      
-      navigateToContactPerson('Cupboards, including damaged cupboard doors', 'Hanging door', "test");
+      intercept_repair_triage();
+      navigateToContactDetails('Cupboards, including damaged cupboard doors', 'Hanging door', "test");
     });
     it('displays the question', () => {
 
@@ -28,8 +28,8 @@ describe('Contact details', () => {
     before(() => {
       intercept_availability_search();
       intercept_address_search();
-      intercept_repair_triage();      
-      navigateToContactPerson('Cupboards, including damaged cupboard doors', 'Hanging door', "test");      
+      intercept_repair_triage();
+      navigateToContactDetails('Cupboards, including damaged cupboard doors', 'Hanging door', "test");
     });
 
     it('displays the question', () => {

@@ -14,6 +14,7 @@ const updatedPhoneNumber = '07712345678'
 const setup = () => {
   intercept_address_search();
   intercept_repair_triage();
+  intercept_availability_search();
   intercept_save_repair(repairID);
   navigateToContactNumberConfirmationPage('Electrical, including extractor fans and lightbulbs', 'Extractor fan', '07512345678');
 }
@@ -43,8 +44,6 @@ describe('contactNumberConfirmation', () => {
       navigateToPageSelectRadioOptionAndContinue({page: 'contact-number-confirmation', option: 'Yes'})
     });
     it('Displays initial phone number on the summary page', () => {
-      intercept_availability_search();
-      navigateToPageSelectRadioOptionAndContinue({page: 'repair-availability', option: '10:00am to 1:00pm'})
       cy.contains(initialPhoneNumber);
     });
   });
@@ -64,9 +63,7 @@ describe('contactNumberConfirmation', () => {
       inputBox.type(updatedPhoneNumber);
     });
     it('Displays the updated phone number on the summary page', () => {
-      intercept_availability_search();
       cy.get('button').click()
-      navigateToPageSelectRadioOptionAndContinue({page: 'repair-availability', option: '10:00am to 1:00pm'})
       cy.contains(updatedPhoneNumber);
     });
   });

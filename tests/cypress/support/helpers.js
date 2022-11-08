@@ -178,25 +178,31 @@ const navigateToImageUploadPage = (repairProblemOption, repairProblemBestDescrip
 }
 
 const navigateToContactDetails = (repairProblemOption, repairProblemBestDescriptionOption, repairDescription) => {
-  navigateToImageUploadPage(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
 
-  cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
-    cy.get('input').attachFile('goodJpg.jpg');
-    cy.get('button').contains('Continue').click();
-  });
-}
-
-const navigateToContactPerson = (repairProblemOption, repairProblemBestDescriptionOption, repairDescription) => {
-  navigateToContactDetails(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
-
+  const timeSlotFunction = navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption, repairDescription)
   navigateToPageTypeInputTextAndContinue({
     page: 'contact-person',
     inputText: '02085548333'
   })
+  return timeSlotFunction;
+}
+
+const navigateToContactPerson = (repairProblemOption, repairProblemBestDescriptionOption, repairDescription) => {
+  let timeSlot;
+  navigateToRepairAvailabilityPage(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
+  cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
+    cy.get('[data-cy=availability-slot-0-0]').invoke('val').then(value => {
+      timeSlot = value;
+    })
+    cy.get('[data-cy=availability-slot-0-0]').click();
+    cy.get('button').click();
+  });
+
+  return () => timeSlot;
 }
 
 const navigateToContactNumberConfirmationPage = (repairProblemOption, repairProblemBestDescriptionOption, contactValue) => {
-  navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
+  navigateToContactDetails(repairProblemOption, repairProblemBestDescriptionOption);
   cy.contains('Text message (recommended)').click().then(() => {
     cy.get('input#contactDetails-text').type(contactValue);
   })
@@ -205,8 +211,16 @@ const navigateToContactNumberConfirmationPage = (repairProblemOption, repairProb
 
 const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBestDescriptionOption, contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
 
-  navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
+  navigateToImageUploadPage(repairProblemOption, repairProblemBestDescriptionOption);
 
+  cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
+    cy.get('input').attachFile('goodJpg.jpg');
+    cy.get('button').contains('Continue').click();
+  });
+}
+
+const navigateToSummaryPage = (contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
+  const timeSlotFunction = navigateToContactDetails('Cupboards, including damaged cupboard doors', 'Hanging door')
   cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
     switch (contactType) {
     case 'phone':
@@ -226,22 +240,8 @@ const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBest
       throw new Error(`Unexpected value for 'contactType': ${contactType}`);
     }
   });
-}
 
-const navigateToSummaryPage = (contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
-  let timeSlot = ''
-
-  navigateToRepairAvailabilityPage('Cupboards, including damaged cupboard doors', 'Hanging door', contactType, contactValue)
-
-  cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
-    cy.get('[data-cy=availability-slot-0-0]').invoke('val').then(value => {
-      timeSlot = value;
-    })
-    cy.get('[data-cy=availability-slot-0-0]').click();
-    cy.get('button').click();
-  });
-
-  return () => timeSlot;
+  return timeSlotFunction;
 }
 
 const completeJourney = (contactType, contactValue) => {
@@ -311,6 +311,7 @@ export {
   navigateToRepairAvailabilityPage,
   navigateToSummaryPage,
   navigateToContactPerson,
+  navigateToContactDetails,
   completeJourneyUsingPhone,
   completeJourneyUsingEmail,
   makeSelectionAndClickButton,
