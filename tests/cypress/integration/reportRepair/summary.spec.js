@@ -26,7 +26,7 @@ describe('summary', () => {
 
       timeSlotValueFunction = navigateToSummaryPage();
     });
-    
+
     it('Displays Correct Communal Content', () => {
         cy.contains('Repair details')
         cy.contains('Where is the problem?')
@@ -40,11 +40,11 @@ describe('summary', () => {
         cy.get('a[href*="repair-problem-best-description"]').contains('Change')
         cy.contains('Description')
         cy.contains(repairDescription)
-        cy.get('a[href*="repair-description"]').contains('Change')     
-        cy.contains('Repair Image')  
-        cy.get('a[href*="repair-image-upload"]').contains('Change')        
+        cy.get('a[href*="repair-description"]').contains('Change')
+        cy.contains('Repair Image')
+        cy.get('a[href*="repair-image-upload"]').contains('Change')
     });
-        
+
     it('Does not display appointment details', () => {
       cy.contains('Appointment details').should('not.exist');
     });
@@ -121,13 +121,13 @@ describe('summary', () => {
         cy.get('[data-cy=repair-image-upload]', { timeout: 10000 }).then(() => {
           cy.get('button').contains('Continue').click();
         });
+        cy.get('[data-cy=repair-availability]', { timeout: 10000 }).then(() => {
+          cy.get('button').click();
+        });
         cy.get('[data-cy=contact-person]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
         cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
-          cy.get('button').click();
-        });
-        cy.get('[data-cy=repair-availability]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
         cy.contains(newAddress.toUpperCase())
@@ -141,9 +141,6 @@ describe('summary', () => {
         cy.get('input').type(newNumber);
         cy.get('button').click();
         cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
-          cy.get('button').click();
-        });
-        cy.get('[data-cy=repair-availability]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
         cy.contains(newNumber);
@@ -164,9 +161,9 @@ describe('summary', () => {
 
         continueOnPage('repair-description');
         continueOnPage('repair-image-upload');
+        continueOnPage('repair-availability');
         continueOnPage('contact-person');
         continueOnPage('contact-details');
-        continueOnPage('repair-availability');
         cy.contains('Bathroom')
         cy.contains('What is the problem?')
         cy.contains('Floor tiles')
@@ -179,9 +176,9 @@ describe('summary', () => {
         })
         continueOnPage('repair-description');
         continueOnPage('repair-image-upload');
+        continueOnPage('repair-availability');
         continueOnPage('contact-person');
         continueOnPage('contact-details');
-        continueOnPage('repair-availability');
 
         cy.contains('Wall tiles')
       });
@@ -207,13 +204,13 @@ describe('summary', () => {
         cy.get('[data-cy=repair-image-upload]', { timeout: 10000 }).then(() => {
           cy.get('button').contains('Continue').click();
         });
+        cy.get('[data-cy=repair-availability]', { timeout: 10000 }).then(() => {
+          cy.get('button').click();
+        });
         cy.get('[data-cy=contact-person]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
         cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
-          cy.get('button').click();
-        });
-        cy.get('[data-cy=repair-availability]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
         cy.contains(newText);
@@ -228,11 +225,15 @@ describe('summary', () => {
           cy.get('[data-cy=availability-slot-1-0]').invoke('val').then(value => {
             cy.get('[data-cy=availability-slot-1-0]').click();
             cy.get('button').click();
+            cy.get('[data-cy=contact-person]', { timeout: 10000 }).then(() => {
+              cy.get('button').click();
+            });
+            cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
+              cy.get('button').click();
+            });
             cy.contains(convertDateToDisplayDate(value));
-            cy.get('button').click();
           })
         });
-
       });
       it('allows you to change the confirmation contact details', () => {
         let newEmail = 'dumbledoor@hogwarts.com'
@@ -243,14 +244,9 @@ describe('summary', () => {
           cy.get('input#contactDetails-email').clear();
           cy.get('input#contactDetails-email').type(newEmail);
         })
-        cy.get('button').click();
-        cy.get('[data-cy=repair-availability]', { timeout: 10000 }).then(() => {
-          cy.get('[data-cy=availability-slot-0-0]').click();
-          cy.get('button').click();
-        });
-        cy.get('button').click();
+        continueOnPage('contact-details');
         cy.contains(newEmail);
       });
     });
-  });  
+  });
 });
