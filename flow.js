@@ -1,7 +1,7 @@
 import { isMvpReleaseVersion } from './helpers/features';
 
 class Flow {
-  constructor(setState, history, path, prevSteps, setPrevSteps, repairTriageNextSteps = undefined) {
+  constructor(setState, history, path, prevSteps, setPrevSteps, nextSteps = undefined) {
     this.setState = setState;
     this.history = history;
     this.path = path;
@@ -28,11 +28,11 @@ class Flow {
       'tenant-or-leaseholder' : {prevSteps: 'communal', nextStep: 'postcode'},
       'postcode': {prevStep: 'communal', nextStep: 'address'},
       'address': {prevStep: 'postcode', nextStep: 'repair-location'},
-      'repair-location': { prevStep: 'address', nextStep: repairTriageNextSteps},
-      'repair-problems': { prevStep: 'repair-location', nextStep: repairTriageNextSteps},
-      'repair-problem-best-description': { prevStep: 'repair-problems', nextStep: repairTriageNextSteps},
+      'repair-location': { prevStep: 'address', nextStep: nextSteps},
+      'repair-problems': { prevStep: 'repair-location', nextStep: nextSteps},
+      'repair-problem-best-description': { prevStep: 'repair-problems', nextStep: nextSteps},
       'repair-description': {prevStep: true, nextStep: isMvpReleaseVersion()? 'contact-person' : 'repair-image-upload'},
-      'repair-image-upload': { prevStep: 'repair-description', nextStep: repairTriageNextSteps},
+      'repair-image-upload': { prevStep: 'repair-description', nextStep: nextSteps},
       'contact-person': {prevStep: 'contact-details', nextStep:'summary'},
       'contact-details': {prevStep: 'repair-availability', nextStep: [
         {condition: 'text', nextStep: 'contact-number-confirmation'},
