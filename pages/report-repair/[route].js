@@ -33,6 +33,7 @@ import ContactUs from '../../compoments/report-repair/contact-us';
 import {customerServicesTelephoneNumber} from '../../globals'
 import TenantOrLeaseholder from '../../compoments/report-repair/tenant-or-leaseholder';
 import { getRepairType } from '../../helpers/repairType';
+import CommunalRepairs from '../../compoments/report-repair/communal-repairs';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
@@ -383,6 +384,13 @@ function ReportRepair() {
           values={values}
         />
       )
+    case 'communal-repairs':
+      return (
+        <CommunalRepairs
+          handleChange={handleChange}
+          values={values}
+        />
+      )
     default:
       return <div>Not found</div>;
     }
@@ -420,7 +428,8 @@ export async function getStaticPaths() {
     {params: { route: 'repair-availability'} },
     {params: { route: 'smell-gas'} },
     {params: { route: 'contact-us'} },
-    {params: { route: 'tenant-or-leaseholder'} }
+    {params: { route: 'tenant-or-leaseholder'} },
+    {params: { route: 'communal-repairs'} }
   ]
 
   return { paths, fallback: false };

@@ -26,9 +26,10 @@ class Flow {
         {condition: 'no', nextStep: isMvpReleaseVersion() ? 'postcode' : 'tenant-or-leaseholder'}
       ]},
       'tenant-or-leaseholder' : {prevSteps: 'communal', nextStep: 'postcode'},
-      'postcode': {prevStep: 'communal', nextStep: 'address'},
+      'postcode': {prevStep: true, nextStep: 'address'},
       'address': {prevStep: 'postcode', nextStep: 'repair-location'},
-      'repair-location': { prevStep: 'address', nextStep: repairTriageNextSteps},
+      'communal-repairs':{ prevSteps: 'address', nextStep:'repair-location'},
+      'repair-location': { prevStep: true, nextStep: repairTriageNextSteps},
       'repair-problems': { prevStep: 'repair-location', nextStep: repairTriageNextSteps},
       'repair-problem-best-description': { prevStep: 'repair-problems', nextStep: repairTriageNextSteps},
       'repair-description': {prevStep: true, nextStep: isMvpReleaseVersion()? 'contact-person' : 'repair-image-upload'},
@@ -91,6 +92,9 @@ class Flow {
       }
       if(nextFlowStep == 'repair-description' && repairProblemChanged){
         delete state.data['repairProblemBestDescription']
+      }
+      if( state.data.communal == 'yes' && state.step =='address') {
+        nextFlowStep = 'communal-repairs'
       }
       return this.nextStep(nextFlowStep, state);
     }
