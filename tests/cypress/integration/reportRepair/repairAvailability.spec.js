@@ -2,7 +2,7 @@ import {
   intercept_repair_triage,
   intercept_address_search,
   intercept_availability_search,
-  navigateToRepairAvailabilityPage
+  navigateToPageAfterImageUpload
 } from '../../support/helpers';
 const { _ } = Cypress
 
@@ -124,7 +124,7 @@ describe('repair availability', () => {
       intercept_address_search();
       intercept_repair_triage();
 
-      navigateToRepairAvailabilityPage('Damaged worktop');
+      navigateToPageAfterImageUpload('Damaged worktop');
     });
 
     it('api is called without repair issue', () => {

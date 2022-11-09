@@ -180,7 +180,7 @@ const navigateToImageUploadPage = (repairProblemOption, repairProblemBestDescrip
 const navigateToContactDetails = (repairProblemOption, repairProblemBestDescriptionOption, repairDescription) => {
 
   let timeSlot;
-  navigateToRepairAvailabilityPage(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
+  navigateToPageAfterImageUpload(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
   if (!isCommunalRepair()) {
     cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
       cy.get('[data-cy=availability-slot-0-0]').invoke('val').then(value => {
@@ -202,7 +202,7 @@ const navigateToContactNumberConfirmationPage = (repairProblemOption, repairProb
   cy.get('button').click();
 }
 
-const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBestDescriptionOption, contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
+const navigateToPageAfterImageUpload = (repairProblemOption, repairProblemBestDescriptionOption, contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
 
   navigateToImageUploadPage(repairProblemOption, repairProblemBestDescriptionOption);
 
@@ -304,7 +304,7 @@ export {
   navigateToLocationPage,
   navigateToRepairBestDescriptionPage,
   navigateToDescriptionPage,
-  navigateToRepairAvailabilityPage,
+  navigateToPageAfterImageUpload,
   navigateToSummaryPage,
   navigateToContactDetails,
   completeJourneyUsingPhone,
