@@ -33,14 +33,14 @@ class Flow {
       'repair-problem-best-description': { prevStep: 'repair-problems', nextStep: repairTriageNextSteps},
       'repair-description': {prevStep: true, nextStep: isMvpReleaseVersion()? 'contact-person' : 'repair-image-upload'},
       'repair-image-upload': { prevStep: 'repair-description', nextStep: 'repair-availability'},
-      'contact-person': {prevStep: 'repair-description', nextStep:'contact-details'},
-      'contact-details': {prevStep: 'contact-person', nextStep: [
+      'contact-person': {prevStep: 'contact-details', nextStep:'summary'},
+      'contact-details': {prevStep: 'repair-availability', nextStep: [
         {condition: 'text', nextStep: 'contact-number-confirmation'},
-        {condition: 'email', nextStep: 'summary'}
+        {condition: 'email', nextStep: 'contact-person'}
       ]},
       'contact-number-confirmation': {prevStep: 'contact-details', nextStep:'summary'},
-      'repair-availability': {prevStep: 'repair-image-upload', nextStep: 'contact-person'},
-      'summary': {prevStep: 'repair-availability', nextStep: ''},//need to investigate this as there are numerous prev steps, but it might just work
+      'repair-availability': {prevStep: 'repair-image-upload', nextStep: 'contact-details'},
+      'summary': {prevStep: true, nextStep: ''},//need to investigate this as there are numerous prev steps, but it might just work
     }
   };
   nextStep (step, state, prevStep) {

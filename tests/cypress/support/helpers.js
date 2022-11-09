@@ -179,15 +179,6 @@ const navigateToImageUploadPage = (repairProblemOption, repairProblemBestDescrip
 
 const navigateToContactDetails = (repairProblemOption, repairProblemBestDescriptionOption, repairDescription) => {
 
-  const timeSlotFunction = navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption, repairDescription)
-  navigateToPageTypeInputTextAndContinue({
-    page: 'contact-person',
-    inputText: '02085548333'
-  })
-  return timeSlotFunction;
-}
-
-const navigateToContactPerson = (repairProblemOption, repairProblemBestDescriptionOption, repairDescription) => {
   let timeSlot;
   navigateToRepairAvailabilityPage(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
   cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
@@ -235,6 +226,9 @@ const navigateToSummaryPage = (contactType = 'email', contactValue = 'harrypotte
         cy.get('input#contactDetails-email').type(contactValue);
       })
       cy.get('button').click();
+      navigateToPageTypeInputTextAndContinue({
+        page: 'contact-person', inputText:'02085548333'
+      })
       break;
     default:
       throw new Error(`Unexpected value for 'contactType': ${contactType}`);
@@ -310,7 +304,6 @@ export {
   navigateToDescriptionPage,
   navigateToRepairAvailabilityPage,
   navigateToSummaryPage,
-  navigateToContactPerson,
   navigateToContactDetails,
   completeJourneyUsingPhone,
   completeJourneyUsingEmail,
