@@ -1,7 +1,7 @@
 import {
   intercept_get_communal_property_repairs,
   intercept_get_communal_property_repairs_empty_response,
-  navigateToCommunalPage
+
 
 } from '../../support/helpers';
 
@@ -11,7 +11,9 @@ function loadCommunalRepairsPage() {
 
 describe('communal repair', () => {
   context('Content', () => {
-    before(loadCommunalRepairsPage);
+    beforeEach(()=>{
+      intercept_get_communal_property_repairs();
+      loadCommunalRepairsPage()});
 
     it('displays the heading', () => {
       cy.contains('Problems reported at this address');
@@ -29,8 +31,8 @@ describe('communal repair', () => {
   context('Behaviour', () => {
     context('Communal repairs exist at address', ()=>{
       beforeEach(() => {
-        loadCommunalRepairsPage
         intercept_get_communal_property_repairs();
+        loadCommunalRepairsPage()
       });
       it('displays first table heading', () => {
         cy.get('[data-cy=communal-repairs-table-heading-1]').should(
@@ -63,34 +65,24 @@ describe('communal repair', () => {
     });
     context('Communal repairs do not exist at address', ()=>{
       beforeEach(() => {
-        loadCommunalRepairsPage
         intercept_get_communal_property_repairs_empty_response();
+        loadCommunalRepairsPage()
       });
       it('does not display first table heading', () => {
-        cy.get('[data-cy=communal-repairs-table-heading-1]').should(
-          'not.contain',
-          'Where is the problem?'
-        );
+        cy.contains('Where is the problem?').should('not.exist');
       });
 
       it('does not display second table heading', () => {
-        cy.get('[data-cy=communal-repairs-table-heading-2]').should(
-          'not.contain',
-          'What is the problem?'
-        );
+        cy.contains('What is the problem?').should('not.exist');
       });
 
       it('does not display third table heading', () => {
-        cy.get('[data-cy=communal-repairs-table-heading-3]').should(
-          'not.contain',
-          'What best describes the problem'
-        );
+        cy.contains('What best describes the problem').should('not.exist');
       });
 
       it('does not display fourth table heading', () => {
-        cy.get('[data-cy=communal-repairs-table-heading-4]').should(
-          'not.contain',
-          'Specific area (user entered)'
+        cy.contains('[Specific area (user entered)').should(
+          'not.exist'
         );
       });
     });
