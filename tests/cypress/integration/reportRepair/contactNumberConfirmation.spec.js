@@ -8,7 +8,7 @@ import {
 } from '../../support/helpers';
 
 const repairID = '1234ABC'
-const initialPhoneNumber= '02085548333'
+const initialPhoneNumber= '07512345678'
 const updatedPhoneNumber = '07712345678'
 
 const setup = () => {
@@ -16,7 +16,7 @@ const setup = () => {
   intercept_repair_triage();
   intercept_availability_search();
   intercept_save_repair(repairID);
-  navigateToContactNumberConfirmationPage('Electrical, including extractor fans and lightbulbs', 'Extractor fan', '07512345678');
+  navigateToContactNumberConfirmationPage('Electrical, including extractor fans and lightbulbs', 'Extractor fan', initialPhoneNumber);
 }
 
 describe('contactNumberConfirmation', () => {

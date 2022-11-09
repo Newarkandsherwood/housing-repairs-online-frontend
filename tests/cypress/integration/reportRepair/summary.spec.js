@@ -124,10 +124,10 @@ describe('summary', () => {
         cy.get('[data-cy=repair-availability]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
-        cy.get('[data-cy=contact-person]', { timeout: 10000 }).then(() => {
+        cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
-        cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
+        cy.get('[data-cy=contact-person]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
         cy.contains(newAddress.toUpperCase())
@@ -140,9 +140,6 @@ describe('summary', () => {
         cy.get('input').clear();
         cy.get('input').type(newNumber);
         cy.get('button').click();
-        cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
-          cy.get('button').click();
-        });
         cy.contains(newNumber);
       });
     });
@@ -162,8 +159,8 @@ describe('summary', () => {
         continueOnPage('repair-description');
         continueOnPage('repair-image-upload');
         continueOnPage('repair-availability');
-        continueOnPage('contact-person');
         continueOnPage('contact-details');
+        continueOnPage('contact-person');
         cy.contains('Bathroom')
         cy.contains('What is the problem?')
         cy.contains('Floor tiles')
@@ -177,8 +174,8 @@ describe('summary', () => {
         continueOnPage('repair-description');
         continueOnPage('repair-image-upload');
         continueOnPage('repair-availability');
-        continueOnPage('contact-person');
         continueOnPage('contact-details');
+        continueOnPage('contact-person');
 
         cy.contains('Wall tiles')
       });
@@ -207,10 +204,10 @@ describe('summary', () => {
         cy.get('[data-cy=repair-availability]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
-        cy.get('[data-cy=contact-person]', { timeout: 10000 }).then(() => {
+        cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
-        cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
+        cy.get('[data-cy=contact-person]', { timeout: 10000 }).then(() => {
           cy.get('button').click();
         });
         cy.contains(newText);
@@ -225,10 +222,10 @@ describe('summary', () => {
           cy.get('[data-cy=availability-slot-1-0]').invoke('val').then(value => {
             cy.get('[data-cy=availability-slot-1-0]').click();
             cy.get('button').click();
-            cy.get('[data-cy=contact-person]', { timeout: 10000 }).then(() => {
+            cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
               cy.get('button').click();
             });
-            cy.get('[data-cy=contact-details]', { timeout: 10000 }).then(() => {
+            cy.get('[data-cy=contact-person]', { timeout: 10000 }).then(() => {
               cy.get('button').click();
             });
             cy.contains(convertDateToDisplayDate(value));
@@ -245,6 +242,7 @@ describe('summary', () => {
           cy.get('input#contactDetails-email').type(newEmail);
         })
         continueOnPage('contact-details');
+        continueOnPage('contact-person');
         cy.contains(newEmail);
       });
     });
