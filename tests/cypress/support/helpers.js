@@ -181,13 +181,15 @@ const navigateToContactDetails = (repairProblemOption, repairProblemBestDescript
 
   let timeSlot;
   navigateToRepairAvailabilityPage(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
-  cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
-    cy.get('[data-cy=availability-slot-0-0]').invoke('val').then(value => {
-      timeSlot = value;
-    })
-    cy.get('[data-cy=availability-slot-0-0]').click();
-    cy.get('button').click();
-  });
+  if (!isCommunalRepair()) {
+    cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
+      cy.get('[data-cy=availability-slot-0-0]').invoke('val').then(value => {
+        timeSlot = value;
+      })
+      cy.get('[data-cy=availability-slot-0-0]').click();
+      cy.get('button').click();
+    });
+  }
 
   return () => timeSlot;
 }
