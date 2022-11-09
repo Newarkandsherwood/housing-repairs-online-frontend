@@ -32,7 +32,7 @@ import { fetcher } from '../../helpers/fetcher';
 import ContactUs from '../../compoments/report-repair/contact-us';
 import {customerServicesTelephoneNumber} from '../../globals'
 import TenantOrLeaseholder from '../../compoments/report-repair/tenant-or-leaseholder';
-import { getRepairType } from '../../helpers/repairType';
+import { getRepairType, isCommunalRepairType } from '../../helpers/repairType';
 import ContactNumberConfirmation from '../../compoments/report-repair/contact-number-confirmation';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
@@ -362,6 +362,8 @@ function ReportRepair() {
         />
       )
     case 'repair-image-upload':
+      const imageUploadNextStep = isCommunalRepairType(values) ? 'contact-details' : 'repair-availability';
+      flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, imageUploadNextStep);
       return (
         <RepairImageUpload
           handleChange={handleChange}
