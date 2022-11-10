@@ -23,7 +23,7 @@ describe('NotEligible', () => {
   });
 
   it('Displays the contact phone number', () => {
-    cy.contains('Contact us via telephone 0800 561 0010');
+    cy.contains('Contact us via telephone on 0800 561 0010');
   });
 
   it('Displays the opening times', () => {

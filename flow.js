@@ -33,11 +33,15 @@ class Flow {
       'repair-problems': { prevStep: 'repair-location', nextStep: repairTriageNextSteps},
       'repair-problem-best-description': { prevStep: 'repair-problems', nextStep: repairTriageNextSteps},
       'repair-description': {prevStep: true, nextStep: isMvpReleaseVersion()? 'contact-person' : 'repair-image-upload'},
-      'repair-image-upload': { prevStep: 'repair-description', nextStep: 'contact-person'},
-      'contact-person': {prevStep: 'repair-description', nextStep:'contact-details'},
-      'contact-details': {prevStep: 'contact-person', nextStep: 'repair-availability'},
-      'repair-availability': {prevStep: 'contact-details', nextStep: 'summary'},
-      'summary': {prevStep: 'repair-availability', nextStep: ''},//need to investigate this as there are numerous prev steps, but it might just work
+      'repair-image-upload': { prevStep: 'repair-description', nextStep: 'repair-availability'},
+      'contact-person': {prevStep: 'contact-details', nextStep:'summary'},
+      'contact-details': {prevStep: 'repair-availability', nextStep: [
+        {condition: 'text', nextStep: 'contact-number-confirmation'},
+        {condition: 'email', nextStep: 'contact-person'}
+      ]},
+      'contact-number-confirmation': {prevStep: 'contact-details', nextStep:'summary'},
+      'repair-availability': {prevStep: 'repair-image-upload', nextStep: 'contact-details'},
+      'summary': {prevStep: true, nextStep: ''},//need to investigate this as there are numerous prev steps, but it might just work
     }
   };
   nextStep (step, state, prevStep) {
@@ -84,7 +88,7 @@ class Flow {
       if (Array.isArray(nextFlowStep)) {
         let condition
         if(typeof value === 'object'){
-          condition = nextFlowStep.find(o => o.condition === value.value)
+          condition = nextFlowStep.find(o => o.condition === value.value || o.condition === value.type)
         }else{
           condition = nextFlowStep.find(o => o.condition === value);
         }

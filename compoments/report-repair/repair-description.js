@@ -1,180 +1,88 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Button from '../button';
-import imageToBase64 from 'image-to-base64/browser';
 import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
-import { isMvpReleaseVersion } from '../../helpers/features';
-import ImagePreview from '../image-preview';
 import ComponentHeader from '../componentHeader';
-
-const CharacterCount = ({ errorText, hasExceededTextLimit, onChange, repairDescriptionTextInputId, text, textAreaCount, textLimit }) => {
-
-  const generateCharacterCountText = () => {
-    const characterCountDifference = textLimit - textAreaCount;
-    const absoluteCharacterCountDifference = `${Math.abs(characterCountDifference)}`;
-    const suffix = `${characterCountDifference < 0 ? 'too many' : 'remaining'}`;
-    const characterWord = `character${absoluteCharacterCountDifference == 1 ? '' : 's'}`;
-    return `You have ${absoluteCharacterCountDifference} ${characterWord} ${suffix}`
-  }
-
-  return (
-    <div className='govuk-character-count'>
-      <div className={errorText ? 'govuk-form-group--error' : 'govuk-form-group'}>
-        <label className="govuk-label govuk-label--m" htmlFor="description">
-          Description of problem
-        </label>
-        <span id={'description-error'}
-          className="govuk-error-message">
-          {errorText}
-        </span>
-        <textarea
-          className={`govuk-textarea ${errorText && 'govuk-textarea--error'}`}
-          id={repairDescriptionTextInputId}
-          name="description" type="text"
-          onChange={(e) => onChange(e)}
-          defaultValue={text}
-          rows="5"></textarea>
-        <div id="with-hint-info"
-          className={`${hasExceededTextLimit ? 'govuk-error-message' : 'govuk-hint'} govuk-character-count__message`}
-          aria-live="polite">{generateCharacterCountText()}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-CharacterCount.propTypes = {
-  errorText: PropTypes.string,
-  hasExceededTextLimit: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
-  repairDescriptionTextInputId: PropTypes.string.isRequired,
-  text: PropTypes.string,
-  textAreaCount: PropTypes.number.isRequired,
-  textLimit: PropTypes.number.isRequired,
-}
+import LabelledTextareaWithCharacterCount from '../labelledTextareaWithCharacterCount';
+import {isCommunalRepairType} from '../../helpers/repairType';
 
 const RepairDescription = ({ handleChange, values }) => {
-  const [error, setError] = useState({ text: undefined, img: undefined });
+  const [error, setError] = useState({ descriptionText: undefined, locationText: undefined });
   const [activeError, setActiveError] = useState(false);
-  const [selectedFile, setSelectedFile] = useState();
-  const [selectedImage, setSelectedImage] = useState(values.description?.photo);
-  const [fileExtension, setFileExtension] = useState(values.description?.fileExtension);
-  const [base64img, setBase64img] = useState(values.description?.base64img);
-  const [text, setText] = useState(values.description?.text)
-  const [textAreaCount, setTextAreaCount] = React.useState(0);
-  const textLimit = 255
+  const [descriptionText, setDescriptionText] = useState(values.description?.text)
+  const [locationText, setLocationText] = useState(values.description?.location)
+  const [descriptionTextAreaCount, setDescriptionTextAreaCount] = React.useState(0);
+  const [locationTextAreaCount, setLocationTextAreaCount] = React.useState(0);
+  const showCommunal = isCommunalRepairType(values);
+  const descriptionTextLimit = showCommunal ? 200 : 255;
+  const locationTextLimit = 50
   const title = 'Describe your problem in more detail'
   const pageTitle = `${title} - ${serviceName}`;
   const repairDescriptionTextInputId = 'repair-description-text-input';
-  const repairDescriptionUploadPhotoInputId = 'repair-description-upload-a-photo-input';
+  const repairDescriptionLocationTextInputId = 'repair-description-location-text-input';
 
-  const TextChange = (e) => {
-    setText(e.target.value)
-    setTextAreaCount(e.target.value.length);
+  const DescriptionTextChange = (e) => {
+    setDescriptionText(e.target.value)
+    setDescriptionTextAreaCount(e.target.value.length);
     setActiveError(false)
   }
 
-  const saveFileAsImage = (file) => {
-    const image = URL.createObjectURL(file);
-    imageToBase64(image)
-      .then(
-        (response) => {
-          setBase64img(response);
-          setSelectedImage(image);
-          setFileExtension(file.name.split('.').pop());
-        }
-      )
-      .catch(
-        (error) => {
-          console.log(error);
-        }
-      )
-  }
-
-  const PhotoChange = (event) => {
-    const uploadedFile = event.target.files[0]
+  const LocationTextChange = (e) => {
+    setLocationText(e.target.value)
+    setLocationTextAreaCount(e.target.value.length);
     setActiveError(false)
-    setSelectedFile(uploadedFile)
-    saveFileAsImage(uploadedFile)
-  }
-
-  const removePhoto = () => {
-    setSelectedImage(null)
   }
 
   const Continue = () => {
-    let textError = undefined;
-    let imageError = undefined;
+    let descriptionTextError = undefined;
+    let locationTextError = undefined;
     setActiveError(true);
-    if (selectedFile) {
-      if (selectedFile.type !== 'image/jpeg') {
-        imageError = 'The selected file must be a JPG';
+
+    if (descriptionTextAreaCount > descriptionTextLimit) {
+      descriptionTextError = `Enter a description of the problem using ${descriptionTextLimit} characters or less`;
+    }
+    if (!descriptionText) {
+      descriptionTextError = 'Enter a description of the problem';
+    }
+    if (showCommunal) {
+      if (locationTextAreaCount > locationTextLimit) {
+        locationTextError = `Enter the specific location of the problem using ${locationTextLimit} characters or less`;
       }
-      let size = (selectedFile.size / 1024 / 1024).toFixed(2);
-      if (size > 10) {
-        imageError = `The selected file must be smaller than 10MB. Your file size is ${size}MB`;
+      if (!locationText) {
+        locationTextError = 'Enter the specific location of the problem';
       }
     }
-    if (textAreaCount > textLimit) {
-      textError = `Enter a description of the problem using ${textLimit} characters or less`;
-    }
-    if (!text) {
-      textError = 'Enter a description of the problem';
-    }
-    if (!textError && !imageError) {
-      return handleChange('description', {
-        photo: selectedImage,
-        text: text,
-        fileExtension: fileExtension,
-        base64img: base64img
-      });
+
+    if (!descriptionTextError && !locationTextError) {
+      const descriptionValues = {
+        text: descriptionText
+      };
+      if (showCommunal) {
+        descriptionValues.location = locationText;
+      }
+      return handleChange('description', descriptionValues);
     } else {
-      setSelectedImage(null);
-      setSelectedFile(null);
-      return setError({ text: textError, img: imageError })
+      const error = { descriptionText: descriptionTextError };
+      if (showCommunal) {
+        error.locationText = locationTextError;
+      }
+      return setError(error)
     }
   }
 
   const getErrorSummaryTextAndLocation = () => {
     const errorSummaryTextAndLocation = [];
-    error.text && errorSummaryTextAndLocation.push({ text: error.text, location: `#${repairDescriptionTextInputId}` });
-    error.img && errorSummaryTextAndLocation.push({ text: error.img, location: `#${repairDescriptionUploadPhotoInputId}` });
+    error.locationText && errorSummaryTextAndLocation.push({ text: error.locationText, location: `#${repairDescriptionLocationTextInputId}` });
+    error.descriptionText && errorSummaryTextAndLocation.push({ text: error.descriptionText, location: `#${repairDescriptionTextInputId}` });
     return errorSummaryTextAndLocation;
-  }
-
-  const ImageUploadRender = () => {
-    if (isMvpReleaseVersion()) {
-      return <div className={error.img ? 'govuk-form-group--error' : 'govuk-form-group'}>
-        <h3 className="govuk-heading-m">
-          Upload a photo (optional)
-        </h3>
-        <label className="govuk-label" htmlFor="upload-a-photo">
-          Upload a file
-        </label>
-        <span id="upload-a-photo-error" className="govuk-error-message">
-          {error.img}
-        </span>
-        {selectedImage ? (
-          <ImagePreview
-            image={selectedImage}
-            onDelete={removePhoto}
-          />
-        ) : (
-          <input className="govuk-file-upload govuk-file-upload--error"
-            id={repairDescriptionUploadPhotoInputId} name="upload-a-photo" type="file"
-            aria-describedby="upload-a-photo-error" onChange={PhotoChange} />
-        )}
-      </div>
-    }
-    else return '';
   }
 
   return <div className="govuk-grid-row" data-cy="repair-description">
     <ComponentHeader title={title} />
     <div className="govuk-grid-column-two-thirds">
       {
-        (error.text || error.img) && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
+        (error.descriptionText || error.locationText) && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={pageTitle} />
       }
       <h1 className="govuk-heading-l">
         {title}
@@ -182,30 +90,48 @@ const RepairDescription = ({ handleChange, values }) => {
       <form action="">
         <label className="govuk-label" htmlFor="description">
           <div>
-            <p>Please describe:</p>
-            <ul className="govuk-list govuk-list--bullet">
-              <li>the size and location of the problem</li>
-              <li>the source of the problem</li>
-              <li>how long you have been experiencing the problem</li>
-              <li>how many items are damaged, for example 3 floor tiles</li>
-            </ul>
+            {!showCommunal && <>
+              <p>Try to include:</p>
+              <ul className="govuk-list govuk-list--bullet">
+                <li>the size and location of the problem</li>
+                <li>the source of the problem</li>
+                <li>how long you have been experiencing the problem</li>
+                <li>how many items are damaged, for example 3 floor tiles</li>
+              </ul>
+            </>
+            }
             <div className="govuk-inset-text">
-              Please report <strong>only one problem</strong> at a time. You will have
-              a chance to report another repair after this one.
+              Only report <strong>one problem</strong> at a time. You can report another repair after this one.
             </div>
           </div>
         </label>
-        <CharacterCount
-          errorText={error.text}
-          hasExceededTextLimit={textLimit - textAreaCount < 0}
-          onChange={TextChange}
-          repairDescriptionTextInputId={repairDescriptionTextInputId}
-          text={text}
-          textAreaCount={textAreaCount}
-          textLimit={textLimit}
+        {showCommunal && <LabelledTextareaWithCharacterCount
+          name={'location'}
+          labelText={'Where is the problem?'}
+          errorText={error.locationText}
+          hasExceededTextLimit={locationTextLimit - locationTextAreaCount < 0}
+          onChange={LocationTextChange}
+          textInputId={repairDescriptionLocationTextInputId}
+          text={locationText}
+          textAreaCount={locationTextAreaCount}
+          textLimit={locationTextLimit}
+          hintText={`Tell us exactly where in the area (${(values.repairLocation?.display)}) we can find the problem`}
+          rows={1}
+        />}
+        <LabelledTextareaWithCharacterCount
+          name={'description'}
+          labelText={'Description of problem'}
+          errorText={error.descriptionText}
+          hasExceededTextLimit={descriptionTextLimit - descriptionTextAreaCount < 0}
+          onChange={DescriptionTextChange}
+          textInputId={repairDescriptionTextInputId}
+          text={descriptionText}
+          textAreaCount={descriptionTextAreaCount}
+          textLimit={descriptionTextLimit}
+          hintText={showCommunal ? 'Try to include how long the problem has existed and how many items are damaged, for example 3 floor tiles' : ''}
+          rows={5}
         />
       </form>
-      <ImageUploadRender />
       <br />
       <Button onClick={Continue} >Continue</Button>
     </div>
@@ -213,7 +139,7 @@ const RepairDescription = ({ handleChange, values }) => {
 };
 
 RepairDescription.propTypes = {
-  storeAddresses: PropTypes.func,
+  showCommunal: PropTypes.bool,
   values: PropTypes.object,
   handleChange: PropTypes.func,
 }

@@ -1,18 +1,23 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  mobilePhoneNumberValidator,
   emailValidator,
-  phoneOnKeyPress
 } from '../../helpers/validators';
 import RadioFieldSet from '../radioFieldSet';
 import Details from '../details';
 import {customerServicesOpeningHoursDescription, customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
+import { isCommunalRepairType } from '../../helpers/repairType';
+import { conditionalPhoneNumber } from '../conditionalPhoneNumber';
 
 const ContactDetails = ({handleChange, values}) => {
-  const title = 'How should we confirm the appointment?'
+
+  const isCommunal = isCommunalRepairType(values);
   const name = 'contactDetails'
+  let title = 'How should we confirm the appointment?'
+  if(isCommunal){
+    title = 'How should we confirm the repair request?'
+  }    
   const Continue = val => {
     handleChange(name, {
       type: val.selected,
@@ -24,15 +29,7 @@ const ContactDetails = ({handleChange, values}) => {
     {
       value: 'text',
       title: 'Text message (recommended)',
-      conditional: {
-        autoComplete: 'tel',
-        label: 'UK mobile number',
-        type: 'tel',
-        validator: mobilePhoneNumberValidator,
-        onKeyPress: phoneOnKeyPress,
-        emptyInputErrorMessage: 'Enter a UK mobile number',
-        invalidInputErrorMessage: 'Enter a valid UK mobile number',
-      }
+      conditional: conditionalPhoneNumber
     },
     {
       value: 'email',

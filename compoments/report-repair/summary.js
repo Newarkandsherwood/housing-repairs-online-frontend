@@ -1,11 +1,12 @@
 import React from 'react';
 import SummaryList from '../summaryList';
 import Button from '../button';
-import {isMvpReleaseVersion}  from '../../helpers/features';
+import { isCommunalRepairType } from '../../helpers/repairType';
 import ComponentHeader from '../componentHeader';
 
 const Summary = ({values, submit, goToStep}) => {
   const title = 'Request summary'
+  const isCommunal = isCommunalRepairType(values);
 
   const personalDetailsSummary = [
     {pageName:'Repair address', value: values.address?.display, link: 'postcode'},
@@ -15,18 +16,24 @@ const Summary = ({values, submit, goToStep}) => {
     { pageName:'Where is the problem?', value: values.repairLocation?.display, link:'repair-location'},
     { pageName:'What is the problem?', value: values.repairProblem?.display, link: 'repair-problems'},
     { pageName:'What best describes the problem?', value: values['repairProblemBestDescription']?.display, link: 'repair-problem-best-description'},
-    { pageName:'Description', value: values.description?.text, link:'repair-description'}
+    { pageName:'Description', value: values.description?.text, link:'repair-description'},
+    { pageName:'Repair Image', value: values.description?.filename, link:'repair-image-upload'},
   ]
-  if (!isMvpReleaseVersion()) {
-    repairDetailsSummary.push(
-      { pageName:'Repair Image', value: values.description?.filename, link:'repair-image-upload'}
-    );
-  }
-
+  
   const appointmentDetailsSummary = [
     { pageName:'Date', value: values.availability?.display, link:'repair-availability'},
     { pageName:'Confirmation contact details', value: values.contactDetails?.value, link: 'contact-details'},
   ]
+
+  const AppointmentDetailsRender = () => {
+    if (!isCommunal) {
+      return <>
+          <h2 className="govuk-heading-m">Appointment details</h2>
+            <SummaryList goToStep={goToStep} summary={appointmentDetailsSummary}/>
+        </>      
+    }
+    else return '';
+  }
 
   return(
     <>
@@ -40,8 +47,7 @@ const Summary = ({values, submit, goToStep}) => {
               <SummaryList goToStep={goToStep} summary={personalDetailsSummary}/>
               <h2 className="govuk-heading-m">Repair details</h2>
               <SummaryList goToStep={goToStep} summary={repairDetailsSummary}/>
-              <h2 className="govuk-heading-m">Appointment details</h2>
-              <SummaryList goToStep={goToStep} summary={appointmentDetailsSummary}/>
+              <AppointmentDetailsRender />              
             </div>
           </div>
           <Button

@@ -107,19 +107,25 @@ const navigateToCommunalPage = () => {
   })
 }
 
-const navigateToTenantOrLeaseholderPage = () => {
+const navigateToPageAfterCommunalPage = () => {
   navigateToCommunalPage();
+  let isCommunalOption = isCommunalRepair() ? 'Yes': 'No'
+
   navigateToPageSelectRadioOptionAndContinue({
-    page: 'communal', option:'No'
+    page: 'communal', option: isCommunalOption
   })
-  cy.get('[data-cy=tenantOrLeaseholder]', {timeout: 10000})
+  if(!isCommunalRepair()) {
+    cy.get('[data-cy=tenantOrLeaseholder]', {timeout: 10000})
+  }
 }
 
 const navigateToPostcodePage = () => {
-  navigateToTenantOrLeaseholderPage();
-  navigateToPageSelectRadioOptionAndContinue({
-    page: 'tenantOrLeaseholder', option:'Yes'
-  })
+  navigateToPageAfterCommunalPage();
+  if(!isCommunalRepair()) {
+    navigateToPageSelectRadioOptionAndContinue({
+      page: 'tenantOrLeaseholder', option:'Yes'
+    })
+  }
   cy.get('[data-cy=postcode]', {timeout: 10000})
 }
 
@@ -172,6 +178,7 @@ const navigateToDescriptionPage = (repairProblemOption, repairProblemBestDescrip
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-problem-best-description', option: repairProblemBestDescriptionOption
   });
+  cy.get('[data-cy=repair-description]', {timeout: 10000});
 }
 
 const navigateToImageUploadPage = (repairProblemOption, repairProblemBestDescriptionOption = undefined, repairDescription) => {
@@ -182,56 +189,15 @@ const navigateToImageUploadPage = (repairProblemOption, repairProblemBestDescrip
   }
 
   cy.get('[data-cy=repair-description]', {timeout: 10000}).then(() => {
-    cy.get('textarea').type(repairDescription || 'Eius postea venit saepius arcessitus.');
+    cy.get('textarea').each($el => cy.wrap($el).type(repairDescription || 'Eius postea venit saepius arcessitus.'));
     cy.get('button').contains('Continue').click();
   });
 }
 
 const navigateToContactDetails = (repairProblemOption, repairProblemBestDescriptionOption, repairDescription) => {
-  navigateToImageUploadPage(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
 
-  cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
-    cy.get('button').contains('Continue').click();
-  });
-}
-
-const navigateToContactPerson = (repairProblemOption, repairProblemBestDescriptionOption, repairDescription) => {
-  navigateToContactDetails(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
-
-  navigateToPageTypeInputTextAndContinue({
-    page: 'contact-person',
-    inputText: '02085548333'
-  })
-}
-
-const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBestDescriptionOption, contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
-
-  navigateToContactPerson(repairProblemOption, repairProblemBestDescriptionOption);
-
-  cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
-    switch (contactType) {
-    case 'phone':
-      cy.contains('Text message (recommended)').click().then(() => {
-        cy.get('input#contactDetails-text').type(contactValue);
-      })
-      break;
-    case 'email':
-      cy.contains('Email').click().then(() => {
-        cy.get('input#contactDetails-email').type(contactValue);
-      })
-      break;
-    default:
-      throw new Error(`Unexpected value for 'contactType': ${contactType}`);
-    }
-    cy.get('button').click();
-  });
-}
-
-const navigateToSummaryPage = (contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
-  let timeSlot = ''
-
-  navigateToRepairAvailabilityPage('Cupboards, including damaged cupboard doors', 'Hanging door', contactType, contactValue)
-
+  let timeSlot;
+  navigateToRepairAvailabilityPage(repairProblemOption, repairProblemBestDescriptionOption, repairDescription);
   cy.get('[data-cy=repair-availability]', {timeout: 10000}).then(() => {
     cy.get('[data-cy=availability-slot-0-0]').invoke('val').then(value => {
       timeSlot = value;
@@ -241,6 +207,52 @@ const navigateToSummaryPage = (contactType = 'email', contactValue = 'harrypotte
   });
 
   return () => timeSlot;
+}
+
+const navigateToContactNumberConfirmationPage = (repairProblemOption, repairProblemBestDescriptionOption, contactValue) => {
+  navigateToContactDetails(repairProblemOption, repairProblemBestDescriptionOption);
+  cy.contains('Text message (recommended)').click().then(() => {
+    cy.get('input#contactDetails-text').type(contactValue);
+  })
+  cy.get('button').click();
+}
+
+const navigateToRepairAvailabilityPage = (repairProblemOption, repairProblemBestDescriptionOption, contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
+
+  navigateToImageUploadPage(repairProblemOption, repairProblemBestDescriptionOption);
+
+  cy.get('[data-cy=repair-image-upload]', {timeout: 10000}).then(() => {
+    cy.get('input').attachFile('goodJpg.jpg');
+    cy.get('button').contains('Continue').click();
+  });
+}
+
+const navigateToSummaryPage = (contactType = 'email', contactValue = 'harrypotter@hogwarts.com') => {
+  const timeSlotFunction = navigateToContactDetails('Cupboards, including damaged cupboard doors', 'Hanging door')
+  cy.get('[data-cy=contact-details]', {timeout: 10000}).then(() => {
+    switch (contactType) {
+    case 'phone':
+      cy.contains('Text message (recommended)').click().then(() => {
+        cy.get('input#contactDetails-text').type(contactValue);
+      })
+      cy.get('button').click();
+      navigateToPageSelectRadioOptionAndContinue({page: 'contact-number-confirmation', option: 'Yes'})
+      break;
+    case 'email':
+      cy.contains('Email').click().then(() => {
+        cy.get('input#contactDetails-email').type(contactValue);
+      })
+      cy.get('button').click();
+      navigateToPageTypeInputTextAndContinue({
+        page: 'contact-person', inputText:'02085548333'
+      })
+      break;
+    default:
+      throw new Error(`Unexpected value for 'contactType': ${contactType}`);
+    }
+  });
+
+  return timeSlotFunction;
 }
 
 const completeJourney = (contactType, contactValue) => {
@@ -282,6 +294,14 @@ function isMvpReleaseVersion() {
   return Cypress.env('RELEASE_VERSION') == 'mvp';
 }
 
+function isCommunalRepair() {
+  return Cypress.env('REPAIR_TYPE') === 'communal';
+}
+
+function isLeaseholdRepair() {
+  return Cypress.env('REPAIR_TYPE') === 'leasehold';
+}
+
 export {
   intercept_address_search,
   intercept_availability_search,
@@ -291,14 +311,17 @@ export {
   intercept_save_repair,
   continueOnPage,
   navigateToCommunalPage,
-  navigateToTenantOrLeaseholderPage,
+  navigateToPageAfterCommunalPage,
+  navigateToContactNumberConfirmationPage,
   navigateToPostcodePage,
   navigateToAddressPage,
   navigateToNotEligiblePageWhenPostcodeNotFound,
   navigateToLocationPage,
   navigateToRepairBestDescriptionPage,
+  navigateToDescriptionPage,
   navigateToRepairAvailabilityPage,
   navigateToSummaryPage,
+  navigateToContactDetails,
   completeJourneyUsingPhone,
   completeJourneyUsingEmail,
   makeSelectionAndClickButton,
