@@ -12,11 +12,12 @@ import {customerServicesTelephoneNumber} from '../../globals'
 import LinkPreservingValues from '../linkPreservingValues';
 import PostcodeChange from '../postcodeChange';
 import NotEligible from '../../compoments/report-repair/not-eligible';
+import {getRepairType} from '../../helpers/repairType';
 
 const Address = ({handleChange, values, goToStep}) => {
   const [state, setState] = useState({error: {}, value: 'null', activeError: false});
-  
-  const { data, error } = useSWR(`/api/address?postcode=${values.postcode}&isCommunal=${values.communal}`, fetcher)
+
+  const { data, error } = useSWR(`/api/address?postcode=${values.postcode}&repairType=${getRepairType(values)}`, fetcher)
 
   const title = 'What is the property address?';
   const addressPrompt = 'Select the address';
@@ -69,7 +70,7 @@ const Address = ({handleChange, values, goToStep}) => {
       <h1 className="govuk-heading-l">{title}</h1>
       <h2> Postcode </h2>
       <p className="govuk-body">
-        <PostcodeChange goToStep={goToStep} postcode={values.postcode} />      
+        <PostcodeChange goToStep={goToStep} postcode={values.postcode} />
       </p>
       <h2> {addressPrompt} </h2>
       <form action="">
