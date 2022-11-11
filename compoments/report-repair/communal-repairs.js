@@ -45,6 +45,11 @@ const CommunalRepairs = ({ handleChange, values}) => {
             </tbody>
           </table>
         </>}
+        {data.length == 0 && <>
+          <p className="govuk-body-m">
+            There are no communal repairs that have been reported for this location.
+          </p>
+        </>}
         <h2 className='govuk-heading-l'>The problem is not listed</h2>
         <p className="govuk-body-m">
           If the repair is not listed above you can report a new problem to the council.
