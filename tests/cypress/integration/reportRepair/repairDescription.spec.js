@@ -1,5 +1,5 @@
 import {
-  intercept_address_search,
+  intercept_address_search, intercept_get_communal_property_repairs,
   intercept_repair_triage,
   navigateToDescriptionPage
 } from '../../support/helpers';
@@ -12,6 +12,7 @@ function loadRepairDescriptionPage() {
 function navigateToRepairDescriptionPageUsingIntercepts() {
   intercept_address_search();
   intercept_repair_triage();
+  intercept_get_communal_property_repairs();
   navigateToDescriptionPage('Cupboards, including damaged cupboard doors', 'Hanging door');
 }
 
