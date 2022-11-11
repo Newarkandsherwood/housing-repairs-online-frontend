@@ -231,6 +231,8 @@ function ReportRepair() {
         />
       )
     case 'address':
+      const addressNextStep = isCommunalRepairType(values) ? 'communal-repairs' : 'repair-location';
+      flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, addressNextStep);
       return (
         <Address
           handleChange={handleChange}

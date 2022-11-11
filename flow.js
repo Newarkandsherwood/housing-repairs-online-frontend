@@ -27,7 +27,7 @@ class Flow {
       ]},
       'tenant-or-leaseholder' : {prevSteps: 'communal', nextStep: 'postcode'},
       'postcode': {prevStep: true, nextStep: 'address'},
-      'address': {prevStep: 'postcode', nextStep: 'repair-location'},
+      'address': {prevStep: 'postcode', nextStep: nextSteps},
       'communal-repairs':{ prevSteps: 'address', nextStep:'repair-location'},
       'repair-location': { prevStep: true, nextStep: nextSteps},
       'repair-problems': { prevStep: 'repair-location', nextStep: nextSteps},
