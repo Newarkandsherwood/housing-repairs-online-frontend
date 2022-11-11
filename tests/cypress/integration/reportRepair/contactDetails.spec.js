@@ -1,6 +1,6 @@
 import {
   intercept_address_search,
-  intercept_availability_search,
+  intercept_availability_search, intercept_get_communal_property_repairs,
   intercept_repair_triage,
   navigateToContactDetails,
 } from '../../support/helpers';
@@ -16,6 +16,7 @@ describe('Contact details', () => {
       intercept_availability_search();
       intercept_address_search();
       intercept_repair_triage();
+      intercept_get_communal_property_repairs();
       navigateToContactDetails('Cupboards, including damaged cupboard doors', 'Hanging door', "test");
     });
     it('displays the question', () => {
