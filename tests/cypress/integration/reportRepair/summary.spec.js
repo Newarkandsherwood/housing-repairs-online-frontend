@@ -2,7 +2,7 @@ import {
   continueOnPage,
   convertDateToDisplayDate,
   intercept_address_search,
-  intercept_availability_search,
+  intercept_availability_search, intercept_get_communal_property_repairs,
   intercept_repair_triage,
   navigateToPageSelectRadioOptionAndContinue,
   navigateToSummaryPage
@@ -22,6 +22,7 @@ describe('summary', () => {
     beforeEach(() => {
       intercept_availability_search();
       intercept_address_search();
+      intercept_get_communal_property_repairs();
       intercept_repair_triage();
 
       timeSlotValueFunction = navigateToSummaryPage();
