@@ -153,12 +153,14 @@ const navigateToRepairLocationPage = () => {
     cy.get('select').select(address)
     cy.get('button').click();
   });
+  if(isCommunalRepair()){
+    cy.get('button').click()
+  }
   cy.get('[data-cy=repair-location]', { timeout: 10000 })
 }
 
 const navigateToRepairProblemPage = () => {
   navigateToRepairLocationPage();
-
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-location', option: 'Kitchen'
   })
