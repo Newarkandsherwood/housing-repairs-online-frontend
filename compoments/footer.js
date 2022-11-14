@@ -26,7 +26,7 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="govuk-footer " role="contentinfo">
+    <footer className="govuk-footer " role="contentinfo" data-testid={`NODE_ENV: ${ process.env.NODE_ENV } NEXT_PUBLIC_APP_ENV: ${process.env.NEXT_PUBLIC_APP_ENV}`}>
       <div className="govuk-width-container ">
         <h2 className="govuk-visually-hidden">Support links</h2>
         <ul className="govuk-footer__inline-list">
