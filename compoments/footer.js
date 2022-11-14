@@ -4,7 +4,7 @@ import {councilWebsiteHomePageUrl, privacyNoticeWebPagePath, accessibilityStatem
 
 const FooterListItem = ({text, location, index}) => {
   return (
-    <li className="govuk-footer__inline-list-item">
+    <li className="govuk-footer__inline-list-item" data-testid={`NODE_ENV: ${ process.env.NODE_ENV } NEXT_PUBLIC_APP_ENV: ${process.env.NEXT_PUBLIC_APP_ENV}`}>
       <a className="govuk-footer__link" href={location}
         data-testid={`govuk-footer__link_${index}`}>
         {text}
