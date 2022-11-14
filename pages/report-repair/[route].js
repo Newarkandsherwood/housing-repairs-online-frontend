@@ -129,7 +129,7 @@ function ReportRepair() {
   }
 
   const cleanPayload = (payload) => {
-    delete payload.availability.appointmentSlotKey
+    delete payload.availability?.appointmentSlotKey
   }
 
   const submit = (values) => {
