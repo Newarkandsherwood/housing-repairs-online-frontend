@@ -11,7 +11,7 @@ module.exports = async function (context, req) {
   let results;
 
   try {
-    results = await searchPropertiesGateway(req.query.postcode, req.query.isCommunal);
+    results = await searchPropertiesGateway(req.query.postcode, req.query.repairType);
   } catch (e) {
     Sentry.captureException(e);
     await Sentry.flush(2000);
