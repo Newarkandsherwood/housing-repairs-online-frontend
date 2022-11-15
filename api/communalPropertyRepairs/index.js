@@ -1,6 +1,6 @@
 const Sentry = require('@sentry/node');
 
-const {getCommunalPropertyRepairsGateway, sentryParams} = require('../gateways');
+const {communalPropertyRepairsGateway, sentryParams} = require('../gateways');
 
 module.exports = async function (context, req) {
   Sentry.init(sentryParams);
@@ -11,7 +11,7 @@ module.exports = async function (context, req) {
   let results;
 
   try {
-    results = await getCommunalPropertyRepairsGateway(req.propertyReference);
+    results = await communalPropertyRepairsGateway(req.query.propertyReference);
   } catch (e) {
     Sentry.captureException(e);
     await Sentry.flush(2000);

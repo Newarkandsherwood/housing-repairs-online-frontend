@@ -2,8 +2,9 @@ module.exports = makeGetRequest => {
   return async(propertyReference) => {
     let result;
     result = await makeGetRequest({
-      uri: `/CommunalPropertyRepairs?propertyReference=${propertyReference}`
+      uri: `/repair/CommunalPropertyRepairs?propertyReference=${propertyReference}`
     }).then(response => {
+      console.log(response)
       return response.data;
     });
 

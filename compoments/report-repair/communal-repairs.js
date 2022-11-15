@@ -8,11 +8,11 @@ import Loader from '../loader';
 
 
 const CommunalRepairs = ({ handleChange, values}) => {
-  const { data, error } = useSWR(`/api/getCommunalPropertyRepairs?propertyReference=${values.address?.locationId}`, fetcher)
+  const { data, error } = useSWR(`/api/communalPropertyRepairs?propertyReference=${values.address?.locationId}`, fetcher)
   const Continue = val => {
     handleChange('reportNewCommunalRepair', true);
   }
-
+  console.log(data)
   if (!data) return <Loader/>
   const title = 'Problems reported at this address'
   return (
@@ -36,10 +36,10 @@ const CommunalRepairs = ({ handleChange, values}) => {
             <tbody className="govuk-table__body">
               {data?.map((repair, i) => (
                 <tr className="govuk-table__row">
-                  <th scope="row" className="govuk-table__header" data-cy={`communal-repairs-repair-type-${i}`}>{repair.RepairType}</th>
-                  <td className="govuk-table__cell" data-cy={`communal-repairs-repair-problem-${i}`}>{repair.Problem.Display}</td>
-                  <td className="govuk-table__cell" data-cy={`communal-repairs-repair-description-text-${i}`}>{repair.Description.Text}</td>
-                  <td className="govuk-table__cell" data-cy={`communal-repairs-repair-location-${i}`}>{repair.Location.Display}</td>
+                  <th scope="row" className="govuk-table__header">{repair.location.display}</th>
+                  <td className="govuk-table__cell">{repair.problem.display}</td>
+                  <td className="govuk-table__cell">{repair.issue.display}</td>
+                  <td className="govuk-table__cell">{repair.description.text}</td>
                 </tr>
               ))}
             </tbody>

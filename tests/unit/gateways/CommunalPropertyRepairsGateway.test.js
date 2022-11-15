@@ -14,7 +14,7 @@ describe('GetCommunalPropertyRepairsGateway', () => {
 
     expect(mockGetRequest).toHaveBeenCalledWith(
       {
-        uri:  '/CommunalPropertyRepairs?propertyReference=locationId',
+        uri:  '/repair/CommunalPropertyRepairs?propertyReference=locationId',
       }
     )
     expect(result).toEqual(dummyData)
