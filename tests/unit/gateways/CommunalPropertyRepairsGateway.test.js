@@ -2,15 +2,15 @@ import dummyData from '../../fixtures/communalRepairs.json'
 
 describe('GetCommunalPropertyRepairsGateway', () => {
   let mockGetRequest;
-  let GetCommunalPropertyRepairsGateway;
+  let CommunalPropertyRepairsGateway;
 
   beforeAll(() => {
     mockGetRequest =  jest.fn().mockImplementation(({url, params}) => Promise.resolve({data: dummyData}));
-    GetCommunalPropertyRepairsGateway = require('../../../api/gateways/GetCommunalPropertyRepairsGateway')(mockGetRequest);
+    CommunalPropertyRepairsGateway = require('../../../api/gateways/CommunalPropertyRepairsGateway')(mockGetRequest);
   });
 
   test('api gets called appropriately', async () => {
-    const result = await GetCommunalPropertyRepairsGateway('locationId');
+    const result = await CommunalPropertyRepairsGateway('locationId');
 
     expect(mockGetRequest).toHaveBeenCalledWith(
       {
