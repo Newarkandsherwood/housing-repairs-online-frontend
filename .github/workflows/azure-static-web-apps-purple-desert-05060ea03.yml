@@ -144,11 +144,21 @@ jobs:
           echo "token=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .sentryclirc
           cp .sentryclirc api/.sentryclirc
 
-      - name: Set up api environment variables
+      - name: Set up api environment variables for staging
+        if: ${{ github.event_name == 'pull_request' || github.event_name == 'staging'}}
         run: |
           cd api
           touch .env
-          echo "NODE_ENV=${{ (github.event_name == 'pull_request' && 'staging') || ('production') }}" >> .env
+          echo "REPAIRS_API_BASE_URL=${{secrets.REPAIRS_API_BASE_URL_STAGING}}"" >> .env
+          echo "REPAIRS_API_IDENTIFIER=${{secrets.REPAIRS_API_IDENTIFIER_STAGING}}"" >> .env
+      
+      - name: Set up api environment variables for production   
+        if: ${{ github.event_name != 'pull_request' && github.event_name != 'staging'}}
+        run: |
+          cd api
+          touch .env
+          echo "REPAIRS_API_BASE_URL=${{secrets.REPAIRS_API_BASE_URL}}"" >> .env
+          echo "REPAIRS_API_IDENTIFIER=${{secrets.REPAIRS_API_IDENTIFIER}}"" >> .env
 
       - name: Build And Deploy
         id: builddeploy
