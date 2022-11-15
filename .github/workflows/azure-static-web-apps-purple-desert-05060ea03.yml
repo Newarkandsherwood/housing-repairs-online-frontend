@@ -144,6 +144,12 @@ jobs:
           echo "token=${{ secrets.SENTRY_AUTH_TOKEN }}" >> .sentryclirc
           cp .sentryclirc api/.sentryclirc
 
+      - name: Set up api environment variables
+        run: |
+          cd api
+          touch .env
+          echo "NODE_ENV=${{ (github.event_name == 'pull_request' && 'staging') || ('production') }}" >> .env
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
