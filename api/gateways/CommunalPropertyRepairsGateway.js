@@ -4,7 +4,6 @@ module.exports = makeGetRequest => {
     result = await makeGetRequest({
       uri: `/repair/CommunalPropertyRepairs?propertyReference=${propertyReference}`
     }).then(response => {
-      console.log(response)
       return response.data;
     });
 

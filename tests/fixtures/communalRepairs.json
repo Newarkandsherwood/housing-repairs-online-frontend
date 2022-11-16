@@ -3,52 +3,52 @@
     "RepairType": "communal",
     "Postcode": "ng242sd",
     "SOR": "373049",
-    "Address": {
-      "Display": "1 Back Lane, Back Lane, Newark on Trent, NG24 2SD",
-      "LocationId": "1004414"
+    "address": {
+      "display": "1 Back Lane, Back Lane, Newark on Trent, NG24 2SD",
+      "locationId": "1004414"
     },
-    "Location": {
-      "Value": "kitchen",
-      "Display": "Kitchen"
+    "location": {
+      "value": "kitchen",
+      "display": "Kitchen"
     },
-    "Problem": {
-      "Value": "cupboardsIncludingDamagedCupboardDoors",
-      "Display": "Cupboards, including damaged cupboard doors"
+    "problem": {
+      "value": "cupboardsIncludingDamagedCupboardDoors",
+      "display": "Cupboards, including damaged cupboard doors"
     },
-    "Issue": {
-      "Value": "doorHangingOff",
-      "Display": "Door hanging off"
+    "issue": {
+      "value": "doorHangingOff",
+      "display": "Door hanging off"
     },
-    "Description": {
-      "PhotoUrl": null,
-      "Text": "communal kitchen door is hanging off",
-      "Base64Image": null
+    "description": {
+      "photoUrl": null,
+      "text": "communal kitchen door is hanging off",
+      "base64Image": null
     }
   },
   {
     "RepairType": "communal",
     "Postcode": "ng242sd",
     "SOR": "373049",
-    "Address": {
-      "Display": "1 Diagon Alley, NG24 2SD",
-      "LocationId": "1004414"
+    "address": {
+      "display": "1 Diagon Alley, NG24 2SD",
+      "locationId": "1004414"
     },
-    "Location": {
-      "Value": "kitchen",
-      "Display": "Kitchen"
+    "location": {
+      "value": "kitchen",
+      "display": "Kitchen"
     },
-    "Problem": {
-      "Value": "cupboardsIncludingDamagedCupboardDoors",
-      "Display": "Cupboards, including damaged cupboard doors"
+    "problem": {
+      "value": "cupboardsIncludingDamagedCupboardDoors",
+      "display": "Cupboards, including damaged cupboard doors"
     },
-    "Issue": {
-      "Value": "doorHangingOff",
-      "Display": "Door hanging off"
+    "issue": {
+      "value": "doorHangingOff",
+      "display": "Door hanging off"
     },
-    "Description": {
-      "PhotoUrl": null,
-      "Text": "test",
-      "Base64Image": null
+    "description": {
+      "photoUrl": null,
+      "text": "test",
+      "base64Image": null
     }
   }
 ]

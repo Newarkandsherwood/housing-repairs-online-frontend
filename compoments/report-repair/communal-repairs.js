@@ -12,7 +12,7 @@ const CommunalRepairs = ({ handleChange, values}) => {
   const Continue = val => {
     handleChange('reportNewCommunalRepair', true);
   }
-  console.log(data)
+
   if (!data) return <Loader/>
   const title = 'Problems reported at this address'
   return (

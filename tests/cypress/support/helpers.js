@@ -38,14 +38,14 @@ function intercept_repair_triage() {
 function intercept_get_communal_property_repairs() {
   const response = mockCommunalRepairs
 
-  cy.intercept('GET', `${api_url}/getCommunalPropertyRepairs?*`, {
+  cy.intercept('GET', `${api_url}/communalPropertyRepairs?*`, {
     statusCode: 201,
     body: response
   }).as('communalRepairs');
 }
 function intercept_get_communal_property_repairs_empty_response() {
 
-  cy.intercept('GET', `${api_url}/getCommunalPropertyRepairs?*`, {
+  cy.intercept('GET', `${api_url}/communalPropertyRepairs?*`, {
     statusCode: 201,
     body: []
   }).as('communalRepairs');
