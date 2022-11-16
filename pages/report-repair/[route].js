@@ -32,6 +32,7 @@ import { fetcher } from '../../helpers/fetcher';
 import ContactUs from '../../compoments/report-repair/contact-us';
 import {customerServicesTelephoneNumber} from '../../globals'
 import TenantOrLeaseholder from '../../compoments/report-repair/tenant-or-leaseholder';
+import CommunalRepairs from '../../compoments/report-repair/communal-repairs';
 import { getRepairType, isCommunalRepairType } from '../../helpers/repairType';
 import ContactNumberConfirmation from '../../compoments/report-repair/contact-number-confirmation';
 
@@ -230,6 +231,8 @@ function ReportRepair() {
         />
       )
     case 'address':
+      const addressNextStep = isCommunalRepairType(values) ? 'communal-repairs' : 'repair-location';
+      flow = new Flow(setState, router, 'report-repair', prevSteps, setPrevSteps, addressNextStep);
       return (
         <Address
           handleChange={handleChange}
@@ -393,6 +396,13 @@ function ReportRepair() {
           values={values}
         />
       )
+    case 'communal-repairs':
+      return (
+        <CommunalRepairs
+          handleChange={handleChange}
+          values={values}
+        />
+      )
     default:
       return <div>Not found</div>;
     }
@@ -431,7 +441,8 @@ export async function getStaticPaths() {
     {params: { route: 'repair-availability'} },
     {params: { route: 'smell-gas'} },
     {params: { route: 'contact-us'} },
-    {params: { route: 'tenant-or-leaseholder'} }
+    {params: { route: 'tenant-or-leaseholder'} },
+    {params: { route: 'communal-repairs'} }
   ]
 
   return { paths, fallback: false };

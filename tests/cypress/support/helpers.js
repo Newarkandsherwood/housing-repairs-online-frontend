@@ -1,5 +1,6 @@
 import dummyAppointments from '../../fixtures/availableAppointments.json';
 import mockRepairTriageOptions from '../../fixtures/repairTriageOptions.json';
+import mockCommunalRepairs from '../../fixtures/communalRepairs.json';
 import moment from 'moment';
 
 const api_url = 'api';
@@ -32,6 +33,22 @@ function intercept_repair_triage() {
     statusCode: 201,
     body: response
   }).as('repairTriage');
+}
+
+function intercept_get_communal_property_repairs() {
+  const response = mockCommunalRepairs
+
+  cy.intercept('GET', `${api_url}/communalPropertyRepairs?*`, {
+    statusCode: 201,
+    body: response
+  }).as('communalRepairs');
+}
+function intercept_get_communal_property_repairs_empty_response() {
+
+  cy.intercept('GET', `${api_url}/communalPropertyRepairs?*`, {
+    statusCode: 201,
+    body: []
+  }).as('communalRepairs');
 }
 
 function intercept_availability_search(appointments = dummyAppointments) {
@@ -136,12 +153,14 @@ const navigateToRepairLocationPage = () => {
     cy.get('select').select(address)
     cy.get('button').click();
   });
+  if(isCommunalRepair()){
+    cy.get('button').click()
+  }
   cy.get('[data-cy=repair-location]', { timeout: 10000 })
 }
 
 const navigateToRepairProblemPage = () => {
   navigateToRepairLocationPage();
-
   navigateToPageSelectRadioOptionAndContinue({
     page: 'repair-location', option: 'Kitchen'
   })
@@ -312,5 +331,7 @@ export {
   makeSelectionAndClickButton,
   checkIfSelectionGoesToCorrectUrl,
   intercept_repair_triage,
-  isMvpReleaseVersion
+  isMvpReleaseVersion,
+  intercept_get_communal_property_repairs_empty_response,
+  intercept_get_communal_property_repairs
 }

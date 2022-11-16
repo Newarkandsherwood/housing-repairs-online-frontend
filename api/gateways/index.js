@@ -16,11 +16,13 @@ const searchPropertiesGateway = require('./SearchPropertiesGateway')(apiRequeste
 const availableAppointmentsGateway = require('./AvailableAppointmentsGateway')(apiRequester.makeGetRequest);
 const saveRepairGateway = require('./SaveRepairGateway')(apiRequester.makePostRequest);
 const repairTriageGateway = require('./RepairTriageGateway')(apiRequester.makeGetRequest);
+const communalPropertyRepairsGateway = require('./CommunalPropertyRepairsGateway')(apiRequester.makeGetRequest);
 
 module.exports = {
   searchPropertiesGateway,
   availableAppointmentsGateway,
   saveRepairGateway,
   repairTriageGateway,
+  communalPropertyRepairsGateway,
   sentryParams
 };

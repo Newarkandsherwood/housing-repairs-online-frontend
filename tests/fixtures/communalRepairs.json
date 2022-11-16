@@ -1,0 +1,54 @@
+[
+  {
+    "RepairType": "communal",
+    "Postcode": "ng242sd",
+    "SOR": "373049",
+    "address": {
+      "display": "1 Back Lane, Back Lane, Newark on Trent, NG24 2SD",
+      "locationId": "1004414"
+    },
+    "location": {
+      "value": "kitchen",
+      "display": "Kitchen"
+    },
+    "problem": {
+      "value": "cupboardsIncludingDamagedCupboardDoors",
+      "display": "Cupboards, including damaged cupboard doors"
+    },
+    "issue": {
+      "value": "doorHangingOff",
+      "display": "Door hanging off"
+    },
+    "description": {
+      "photoUrl": null,
+      "text": "communal kitchen door is hanging off",
+      "base64Image": null
+    }
+  },
+  {
+    "RepairType": "communal",
+    "Postcode": "ng242sd",
+    "SOR": "373049",
+    "address": {
+      "display": "1 Diagon Alley, NG24 2SD",
+      "locationId": "1004414"
+    },
+    "location": {
+      "value": "kitchen",
+      "display": "Kitchen"
+    },
+    "problem": {
+      "value": "cupboardsIncludingDamagedCupboardDoors",
+      "display": "Cupboards, including damaged cupboard doors"
+    },
+    "issue": {
+      "value": "doorHangingOff",
+      "display": "Door hanging off"
+    },
+    "description": {
+      "photoUrl": null,
+      "text": "test",
+      "base64Image": null
+    }
+  }
+]

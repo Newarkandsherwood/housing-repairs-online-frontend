@@ -26,9 +26,10 @@ class Flow {
         {condition: 'no', nextStep: isMvpReleaseVersion() ? 'postcode' : 'tenant-or-leaseholder'}
       ]},
       'tenant-or-leaseholder' : {prevSteps: 'communal', nextStep: 'postcode'},
-      'postcode': {prevStep: 'communal', nextStep: 'address'},
-      'address': {prevStep: 'postcode', nextStep: 'repair-location'},
-      'repair-location': { prevStep: 'address', nextStep: nextSteps},
+      'postcode': {prevStep: true, nextStep: 'address'},
+      'address': {prevStep: 'postcode', nextStep: nextSteps},
+      'communal-repairs':{ prevSteps: 'address', nextStep:'repair-location'},
+      'repair-location': { prevStep: true, nextStep: nextSteps},
       'repair-problems': { prevStep: 'repair-location', nextStep: nextSteps},
       'repair-problem-best-description': { prevStep: 'repair-problems', nextStep: nextSteps},
       'repair-description': {prevStep: true, nextStep: isMvpReleaseVersion()? 'contact-person' : 'repair-image-upload'},
