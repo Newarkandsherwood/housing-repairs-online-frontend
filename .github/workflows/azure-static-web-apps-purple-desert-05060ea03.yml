@@ -150,8 +150,8 @@ jobs:
           cd api
           touch .env
           echo "# Staging Environment API Configuration"
-          echo "REPAIRS_API_BASE_URL=${{secrets.REPAIRS_API_BASE_URL_STAGING}}"" >> .env
-          echo "REPAIRS_API_IDENTIFIER=${{secrets.REPAIRS_API_IDENTIFIER_STAGING}}"" >> .env
+          echo "REPAIRS_API_BASE_URL=${{secrets.REPAIRS_API_BASE_URL_STAGING}}" >> .env
+          echo "REPAIRS_API_IDENTIFIER=${{secrets.REPAIRS_API_IDENTIFIER_STAGING}}" >> .env
       
       - name: Set up api environment variables for production   
         if: github.event_name != 'pull_request'
@@ -159,8 +159,8 @@ jobs:
           cd api
           touch .env
           echo "# Production Environment API Configuration"
-          echo "REPAIRS_API_BASE_URL=${{secrets.REPAIRS_API_BASE_URL}}"" >> .env
-          echo "REPAIRS_API_IDENTIFIER=${{secrets.REPAIRS_API_IDENTIFIER}}"" >> .env
+          echo "REPAIRS_API_BASE_URL=${{secrets.REPAIRS_API_BASE_URL}}" >> .env
+          echo "REPAIRS_API_IDENTIFIER=${{secrets.REPAIRS_API_IDENTIFIER}}" >> .env
 
       - name: Build And Deploy
         id: builddeploy
