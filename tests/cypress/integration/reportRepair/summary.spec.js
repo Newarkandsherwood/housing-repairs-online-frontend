@@ -2,7 +2,8 @@ import {
   continueOnPage,
   convertDateToDisplayDate,
   intercept_address_search,
-  intercept_availability_search, intercept_get_communal_property_repairs,
+  intercept_availability_search,
+  intercept_get_communal_property_repairs,
   intercept_repair_triage,
   navigateToPageSelectRadioOptionAndContinue,
   navigateToSummaryPage
