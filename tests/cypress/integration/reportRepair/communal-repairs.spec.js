@@ -4,6 +4,7 @@ import {
 
 
 } from '../../support/helpers';
+import React from "react";
 
 function loadCommunalRepairsPage() {
   cy.visit('report-repair/communal-repairs');
@@ -62,12 +63,40 @@ describe('communal repair', () => {
         );
       });
 
+      it('displays first communal-repairs-location', () => {
+        cy.get('[data-cy=communal-repairs-location-0]').should(
+          'have.contain',
+          'Kitchen'
+        );
+      });
+
+      it('displays first communal-repairs-problem', () => {
+        cy.get('[data-cy=communal-repairs-problem-0]').should(
+          'have.contain',
+          'Cupboards, including damaged cupboard doors'
+        );
+      });
+
+      it('displays first communal-repairs-issue', () => {
+        cy.get('[data-cy=communal-repairs-issue-0]').should(
+          'have.contain',
+          'Door hanging off'
+        );
+      });
+
+      it('displays first communal-repairs-description', () => {
+        cy.get('[data-cy=communal-repairs-description-0]').should(
+          'have.contain',
+          'communal kitchen door is hanging off'
+        );
+      });
     });
     context('Communal repairs do not exist at address', ()=>{
       beforeEach(() => {
         intercept_get_communal_property_repairs_empty_response();
         loadCommunalRepairsPage()
       });
+
       it('does not display first table heading', () => {
         cy.contains('Where is the problem?').should('not.exist');
       });
@@ -84,6 +113,10 @@ describe('communal repair', () => {
         cy.contains('[Specific area (user entered)').should(
           'not.exist'
         );
+      });
+
+      it('displays text indicating there are no communal repairs for goven address', () => {
+        cy.contains('There are no communal repairs that have been reported for this location.')
       });
     });
   });
