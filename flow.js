@@ -97,9 +97,6 @@ class Flow {
       if(nextFlowStep == 'repair-description' && repairProblemChanged){
         delete state.data['repairProblemBestDescription']
       }
-      if( state.data.communal == 'yes' && state.step =='address') {
-        nextFlowStep = 'communal-repairs'
-      }
       return this.nextStep(nextFlowStep, state);
     }
 
