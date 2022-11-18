@@ -207,6 +207,7 @@ function ReportRepair() {
         <Confirmation
           requestId={requestId}
           confirmation={confirmation}
+          values={values}
         />
       )
     case 'contact-person':
