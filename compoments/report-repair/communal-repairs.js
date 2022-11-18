@@ -5,6 +5,8 @@ import ComponentHeader from '../componentHeader';
 import useSWR from 'swr';
 import {fetcher} from '../../helpers/fetcher';
 import Loader from '../loader';
+import Error from "../error";
+import {customerServicesTelephoneNumber} from '../../globals';
 
 
 const CommunalRepairs = ({ handleChange, values}) => {
@@ -12,6 +14,11 @@ const CommunalRepairs = ({ handleChange, values}) => {
   const Continue = val => {
     handleChange('reportNewCommunalRepair', true);
   }
+
+  if (error) return <Error
+    name="summary"
+    heading="An error occurred while looking for problems reported at this address"
+    body={`Please try again later or call ${customerServicesTelephoneNumber} to complete your repair request`} />
 
   if (!data) return <Loader/>
   const title = 'Problems reported at this address'
