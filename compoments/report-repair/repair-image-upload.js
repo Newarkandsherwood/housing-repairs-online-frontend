@@ -53,11 +53,11 @@ const RepairImageUpload = ({ handleChange, values }) => {
     const imageError = selectedFile ? imageValidator(selectedFile) : undefined;
     if (!imageError) {
       return handleChange('description', {
+        ...values.description,
         photo: selectedImage,
         filename: selectedFile ? selectedFile.name: '',
         fileExtension: fileExtension,
         base64img: base64img,
-        text: values?.description?.text || undefined
       });
     } else {
       setSelectedImage(null);
