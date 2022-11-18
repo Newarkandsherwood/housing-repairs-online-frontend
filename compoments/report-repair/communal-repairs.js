@@ -46,7 +46,7 @@ const CommunalRepairs = ({ handleChange, values}) => {
                   <td className="govuk-table__cell" data-cy={`communal-repairs-location-${i}`}>{repair.location.display}</td>
                   <td className="govuk-table__cell" data-cy={`communal-repairs-problem-${i}`}>{repair.problem.display}</td>
                   <td className="govuk-table__cell" data-cy={`communal-repairs-issue-${i}`}>{repair.issue.display}</td>
-                  <td className="govuk-table__cell" data-cy={`communal-repairs-description-${i}`}>{repair.description.text}</td>
+                  <td className="govuk-table__cell" data-cy={`communal-repairs-description-${i}`}>{repair.description.location}</td>
                 </tr>
               ))}
             </tbody>

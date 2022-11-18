@@ -87,7 +87,7 @@ describe('communal repair', () => {
       it('displays first communal-repairs-description', () => {
         cy.get('[data-cy=communal-repairs-description-0]').should(
           'have.contain',
-          'communal kitchen door is hanging off'
+          'First floor kitchen, cupboard next to fridge'
         );
       });
     });
