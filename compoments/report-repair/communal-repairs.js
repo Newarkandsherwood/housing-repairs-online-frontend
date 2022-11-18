@@ -36,7 +36,7 @@ const CommunalRepairs = ({ handleChange, values}) => {
             <tbody className="govuk-table__body">
               {data?.map((repair, i) => (
                 <tr className="govuk-table__row">
-                  <th scope="row" className="govuk-table__header" data-cy={`communal-repairs-location-${i}`}>{repair.location.display}</th>
+                  <td className="govuk-table__cell" data-cy={`communal-repairs-location-${i}`}>{repair.location.display}</td>
                   <td className="govuk-table__cell" data-cy={`communal-repairs-problem-${i}`}>{repair.problem.display}</td>
                   <td className="govuk-table__cell" data-cy={`communal-repairs-issue-${i}`}>{repair.issue.display}</td>
                   <td className="govuk-table__cell" data-cy={`communal-repairs-description-${i}`}>{repair.description.text}</td>
