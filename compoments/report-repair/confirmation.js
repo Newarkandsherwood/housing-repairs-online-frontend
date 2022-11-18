@@ -8,6 +8,12 @@ import ComponentHeader from '../componentHeader';
 const Confirmation = ({ requestId, confirmation, values }) => {
   const title = 'Repair request complete'
   const isCommunal = isCommunalRepairType(values);
+  const numberDaysCommunal = 30;
+  var assessMessage = "We will assess your repair and may be in touch to ask follow-up questions.";
+
+  if(isCommunal) {
+    assessMessage = `We will assess your request and a repair will be scheduled within the next ${numberDaysCommunal} days.`;
+  }
 
   const AppointmentChangeRender = () => {
     if (!isCommunal) {
@@ -38,8 +44,7 @@ const Confirmation = ({ requestId, confirmation, values }) => {
         <AppointmentChangeRender /> 
         <h2 className="govuk-heading-m">What happens next</h2>
         <p>
-          We will assess your repair and may be in touch to ask follow-up
-          questions.
+          {assessMessage}
         </p>
         <p className="govuk-body">
           <TextLink href="/">

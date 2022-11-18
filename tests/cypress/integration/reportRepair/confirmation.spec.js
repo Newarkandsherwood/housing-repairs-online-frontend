@@ -48,6 +48,10 @@ describe('confirmation', () => {
       cy.get('a[href="/"').contains('Report another issue').should('have.attr', 'href', '/');
     });
 
+    it('Displays assessment message', () => {
+      cy.contains('We will assess your request and a repair will be scheduled within the next');
+    });
+
     context('when user sends confirmation via text', () => {
       before(() => {
         intercept_availability_search();
@@ -97,6 +101,10 @@ describe('tenant confirmation', () => {
     cy.get('a').contains('Report another issue').should('have.attr', 'href', '/');
   });
 
+  it('Displays assessment message', () => {
+    cy.contains('We will assess your repair and may be in touch to ask follow-up questions');
+  });
+  
   context('when user sends confirmation via text', () => {
     before(() => {
       intercept_availability_search();
