@@ -17,7 +17,7 @@ describe('confirmation', () => {
       REPAIR_TYPE: "communal",
     },
   }, () => {
-    before(() => {
+    beforeEach(() => {
       intercept_availability_search();
       intercept_address_search();
       intercept_repair_triage();
@@ -52,8 +52,8 @@ describe('confirmation', () => {
       cy.contains('We will assess your request and a repair will be scheduled within the next');
     });
 
-    context('when user sends confirmation via text', () => {
-      before(() => {
+    context('when user sends confirmation via phone', () => {
+      beforeEach(() => {
         intercept_availability_search();
         intercept_address_search();
         intercept_repair_triage();
@@ -62,7 +62,8 @@ describe('confirmation', () => {
       });
 
       it('Displays where the confirmation was sent to', () => {
-        cy.contains('We have sent a confirmation to ' + phoneNumber);
+        cy.contains('We have sent a confirmation to ');
+        cy.contains(phoneNumber);
       });
     });
   });
@@ -105,7 +106,7 @@ describe('tenant confirmation', () => {
     cy.contains('We will assess your repair and may be in touch to ask follow-up questions');
   });
   
-  context('when user sends confirmation via text', () => {
+  context('when user sends confirmation via phone number', () => {
     before(() => {
       intercept_availability_search();
       intercept_address_search();
