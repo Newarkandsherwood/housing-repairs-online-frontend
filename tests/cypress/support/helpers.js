@@ -150,7 +150,7 @@ const navigateToRepairLocationPage = () => {
 
   const address = '1 Downing Street, London, SW1A 2AA';
   cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
-    cy.get('select').select(address)
+    cy.get('select').select(address);
     cy.get('button').click();
   });
   if(isCommunalRepair()){
