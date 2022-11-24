@@ -152,9 +152,11 @@ const navigateToRepairLocationPage = () => {
   cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
     cy.get('select').select(address);
     cy.get('button').click();
-  });
+  });  
   if(isCommunalRepair()){
-    cy.get('button').click()
+    cy.get('[data-cy=communal-repairs]', {timeout: 10000}).then(() => {
+      cy.get('button').click();
+    });
   }
   cy.get('[data-cy=repair-location]', { timeout: 10000 })
 }
