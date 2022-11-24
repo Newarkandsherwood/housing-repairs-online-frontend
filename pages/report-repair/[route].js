@@ -104,6 +104,7 @@ function ReportRepair() {
   const [confirmation, setConfirmation] = useState('');
   const [formError, setFormError] = useState();
   const [requestId, setRequestId] = useState();
+  const [daysForRepair, setdaysForRepair] = useState();
 
   const { repairTriageData, isLoading, isError } = useRepairTriageData()
 
@@ -152,9 +153,10 @@ function ReportRepair() {
       if (response.ok) {
         setShowBack(false);
         router.push('confirmation');
-        setConfirmation(values.contactDetails.value);
-        return response.text().then((text)=> {
-          setRequestId(text);
+        setConfirmation(values.contactDetails.value);       
+        return response.json().then((json)=> {
+          setRequestId(json.id);
+          setdaysForRepair(json.daysForRepair);
         });
       }
       window.history.scrollRestoration = 'manual';
@@ -208,6 +210,7 @@ function ReportRepair() {
           requestId={requestId}
           confirmation={confirmation}
           values={values}
+          daysForRepair={daysForRepair}
         />
       )
     case 'contact-person':

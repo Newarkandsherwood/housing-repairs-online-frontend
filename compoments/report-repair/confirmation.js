@@ -5,14 +5,13 @@ import { isCommunalRepairType } from '../../helpers/repairType';
 import ComponentHeader from '../componentHeader';
 
 
-const Confirmation = ({ requestId, confirmation, values }) => {
-  const title = 'Repair request complete'
+const Confirmation = ({ requestId, confirmation, values, daysForRepair }) => {
+  const title = "Repair request complete"
   const isCommunal = isCommunalRepairType(values);
-  const numberDaysCommunal = 30;
   var assessMessage = "We will assess your repair and may be in touch to ask follow-up questions.";
 
   if(isCommunal) {
-    assessMessage = `We will assess your request and a repair will be scheduled within the next ${numberDaysCommunal} days.`;
+    assessMessage = `We will assess your request and a repair will be scheduled within the next ${daysForRepair} days.`;
   }
 
   const AppointmentChangeRender = () => {
