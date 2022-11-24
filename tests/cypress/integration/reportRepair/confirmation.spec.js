@@ -2,6 +2,7 @@ import {
   completeJourneyUsingEmail,
   completeJourneyUsingPhone,
   intercept_address_search,
+  intercept_get_communal_property_repairs,
   intercept_availability_search,
   intercept_repair_triage,
   intercept_save_repair,
@@ -63,7 +64,7 @@ describe('confirmation', () => {
         cy.contains('We will assess your repair and may be in touch to ask follow-up questions');
       });
     });
-    
+
     context('when user sends confirmation via phone number', () => {
       beforeEach(() => {
         intercept_availability_search();
@@ -89,6 +90,7 @@ describe('confirmation', () => {
         intercept_availability_search();
         intercept_address_search();
         intercept_repair_triage();
+        intercept_get_communal_property_repairs();
         intercept_save_repair(repairResponseCommunal);
         completeJourneyUsingEmail(email);
       });
@@ -124,6 +126,7 @@ describe('confirmation', () => {
         intercept_availability_search();
         intercept_address_search();
         intercept_repair_triage();
+        intercept_get_communal_property_repairs();
         intercept_save_repair(repairResponseCommunal);
         completeJourneyUsingPhone(phoneNumber);
       });
