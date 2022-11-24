@@ -29,7 +29,6 @@ describe('confirmation', () => {
       REPAIR_TYPE: "tenant",
     },
   }, () => {
-
     context('when user sends confirmation via email', () => {
       beforeEach(() => {
         intercept_availability_search();
@@ -52,10 +51,8 @@ describe('confirmation', () => {
         cy.get('.govuk-back-link').should('not.exist')
       });
 
-      context('when user sends confirmation via email', () => {
-        it('Displays where the confirmation was sent to', () => {
-          cy.contains('We have sent a confirmation to ' + email);
-        });
+      it('Displays where the confirmation was sent to', () => {
+        cy.contains('We have sent a confirmation to ' + email);
       });
 
       it('Displays report another issue link', () => {
@@ -66,28 +63,28 @@ describe('confirmation', () => {
         cy.contains('We will assess your repair and may be in touch to ask follow-up questions');
       });
     });
+    
     context('when user sends confirmation via phone number', () => {
-      context('when user sends confirmation via email', () => {
+      beforeEach(() => {
+        intercept_availability_search();
+        intercept_address_search();
+        intercept_repair_triage();
+        intercept_save_repair(repairResponse);
+        completeJourneyUsingPhone(phoneNumber);
+      });
 
-        beforeEach(() => {
-          intercept_availability_search();
-          intercept_address_search();
-          intercept_repair_triage();
-          intercept_save_repair(repairResponse);
-          completeJourneyUsingPhone(phoneNumber);
-        });
-
-        it('Displays where the confirmation was sent to', () => {
-          cy.contains('We have sent a confirmation to ' + phoneNumber);
-        });
+      it('Displays where the confirmation was sent to', () => {
+        cy.contains('We have sent a confirmation to ' + phoneNumber);
       });
     });
+  });
 
-    describe('communal confirmation', {
-      env: {
-        REPAIR_TYPE: "communal",
-      },
-    }, () => {
+  describe('communal confirmation', {
+    env: {
+      REPAIR_TYPE: "communal",
+    },
+  }, () => {
+    context('when user sends confirmation via email', () => {
       beforeEach(() => {
         intercept_availability_search();
         intercept_address_search();
@@ -109,10 +106,8 @@ describe('confirmation', () => {
         cy.get('.govuk-back-link').should('not.exist')
       });
 
-      context('when user sends confirmation via email', () => {
-        it('Displays where the confirmation was sent to', () => {
-          cy.contains('We have sent a confirmation to ' + email);
-        });
+      it('Displays where the confirmation was sent to', () => {
+        cy.contains('We have sent a confirmation to ' + email);
       });
 
       it('Displays report another issue link', () => {
@@ -123,6 +118,7 @@ describe('confirmation', () => {
         cy.contains(`We will assess your request and a repair will be scheduled within the next ${daysForRepair} days`);
       });
     });
+
     context('when user sends confirmation via phone', () => {
       beforeEach(() => {
         intercept_availability_search();
