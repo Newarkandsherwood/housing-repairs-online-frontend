@@ -153,7 +153,7 @@ function ReportRepair() {
       if (response.ok) {
         setShowBack(false);
         router.push('confirmation');
-        setConfirmation(values.contactDetails.value);       
+        setConfirmation(values.contactDetails.value);     
         return response.json().then((json)=> {
           setRequestId(json.id);
           setdaysForRepair(json.daysForRepair);
