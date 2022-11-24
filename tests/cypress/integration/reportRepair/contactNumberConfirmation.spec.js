@@ -7,7 +7,11 @@ import {
   navigateToPageSelectRadioOptionAndContinue,
 } from '../../support/helpers';
 
-const repairID = '1234ABC'
+const repairResponse = 
+{
+  "id": "1234ABC",
+  "daysForRepair": 130
+}
 const initialPhoneNumber= '07512345678'
 const updatedPhoneNumber = '07712345678'
 
@@ -15,7 +19,7 @@ const setup = () => {
   intercept_address_search();
   intercept_repair_triage();
   intercept_availability_search();
-  intercept_save_repair(repairID);
+  intercept_save_repair(repairResponse);
   navigateToContactNumberConfirmationPage('Electrical, including extractor fans and lightbulbs', 'Extractor fan', initialPhoneNumber);
 }
 
