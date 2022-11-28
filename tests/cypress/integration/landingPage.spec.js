@@ -90,7 +90,7 @@ describe('App', () => {
       .should(
         'have.attr',
         'href',
-        '/report-repair/lookup-appointment'
+        '/report-repair/find-repair'
       );
   });
 });

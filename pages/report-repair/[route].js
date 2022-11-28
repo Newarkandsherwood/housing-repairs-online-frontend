@@ -35,6 +35,7 @@ import TenantOrLeaseholder from '../../compoments/report-repair/tenant-or-leaseh
 import CommunalRepairs from '../../compoments/report-repair/communal-repairs';
 import { getRepairType, isCommunalRepairType } from '../../helpers/repairType';
 import ContactNumberConfirmation from '../../compoments/report-repair/contact-number-confirmation';
+import FindRepair from '../../compoments/report-repair/find-repair';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
@@ -403,6 +404,13 @@ function ReportRepair() {
           values={values}
         />
       )
+    case 'find-repair':
+      return (
+        <FindRepair
+          handleChange={handleChange}
+          values={values}
+        />
+      )  
     default:
       return <div>Not found</div>;
     }
@@ -442,7 +450,8 @@ export async function getStaticPaths() {
     {params: { route: 'smell-gas'} },
     {params: { route: 'contact-us'} },
     {params: { route: 'tenant-or-leaseholder'} },
-    {params: { route: 'communal-repairs'} }
+    {params: { route: 'communal-repairs'} },
+    {params: { route: 'find-repair'} }
   ]
 
   return { paths, fallback: false };

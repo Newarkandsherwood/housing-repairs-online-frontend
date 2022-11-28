@@ -149,7 +149,7 @@ export default function Home() {
                 Change or cancel a repair appointment, you cannot change or cancel communal repairs.
               </p>
               <TextLink
-                href="/report-repair/lookup-appointment"
+                href="/report-repair/find-repair"
               >
                 Search for a repair appointment to change or cancel
               </TextLink>
