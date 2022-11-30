@@ -19,7 +19,7 @@ const RepairAppointment = ({ handleChange, values}) => {
   //   heading="An error occurred while looking for "
   //   body={`Please try again later or call ${customerServicesTelephoneNumber} to complete your repair request`} />
 
-  // if (!data) return <Loader/>
+  if (!data) return <Loader/>
   const name = 'repair-appointment'
   const title = 'Your repair appointment'
   return (
@@ -27,7 +27,7 @@ const RepairAppointment = ({ handleChange, values}) => {
       <ComponentHeader data-cy='repair-appointment-heading' title={title} />
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>{title}</h1>
-        {!data &&
+        {data &&
         <>
           <table className="govuk-table">
             <thead className="govuk-table__head">
@@ -40,10 +40,10 @@ const RepairAppointment = ({ handleChange, values}) => {
             </thead>
             <tbody className="govuk-table__body">
               <tr className="govuk-table__row">
-                <td className="govuk-table__cell" data-cy={`${name}-address`}></td>
-                <td className="govuk-table__cell" data-cy={`${name}-date-time`}></td>
-                <td className="govuk-table__cell" data-cy={`${name}-area`}></td>
-                <td className="govuk-table__cell" data-cy={`${name}-repair-type`}></td>
+                <td className="govuk-table__cell" data-cy={`${name}-address`}>{data.address.display}</td>
+                <td className="govuk-table__cell" data-cy={`${name}-date-time`}>{data.appointmentTime.display}</td>
+                <td className="govuk-table__cell" data-cy={`${name}-location`}>{data.location.display}</td>
+                <td className="govuk-table__cell" data-cy={`${name}-problem`}>{data.problem.display}</td>
               </tr>
             </tbody>
           </table>

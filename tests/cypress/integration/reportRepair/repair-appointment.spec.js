@@ -12,7 +12,7 @@ function loadTenantOrLeaseholdRepairsPage() {
 
 describe('tenant or leasehold repair', () => {
   context('Content', () => {
-    beforeEach(()=>{
+    before(()=>{
       intercept_tenant_or_leasehold_property_repair();
       loadTenantOrLeaseholdRepairsPage()});
 
@@ -36,7 +36,7 @@ describe('tenant or leasehold repair', () => {
 
   context('Behaviour', () => {
     context('A repair exists', ()=>{
-      beforeEach(() => {
+      before(() => {
         intercept_tenant_or_leasehold_property_repair();
         loadTenantOrLeaseholdRepairsPage()
       });
@@ -71,28 +71,28 @@ describe('tenant or leasehold repair', () => {
       it('displays the address', () => {
         cy.get('[data-cy=repair-appointment-address]').should(
           'have.contain',
-          ''
+          '123 Cute Street, M3 0W'
         );
       });
 
       it('displays repair date and time', () => {
         cy.get('[data-cy=repair-appointment-date-time]').should(
           'have.contain',
-          ''
+          '27th January 2022 between 12:00pm to 4:00pm'
         );
       });
 
-      it('displays the repair area', () => {
-        cy.get('[data-cy=repair-appointment-area]').should(
+      it('displays the repair location', () => {
+        cy.get('[data-cy=repair-appointment-location]').should(
           'have.contain',
-          ''
+          'Kitchen'
         );
       });
 
-      it('displays the repair type', () => {
-        cy.get('[data-cy=repair-appointment-repair-type]').should(
+      it('displays the repair problem', () => {
+        cy.get('[data-cy=repair-appointment-problem]').should(
           'have.contain',
-          ''
+          'Cupboards, including damaged cupboard doors'
         );
       });
     });
