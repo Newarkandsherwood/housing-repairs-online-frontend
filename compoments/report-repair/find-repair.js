@@ -51,7 +51,6 @@ const FindRepair = ({ handleChange, values }) => {
     return errorSummaryTextAndLocation;
   }
 
-
   const repairNumberChange = (e) => {
     setRepairId(e.target.value)
     setActiveError(false)
@@ -94,13 +93,11 @@ const FindRepair = ({ handleChange, values }) => {
             />
           </div>
          
-          <div className={`govuk-form-group ${error.postcode ? 'govuk-form-group--error' : ''}`}>
-            
+          <div className={`govuk-form-group ${error.postcode ? 'govuk-form-group--error' : ''}`}> 
             <label className="govuk-label" htmlFor="postcode" data-testid="postcode-label">
               Postcode
             </label>
             <div id="event-name-hint" className="govuk-hint" data-testid="postcode-hint-text">
-
             </div>
             <span id="postcode-error"
               className="govuk-error-message" data-testid="postcode-error">
@@ -109,7 +106,6 @@ const FindRepair = ({ handleChange, values }) => {
             <input className="govuk-input govuk-input--width-20" id="postcode"
               name="postcode"
               type="text"
-              
               defaultValue={values.findrepair?.postcode}
               onWheel={(e) => e.target.blur()}
               onChange={postcodeChange}
@@ -121,9 +117,7 @@ const FindRepair = ({ handleChange, values }) => {
           </div>
           <Button onClick={Continue}>Search</Button>
         </form>
-
       </div>
-
     </div>
   );
 };
