@@ -9,8 +9,8 @@ import ErrorSummary from '../errorSummary';
 const FindRepair = ({ handleChange, values }) => {
   const [error, setError] = useState({ repairNumber: undefined, postcode: undefined });
   const [activeError, setActiveError] = useState(false);
-  const [changeRepairNumber, setRepairNumber] = useState(values.findrepair?.changeRepairNumber);
-  const [changePostcode, setChangePostcode] = useState(values.findrepair?.changePostcode)
+  const [repairId, setRepairId] = useState(values.findrepair?.repairId);
+  const [postcode, setPostcode] = useState(values.findrepair?.postcode)
   const title = 'Find your repair appointment';
 
   const beforeButton = (
@@ -27,16 +27,16 @@ const FindRepair = ({ handleChange, values }) => {
     let repairNumberError = undefined;
     let repairPostcodeError = undefined;
     setActiveError(true);
-    if (!changeRepairNumber) {
+    if (!repairId) {
       repairNumberError = 'Enter your repair number';
     }
-    if (!changePostcode) {
+    if (!postcode) {
       repairPostcodeError = 'Enter the property postcode';
     }
     if (!repairNumberError && !repairPostcodeError) {
      return handleChange('findrepair', {
-         changeRepairNumber: changeRepairNumber,
-         changePostcode: changePostcode        
+         repairId: repairId,
+         postcode: postcode        
     });
     } else {
       
@@ -53,12 +53,12 @@ const FindRepair = ({ handleChange, values }) => {
 
 
   const repairNumberChange = (e) => {
-    setRepairNumber(e.target.value)
+    setRepairId(e.target.value)
     setActiveError(false)
   }
   
   const postcodeChange = (e) => {
-    setChangePostcode(e.target.value)
+    setPostcode(e.target.value)
     setActiveError(false)
   }
 
@@ -87,7 +87,7 @@ const FindRepair = ({ handleChange, values }) => {
             <input className="govuk-input govuk-input--width-20" id="repairNumber"
               name="repairNumber"
               type="text"
-              defaultValue={values.findrepair?.changeRepairNumber}
+              defaultValue={values.findrepair?.repairId}
               onWheel={(e) => e.target.blur()}
               onChange={repairNumberChange}
               data-testid="repairNumber"
@@ -110,7 +110,7 @@ const FindRepair = ({ handleChange, values }) => {
               name="postcode"
               type="text"
               
-              defaultValue={values.findrepair?.changePostcode}
+              defaultValue={values.findrepair?.postcode}
               onWheel={(e) => e.target.blur()}
               onChange={postcodeChange}
               data-testid="postcode"
