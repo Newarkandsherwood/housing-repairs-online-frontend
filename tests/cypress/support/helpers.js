@@ -63,7 +63,8 @@ function intercept_tenant_or_leasehold_property_repair() {
 function intercept_tenant_or_leasehold_property_repair_empty_response() {
 
   cy.intercept('GET', `${api_url}/tenantOrLeaseholdRepairs?*`, {
-    statusCode: 404
+    statusCode: 200,
+    body: undefined
   }).as('tenantOrLeaseholdRepairs');
 }
 
@@ -168,7 +169,7 @@ const navigateToRepairLocationPage = () => {
   cy.get('[data-cy=address]', {timeout: 10000}).then(() => {
     cy.get('select').select(address);
     cy.get('button').click();
-  });  
+  });
   if(isCommunalRepair()){
     cy.get('[data-cy=communal-repairs]', {timeout: 10000}).then(() => {
       cy.get('button').click();
