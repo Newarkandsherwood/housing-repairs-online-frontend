@@ -6,8 +6,12 @@ import useSWR from 'swr';
 import {fetcher} from '../../helpers/fetcher';
 import Loader from '../loader';
 import Error from "../error";
-import {customerServicesTelephoneNumber} from '../../globals';
+import {
+  customerServicesOpeningHoursDescription,
+  customerServicesTelephoneNumber
+} from '../../globals';
 import RepairAppointmentNotFound from './repair-appointment-not-found';
+import Details from "../details";
 
 
 const RepairAppointment = ({ handleChange, values}) => {
@@ -72,6 +76,19 @@ const RepairAppointment = ({ handleChange, values}) => {
                 </div>
               </fieldset>
             </div>
+            <Details summary="Something else?" testid={`${name}-something-else`}>
+              <p>You can contact us via telephone.</p>
+              <p>Telephone: 01636 650 000 </p>
+              <p> Opening times:</p>
+              <ul className="govuk-list govuk-list--bullet">
+                <li>Monday 9am - 5pm</li>
+                <li>Tuesday 9am - 5pm</li>
+                <li>Wednesday 10am - 4.30pm</li>
+                <li>Thursday 9am - 5pm</li>
+                <li>Friday 9am - 4.30pm</li>
+              </ul>
+              <p><a href="emergency-repair" className="govuk-link--no-visited-state">I have an emergency </a></p>
+            </Details>
           </>
           <Button onClick={Continue} >Continue</Button>
         </div>
