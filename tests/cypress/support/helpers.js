@@ -1,6 +1,7 @@
 import dummyAppointments from '../../fixtures/availableAppointments.json';
 import mockRepairTriageOptions from '../../fixtures/repairTriageOptions.json';
 import mockCommunalRepairs from '../../fixtures/communalRepairs.json';
+import mockTenantOrLeaseholdRepairs from '../../fixtures/repairAppointments.json'
 import moment from 'moment';
 
 const api_url = 'api';
@@ -49,6 +50,21 @@ function intercept_get_communal_property_repairs_empty_response() {
     statusCode: 201,
     body: []
   }).as('communalRepairs');
+}
+
+function intercept_tenant_or_leasehold_property_repair() {
+  const response = mockTenantOrLeaseholdRepairs
+
+  cy.intercept('GET', `${api_url}/tenantOrLeaseholdRepairs?*`, {
+    statusCode: 201,
+    body: response
+  }).as('tenantOrLeaseholdRepairs');
+}
+function intercept_tenant_or_leasehold_property_repair_empty_response() {
+
+  cy.intercept('GET', `${api_url}/tenantOrLeaseholdRepairs?*`, {
+    statusCode: 404
+  }).as('tenantOrLeaseholdRepairs');
 }
 
 function intercept_availability_search(appointments = dummyAppointments) {
@@ -343,5 +359,7 @@ export {
   intercept_repair_triage,
   isMvpReleaseVersion,
   intercept_get_communal_property_repairs_empty_response,
-  intercept_get_communal_property_repairs
+  intercept_get_communal_property_repairs,
+  intercept_tenant_or_leasehold_property_repair,
+  intercept_tenant_or_leasehold_property_repair_empty_response,
 }
