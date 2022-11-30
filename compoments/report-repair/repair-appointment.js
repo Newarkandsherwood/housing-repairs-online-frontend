@@ -14,10 +14,10 @@ const RepairAppointment = ({ handleChange, values}) => {
   const Continue = val => {
   }
 
-  // if (error) return <Error
-  //   name="summary"
-  //   heading="An error occurred while looking for "
-  //   body={`Please try again later or call ${customerServicesTelephoneNumber} to complete your repair request`} />
+  if (error) return <Error
+    name="summary"
+    heading="An error occurred while looking for the repair appointment."
+    body={`Please try again later or call ${customerServicesTelephoneNumber} to change or cancel your repair appointment.`} />
 
   if (!data) return <Loader/>
   const name = 'repair-appointment'
