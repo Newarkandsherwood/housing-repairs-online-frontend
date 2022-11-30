@@ -110,9 +110,9 @@ describe('tenant or leasehold repair', () => {
       });
 
       it('allows user to search again', () => {
-        cy.get('[data-testid=repair-appointment-not-found-search-again-link]').click().then(()=>{
-          cy.url().should('include', 'find-repair');
-        })
+        cy.get('[data-testid=repair-appointment-not-found-search-again-link]')
+          .contains('Search again')
+          .should('have.attr', 'href', 'find-repair')
       });
     });
   });

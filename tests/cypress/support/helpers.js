@@ -64,7 +64,7 @@ function intercept_tenant_or_leasehold_property_repair_empty_response() {
 
   cy.intercept('GET', `${api_url}/tenantOrLeaseholdRepairs?*`, {
     statusCode: 200,
-    body: undefined
+    body: {}
   }).as('tenantOrLeaseholdRepairs');
 }
 
