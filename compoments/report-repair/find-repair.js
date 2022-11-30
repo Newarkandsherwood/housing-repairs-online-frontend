@@ -63,7 +63,7 @@ const FindRepair = ({ handleChange, values }) => {
   }
 
   return (
-    <div className="govuk-grid-row govuk-body-m">
+    <div className="govuk-grid-row govuk-body-m" data-cy="find-repair">
       <ComponentHeader title={title} />
       <div className='govuk-grid-column-two-thirds'>
         <form action="">

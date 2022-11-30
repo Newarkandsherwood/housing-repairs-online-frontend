@@ -261,6 +261,13 @@ const navigateToSummaryPage = (contactType = 'email', contactValue = 'harrypotte
   return timeSlotFunction;
 }
 
+const navigateToFindRepairPage = () => {
+  cy.visit('');
+  cy.get('[data-cy=landing-page]', {timeout: 10000})
+  cy.get('a[href*="/report-repair/find-repair"]').click();
+  cy.get('[data-cy=find-repair]', {timeout: 10000})
+}
+
 const completeJourney = (contactType, contactValue) => {
 
   navigateToSummaryPage(contactType, contactValue)
@@ -328,6 +335,7 @@ export {
   navigateToPageAfterImageUpload,
   navigateToSummaryPage,
   navigateToContactDetails,
+  navigateToFindRepairPage,
   completeJourneyUsingPhone,
   completeJourneyUsingEmail,
   makeSelectionAndClickButton,
