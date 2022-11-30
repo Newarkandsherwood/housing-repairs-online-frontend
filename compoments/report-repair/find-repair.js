@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import ComponentHeader from '../componentHeader';
 import Details from '../details';
-import TextInput from '../textInput';
 import { customerServicesOpeningHoursDescription, customerServicesTelephoneNumber } from '../../globals'
-import { postCodeValidator } from '../../helpers/validators';
 import PropTypes from 'prop-types';
 import Button from '../button';
 import ErrorSummary from '../errorSummary';
 
 const FindRepair = ({ handleChange, values }) => {
-  const [error, setError] = useState();
+  const [error, setError] = useState({ repairNumber: undefined, postcode: undefined });
+  const [activeError, setActiveError] = useState(false);
+  const [changeRepairNumber, setRepairNumber] = useState(values.findrepair?.changeRepairNumber);
+  const [changePostcode, setChangePostcode] = useState(values.findrepair?.changePostcode)
   const title = 'Find your repair appointment';
 
-  const params = {
-    repairNumber: values.repairNumber,
-    postCode: values.postCode,
-  }
   const beforeButton = (
     <Details summary="I don't know my repair number" testid="dont-know-repair-number-prompt">
       <div data-testid='dont-know-repair-number-info'>
@@ -25,30 +22,44 @@ const FindRepair = ({ handleChange, values }) => {
     </Details>
   );
 
-  const Continue = val => {
-    handleChange('postcode', val);
+  const Continue = (e) => {
+    e.preventDefault();
+    let repairNumberError = undefined;
+    let repairPostcodeError = undefined;
+    setActiveError(true);
+    if (!changeRepairNumber) {
+      repairNumberError = 'Enter your repair number';
+    }
+    if (!changePostcode) {
+      repairPostcodeError = 'Enter the property postcode';
+    }
+    if (!repairNumberError && !repairPostcodeError) {
+     return handleChange('findrepair', {
+         changeRepairNumber: changeRepairNumber,
+         changePostcode: changePostcode        
+    });
+    } else {
+      
+      return setError({ repairNumber: repairNumberError, postcode: repairPostcodeError })
+    }
   }
 
-  const formSubmit = (e) => {
-    e.preventDefault();
+  const getErrorSummaryTextAndLocation = () => {
+    const errorSummaryTextAndLocation = [];
+    error.repairNumber && errorSummaryTextAndLocation.push({ text: error.repairNumber, location: `#repairNumber` });
+    error.postcode && errorSummaryTextAndLocation.push({ text: error.postcode, location: `#postcode` });
+    return errorSummaryTextAndLocation;
+  }
 
-    if (this.state.value?.length > 0) {
-      this.setState({
-        value: this.state.value,
-        error: {}
-      });
-      if (this.validation && !this.validation.isValid(this.state.value)) {
-        return this.setState({
-          value: this.state.value,
-          error: {
-            msg: this.validation.errorMessage,
-            touched: true
-          },
-          activeError: true
-        })
-      }
-      return Continue(this.state.value)
-    }
+
+  const repairNumberChange = (e) => {
+    setRepairNumber(e.target.value)
+    setActiveError(false)
+  }
+  
+  const postcodeChange = (e) => {
+    setChangePostcode(e.target.value)
+    setActiveError(false)
   }
 
   return (
@@ -56,11 +67,13 @@ const FindRepair = ({ handleChange, values }) => {
       <ComponentHeader title={title} />
       <div className='govuk-grid-column-two-thirds'>
         <form action="">
-          {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{ text: error, location: `#repairNumber-0-0` }]} pageTitle={pageTitle} />}
+          {
+            (error.repairNumber || error.postcode) && <ErrorSummary active={activeError} errorSummaryTextAndLocation={getErrorSummaryTextAndLocation()} pageTitle={title} />
+          }
           <h1 className="govuk-heading-l">
             {title}
           </h1>
-          <div className={`govuk-form-group ${error ? 'govuk-form-group--error' : ''}`}>
+          <div className={`govuk-form-group ${error.repairNumber ? 'govuk-form-group--error' : ''}`}>
             <label className="govuk-label" htmlFor="repairNumber" data-testid="repairNumber-label">
               Repair number
             </label>
@@ -69,20 +82,19 @@ const FindRepair = ({ handleChange, values }) => {
             </div>
             <span id="repairNumber-error"
               className="govuk-error-message" data-testid="repairNumber-error">
-              {error}
+              {error.repairNumber}
             </span>
             <input className="govuk-input govuk-input--width-20" id="repairNumber"
               name="repairNumber"
               type="text"
-              
-              defaultValue={values.repairNumber}
+              defaultValue={values.findrepair?.changeRepairNumber}
               onWheel={(e) => e.target.blur()}
-              onKeyPress=""
+              onChange={repairNumberChange}
               data-testid="repairNumber"
             />
           </div>
          
-          <div className={`govuk-form-group ${error ? 'govuk-form-group--error' : ''}`}>
+          <div className={`govuk-form-group ${error.postcode ? 'govuk-form-group--error' : ''}`}>
             
             <label className="govuk-label" htmlFor="postcode" data-testid="postcode-label">
               Postcode
@@ -92,22 +104,22 @@ const FindRepair = ({ handleChange, values }) => {
             </div>
             <span id="postcode-error"
               className="govuk-error-message" data-testid="postcode-error">
-              {error}
+              {error.postcode}
             </span>
             <input className="govuk-input govuk-input--width-20" id="postcode"
               name="postcode"
               type="text"
               
-              defaultValue={values.postcode}
+              defaultValue={values.findrepair?.changePostcode}
               onWheel={(e) => e.target.blur()}
-              onKeyPress=""
+              onChange={postcodeChange}
               data-testid="postcode"
             />
           </div>
           <div id="before-button-content">
             {beforeButton}
           </div>
-          <Button onClick={formSubmit}>Search</Button>
+          <Button onClick={Continue}>Search</Button>
         </form>
 
       </div>
