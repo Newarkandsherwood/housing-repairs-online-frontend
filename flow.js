@@ -42,7 +42,7 @@ class Flow {
       'contact-number-confirmation': {prevStep: 'contact-details', nextStep:'summary'},
       'repair-availability': {prevStep: 'repair-image-upload', nextStep: 'contact-details'},
       'summary': {prevStep: true, nextStep: ''},//need to investigate this as there are numerous prev steps, but it might just work
-      'find-repair' : {prevStep: true, nextStep: 'view-appointment'},
+      'find-repair' : {prevStep: true, nextStep: 'repair-appointment'},
     }
   };
   nextStep (step, state, prevStep) {
