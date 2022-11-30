@@ -97,9 +97,22 @@ describe('tenant or leasehold repair', () => {
       });
     });
     context('Repairs do not exist at address', ()=>{
-      beforeEach(() => {
+      before(() => {
         intercept_tenant_or_leasehold_property_repair_empty_response();
         loadTenantOrLeaseholdRepairsPage()
+      });
+
+      it('displays the heading', () => {
+        cy.get('[data-testid=repair-appointment-not-found-title]').should(
+          'have.contain',
+          'No repair appointment found'
+        );
+      });
+
+      it('allows user to search again', () => {
+        cy.get('[data-testid=repair-appointment-not-found-search-again-link]').click().then(()=>{
+          cy.url().should('include', 'find-repair');
+        })
       });
     });
   });

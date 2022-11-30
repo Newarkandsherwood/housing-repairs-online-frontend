@@ -18,7 +18,7 @@ const RepairAppointmentNotFound = () => {
         </p>
 
         <p><a className="govuk-link govuk-link--no-visited-state" data-testid={`${name}-search-again-link`}
-          href="../find-repair"> Search again </a></p>
+          href="find-repair"> Search again </a></p>
 
         <h2 className="govuk-heading-m"> I can&#39;t find my appointment </h2>
         <p> If you can&#39;t find your appointment you can contact us via telephone on {customerServicesTelephoneNumber}</p>
