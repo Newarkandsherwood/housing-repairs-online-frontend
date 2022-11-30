@@ -465,7 +465,6 @@ export async function getStaticPaths() {
     {params: { route: 'communal-repairs'} },
     {params: { route: 'find-repair'} },
     {params: { route: 'repair-appointment'} },
-
   ]
 
   return { paths, fallback: false };

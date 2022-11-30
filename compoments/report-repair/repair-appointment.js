@@ -10,7 +10,7 @@ import {customerServicesTelephoneNumber} from '../../globals';
 
 
 const RepairAppointment = ({ handleChange, values}) => {
-  const { data, error } = useSWR(`/api/}`, fetcher)
+  const { data, error } = useSWR(`/api/tenantOrLeaseholdRepairs?postcode=?&repairId=?}`, fetcher)
   const Continue = val => {
   }
 
@@ -20,10 +20,11 @@ const RepairAppointment = ({ handleChange, values}) => {
   //   body={`Please try again later or call ${customerServicesTelephoneNumber} to complete your repair request`} />
 
   // if (!data) return <Loader/>
+  const name = 'repair-appointment'
   const title = 'Your repair appointment'
   return (
-    <div className="govuk-grid-row" data-cy="change-type">
-      <ComponentHeader data-cy='change-type-heading' title={title} />
+    <div className="govuk-grid-row" data-cy={`${name}`}>
+      <ComponentHeader data-cy='repair-appointment-heading' title={title} />
       <div className="govuk-grid-column-two-thirds">
         <h1 className='govuk-heading-xl'>{title}</h1>
         {!data &&
@@ -31,18 +32,18 @@ const RepairAppointment = ({ handleChange, values}) => {
           <table className="govuk-table">
             <thead className="govuk-table__head">
               <tr className="govuk-table__row">
-                <th scope="col" className="govuk-table__header app-custom-class" data-cy="change-type-table-heading-1">Repair Address</th>
-                <th scope="col" className="govuk-table__header app-custom-class" data-cy="change-type-table-heading-2">Date and Time</th>
-                <th scope="col" className="govuk-table__header app-custom-class" data-cy="change-type-table-heading-3">Area</th>
-                <th scope="col" className="govuk-table__header app-custom-class" data-cy="change-type-table-heading-4">Type</th>
+                <th scope="col" className="govuk-table__header app-custom-class" data-cy={`${name}-table-heading-1`}>Repair Address</th>
+                <th scope="col" className="govuk-table__header app-custom-class" data-cy={`${name}-table-heading-2`}>Date and Time</th>
+                <th scope="col" className="govuk-table__header app-custom-class" data-cy={`${name}-table-heading-3`}>Area</th>
+                <th scope="col" className="govuk-table__header app-custom-class" data-cy={`${name}-table-heading-4`}>Type</th>
               </tr>
             </thead>
             <tbody className="govuk-table__body">
               <tr className="govuk-table__row">
-                <td className="govuk-table__cell" data-cy={'change-type-address'}></td>
-                <td className="govuk-table__cell" data-cy={'change-type-date-time'}></td>
-                <td className="govuk-table__cell" data-cy={'change-type-area'}></td>
-                <td className="govuk-table__cell" data-cy={'change-type-repair-type'}></td>
+                <td className="govuk-table__cell" data-cy={`${name}-address`}></td>
+                <td className="govuk-table__cell" data-cy={`${name}-date-time`}></td>
+                <td className="govuk-table__cell" data-cy={`${name}-area`}></td>
+                <td className="govuk-table__cell" data-cy={`${name}-repair-type`}></td>
               </tr>
             </tbody>
           </table>
@@ -53,16 +54,16 @@ const RepairAppointment = ({ handleChange, values}) => {
               </legend>
               <div className="govuk-radios" data-module="govuk-radios">
                 <div className="govuk-radios__item">
-                  <input className="govuk-radios__input" id="changeType" name="[changeType]" type="radio" value={'Change the time slot of the repair appointment'}>
+                  <input className="govuk-radios__input" id={`${name}-change-appointment-input`} data-cy={`${name}-change-appointment-input`} name="[change-repair]" type="radio" value={'Change the time slot of the repair appointment'}>
                   </input>
-                  <label className="govuk-label govuk-radios__label" htmlFor="changeType">
+                  <label className="govuk-label govuk-radios__label" htmlFor={`${name}-change-appointment-input`} data-cy={`${name}-change-appointment-label`}>
                     Change the time slot of the repair appointment
                   </label>
                 </div>
                 <div className="govuk-radios__item">
-                  <input className="govuk-radios__input" id="changeType-2" name="[changeType]" type="radio" value={' Cancel the repair appointment'}>
+                  <input className="govuk-radios__input" id={`${name}-cancel-appointment-input`} data-cy={`${name}-cancel-appointment-input`} name="[change-repair]" type="radio" value={'Cancel the repair appointment'}>
                   </input>
-                  <label className="govuk-label govuk-radios__label" htmlFor="changeType-2">
+                  <label className="govuk-label govuk-radios__label" htmlFor={`${name}-cancel-appointment-input`} data-cy={`${name}-cancel-appointment-label`}>
                     Cancel the repair appointment
                   </label>
                 </div>
