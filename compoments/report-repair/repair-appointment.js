@@ -10,7 +10,7 @@ import {customerServicesTelephoneNumber} from '../../globals';
 
 
 const RepairAppointment = ({ handleChange, values}) => {
-  const { data, error } = useSWR(`/api/tenantOrLeaseholdRepairs?postcode=?&repairId=?}`, fetcher)
+  const { data, error } = useSWR(`/api/tenantOrLeaseholdRepairs?postcode=${values.findrepair?.postcode}&repairId=${values.findrepair?.repairId}`, fetcher)
   const Continue = val => {
   }
 
