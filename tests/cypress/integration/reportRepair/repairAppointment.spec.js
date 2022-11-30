@@ -32,6 +32,12 @@ describe('tenant or leasehold repair', () => {
       cy.get(`[data-cy=${name}-cancel-appointment-input]`)
       cy.get(`[data-cy=${name}-cancel-appointment-label]`).should('contain', 'Cancel the repair appointment')
     })
+
+    it('something else details', () => {
+      cy.get(`[data-testid=${name}-something-else]`).click().then(()=>{
+        cy.contains('I have an emergency').should('have.attr', 'href', 'emergency-repair')
+      })
+    })
   });
 
   context('Behaviour', () => {
