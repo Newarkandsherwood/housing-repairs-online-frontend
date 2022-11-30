@@ -410,7 +410,7 @@ function ReportRepair() {
           handleChange={handleChange}
           values={values}
         />
-      )  
+      )
     default:
       return <div>Not found</div>;
     }
