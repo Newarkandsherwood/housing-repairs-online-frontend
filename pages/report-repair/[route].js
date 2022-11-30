@@ -36,6 +36,7 @@ import CommunalRepairs from '../../compoments/report-repair/communal-repairs';
 import { getRepairType, isCommunalRepairType } from '../../helpers/repairType';
 import ContactNumberConfirmation from '../../compoments/report-repair/contact-number-confirmation';
 import FindRepair from '../../compoments/report-repair/find-repair';
+import RepairAppointment from '../../compoments/report-repair/repair-appointment';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
@@ -415,6 +416,13 @@ function ReportRepair() {
           values={values}
         />
       )
+    case 'repair-appointment':
+      return (
+        <RepairAppointment
+          handleChange={handleChange}
+          values={values}
+        />
+      )
     default:
       return <div>Not found</div>;
     }
@@ -455,7 +463,9 @@ export async function getStaticPaths() {
     {params: { route: 'contact-us'} },
     {params: { route: 'tenant-or-leaseholder'} },
     {params: { route: 'communal-repairs'} },
-    {params: { route: 'find-repair'} }
+    {params: { route: 'find-repair'} },
+    {params: { route: 'repair-appointment'} },
+
   ]
 
   return { paths, fallback: false };
