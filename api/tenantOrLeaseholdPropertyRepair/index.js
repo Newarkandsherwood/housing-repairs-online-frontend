@@ -13,12 +13,17 @@ module.exports = async function (context, req) {
   try {
     results = await tenantOrLeaseholdPropertyRepairGateway(req.query.postcode, req.query.repairId);
   } catch (e) {
-    Sentry.captureException(e);
-    await Sentry.flush(2000);
 
-    status = 500;
-    console.log(e)
-    results = new Error('Error getting repair appointment:', e);
+    if (e.response.status == 404){
+      results = {}
+    } else {
+      Sentry.captureException(e);
+      await Sentry.flush(2000);
+
+      status = 500;
+      console.log(e)
+      results = new Error('Error getting repair appointment:', e);
+    }
   }
 
   context.res = {
