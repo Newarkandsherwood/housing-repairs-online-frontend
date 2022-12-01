@@ -55,14 +55,14 @@ function intercept_get_communal_property_repairs_empty_response() {
 function intercept_tenant_or_leasehold_property_repair() {
   const response = mockTenantOrLeaseholdRepairs
 
-  cy.intercept('GET', `${api_url}/tenantOrLeaseholdRepairs?*`, {
+  cy.intercept('GET', `${api_url}/tenantOrLeaseholdPropertyRepair?*`, {
     statusCode: 201,
     body: response
   }).as('tenantOrLeaseholdRepairs');
 }
 function intercept_tenant_or_leasehold_property_repair_empty_response() {
 
-  cy.intercept('GET', `${api_url}/tenantOrLeaseholdRepairs?*`, {
+  cy.intercept('GET', `${api_url}/tenantOrLeaseholdPropertyRepair?*`, {
     statusCode: 200,
     body: {}
   }).as('tenantOrLeaseholdRepairs');
