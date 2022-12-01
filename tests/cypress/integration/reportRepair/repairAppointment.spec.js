@@ -4,7 +4,7 @@ import {
 } from '../../support/helpers';
 import React from 'react';
 
-const name = 'repair-appointment'
+const name = 'repairAppointment'
 
 function loadTenantOrLeaseholdRepairsPage() {
   cy.visit('report-repair/repair-appointment');
@@ -51,56 +51,56 @@ describe('tenant or leasehold repair', () => {
         loadTenantOrLeaseholdRepairsPage()
       });
       it('displays first table heading', () => {
-        cy.get('[data-cy=repair-appointment-table-heading-1]').should(
+        cy.get(`[data-cy=${name}-table-heading-1]`).should(
           'have.contain',
           'Repair Address'
         );
       });
 
       it('displays second table heading', () => {
-        cy.get('[data-cy=repair-appointment-table-heading-2]').should(
+        cy.get(`[data-cy=${name}-table-heading-2]`).should(
           'have.contain',
           'Date and Time'
         );
       });
 
       it('displays third table heading', () => {
-        cy.get('[data-cy=repair-appointment-table-heading-3]').should(
+        cy.get(`[data-cy=${name}-table-heading-3]`).should(
           'have.contain',
           'Area'
         );
       });
 
       it('displays fourth table heading', () => {
-        cy.get('[data-cy=repair-appointment-table-heading-4]').should(
+        cy.get(`[data-cy=${name}-table-heading-4]`).should(
           'have.contain',
           'Type'
         );
       });
 
       it('displays the address', () => {
-        cy.get('[data-cy=repair-appointment-address]').should(
+        cy.get(`[data-cy=${name}-address]`).should(
           'have.contain',
           '123 Cute Street, M3 0W'
         );
       });
 
       it('displays repair date and time', () => {
-        cy.get('[data-cy=repair-appointment-date-time]').should(
+        cy.get(`[data-cy=${name}-date-time]`).should(
           'have.contain',
           '27th January 2022 between 12:00pm to 4:00pm'
         );
       });
 
       it('displays the repair location', () => {
-        cy.get('[data-cy=repair-appointment-location]').should(
+        cy.get(`[data-cy=${name}-location]`).should(
           'have.contain',
           'Kitchen'
         );
       });
 
       it('displays the repair problem', () => {
-        cy.get('[data-cy=repair-appointment-problem]').should(
+        cy.get(`[data-cy=${name}-problem]`).should(
           'have.contain',
           'Cupboards, including damaged cupboard doors'
         );
@@ -113,16 +113,28 @@ describe('tenant or leasehold repair', () => {
       });
 
       it('displays the heading', () => {
-        cy.get('[data-testid=repair-appointment-not-found-title]').should(
+        cy.get(`[data-testid=${name}NotFound-title]`).should(
           'have.contain',
           'No repair appointment found'
         );
       });
 
       it('allows user to search again', () => {
-        cy.get('[data-testid=repair-appointment-not-found-search-again-link]')
+        cy.get(`[data-testid=${name}NotFound-search-again-link]`)
           .contains('Search again')
           .should('have.attr', 'href', 'find-repair')
+      });
+    });
+
+    context('When a user doesn\'t select an option', () => {
+      before(() => {
+        intercept_tenant_or_leasehold_property_repair();
+        loadTenantOrLeaseholdRepairsPage()
+      });
+      it('an error should be shown', () => {
+        cy.get('button').click()
+        cy.contains('There is a problem');
+        cy.contains('Select what you would like to do');
       });
     });
   });
