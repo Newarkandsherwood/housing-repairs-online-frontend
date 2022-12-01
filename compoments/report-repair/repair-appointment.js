@@ -15,7 +15,7 @@ import Details from "../details";
 
 
 const RepairAppointment = ({ handleChange, values}) => {
-  const { data, error } = useSWR(`/api/tenantOrLeaseholdRepairs?postcode=${values.findrepair?.postcode}&repairId=${values.findrepair?.repairId}`, fetcher)
+  const { data, error } = useSWR(`/api/tenantOrLeaseholdPropertyRepair?postcode=${values.findrepair?.postcode}&repairId=${values.findrepair?.repairId}`, fetcher)
   const Continue = val => {
   }
 
