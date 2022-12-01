@@ -4,7 +4,7 @@ import {OpeningHours} from '../openingHours';
 import ComponentHeader from '../componentHeader';
 
 const RepairAppointmentNotFound = () => {
-  const name = 'repair-appointment-not-found';
+  const name = 'repairAppointmentNotFound';
 
   const title = 'No repair appointment found';
   return <>
