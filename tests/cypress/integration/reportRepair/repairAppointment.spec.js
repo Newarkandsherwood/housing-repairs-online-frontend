@@ -20,6 +20,10 @@ describe('tenant or leasehold repair', () => {
       cy.contains('Your repair appointment');
     });
 
+    it('displays the question', () => {
+      cy.contains('What would you like to do?');
+    });
+
     it('displays button with correct text', () => {
       cy.get('button').contains('Continue');
     });
