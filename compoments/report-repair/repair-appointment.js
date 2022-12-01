@@ -13,37 +13,32 @@ import {OpeningHours} from '../openingHours';
 import ErrorSummary from '../errorSummary';
 
 const RepairAppointment = ({ handleChange, values}) => {
-  const [state, setState] = useState({error: {}, value:'null'});
+  const [error, setError] = useState();
+  const [value, setValue] = useState(values.repairAppointment?.changeType);
+  const [activeError, setActiveError] = useState(false);
 
   const name = 'repairAppointment'
   const title = 'Your repair appointment'
   const fieldSetOptionsId = `${name}-fieldsetoptions`;
 
-  const { data, error } = useSWR(`/api/tenantOrLeaseholdPropertyRepair?postcode=${values.findrepair?.postcode}&repairId=${values.findrepair?.repairId}`, fetcher)
+  const { data, dataError } = useSWR(`/api/tenantOrLeaseholdPropertyRepair?postcode=${values.findrepair?.postcode}&repairId=${values.findrepair?.repairId}`, fetcher)
   const Continue = e => {
-    e.preventDefault();
-
-    if (state.value === 'null') {
-      return setState({error: {
-        msg: 'Select what you would like to do',
-        touched: true
-      },
-      activeError: true})
+    if (value) {
+      return handleChange(name, {
+        changeType: value
+      });
     }
-
-    return handleChange(name, {
-      display: state.value.display,
-      locationId: state.value.locationId
-    });
+    e.preventDefault();
+    setError('Select what you would like to do')
+    setActiveError(true)
   }
 
-  const setValue = (event) => {
-    this.setState({
-      value: { [this.name]: event.target.value },
-    })
-  };
+  const onChange = (event) => {
+    setValue(event.target.value)
+    setActiveError(false)
+  }
 
-  if (error) return <Error
+  if (dataError) return <Error
     name="summary"
     heading="An error occurred while looking for the repair appointment."
     body={`Please try again later or call ${customerServicesTelephoneNumber} to change or cancel your repair appointment.`} />
@@ -55,7 +50,7 @@ const RepairAppointment = ({ handleChange, values}) => {
       {Object.keys(data).length === 0 && <RepairAppointmentNotFound />}
       {Object.keys(data).length > 0 && <>
         <ComponentHeader data-cy={`${name}-heading`} title={title} />
-        {state.error.msg && <ErrorSummary active={state.activeError} errorSummaryTextAndLocation={[{text:state.error.msg, location: fieldSetOptionsId}]} pageTitle={title} />}
+        {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{text:error, location: `#${fieldSetOptionsId}`}]} pageTitle={title} />}
         <div className="govuk-grid-column-two-thirds">
           <h1 className='govuk-heading-xl'>{title}</h1>
           <>
@@ -77,25 +72,25 @@ const RepairAppointment = ({ handleChange, values}) => {
                 </tr>
               </tbody>
             </table>
-            <div className={`govuk-form-group ${state.error.msg ? 'govuk-form-group--error' : ''}`}>
+            <div className={`govuk-form-group ${error ? 'govuk-form-group--error' : ''}`}>
               <fieldset className="govuk-fieldset" id={fieldSetOptionsId}>
                 <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
                   What would you like to do?
                 </legend>
-                <span id={`${name}-error`}
+                {error && <span id={`${name}-error`}
                   className="govuk-error-message" data-testid={`${name}-error`}>
-                  {state.error.msg}
-                </span>
-                <div className="govuk-radios" data-module="govuk-radios">
+                  {error}
+                </span>}
+                <div className="govuk-radios" data-module="govuk-radios" onChange={onChange}>
                   <div className="govuk-radios__item">
-                    <input className="govuk-radios__input" id={`${name}-change-appointment-input`} data-cy={`${name}-change-appointment-input`} name="[change-repair]" type="radio" value={'changeAppointmentSlot'} onChange={(e) => setValue(e)}>
+                    <input className="govuk-radios__input" id={`${name}-change-appointment-input`} data-cy={`${name}-change-appointment-input`} name="[change-repair]" type="radio" value={'changeAppointmentSlot'} >
                     </input>
                     <label className="govuk-label govuk-radios__label" htmlFor={`${name}-change-appointment-input`} data-cy={`${name}-change-appointment-label`}>
                       Change the time slot of the repair appointment
                     </label>
                   </div>
                   <div className="govuk-radios__item">
-                    <input className="govuk-radios__input" id={`${name}-cancel-appointment-input`} data-cy={`${name}-cancel-appointment-input`} name="[change-repair]" type="radio" value={'cancel'} onChange={(e) => setValue(e)}>
+                    <input className="govuk-radios__input" id={`${name}-cancel-appointment-input`} data-cy={`${name}-cancel-appointment-input`} name="[change-repair]" type="radio" value={'cancel'} >
                     </input>
                     <label className="govuk-label govuk-radios__label" htmlFor={`${name}-cancel-appointment-input`} data-cy={`${name}-cancel-appointment-label`}>
                       Cancel the repair appointment
