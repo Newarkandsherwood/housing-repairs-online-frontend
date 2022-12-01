@@ -55,10 +55,9 @@ ReportRepairWrapper.propTypes = {
 };
 
 function ReportRepair() {
-  const [state, setState] = useState({data:{}, step: 'priority-list'});
   const router = useRouter()
-
   const currentPath = router.query.route
+  const [state, setState] = useState({data:{}, step: currentPath});
 
   const emergencyValue = 'emergency';
   const notEligibleNonEmergencyValue = 'notEligibleNonEmergency';
