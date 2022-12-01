@@ -34,12 +34,12 @@ const FindRepair = ({ handleChange, values }) => {
       repairPostcodeError = 'Enter the property postcode';
     }
     if (!repairNumberError && !repairPostcodeError) {
-     return handleChange('findrepair', {
-         repairId: repairId,
-         postcode: postcode        
-    });
+      return handleChange('findrepair', {
+        repairId: repairId,
+        postcode: postcode
+      });
     } else {
-      
+
       return setError({ repairNumber: repairNumberError, postcode: repairPostcodeError })
     }
   }
@@ -55,7 +55,7 @@ const FindRepair = ({ handleChange, values }) => {
     setRepairId(e.target.value)
     setActiveError(false)
   }
-  
+
   const postcodeChange = (e) => {
     setPostcode(e.target.value)
     setActiveError(false)
@@ -92,8 +92,8 @@ const FindRepair = ({ handleChange, values }) => {
               data-testid="repairNumber"
             />
           </div>
-         
-          <div className={`govuk-form-group ${error.postcode ? 'govuk-form-group--error' : ''}`}> 
+
+          <div className={`govuk-form-group ${error.postcode ? 'govuk-form-group--error' : ''}`}>
             <label className="govuk-label" htmlFor="postcode" data-testid="postcode-label">
               Postcode
             </label>
