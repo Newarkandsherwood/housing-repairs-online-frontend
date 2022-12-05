@@ -39,6 +39,7 @@ import FindRepair from '../../compoments/report-repair/find-repair';
 import RepairAppointment from '../../compoments/report-repair/repair-appointment';
 import CancelConfirmation from '../../compoments/report-repair/cancel-confirmation';
 import RepairCancelledConfirmation from '../../compoments/report-repair/repair-cancelled-confirmation';
+import RepairAppointmentChangedConfirmation from '../../compoments/report-repair/repair-appointment-changed-confirmation';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
@@ -103,7 +104,7 @@ function ReportRepair() {
     flow.nextStep(step, state, prevStep)
   }
 
-  const noBackLinkRequired = ['repair-cancelled-confirmation']
+  const noBackLinkRequired = ['repair-cancelled-confirmation', 'repair-appointment-changed-confirmation']
 
   const [showBack, setShowBack] = useState(!noBackLinkRequired.includes(currentPath))
   const [confirmation, setConfirmation] = useState('');
@@ -456,6 +457,13 @@ function ReportRepair() {
       return (
         <RepairCancelledConfirmation />
       )
+    case 'repair-appointment-changed-confirmation':
+      return (
+        <RepairAppointmentChangedConfirmation
+          confirmationContact={confirmation}
+          newRepairAppointment=''
+        />
+      )
     default:
       return <div>Not found</div>;
     }
@@ -500,6 +508,7 @@ export async function getStaticPaths() {
     {params: { route: 'repair-appointment'} },
     {params: { route: 'cancel-confirmation'} },
     {params: { route: 'repair-cancelled-confirmation'} },
+    {params: { route: 'repair-appointment-changed-confirmation'} },
   ]
 
   return { paths, fallback: false };
