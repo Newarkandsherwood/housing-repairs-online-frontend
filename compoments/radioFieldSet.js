@@ -129,10 +129,12 @@ class RadioFieldSet extends Component {
                       onChange={this.setValue.bind(this)}
                       onClick={() => { this.setState({ activeError: false }) }}
                       data-aria-controls={this.getConditionalId(i)}
+                      data-cy={`${this.name}-${o.value}-radio`}
                     />
                     <label
                       className="govuk-label govuk-radios__label"
                       htmlFor={`${this.name}-${i}`}
+                      data-cy={`${this.name}-${o.value}-label`}
                     >
                       {o.title}
                     </label>

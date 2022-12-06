@@ -37,6 +37,8 @@ import { getRepairType, isCommunalRepairType } from '../../helpers/repairType';
 import ContactNumberConfirmation from '../../compoments/report-repair/contact-number-confirmation';
 import FindRepair from '../../compoments/report-repair/find-repair';
 import RepairAppointment from '../../compoments/report-repair/repair-appointment';
+import CancelConfirmation
+  from '../../compoments/report-repair/cancel-confirmation';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
@@ -422,6 +424,13 @@ function ReportRepair() {
           values={values}
         />
       )
+    case 'cancel-confirmation':
+      return (
+        <CancelConfirmation
+          handleChange={handleChange}
+          values={values}
+        />
+      )
     default:
       return <div>Not found</div>;
     }
@@ -464,6 +473,7 @@ export async function getStaticPaths() {
     {params: { route: 'communal-repairs'} },
     {params: { route: 'find-repair'} },
     {params: { route: 'repair-appointment'} },
+    {params: { route: 'cancel-confirmation'} },
   ]
 
   return { paths, fallback: false };
