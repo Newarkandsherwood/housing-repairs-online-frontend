@@ -47,6 +47,9 @@ class Flow {
         {condition: 'cancel', nextStep: ''},
         {condition: 'changeAppointmentSlot', nextStep: ''}
       ]},
+      'cancel-confirmation': {prevStep: 'change-type', nextStep: [
+        {condition: 'yes', nextStep: 'appointment-cancelled'},
+        {condition: 'no', nextStep: 'change-type'}]},
     }
   };
   nextStep (step, state, prevStep) {
