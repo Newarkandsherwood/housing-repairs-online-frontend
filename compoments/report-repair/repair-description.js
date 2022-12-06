@@ -11,7 +11,7 @@ const RepairDescription = ({ handleChange, values }) => {
   const [error, setError] = useState({ descriptionText: undefined, locationText: undefined });
   const [activeError, setActiveError] = useState(false);
   const [descriptionText, setDescriptionText] = useState(values.description?.text)
-  const [locationText, setLocationText] = useState(values.description?.location)
+  const [locationText, setLocationText] = useState(values.description?.locationText)
   const [descriptionTextAreaCount, setDescriptionTextAreaCount] = React.useState(0);
   const [locationTextAreaCount, setLocationTextAreaCount] = React.useState(0);
   const showCommunal = isCommunalRepairType(values);
@@ -59,7 +59,7 @@ const RepairDescription = ({ handleChange, values }) => {
         text: descriptionText
       };
       if (showCommunal) {
-        descriptionValues.location = locationText;
+        descriptionValues.locationText = locationText;
       }
       return handleChange('description', descriptionValues);
     } else {
