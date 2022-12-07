@@ -37,8 +37,7 @@ import { getRepairType, isCommunalRepairType } from '../../helpers/repairType';
 import ContactNumberConfirmation from '../../compoments/report-repair/contact-number-confirmation';
 import FindRepair from '../../compoments/report-repair/find-repair';
 import RepairAppointment from '../../compoments/report-repair/repair-appointment';
-import CancelConfirmation
-  from '../../compoments/report-repair/cancel-confirmation';
+import CancelConfirmation from '../../compoments/report-repair/cancel-confirmation';
 
 const ReportRepairWrapper = ({children, prevStep, showBackLink}) => {
   return (
