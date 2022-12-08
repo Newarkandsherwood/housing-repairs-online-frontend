@@ -25,13 +25,13 @@ describe('cancelConfirmation', () => {
     });
 
     it('displays yes radio option', () => {
-      cy.get(`[data-cy=${name}-yes-label`).should('have.text', 'Yes')
-      cy.get(`[data-cy=${name}-yes-radio`).should('exist')
+      cy.get(`[data-cy=${name}-yes-label]`).should('have.text', 'Yes')
+      cy.get(`[data-cy=${name}-yes-radio]`).should('exist')
     });
 
     it('displays no radio option', () => {
-      cy.get(`[data-cy=${name}-no-label`).should('have.text', 'No')
-      cy.get(`[data-cy=${name}-no-radio`).should('exist')
+      cy.get(`[data-cy=${name}-no-label]`).should('have.text', 'No')
+      cy.get(`[data-cy=${name}-no-radio]`).should('exist')
     });
   });
 
