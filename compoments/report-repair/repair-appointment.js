@@ -81,14 +81,14 @@ const RepairAppointment = ({ handleChange, values}) => {
                 </span>}
                 <div className="govuk-radios" data-module="govuk-radios" onChange={onChange}>
                   <div className="govuk-radios__item">
-                    <input className="govuk-radios__input" id={`${name}-change-appointment-input`} data-cy={`${name}-change-appointment-input`} name="[change-repair]" type="radio" value={'changeAppointmentSlot'} >
+                    <input className="govuk-radios__input" id={`${name}-change-appointment-input`} data-cy={`${name}-change-appointment-input`} name="[change-repair]" type="radio" value={'changeAppointmentSlot'} defaultChecked={value=== 'changeAppointmentSlot'}>
                     </input>
                     <label className="govuk-label govuk-radios__label" htmlFor={`${name}-change-appointment-input`} data-cy={`${name}-change-appointment-label`}>
                       Change the time slot of the repair appointment
                     </label>
                   </div>
                   <div className="govuk-radios__item">
-                    <input className="govuk-radios__input" id={`${name}-cancel-appointment-input`} data-cy={`${name}-cancel-appointment-input`} name="[change-repair]" type="radio" value={'cancel'} >
+                    <input className="govuk-radios__input" id={`${name}-cancel-appointment-input`} data-cy={`${name}-cancel-appointment-input`} name="[change-repair]" type="radio" value={'cancel'} defaultChecked={value=== 'cancel'}>
                     </input>
                     <label className="govuk-label govuk-radios__label" htmlFor={`${name}-cancel-appointment-input`} data-cy={`${name}-cancel-appointment-label`}>
                       Cancel the repair appointment

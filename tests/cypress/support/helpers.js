@@ -285,6 +285,16 @@ const navigateToFindRepairPage = () => {
   cy.get('[data-cy=find-repair]', {timeout: 10000})
 }
 
+const navigateToRepairAppointmentPage = () => {
+  navigateToFindRepairPage();
+
+  cy.get('[data-testid=repairNumber]').type('ABC123');
+  cy.get('[data-testid=postcode]').type('SW1 1AA');
+  cy.get('button').click();
+
+  cy.get('[data-cy=repairAppointment]', {timeout: 10000})
+}
+
 const completeJourney = (contactType, contactValue) => {
 
   navigateToSummaryPage(contactType, contactValue)
@@ -353,6 +363,7 @@ export {
   navigateToSummaryPage,
   navigateToContactDetails,
   navigateToFindRepairPage,
+  navigateToRepairAppointmentPage,
   completeJourneyUsingPhone,
   completeJourneyUsingEmail,
   makeSelectionAndClickButton,

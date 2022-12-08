@@ -1,6 +1,8 @@
 import {
+  checkIfSelectionGoesToCorrectUrl,
   intercept_tenant_or_leasehold_property_repair,
   intercept_tenant_or_leasehold_property_repair_empty_response,
+  navigateToRepairAppointmentPage,
 } from '../../support/helpers';
 import React from 'react';
 
@@ -135,6 +137,16 @@ describe('tenant or leasehold repair', () => {
         cy.get('button').click()
         cy.contains('There is a problem');
         cy.contains('Select what you would like to do');
+      });
+    });
+
+    context.only('When a user selects: change', ()=>{
+      before(() => {
+        intercept_tenant_or_leasehold_property_repair();
+        navigateToRepairAppointmentPage()
+      });
+      it('should redirect them to appointment-cancelled',  () => {
+        checkIfSelectionGoesToCorrectUrl('/report-repair/cancel-confirmation', 'Cancel the repair appointment')
       });
     });
   });
