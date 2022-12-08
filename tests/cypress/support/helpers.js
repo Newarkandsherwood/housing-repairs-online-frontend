@@ -295,6 +295,14 @@ const navigateToRepairAppointmentPage = () => {
   cy.get('[data-cy=repairAppointment]', {timeout: 10000})
 }
 
+const navigateToRepairAppointmentCancellationConfirmationPage = () => {
+  navigateToRepairAppointmentPage();
+
+  makeSelectionAndClickButton('Cancel the repair appointment')
+
+  cy.get('[data-cy=cancelConfirmation]', {timeout: 10000})
+}
+
 const completeJourney = (contactType, contactValue) => {
 
   navigateToSummaryPage(contactType, contactValue)
@@ -364,6 +372,7 @@ export {
   navigateToContactDetails,
   navigateToFindRepairPage,
   navigateToRepairAppointmentPage,
+  navigateToRepairAppointmentCancellationConfirmationPage,
   completeJourneyUsingPhone,
   completeJourneyUsingEmail,
   makeSelectionAndClickButton,

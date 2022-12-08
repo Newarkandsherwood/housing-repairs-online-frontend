@@ -17,11 +17,9 @@ const CancelConfirmation = ({handleChange, values}) => {
       title: 'No',
     }
   ];
-  const Confirm = val => {
-    handleChange(name, {
-      type: val.selected,
-      value: val.input
-    });
+  const Confirm = ({val}) => {
+    const selected = val[name];
+    handleChange(name, selected);
   }
 
   return <div className="govuk-grid-row" data-cy={`${name}`}>

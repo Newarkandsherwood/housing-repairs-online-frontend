@@ -43,13 +43,13 @@ class Flow {
       'repair-availability': {prevStep: 'repair-image-upload', nextStep: 'contact-details'},
       'summary': {prevStep: true, nextStep: ''},//need to investigate this as there are numerous prev steps, but it might just work
       'find-repair' : {prevStep: true, nextStep: 'repair-appointment'},
-      'repair-appointment' : {prevStep: 'find-repair', nextStep: [
+      'repair-appointment' : {prevStep: true, nextStep: [
         {condition: 'cancel', nextStep: 'cancel-confirmation'},
         {condition: 'changeAppointmentSlot', nextStep: ''}
       ]},
       'cancel-confirmation': {prevStep: 'change-type', nextStep: [
         {condition: 'yes', nextStep: 'appointment-cancelled'},
-        {condition: 'no', nextStep: 'change-type'}]},
+        {condition: 'no', nextStep: 'repair-appointment'}]},
     }
   };
   nextStep (step, state, prevStep) {
