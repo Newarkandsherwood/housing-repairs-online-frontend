@@ -1,6 +1,6 @@
 import { checkIfSelectionGoesToCorrectUrl, makeSelectionAndClickButton } from "../../support/helpers";
 
-describe('priorityList', () => {
+describe('cancelConfirmation', () => {
   const name = 'cancelConfirmation'
 
   beforeEach(() => {
