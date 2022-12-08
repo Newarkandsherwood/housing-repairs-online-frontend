@@ -140,7 +140,7 @@ describe('tenant or leasehold repair', () => {
       });
     });
 
-    context.only('When a user selects: change', ()=>{
+    context('When a user selects: change', ()=>{
       before(() => {
         intercept_tenant_or_leasehold_property_repair();
         navigateToRepairAppointmentPage()
