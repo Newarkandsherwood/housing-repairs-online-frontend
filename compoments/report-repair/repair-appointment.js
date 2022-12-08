@@ -14,7 +14,7 @@ import ErrorSummary from '../errorSummary';
 
 const RepairAppointment = ({ handleChange, values}) => {
   const [error, setError] = useState();
-  const [value, setValue] = useState(values.repairAppointment?.changeType);
+  const [value, setValue] = useState(values.repairAppointment);
   const [activeError, setActiveError] = useState(false);
 
   const name = 'repairAppointment'
@@ -24,9 +24,7 @@ const RepairAppointment = ({ handleChange, values}) => {
   const { data, dataError } = useSWR(`/api/tenantOrLeaseholdPropertyRepair?postcode=${values.findrepair?.postcode}&repairId=${values.findrepair?.repairId}`, fetcher)
   const Continue = e => {
     if (value) {
-      return handleChange(name, {
-        changeType: value
-      });
+      return handleChange(name, value);
     }
     e.preventDefault();
     setError('Select what you would like to do')
