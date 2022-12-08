@@ -1,4 +1,4 @@
-import { checkIfSelectionGoesToCorrectUrl, makeSelectionAndClickButton } from "../../support/helpers";
+import { checkIfSelectionGoesToCorrectUrl } from '../../support/helpers';
 
 describe('cancelConfirmation', () => {
   const name = 'cancelConfirmation'
