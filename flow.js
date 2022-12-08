@@ -44,7 +44,7 @@ class Flow {
       'summary': {prevStep: true, nextStep: ''},//need to investigate this as there are numerous prev steps, but it might just work
       'find-repair' : {prevStep: true, nextStep: 'repair-appointment'},
       'repair-appointment' : {prevStep: 'find-repair', nextStep: [
-        {condition: 'cancel', nextStep: ''},
+        {condition: 'cancel', nextStep: 'cancel-confirmation'},
         {condition: 'changeAppointmentSlot', nextStep: ''}
       ]},
       'cancel-confirmation': {prevStep: 'change-type', nextStep: [
