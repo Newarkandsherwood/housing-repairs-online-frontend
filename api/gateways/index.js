@@ -18,6 +18,7 @@ const saveRepairGateway = require('./SaveRepairGateway')(apiRequester.makePostRe
 const repairTriageGateway = require('./RepairTriageGateway')(apiRequester.makeGetRequest);
 const communalPropertyRepairsGateway = require('./CommunalPropertyRepairsGateway')(apiRequester.makeGetRequest);
 const tenantOrLeaseholdPropertyRepairGateway = require('./TenantOrLeaseholdPropertyRepairGateway')(apiRequester.makeGetRequest);
+const tenantOrLeaseholdPropertyRepairCancelGateway = require('./TenantOrLeaseholdPropertyRepairCancelGateway')(apiRequester.makePostRequest);
 
 module.exports = {
   searchPropertiesGateway,
@@ -26,5 +27,6 @@ module.exports = {
   repairTriageGateway,
   communalPropertyRepairsGateway,
   tenantOrLeaseholdPropertyRepairGateway,
+  tenantOrLeaseholdPropertyRepairCancelGateway,
   sentryParams
 };

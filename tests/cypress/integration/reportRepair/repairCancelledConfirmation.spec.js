@@ -1,6 +1,12 @@
+import {
+  intercept_tenant_or_leasehold_property_repair,
+  intercept_tenant_or_leasehold_property_repair_cancel,
+  navigateToRepairCancelledConfirmationPage
+} from '../../support/helpers';
+
 function loadRepairCancelledPage() {
   cy.visit('report-repair/repair-cancelled-confirmation');
-  cy.get('[data-cy=repair-cancelled-confirmation]', { timeout: 10000 })
+  cy.get('[data-cy=repairCancelledConfirmation]', { timeout: 10000 })
 }
 
 describe('repair cancelled', () => {
@@ -39,6 +45,14 @@ describe('repair cancelled', () => {
       cy.get('a')
         .contains('Back')
         .should('not.exist');
+    });
+  });
+
+  context('Behaviour', () => {
+    beforeEach(() => {
+      intercept_tenant_or_leasehold_property_repair();
+      intercept_tenant_or_leasehold_property_repair_cancel();
+      navigateToRepairCancelledConfirmationPage();
     });
   });
 });

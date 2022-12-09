@@ -4,22 +4,27 @@ import ComponentHeader from '../componentHeader';
 import RadioFieldSet from '../radioFieldSet';
 
 
-const CancelConfirmation = ({handleChange, values}) => {
+const CancelConfirmation = ({handleChange, values, submitCancelRepair}) => {
   const name = 'cancelConfirmation'
   const title = 'Are you sure you want to cancel this appointment?'
+  const noValue = 'no';
   const options =  [
     {
       value: 'yes',
       title: 'Yes'
     },
     {
-      value: 'no',
+      value: noValue,
       title: 'No',
     }
   ];
   const Confirm = ({val}) => {
     const selected = val[name];
-    handleChange(name, selected);
+    if (selected === noValue) {
+      handleChange(name, selected);
+    } else {
+      submitCancelRepair(values);
+    }
   }
 
   return <div className="govuk-grid-row" data-cy={`${name}`}>
@@ -31,6 +36,7 @@ const CancelConfirmation = ({handleChange, values}) => {
         options={options}
         onSubmit={Confirm}
         buttonText={'Confirm'}
+        useSubmissionButton={true}
         checked={values[name]}
         errorText={'Select yes if you would like to cancel this appointment'}
       />
@@ -41,6 +47,7 @@ const CancelConfirmation = ({handleChange, values}) => {
 CancelConfirmation.propTypes = {
   values: PropTypes.object,
   handleChange: PropTypes.func,
+  submitCancelRepair: PropTypes.func,
 }
 
 export default CancelConfirmation;

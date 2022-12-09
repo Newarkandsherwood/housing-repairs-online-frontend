@@ -19,5 +19,9 @@
     "startDateTime": "2022-01-27T12:00:00Z",
     "endDateTime": "2022-01-27T16:00:00Z",
     "display": "27th January 2022 between 12:00pm to 4:00pm"
+  },
+  "contactDetails": {
+    "type": "email",
+    "value": "tester@test.com"
   }
 }

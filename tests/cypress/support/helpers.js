@@ -68,6 +68,12 @@ function intercept_tenant_or_leasehold_property_repair_empty_response() {
   }).as('tenantOrLeaseholdRepairs');
 }
 
+function intercept_tenant_or_leasehold_property_repair_cancel() {
+  cy.intercept('POST', `${api_url}/tenantOrLeaseholdPropertyRepairCancel?*`, {
+    statusCode: 200
+  }).as('tenantOrLeaseholdPropertyRepairCancel');
+}
+
 function intercept_availability_search(appointments = dummyAppointments) {
   cy.intercept('GET', `${api_url}/availability*`, {
     statusCode: 201,
@@ -303,6 +309,14 @@ const navigateToRepairAppointmentCancellationConfirmationPage = () => {
   cy.get('[data-cy=cancelConfirmation]', {timeout: 10000})
 }
 
+const navigateToRepairCancelledConfirmationPage = () => {
+  navigateToRepairAppointmentCancellationConfirmationPage();
+
+  makeSelectionAndClickButton('Yes')
+
+  cy.get('[data-cy=repairCancelledConfirmation]', {timeout: 10000})
+}
+
 const completeJourney = (contactType, contactValue) => {
 
   navigateToSummaryPage(contactType, contactValue)
@@ -373,6 +387,7 @@ export {
   navigateToFindRepairPage,
   navigateToRepairAppointmentPage,
   navigateToRepairAppointmentCancellationConfirmationPage,
+  navigateToRepairCancelledConfirmationPage,
   completeJourneyUsingPhone,
   completeJourneyUsingEmail,
   makeSelectionAndClickButton,
@@ -383,4 +398,5 @@ export {
   intercept_get_communal_property_repairs,
   intercept_tenant_or_leasehold_property_repair,
   intercept_tenant_or_leasehold_property_repair_empty_response,
+  intercept_tenant_or_leasehold_property_repair_cancel,
 }
