@@ -12,7 +12,7 @@ function loadCommunalRepairsPage() {
 
 describe('communal repair', () => {
   context('Content', () => {
-    beforeEach(()=>{
+    before(()=>{
       intercept_get_communal_property_repairs();
       loadCommunalRepairsPage()});
 
@@ -31,7 +31,7 @@ describe('communal repair', () => {
 
   context('Behaviour', () => {
     context('Communal repairs exist at address', ()=>{
-      beforeEach(() => {
+      before(() => {
         intercept_get_communal_property_repairs();
         loadCommunalRepairsPage()
       });
@@ -92,7 +92,7 @@ describe('communal repair', () => {
       });
     });
     context('Communal repairs do not exist at address', ()=>{
-      beforeEach(() => {
+      before(() => {
         intercept_get_communal_property_repairs_empty_response();
         loadCommunalRepairsPage()
       });
