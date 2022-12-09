@@ -43,6 +43,10 @@ const RepairAppointment = ({ handleChange, values}) => {
 
   if (!data) return <Loader/>
 
+  if (data) {
+    values[`${name}Details`] = data;
+  }
+
   return (
     <div className="govuk-grid-row" data-cy={`${name}`}>
       {Object.keys(data).length === 0 && <RepairAppointmentNotFound />}
