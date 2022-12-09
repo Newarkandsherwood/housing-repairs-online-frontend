@@ -173,6 +173,25 @@ function ReportRepair() {
       )
     })
   }
+  const submitCancelRepair = (values) => {
+    fetch(`/api/tenantOrLeaseholdPropertyRepairCancel?postcode=${values.findrepair.postcode}&repairId=${values.findrepair.repairId}`, {
+      method: 'POST',
+    }).then(response => {
+      if (response.ok) {
+        setShowBack(false);
+        router.push('repair-cancelled-confirmation');
+        setConfirmation(values.repairAppointmentDetails.contactDetails.value);
+        return;
+      }
+      window.history.scrollRestoration = 'manual';
+      setFormError(
+        <Error
+          name="summary"
+          heading="An error occurred while processing your request"
+          body={`Please call ${customerServicesTelephoneNumber} to complete your repair request cancellation`} />
+      )
+    })
+  };
   const values = state.data;
 
   const getRepairLocation = () => {
@@ -431,6 +450,7 @@ function ReportRepair() {
         <CancelConfirmation
           handleChange={handleChange}
           values={values}
+          submitCancelRepair={submitCancelRepair}
         />
       )
     case 'repair-cancelled-confirmation':

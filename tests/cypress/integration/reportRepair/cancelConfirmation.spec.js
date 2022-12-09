@@ -1,6 +1,7 @@
 import {
   checkIfSelectionGoesToCorrectUrl,
   intercept_tenant_or_leasehold_property_repair,
+  intercept_tenant_or_leasehold_property_repair_cancel,
   navigateToRepairAppointmentCancellationConfirmationPage
 } from '../../support/helpers';
 
@@ -36,16 +37,17 @@ describe('cancelConfirmation', () => {
   });
 
   describe('Behaviour', () => {
-    before(() => {
+    beforeEach(() => {
       intercept_tenant_or_leasehold_property_repair();
+      intercept_tenant_or_leasehold_property_repair_cancel();
       navigateToRepairAppointmentCancellationConfirmationPage();
     })
-    // context('When a user selects: yes', ()=>{
-    //   it('should redirect them to appointment-cancelled',  () => {
-    //     checkIfSelectionGoesToCorrectUrl('/report-repair/appointment-cancelled', 'Yes')
-    //   });
-    // });
-    //
+    context('When a user selects: yes', ()=>{
+      it('should redirect them to appointment-cancelled',  () => {
+        checkIfSelectionGoesToCorrectUrl('/report-repair/repair-cancelled-confirmation', 'Yes')
+      });
+    });
+
     context('When a user selects: No', () => {
       it('should redirect them to repair-appointment', () => {
         checkIfSelectionGoesToCorrectUrl('/report-repair/repair-appointment', 'No')

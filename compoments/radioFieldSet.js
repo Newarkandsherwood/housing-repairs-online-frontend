@@ -39,6 +39,7 @@ class RadioFieldSet extends Component {
     };
     this.conditionalValue = this.props.conditionalValue;
     this.errorText = this.props.errorText || 'Required';
+    this.isSubmissionButton = this.props.useSubmissionButton || false;
   }
 
   setValue(event) {
@@ -187,7 +188,7 @@ class RadioFieldSet extends Component {
           <div id="before-button-content">
             {this.beforeButton}
           </div>
-          <Button onClick={this.formSubmit}>{this.buttonText}</Button>
+          <Button onClick={this.formSubmit} preventDoubleClick={this.isSubmissionButton}>{this.buttonText}</Button>
         </div>
       </div>
     )
@@ -219,6 +220,7 @@ RadioFieldSet.propTypes = {
   hintText: PropTypes.string,
   orDivider: PropTypes.bool,
   buttonText: PropTypes.string,
+  useSubmissionButton: PropTypes.bool,
   errorText: PropTypes.string,
   conditionalValue: PropTypes.object
 };

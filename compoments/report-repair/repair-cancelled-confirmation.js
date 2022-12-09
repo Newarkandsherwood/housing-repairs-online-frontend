@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const RepairCancelledConfirmation = ({ confirmationContact }) => {
   const title = 'Your repair has been cancelled';
-  const name = 'repair-cancelled-confirmation';
+  const name = 'repairCancelledConfirmation';
   return <>
     <ComponentHeader title={title} />
 
