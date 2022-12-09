@@ -4,7 +4,7 @@ import {
 
 
 } from '../../support/helpers';
-import React from "react";
+import React from 'react';
 
 function loadCommunalRepairsPage() {
   cy.visit('report-repair/communal-repairs');
