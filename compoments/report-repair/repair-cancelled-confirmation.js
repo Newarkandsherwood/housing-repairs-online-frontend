@@ -14,7 +14,6 @@ const RepairCancelledConfirmation = ({ confirmationContact }) => {
         <h1 className="govuk-heading-xl">
           {title}
         </h1>
-        <p> We have sent a confirmation to {confirmationContact}. </p>
 
         <p>
           <Link href="/" >

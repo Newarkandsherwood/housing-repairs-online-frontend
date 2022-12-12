@@ -17,10 +17,6 @@ describe('repair cancelled', () => {
       cy.contains('Your repair has been cancelled');
     });
 
-    it('displays the confirmation sent information', () => {
-      cy.contains('We have sent a confirmation to');
-    });
-
     it('displays link to request new repair', () => {
       cy.get('a')
         .contains('Request a new repair')
