@@ -180,7 +180,6 @@ function ReportRepair() {
       if (response.ok) {
         setShowBack(false);
         router.push('repair-cancelled-confirmation');
-        setConfirmation(values.repairAppointmentDetails.contactDetails.value);
         return;
       }
       window.history.scrollRestoration = 'manual';
@@ -455,9 +454,7 @@ function ReportRepair() {
       )
     case 'repair-cancelled-confirmation':
       return (
-        <RepairCancelledConfirmation
-          confirmationContact={confirmation}
-        />
+        <RepairCancelledConfirmation />
       )
     default:
       return <div>Not found</div>;
