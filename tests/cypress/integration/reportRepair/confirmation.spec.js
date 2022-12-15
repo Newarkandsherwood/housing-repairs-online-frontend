@@ -45,7 +45,7 @@ describe('confirmation', () => {
       });
 
       it('Displays appointment link', () => {
-        cy.get('a[href*="appointment"]').contains('View, change or cancel your appointment').should('have.attr', 'href', 'find-appointment');
+        cy.get('a[href*="find-repair"]').contains('View, change or cancel your appointment').should('have.attr', 'href', 'find-repair');
       });
 
       it('Does not display the back button', () => {

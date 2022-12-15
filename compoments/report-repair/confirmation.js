@@ -17,7 +17,7 @@ const Confirmation = ({ requestId, confirmation, values, daysForRepair }) => {
   const AppointmentChangeRender = () => {
     if (!isCommunal) {
       return <p className="govuk-body">
-      <TextLink href="find-appointment">
+      <TextLink href="find-repair">
         View, change or cancel your appointment
       </TextLink>
     </p>  
