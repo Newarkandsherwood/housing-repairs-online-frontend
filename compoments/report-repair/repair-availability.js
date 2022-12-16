@@ -13,7 +13,7 @@ import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
 
-const RepairAvailability = ({ handleChange, values ,fromDate, stepName, submitChangeAppointment, isSubmit=false}) => {
+const RepairAvailability = ({ handleChange, values, fromDate, stepName, submitChangeAppointment, isSubmit=false}) => {
   const [error, setError] = useState();
   const [value, setValue] = useState(values.availability?.appointmentSlotKey);
   const [activeError, setActiveError] = useState(false);
