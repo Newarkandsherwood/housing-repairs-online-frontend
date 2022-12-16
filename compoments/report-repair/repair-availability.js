@@ -13,7 +13,7 @@ import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
 
-const RepairAvailability = ({ handleChange, values, fromDate, stepName, submitChangeAppointment, isSubmit=false}) => {
+const RepairAvailability = ({ handleChange, values, fromDate, name, submitChangeAppointment, isSubmit=false}) => {
   const [error, setError] = useState();
   const [value, setValue] = useState(values.availability?.appointmentSlotKey);
   const [activeError, setActiveError] = useState(false);
@@ -98,7 +98,7 @@ const RepairAvailability = ({ handleChange, values, fromDate, stepName, submitCh
     setActiveError(false)
   }
 
-  return <div className="govuk-grid-row" data-cy={stepName}>
+  return <div className="govuk-grid-row" data-cy={name}>
     <ComponentHeader title={title} />
     <div className='govuk-grid-column-two-thirds'>
       {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{ text: error, location: `#${fieldName}-0-0` }]} pageTitle={pageTitle} />}
@@ -149,7 +149,7 @@ const RepairAvailability = ({ handleChange, values, fromDate, stepName, submitCh
         {fromDate ? (
           <a className="govuk-button govuk-button--secondary" onClick={() => {
             setError(undefined);
-            router.push(`${router.asPath}`, stepName, { shallow: true })
+            router.push(`${router.asPath}`, name, { shallow: true })
           }}>Previous 5 days</a>
         ) : (
           <a className="govuk-button govuk-button--secondary" onClick={() => {
