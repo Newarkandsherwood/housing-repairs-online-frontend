@@ -445,7 +445,7 @@ function ReportRepair() {
       }
       return (
         <RepairAvailability
-          stepName={'repair-availability'}
+          name={'repair-availability'}
           handleChange={handleChange}
           values={repairAvailabilityOptions}
           fromDate={router.query.fromDate}
@@ -465,7 +465,7 @@ function ReportRepair() {
       }
       return (
         <RepairAvailability
-          stepName={'change-repair-availability'}
+          name={'change-repair-availability'}
           values={repairAvailabilityOptions}
           fromDate={router.query.fromDate}
           submitChangeAppointment={submitChangeAppointment}
