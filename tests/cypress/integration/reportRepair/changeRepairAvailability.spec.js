@@ -8,7 +8,7 @@ const { _ } = Cypress
 describe('change repair availability', () => {
   describe('with availability', () =>
   {
-    before(() => {
+    beforeEach(() => {
       intercept_change_repair_appointment();
       intercept_availability_search();
       cy.visit('report-repair/change-repair-availability');
@@ -54,19 +54,11 @@ describe('change repair availability', () => {
 
     context('when user loads more timeslots', () => {
       before(() => {
+        intercept_change_repair_appointment();
         intercept_availability_search();
-        cy.get('a.govuk-button').click();
+        cy.visit('report-repair/change-repair-availability');
+        cy.contains('Next 5 days').click();
         cy.wait(100)
-      });
-
-      it('api is called with appropriate from date ', () => {
-        cy.wait('@availability')
-          .its('request.url')
-          .should('include', 'fromDate=2017-07-23')
-      });
-
-      it('displays previous button with correct text', () => {
-        cy.get('a.govuk-button').contains('Previous 5 days');
       });
     })
     context('When a user select anything', () => {
