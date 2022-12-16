@@ -45,8 +45,9 @@ class Flow {
       'find-repair' : {prevStep: true, nextStep: 'repair-appointment'},
       'repair-appointment' : {prevStep: true, nextStep: [
         {condition: 'cancel', nextStep: 'cancel-confirmation'},
-        {condition: 'changeAppointmentSlot', nextStep: ''}
+        {condition: 'changeAppointmentSlot', nextStep: 'change-repair-availability'}
       ]},
+      'change-repair-availability':{prevStep: 'repair-appointment', nextStep: 'repair-appointment-changed-confirmation'},
       'cancel-confirmation': {prevStep: 'change-type', nextStep: [
         {condition: 'yes', nextStep: 'repair-cancelled-confirmation'},
         {condition: 'no', nextStep: 'repair-appointment'}]},

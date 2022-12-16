@@ -3,7 +3,7 @@ import React from 'react';
 import ComponentHeader from '../componentHeader';
 import Link from 'next/link';
 
-const RepairAppointmentChangedConfirmation = ({ confirmationContact, newAppointmentSchedule }) => {
+const RepairAppointmentChangedConfirmation = ({ confirmation}) => {
   const title = 'Your repair appointment has been changed';
   const name = 'repair-appointment-changed-confirmation';
   return <>
@@ -14,8 +14,8 @@ const RepairAppointmentChangedConfirmation = ({ confirmationContact, newAppointm
         <h1 className="govuk-heading-xl">
           {title}
         </h1>
-        <p> The repair appointment is now scheduled for {newAppointmentSchedule}. </p>
-        <p> We have sent a confirmation to {confirmationContact}. </p>
+        <p> The repair appointment is now scheduled for {confirmation.appointment}. </p>
+        <p> We have sent a confirmation to {confirmation.contact}. </p>
 
         <p>
           <Link href="/" >
