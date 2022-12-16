@@ -3,7 +3,7 @@ import React from 'react';
 import ComponentHeader from '../componentHeader';
 import Link from 'next/link';
 
-const RepairAppointmentChangedConfirmation = ({ confirmation}) => {
+const RepairAppointmentChangedConfirmation = ({ confirmation }) => {
   const title = 'Your repair appointment has been changed';
   const name = 'repair-appointment-changed-confirmation';
   return <>
