@@ -104,7 +104,7 @@ function ReportRepair() {
     flow.nextStep(step, state, prevStep)
   }
 
-  const noBackLinkRequired = ['repair-cancelled-confirmation']
+  const noBackLinkRequired = ['repair-cancelled-confirmation', 'repair-appointment-changed-confirmation']
 
   const [showBack, setShowBack] = useState(!noBackLinkRequired.includes(currentPath))
   const [confirmation, setConfirmation] = useState('');
