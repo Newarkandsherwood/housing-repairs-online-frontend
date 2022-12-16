@@ -74,6 +74,13 @@ function intercept_tenant_or_leasehold_property_repair_cancel() {
   }).as('tenantOrLeaseholdPropertyRepairCancel');
 }
 
+function intercept_change_repair_appointment(){
+  cy.intercept('POST', `${api_url}/TenantOrLeaseholdPropertyRepairChangeAppointmentSlot?*`, {
+    statusCode: 200,
+    body: {data:'The repair has successfully been changed'}
+  }).as('TenantOrLeaseholdPropertyRepairChangeAppointmentSlot');
+}
+
 function intercept_availability_search(appointments = dummyAppointments) {
   cy.intercept('GET', `${api_url}/availability*`, {
     statusCode: 201,
@@ -399,4 +406,5 @@ export {
   intercept_tenant_or_leasehold_property_repair,
   intercept_tenant_or_leasehold_property_repair_empty_response,
   intercept_tenant_or_leasehold_property_repair_cancel,
+  intercept_change_repair_appointment
 }

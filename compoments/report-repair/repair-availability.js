@@ -12,25 +12,15 @@ import { serviceName } from '../../helpers/constants';
 import ErrorSummary from '../errorSummary';
 import {customerServicesTelephoneNumber} from '../../globals'
 import ComponentHeader from '../componentHeader';
-import { getRepairType } from '../../helpers/repairType';
 
-const RepairAvailability = ({ handleChange, values, fromDate }) => {
+const RepairAvailability = ({ handleChange, values ,fromDate, stepName, submitChangeAppointment, isSubmit=false}) => {
   const [error, setError] = useState();
   const [value, setValue] = useState(values.availability?.appointmentSlotKey);
   const [activeError, setActiveError] = useState(false);
   const baseURL = '/api/availability';
-  const params = {
-    repairType: getRepairType(values),
-    repairLocation: values.repairLocation?.value,
-    repairProblem: values.repairProblem?.value,
-    locationId: values.address?.locationId,
-  }
   const title = 'When are you available?'
   const pageTitle = `${title} - ${serviceName}`
-  if (values.repairProblemBestDescription) {
-    params['repairIssue'] = values.repairProblemBestDescription.value
-  }
-
+  const params = values.params
   const router = useRouter();
 
   if (fromDate) {
@@ -38,11 +28,13 @@ const RepairAvailability = ({ handleChange, values, fromDate }) => {
   }
   const apiUrl = `${baseURL}?${new URLSearchParams(params).toString()}`
   const { data, dataError } = useSWR(apiUrl, fetcher)
+  let buttonText = isSubmit ?  'Submit' :  'Continue'
+
 
   if (dataError) return <Error
     name="summary"
     heading="An error occurred while looking for available appointments"
-    body={`Please try again later or call ${customerServicesTelephoneNumber} to complete your repair request`} />
+    body={`Please try again later or call ${customerServicesTelephoneNumber} to ${buttonText ? 'change': 'complete'}  your repair request`} />
 
   if (!data) return <Loader />
 
@@ -82,12 +74,20 @@ const RepairAvailability = ({ handleChange, values, fromDate }) => {
   const Continue = () => {
     if (value) {
       let selectedAppointmentSlot = availabilityValues[value];
-      return handleChange(fieldName, {
-        startDateTime: selectedAppointmentSlot.startDateTime,
-        endDateTime: selectedAppointmentSlot.endDateTime,
-        display: selectedAppointmentSlot.display,
-        appointmentSlotKey: value,
-      });
+      if(!isSubmit){
+        return handleChange(fieldName, {
+          startDateTime: selectedAppointmentSlot.startDateTime,
+          endDateTime: selectedAppointmentSlot.endDateTime,
+          display: selectedAppointmentSlot.display,
+          appointmentSlotKey: value,
+        });
+      }
+      if(isSubmit){
+        values.appointmentStartDateTime = selectedAppointmentSlot.startDateTime
+        values.appointmentEndDateTime = selectedAppointmentSlot.endDateTime
+        values.appointmentDisplay = selectedAppointmentSlot.display
+        return submitChangeAppointment(values)
+      }
     }
     setError('Select the date and time you are available for a repair appointment')
     setActiveError(true)
@@ -98,7 +98,7 @@ const RepairAvailability = ({ handleChange, values, fromDate }) => {
     setActiveError(false)
   }
 
-  return <div className="govuk-grid-row" data-cy="repair-availability">
+  return <div className="govuk-grid-row" data-cy={stepName}>
     <ComponentHeader title={title} />
     <div className='govuk-grid-column-two-thirds'>
       {error && <ErrorSummary active={activeError} errorSummaryTextAndLocation={[{ text: error, location: `#${fieldName}-0-0` }]} pageTitle={pageTitle} />}
@@ -149,7 +149,7 @@ const RepairAvailability = ({ handleChange, values, fromDate }) => {
         {fromDate ? (
           <a className="govuk-button govuk-button--secondary" onClick={() => {
             setError(undefined);
-            router.push(`${router.asPath}`, 'repair-availability', { shallow: true })
+            router.push(`${router.asPath}`, stepName, { shallow: true })
           }}>Previous 5 days</a>
         ) : (
           <a className="govuk-button govuk-button--secondary" onClick={() => {
@@ -158,7 +158,7 @@ const RepairAvailability = ({ handleChange, values, fromDate }) => {
           }}>Next 5 days</a>
         )}
       </div>
-      <Button onClick={Continue} >Continue</Button>
+      <Button preventDoubleClick={isSubmit} onClick={Continue}>{buttonText}</Button>
     </div >
   </div >
 };

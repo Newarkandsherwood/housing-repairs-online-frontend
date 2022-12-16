@@ -104,7 +104,7 @@ function ReportRepair() {
     flow.nextStep(step, state, prevStep)
   }
 
-  const noBackLinkRequired = ['repair-cancelled-confirmation', 'repair-appointment-changed-confirmation']
+  const noBackLinkRequired = ['repair-cancelled-confirmation']
 
   const [showBack, setShowBack] = useState(!noBackLinkRequired.includes(currentPath))
   const [confirmation, setConfirmation] = useState('');
@@ -181,6 +181,7 @@ function ReportRepair() {
       if (response.ok) {
         setShowBack(false);
         router.push('repair-cancelled-confirmation');
+        setConfirmation(values.repairAppointmentDetails.contactDetails.value);
         return;
       }
       window.history.scrollRestoration = 'manual';
@@ -192,6 +193,33 @@ function ReportRepair() {
       )
     })
   };
+  const submitChangeAppointment = (values) => {
+    fetch(`/api/TenantOrLeaseholdPropertyRepairChangeAppointmentSlot?postcode=${values.postcode}&repairId=${values.repairId}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        startDateTime: values.appointmentStartDateTime,
+        endDateTime: values.appointmentEndDateTime,
+        display : values.appointmentDisplay
+      })
+    }).then(response => {
+      if (response.ok) {
+        setShowBack(false);
+        setConfirmation({
+          contact: values.contactDetails,
+          appointment: values.appointmentDisplay
+        });
+        router.push('repair-appointment-changed-confirmation');
+        return;
+      }
+      window.history.scrollRestoration = 'manual';
+      setFormError(
+        <Error
+          name="summary"
+          heading="An error occurred while processing your request"
+          body={`Please call ${customerServicesTelephoneNumber} to complete your repair request change`} />
+      )
+    })
+  }
   const values = state.data;
 
   const getRepairLocation = () => {
@@ -402,13 +430,48 @@ function ReportRepair() {
         />
       )
     case 'repair-availability':
+      var params = {
+        repairType: getRepairType(values),
+        repairLocation: values.repairLocation?.value,
+        repairProblem: values.repairProblem?.value,
+        locationId: values.address?.locationId
+      }
+      if (values.repairProblemBestDescription) {
+        params['repairIssue']= values.repairProblemBestDescription.value
+      }
+
+      var repairAvailabilityOptions = {
+        params: params,
+        availability: values.availability
+      }
       return (
         <RepairAvailability
+          stepName={'repair-availability'}
           handleChange={handleChange}
-          values={values}
+          values={repairAvailabilityOptions}
           fromDate={router.query.fromDate}
-        />
-      )
+        />)
+    case 'change-repair-availability':
+      var repairAvailabilityOptions = {
+        params: {
+          repairType: values.repairAppointmentDetails?.repairType,
+          repairLocation: values.repairAppointmentDetails?.location?.value,
+          repairProblem: values.repairAppointmentDetails?.problem?.value,
+          locationId: values.repairAppointmentDetails?.address?.locationId,
+          repairIssue:  values.repairAppointmentDetails?.issue?.value,
+        },
+        postcode: values.findrepair?.postcode,
+        repairId: values.findrepair?.repairId,
+        contactDetails: values.repairAppointmentDetails?.contactDetails?.value
+      }
+      return (
+        <RepairAvailability
+          stepName={'change-repair-availability'}
+          values={repairAvailabilityOptions}
+          fromDate={router.query.fromDate}
+          submitChangeAppointment={submitChangeAppointment}
+          isSubmit={true}
+        />)
     case 'contact-us':
       return (
         <ContactUs
@@ -460,8 +523,7 @@ function ReportRepair() {
     case 'repair-appointment-changed-confirmation':
       return (
         <RepairAppointmentChangedConfirmation
-          confirmationContact={confirmation}
-          newRepairAppointment=''
+          confirmation={confirmation}
         />
       )
     default:
@@ -509,6 +571,7 @@ export async function getStaticPaths() {
     {params: { route: 'cancel-confirmation'} },
     {params: { route: 'repair-cancelled-confirmation'} },
     {params: { route: 'repair-appointment-changed-confirmation'} },
+    {params: { route: 'change-repair-availability'}},
   ]
 
   return { paths, fallback: false };
