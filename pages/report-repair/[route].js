@@ -457,11 +457,13 @@ function ReportRepair() {
           repairLocation: values.repairAppointmentDetails?.location?.value,
           repairProblem: values.repairAppointmentDetails?.problem?.value,
           locationId: values.repairAppointmentDetails?.address?.locationId,
-          repairIssue:  values.repairAppointmentDetails?.issue?.value,
         },
         postcode: values.findrepair?.postcode,
         repairId: values.findrepair?.repairId,
         contactDetails: values.repairAppointmentDetails?.contactDetails?.value
+      }
+      if (values.repairAppointmentDetails?.issue) {
+        repairAvailabilityOptions.params['repairIssue'] = values.repairAppointmentDetails?.issue?.value
       }
       return (
         <RepairAvailability
