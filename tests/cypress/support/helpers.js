@@ -363,6 +363,10 @@ function isMvpReleaseVersion() {
   return Cypress.env('RELEASE_VERSION') == 'mvp';
 }
 
+function enableLeaserHolderFlow() {
+  return Cypress.env('ENABLE_LEASEHOLDER_FLOW') == "true";
+}
+
 function isCommunalRepair() {
   return Cypress.env('REPAIR_TYPE') === 'communal';
 }
@@ -401,6 +405,7 @@ export {
   checkIfSelectionGoesToCorrectUrl,
   intercept_repair_triage,
   isMvpReleaseVersion,
+  enableLeaserHolderFlow,
   intercept_get_communal_property_repairs_empty_response,
   intercept_get_communal_property_repairs,
   intercept_tenant_or_leasehold_property_repair,
