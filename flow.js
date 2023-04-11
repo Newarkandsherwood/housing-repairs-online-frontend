@@ -1,4 +1,4 @@
-import { isMvpReleaseVersion, enableLeaserHolderFlow } from './helpers/features';
+import { isMvpReleaseVersion, enableLeaseHolderFlow } from './helpers/features';
 
 class Flow {
   constructor(setState, history, path, prevSteps, setPrevSteps, nextSteps = undefined) {
@@ -27,7 +27,7 @@ class Flow {
       ]},
       'tenant-or-leaseholder' : {prevSteps: 'communal', nextStep: [
         {condition: 'yes', nextStep: 'postcode'},
-        {condition: 'no', nextStep: enableLeaserHolderFlow() ? 'postcode' : 'not-eligible'}
+        {condition: 'no', nextStep: enableLeaseHolderFlow() ? 'postcode' : 'contact-us'}
       ]},
       'postcode': {prevStep: true, nextStep: 'address'},
       'address': {prevStep: 'postcode', nextStep: nextSteps},

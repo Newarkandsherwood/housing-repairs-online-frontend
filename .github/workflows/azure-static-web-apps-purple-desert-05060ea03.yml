@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 16.x ]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -39,8 +39,9 @@ jobs:
       fail-fast: false
       matrix:
         # run copies of the current job in parallel
-        containers: [ 1 ]
-        release-version : [full, mvp]
+        containers: [1]
+        release-version: [full, mvp]
+        enable-leaseholder-flow: [true, false]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -152,8 +153,8 @@ jobs:
           echo "# Staging Environment API Configuration"
           echo "REPAIRS_API_BASE_URL=${{secrets.REPAIRS_API_BASE_URL_STAGING}}" >> .env
           echo "REPAIRS_API_IDENTIFIER=${{secrets.REPAIRS_API_IDENTIFIER_STAGING}}" >> .env
-      
-      - name: Set up api environment variables for production   
+
+      - name: Set up api environment variables for production
         if: github.event_name != 'pull_request'
         run: |
           cd api
@@ -168,20 +169,21 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{secrets.AZURE_STATIC_WEB_APPS_API_TOKEN}}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
-          action: "upload"
+          action: 'upload'
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          is_static_export: "true" # Indicates you are using `next export` to generate a static site if set to true.
-          app_location: "/" # App source code path
-          api_location: "api" # Api source code path - optional
+          is_static_export: 'true' # Indicates you are using `next export` to generate a static site if set to true.
+          app_location: '/' # App source code path
+          api_location: 'api' # Api source code path - optional
           app_artifact_location: 'public' # Built app content directory - optional
-          output_location: "out" # Built app content directory - optional
+          output_location: 'out' # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
         env:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           NEXT_PUBLIC_SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           NEXT_PUBLIC_APP_ENV: ${{ (github.event_name == 'pull_request' && 'staging') || ('production') }}
+          ENABLE_LEASEHOLDER_FLOW: ${{ secrets.ENABLE_LEASEHOLDER_FLOW }}
           RELEASE_VERSION: 'full'
           ###### Local Authority Configurable Content - These must be configured to display the values in the frontend ######
           LOCAL_COUNCIL_FULL_NAME: ${{ secrets.LOCAL_COUNCIL_FULL_NAME }}
