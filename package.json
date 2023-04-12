@@ -10,7 +10,7 @@
     "test": "jest tests/unit",
     "lint:fix": "eslint --fix */**/*.js tests/**/*.js",
     "cy:open": "cypress open --env RELEASE_VERSION=full ENABLE_LEASEHOLDER_FLOW=false --config baseUrl=http://localhost:3000",
-    "cyp:open:disableLeaseholderFlow": "cypress open --env RELEASE_VERSION=full ENABLE_LEASEHOLDER_FLOW=false --config baseUrl=http://localhost:3000",
+    "cy:open:disableLeaseholderFlow": "cypress open --env RELEASE_VERSION=full ENABLE_LEASEHOLDER_FLOW=false --config baseUrl=http://localhost:3000",
     "cy:open:mvp": "cypress open --env RELEASE_VERSION=mvp ENABLE_LEASEHOLDER_FLOW=true --config baseUrl=http://localhost:3000,testFiles=**/*Mvp.spec.js",
     "cy:run": "cypress run --env RELEASE_VERSION=full ENABLE_LEASEHOLDER_FLOW=true --config baseUrl=http://localhost:3000",
     "cy:run:mvp": "cypress run --env RELEASE_VERSION=mvp ENABLE_LEASEHOLDER_FLOW=true --config baseUrl=http://localhost:3000 --spec '**/*Mvp.spec.js'",

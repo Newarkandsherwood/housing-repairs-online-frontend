@@ -1,3 +1,8 @@
+import {
+  enableLeaseHolderFlow
+} from '../../support/helpers';
+
+
 describe('App', () => {
   before(() => {
     cy.visit('');
@@ -44,11 +49,11 @@ describe('App', () => {
       );
   });
 
-  it('displays report a repair text on the landing page', () => {
+  it('displays report a repair text on the landing page', () => {    
     cy.get('[data-testid=landing-page-report-repair-text]').should(
       'have.contain',
-      'Report a repair for your council property including leasehold or communal areas'
-    );
+      enableLeaseHolderFlow() ? 'Report a repair for your council property including leasehold or communal areas' : "Report a repair for your council property including communal areas"
+    )
   });
 
   it('displays a start button', () => {
