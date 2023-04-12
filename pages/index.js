@@ -26,7 +26,7 @@ export default function Home() {
                 This service can only be used to request one repair at a time to a
                 council property.
               </WarningText>
-             {enableLeaseHolderFlow() && <p>
+              {enableLeaseHolderFlow() && <p>
                 If you <strong>own the property</strong>, please see our{' '}
                 <TextLink
                   href={`${councilWebsiteHomePageUrl}/${contactUsPagePath}`}
@@ -118,7 +118,7 @@ export default function Home() {
               <p data-testid='landing-page-gas-warning'> If you suspect you have a gas leak, you must report it immediately to the Gas Emergency Service on <strong>0800 111 999</strong> or via textphone (minicom) on <strong>0800 371 787</strong> </p>
               <h2 className={'govuk-heading-m'}>Report a repair</h2>
               <p data-testid='landing-page-report-repair-text'>
-                Report a repair for your council property {enableLeaseHolderFlow() && "including leasehold or communal areas"}
+                Report a repair for your council property {enableLeaseHolderFlow() && 'including leasehold or communal areas'}
               </p>
             </>}
           <Link href="/report-repair/priority-list">
