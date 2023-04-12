@@ -68,7 +68,7 @@ jobs:
           NEXT_PUBLIC_APP_ENV: test
           # Set release version and enable leaseholder boolean for cypress tests
           CYPRESS_RELEASE_VERSION: ${{ matrix.release-version }}
-          ENABLE_LEASEHOLDER_FLOW: ${{ matrix.enable-leaseholder-flow }}
+          CYPRESS_ENABLE_LEASEHOLDER_FLOW: ${{ matrix.enable-leaseholder-flow }}
           # Local authority details to build the app for cypress
           LOCAL_COUNCIL_FULL_NAME: ${{ secrets.LOCAL_COUNCIL_FULL_NAME }}
           COUNCIL_WEBSITE_HOMEPAGE_URL: ${{ secrets.COUNCIL_WEBSITE_HOMEPAGE_URL }}
