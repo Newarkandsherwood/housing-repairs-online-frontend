@@ -49,8 +49,9 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          env: RELEASE_VERSION=${{ matrix.release-version }}, ENABLE_LEASEHOLDER_FLOW=${{ matrix.enable-leaseholder-flow }}
           install-command: yarn --frozen-lockfile --silent
-          build: RELEASE_VERSION=${{ matrix.release-version }} ENABLE_LEASEHOLDER_FLOW=${{ matrix.enable-leaseholder-flow }} yarn build
+          build: yarn build
           start: yarn start
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:3000'
