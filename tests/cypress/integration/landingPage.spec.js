@@ -1,7 +1,4 @@
-import {
-  enableLeaseHolderFlow
-} from '../../support/helpers';
-
+import { enableLeaseholderFlow } from "../support/helpers";
 
 describe('App', () => {
   before(() => {
@@ -52,7 +49,7 @@ describe('App', () => {
   it('displays report a repair text on the landing page', () => {    
     cy.get('[data-testid=landing-page-report-repair-text]').should(
       'have.contain',
-      enableLeaseHolderFlow() ? 'Report a repair for your council property including leasehold or communal areas' : "Report a repair for your council property including communal areas"
+      enableLeaseholderFlow() ? 'Report a repair for your council property including leasehold or communal areas' : "Report a repair for your council property including communal areas"
     )
   });
 

@@ -1,7 +1,7 @@
 import {
   checkIfSelectionGoesToCorrectUrl,
   navigateToPageAfterCommunalPage,
-  enableLeaserHolderFlow
+  enableLeaseholderFlow
 } from '../../support/helpers';
 
 function loadTenantOrLeaseholderPage() {
@@ -45,7 +45,7 @@ describe('tenant or leaseholder', () => {
       });
 
       context('When a user selects: No', () => {
-        enableLeaserHolderFlow() ?
+        enableLeaseholderFlow() ?
         it('should redirect them to the postcode page', () => {
           checkIfSelectionGoesToCorrectUrl('/report-repair/postcode', 'No')
         }) : it('should redirect to the contact us page', () => {
