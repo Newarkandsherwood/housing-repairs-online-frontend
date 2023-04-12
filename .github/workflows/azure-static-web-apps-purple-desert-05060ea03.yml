@@ -49,7 +49,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          env:
           install-command: yarn --frozen-lockfile --silent
           build: env RELEASE_VERSION=${{ matrix.release-version }} yarn build
           start: yarn start

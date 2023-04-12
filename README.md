@@ -20,7 +20,7 @@ cp example.sentryclirc .sentryclirc
 
 Copy the `example.env` file and set the environment variables in the `.env` file:
 Set the RELEASE_VERSION value to `'mvp'` for the mvp application or any other value for full application.
-Set the ENABLE_LE
+Set the ENABLE_LEASEHOLDER_FLOW value to `'true'` to allow leaseholders the ability to report repairs using the platform, or any other other value to disable it.
 Set the environment variables to be local authority details relevant for local development.
 See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information.
 
