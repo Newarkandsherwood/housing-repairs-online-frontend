@@ -3,5 +3,5 @@ export function isMvpReleaseVersion() {
 }
 
 export function enableLeaseHolderFlow() {
-  return process.env.ENABLE_LEASEHOLDER_FLOW == "true";
+  return process.env.ENABLE_LEASEHOLDER_FLOW == 'true';
 }
