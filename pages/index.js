@@ -26,7 +26,7 @@ export default function Home() {
                 This service can only be used to request one repair at a time to a
                 council property.
               </WarningText>
-              {enableLeaseHolderFlow() && <p>
+              <p>
                 If you <strong>own the property</strong>, please see our{' '}
                 <TextLink
                   href={`${councilWebsiteHomePageUrl}/${contactUsPagePath}`}
@@ -35,7 +35,7 @@ export default function Home() {
                   leaseholder contact details page{' '}
                 </TextLink>
                 .
-              </p>}
+              </p>
               <p>
                 To request a repair for a <strong>communal area</strong>, please see
                 customer services contact{' '}
