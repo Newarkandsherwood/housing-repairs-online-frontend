@@ -120,7 +120,7 @@ Copy the value of NVM_HOME in the admin user to the value of NVM_HOME in the Sys
 
 After installing NVM, global utilities (e.g. yarn) will have to be reinstalled for each installed version of node:
 
-````bash
+```bash
   nvm use 16.0.0
   npm install -g yarn
   nvm use 14.16.1
