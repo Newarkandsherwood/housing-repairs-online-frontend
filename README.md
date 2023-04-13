@@ -14,48 +14,49 @@ yarn install
 
 Copy the `example.sentryclirc` file and set the token environment variable in the `.sentryclirc` file to be the auth token in your Sentry account's API settings ([sentry.io](https://sentry.io/settings/account/api/auth-tokens) - you will need to have access first):
 
-  ```bash
-  cp example.sentryclirc .sentryclirc
-  ```
+```bash
+cp example.sentryclirc .sentryclirc
+```
 
 Copy the `example.env` file and set the environment variables in the `.env` file:
-  Set the RELEASE_VERSION value to `'mvp'` for the mvp application or any other value for full application.
-  Set the environment variables to be local authority details relevant for local development.
-  See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information.
+Set the RELEASE_VERSION value to `'mvp'` for the mvp application or any other value for full application.
+Set the ENABLE_LEASEHOLDER_FLOW value to `'true'` to allow leaseholders the ability to report repairs using the platform, or any other other value to disable it.
+Set the environment variables to be local authority details relevant for local development.
+See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information.
 
-  ```bash
-  cp example.env .env
-  ```
+```bash
+cp example.env .env
+```
 
 Copy the `cypress.example.env.json` file and set the environment variables in the `cypress.env.json` file to be local authority details relevant for cypress testing:
-  
-  See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information.
 
-  ```bash
-  cp cypress.example.env.json cypress.env.json
-  ```
+See the documentation [here](https://newarkandsherwood.github.io/housing-repairs-online/front-end/frameworks-used) for more information.
+
+```bash
+cp cypress.example.env.json cypress.env.json
+```
 
 Globally install azure function tools:
 
-  ```bash
-  npm install -g azure-functions-core-tools@3 --unsafe-perm true
-  ```
+```bash
+npm install -g azure-functions-core-tools@3 --unsafe-perm true
+```
 
 In one terminal run the next development server:
 
-  ```bash
-  nvm use && yarn dev
-  ```
+```bash
+nvm use && yarn dev
+```
 
 In another terminal run the function server:
 
-Copy the `example.env` file 
+Copy the `example.env` file
 
 ```bash
 cd api/ && cp example.env .env
 ```
 
->Set the values in api/.env to point to the desired repairs API. For local development, 'REPAIRS_API_BASE_URL_STAGING' and 'REPAIRS_API_IDENTIFIER_STAGING' must be set.
+> Set the values in api/.env to point to the desired repairs API. For local development, 'REPAIRS_API_BASE_URL_STAGING' and 'REPAIRS_API_IDENTIFIER_STAGING' must be set.
 
 Start the development function (still in the api directory)
 
@@ -74,9 +75,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   ```bash
   yarn test
   ```
-  
+
 - [Cypress](https://docs.cypress.io/) is used for integration testing:
-  
+
   ```bash
   yarn test:integration
   ```
@@ -117,21 +118,20 @@ System Properties > Advanced > Environment Variables
 
 Copy the value of NVM_HOME in the admin user to the value of NVM_HOME in the System variables
 
-  After installing NVM, global utilities (e.g. yarn) will have to be reinstalled for each installed version of node:
+After installing NVM, global utilities (e.g. yarn) will have to be reinstalled for each installed version of node:
 
-  ```bash
-    nvm use 16.0.0
-    npm install -g yarn
-    nvm use 14.16.1
-    npm install -g yarn
-    ```
+```bash
+  nvm use 16.0.0
+  npm install -g yarn
+  nvm use 14.16.1
+  npm install -g yarn
+  ```
 
 (for more info see [NVM for Windows](https://github.com/coreybutler/nvm-windows#installation—upgrades))
 
 Install all dependencies:
 ```bash
 yarn install
-```
 
 (run as admin in the `main` directory and then again in the `api` directory)
 
@@ -143,8 +143,8 @@ The app can be deployed using original
 [Gov.uk design system](https://design-system.service.gov.uk/get-started/)
 styles or using Lincoln.gov styles.
 
-| Original | Lincoln |
-| ---- | ---- |
+| Original                       | Lincoln                      |
+| ------------------------------ | ---------------------------- |
 | ![Original](docs/original.png) | ![Lincoln](docs/lincoln.png) |
 
 To return to the original design, remove `@import "lincoln";` from
@@ -163,12 +163,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## General note dump
 
---------------------
+---
 
 - Local dev
   https://github.com/Azure/static-web-apps-cli
 
 - M1 Macs setup:
+
   - You may need to use node 14.0.0. Install this using
 
     ```bash
@@ -201,8 +202,8 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
     In package.json set the version of sass to 6.0.0:
 
-      ```bash
-      "node-sass": "^6.0.0",
-      ```
+    ```bash
+    "node-sass": "^6.0.0",
+    ```
 
     Then rebuild sass before re-running the web server as above.

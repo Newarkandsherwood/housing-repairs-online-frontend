@@ -6,7 +6,7 @@ import Link from 'next/link';
 import ContactNumbers from '../compoments/contactNumbers';
 import { councilWebsiteHomePageUrl, contactUsPagePath } from '../globals';
 import { OpeningHours } from '../compoments/openingHours';
-import { isMvpReleaseVersion } from '../helpers/features';
+import { enableLeaseHolderFlow, isMvpReleaseVersion } from '../helpers/features';
 import ComponentHeader from '../compoments/componentHeader';
 
 export default function Home() {
@@ -99,7 +99,7 @@ export default function Home() {
           {!isMvpReleaseVersion() &&
             <>
               <p>
-                You can use this service to report a non-emergency repair for your council property including leasehold or communal areas. You should only report one problem at a time.
+                {`You can use this service to report a non-emergency repair for your council property including ${enableLeaseHolderFlow() ? 'leasehold or ': ''}communal areas. You should only report one problem at a time.`}
               </p>
               <h2 className={'govuk-heading-m'}>Emergency Repairs</h2>
               <p data-testid='landing-page-emergency-warning'>
@@ -118,7 +118,7 @@ export default function Home() {
               <p data-testid='landing-page-gas-warning'> If you suspect you have a gas leak, you must report it immediately to the Gas Emergency Service on <strong>0800 111 999</strong> or via textphone (minicom) on <strong>0800 371 787</strong> </p>
               <h2 className={'govuk-heading-m'}>Report a repair</h2>
               <p data-testid='landing-page-report-repair-text'>
-                Report a repair for your council property including leasehold or communal areas
+                Report a repair for your council property including {enableLeaseHolderFlow() ? 'leasehold or ' : ''}communal areas
               </p>
             </>}
           <Link href="/report-repair/priority-list">
