@@ -132,7 +132,6 @@ After installing NVM, global utilities (e.g. yarn) will have to be reinstalled f
 Install all dependencies:
 ```bash
 yarn install
-````
 
 (run as admin in the `main` directory and then again in the `api` directory)
 
