@@ -19,7 +19,7 @@
     "test:integration:mvp": "env RELEASE_VERSION=mvp,ENABLE_LEASEHOLDER_FLOW=false start-server-and-test dev http://localhost:3000 cy:open:mvp",
     "test:integration:enableLeaseholderFlow" : "env RELEASE_VERSION=full,ENABLE_LEASEHOLDER_FLOW=true start-server-and-test dev http://localhost:3000 cy:open:enableLeaseholderFlow",
     "test:headless:integration": "start-server-and-test dev http://localhost:3000 cy:run",
-    "test:headless:integration:mvp": "env RELEASE_VERSION=mvp,enable_LEASEHOLDER_FLOW=false start-server-and-test dev http://localhost:3000 cy:run:mvp"
+    "test:headless:integration:mvp": "env RELEASE_VERSION=mvp,ENABLE_LEASEHOLDER_FLOW=false start-server-and-test dev http://localhost:3000 cy:run:mvp"
   },
   "dependencies": {
     "@sentry/nextjs": "^6.17.4",
