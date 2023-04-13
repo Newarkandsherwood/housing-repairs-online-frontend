@@ -99,7 +99,7 @@ export default function Home() {
           {!isMvpReleaseVersion() &&
             <>
               <p>
-                {`You can use this service to report a non-emergency repair for your council property${enableLeaseHolderFlow() ? ' including leasehold or communal areas.': ' including communal areas.'} You should only report one problem at a time.`}
+                {`You can use this service to report a non-emergency repair for your council property including ${enableLeaseHolderFlow() ? 'leasehold or ': ''}communal areas. You should only report one problem at a time.`}
               </p>
               <h2 className={'govuk-heading-m'}>Emergency Repairs</h2>
               <p data-testid='landing-page-emergency-warning'>
