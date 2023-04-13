@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    if: github.event_name == "push" || (github.event_name == "pull_request" && github.event.action != "closed")
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     name: Lint and Test
     runs-on: ubuntu-latest
     strategy:
@@ -27,7 +27,7 @@ jobs:
       - run: yarn lint
       - run: yarn test
   cypress-run:
-    if: github.event_name == "push" || (github.event_name == "pull_request" && github.event.action != "closed")
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     name: Cypress run
     runs-on: ubuntu-20.04
     container: cypress/browsers:node14.17.0-chrome88-ff89
@@ -57,7 +57,7 @@ jobs:
           browser: chrome
           record: false
           parallel: false
-          spec: ${{ matrix.release-version == "mvp" && "tests/cypress/integration/reportRepair/*Mvp.spec.js" }}
+          spec: ${{ matrix.release-version == 'mvp' && 'tests/cypress/integration/reportRepair/*Mvp.spec.js' }}
           config: baseUrl=http://localhost:3000
 
         env:
@@ -90,7 +90,7 @@ jobs:
 
   terraform:
     name: 'Terraform'
-    if: github.event_name == "push" || (github.event_name == "pull_request" && github.event.action != "closed")
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
@@ -129,7 +129,7 @@ jobs:
 
   build_and_deploy_job:
     needs: [test, cypress-run, terraform]
-    if: github.event_name == "push" || (github.event_name == "pull_request" && github.event.action != "closed")
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     defaults:
@@ -147,7 +147,7 @@ jobs:
           cp .sentryclirc api/.sentryclirc
 
       - name: Set up api environment variables for staging
-        if: github.event_name == "pull_request"
+        if: github.event_name == 'pull_request'
         run: |
           cd api
           touch .env
@@ -156,7 +156,7 @@ jobs:
           echo "REPAIRS_API_IDENTIFIER=${{secrets.REPAIRS_API_IDENTIFIER_STAGING}}" >> .env
 
       - name: Set up api environment variables for production
-        if: github.event_name != "pull_request"
+        if: github.event_name != 'pull_request'
         run: |
           cd api
           touch .env
@@ -183,7 +183,7 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           NEXT_PUBLIC_SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          NEXT_PUBLIC_APP_ENV: ${{ (github.event_name == "pull_request" && "staging") || ("production") }}
+          NEXT_PUBLIC_APP_ENV: ${{ (github.event_name == 'pull_request' && 'staging') || ('production') }}
           ENABLE_LEASEHOLDER_FLOW: ${{ secrets.ENABLE_LEASEHOLDER_FLOW }}
           RELEASE_VERSION: 'full'
           ###### Local Authority Configurable Content - These must be configured to display the values in the frontend ######
@@ -198,7 +198,7 @@ jobs:
           ###### End of Local Authority Configurable Content ######
 
   close_pull_request_job:
-    if: github.event_name == "pull_request" && github.event.action == "closed"
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
