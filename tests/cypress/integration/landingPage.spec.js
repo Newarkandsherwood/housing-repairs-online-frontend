@@ -46,12 +46,17 @@ describe('App', () => {
       );
   });
 
-  it('displays report a repair text on the landing page', () => {    
+  enableLeaseholderFlow() ? it('displays report a repair text on the landing page, including reference to leaseholders', () => {    
     cy.get('[data-testid=landing-page-report-repair-text]').should(
       'have.contain',
-      enableLeaseholderFlow() ? 'Report a repair for your council property including leasehold or communal areas' : 'Report a repair for your council property including communal areas'
+      'Report a repair for your council property including leasehold or communal areas'
     )
-  });
+  }) : it('displays report a repair text on the landing page without reference to leaseholders', () => {    
+    cy.get('[data-testid=landing-page-report-repair-text]').should(
+      'have.contain',
+      'Report a repair for your council property including communal areas'
+    )
+  });  
 
   it('displays a start button', () => {
     cy.get('a')

@@ -46,9 +46,9 @@ describe('tenant or leaseholder', () => {
 
       context('When a user selects: No', () => {
         enableLeaseholderFlow() ?
-        it('should redirect them to the postcode page', () => {
+        it('should redirect them to the postcode page when leaseholder flow is enabled', () => {
           checkIfSelectionGoesToCorrectUrl('/report-repair/postcode', 'No')
-        }) : it('should redirect to the contact us page', () => {
+        }) : it('should redirect to the contact us page when leaseholder flow is not enabled', () => {
           checkIfSelectionGoesToCorrectUrl('/report-repair/contact-us', 'No')
         })
       });
