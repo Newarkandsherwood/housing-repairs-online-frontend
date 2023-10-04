@@ -141,19 +141,21 @@ function ReportRepair() {
 
   const submit = (values) => {
     cleanPayload(values)
+    let stringifiedValues =  JSON.stringify({
+      postcode: values.postcode,
+      address: values.address,
+      location: values.repairLocation,
+      problem: values.repairProblem,
+      issue: values.repairProblemBestDescription,
+      contactPersonNumber: values.contactPersonNumber,
+      description: values.description,
+      contactDetails: values.contactDetails,
+      time: values.availability
+    })
+    let valuesWithoutNewline = stringifiedValues.replace(/\\n/g, ' ')
     fetch(`/api/repair?repairType=${getRepairType(state.data)}`, {
       method: 'POST',
-      body: JSON.stringify({
-        postcode: values.postcode,
-        address: values.address,
-        location: values.repairLocation,
-        problem: values.repairProblem,
-        issue: values.repairProblemBestDescription,
-        contactPersonNumber: values.contactPersonNumber,
-        description: values.description,
-        contactDetails: values.contactDetails,
-        time: values.availability
-      }),
+      body: valuesWithoutNewline,
     }).then(response =>{
       console.log(response)
       if (response.ok) {
