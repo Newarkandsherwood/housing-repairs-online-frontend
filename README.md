@@ -125,12 +125,13 @@ After installing NVM, global utilities (e.g. yarn) will have to be reinstalled f
   npm install -g yarn
   nvm use 14.16.1
   npm install -g yarn
-  ```
+```
 
 (for more info see [NVM for Windows](https://github.com/coreybutler/nvm-windows#installation—upgrades))
 
 Install all dependencies:
-```bash
+
+````bash
 yarn install
 
 (run as admin in the `main` directory and then again in the `api` directory)
@@ -148,7 +149,7 @@ styles or using Lincoln.gov styles.
 | ![Original](docs/original.png) | ![Lincoln](docs/lincoln.png) |
 
 To return to the original design, remove `@import "lincoln";` from
-[`globals.scss`](https://github.com/City-of-Lincoln-Council/housing-repairs-online-frontend/blob/f088657699c0b9617a8929329fe77004b98eaa72/styles/globals.scss#L3)
+[`globals.scss`](https://github.com/City-of-Lincoln-Council/housing-repairs-online-frontend/blob/f088657699c0b9617a8929329fe77004b98eaa72/styles/globals.scss#L3).
 
 To find out how these interface was designed, please read the [common service pattern](https://github.com/City-of-Lincoln-Council/housing-repairs-online-frontend/blob/main/Common%20service%20patern.pdf).
 
@@ -207,3 +208,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
     ```
 
     Then rebuild sass before re-running the web server as above.
+````
