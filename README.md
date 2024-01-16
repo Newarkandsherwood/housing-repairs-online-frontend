@@ -133,7 +133,7 @@ Install all dependencies:
 
 ````bash
 yarn install
-
+```
 (run as admin in the `main` directory and then again in the `api` directory)
 
 You can now continue with the instructions above.
