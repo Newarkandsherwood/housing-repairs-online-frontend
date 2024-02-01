@@ -13,16 +13,6 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 
-data "terraform_remote_state" "state" {
-  backend = "azurerm"
-  config = {
-    resource_group_name  = var.resource_group_name
-    storage_account_name = var.storage_account_name
-    container_name       = var.container_name
-    key                  = var.key
-  }
-}
-
 resource "azurerm_static_site" "hrostaticwebapp" {
   name                = var.static_site_name
   resource_group_name = var.resource_group_name
